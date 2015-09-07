@@ -1,6 +1,6 @@
 (ns clojure-redpoint.core-test
   (:require [clojure.test :refer :all]
-            [clojure-redpoint.core :refer :all]))
+            [clojure-redpoint.redpoint :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."
