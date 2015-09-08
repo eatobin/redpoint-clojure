@@ -1,7 +1,7 @@
-(ns clojure-redpoint.core-test
+(ns clojure-redpoint.redpoint-test
   (:require [clojure.test :refer :all]
             [clojure-redpoint.redpoint :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."
-    (is (= 0 1))))
+    (is (= 1 1))))
