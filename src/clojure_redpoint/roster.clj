@@ -1,5 +1,6 @@
 (ns clojure-redpoint.roster
-  (:require [clojure.java.io :as io]))
+  (:require [clojure.java.io :as io])
+  (:require [clojure-csv.core :as csv]))
 
 (def team-name "placeholder")
 (def first-year 2014)
@@ -40,3 +41,11 @@
 (with-open [rdr (io/reader "blackhawks2010.txt")]
   (doseq [line (line-seq rdr)]
     (println line)))
+
+(def test-data "2012-02-17,31.20,31.32,30.95,31.25,70036500,31.25")
+(first (csv/parse-csv test-data))
+
+(with-open [rdr (io/reader "blackhawks2010.txt")]
+  (doseq [line (line-seq rdr)]
+    (println (count (first (csv/parse-csv line))))))
+
