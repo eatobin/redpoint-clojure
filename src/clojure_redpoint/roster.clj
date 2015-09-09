@@ -52,4 +52,4 @@
 (with-open [rdr (io/reader "blackhawks2010.txt")]
   (doseq [line (line-seq rdr)
           contents (csv/parse-csv line)]
-    (if (= 2 (count contents)) (println "KKKK"))))
+    (if (= 2 (count contents)) (team-name (contents 0)))))
