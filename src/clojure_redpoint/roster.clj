@@ -4,10 +4,12 @@
                   {:name "Troy Brouwer"
                    :gift-history
                          [{:givee :DavBol
-                           :giver :JoeQue}
-                          {:givee :givee2
-                           :giver :giver2}]
-                   }})
+                           :giver :JoeQue}]}
+                  :JoeQue
+                  {:name "Joel Quenneville"
+                   :gift-history
+                         [{:givee :TroBro
+                           :giver :AndLad}]}})
 
 (get-in {:ericky
          {:name    "Eric"
@@ -28,5 +30,5 @@
 (get-in roster-list [:TroBro :name])
 (get-in roster-list [:TroBro :gift-history 0])
 (get-in roster-list [:TroBro :gift-history 0 :giver])
-(get-in roster-list [:team-name])
-(get-in roster-list [:first-year])
+(assoc-in roster-list [:TroBro :gift-history 1]
+          {:givee :givee3 :giver :giver3})
