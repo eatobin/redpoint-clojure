@@ -27,4 +27,6 @@
 
 (get-in roster-list [:TroBro :name])
 (get-in roster-list [:TroBro :gift-history 0])
-(get-in roster-list [:TroBro :gift-history 1 :giver])
+(get-in roster-list [:TroBro :gift-history 0 :giver])
+(get-in roster-list [:team-name])
+(get-in roster-list [:first-year])
