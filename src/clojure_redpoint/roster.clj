@@ -1,5 +1,5 @@
 (ns clojure-redpoint.roster
-  (:import (java.io BufferedReader FileReader)))
+  (:require [clojure.java.io :as io]))
 
 (def team-name "placeholder")
 (def first-year 2014)
@@ -36,15 +36,7 @@
 (get-in roster-list [:TroBro :gift-history 0 :giver])
 (assoc-in roster-list [:TroBro :gift-history 1]
           {:givee :givee3 :giver :giver3})
-(def tester (slurp "blackhawks2010.txt"))
 
-(defn process-file [file-name]
-  (with-open [rdr (BufferedReader. (FileReader. file-name))]
-    (doseq [line (line-seq rdr)] (println line))))
-
-(process-file "blackhawks2010.txt")
-
-(use 'clojure.java.io)
-(with-open [rdr (reader "/tmp/test.txt")]
+(with-open [rdr (io/reader "blackhawks2010.txt")]
   (doseq [line (line-seq rdr)]
     (println line)))
