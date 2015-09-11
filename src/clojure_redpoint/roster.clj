@@ -43,3 +43,11 @@
 ;;=> ["TroBro" "Troy Brouwer" "DavBol" "JoeQue"]
 (keyword "TroBro")
 ;;=> :TroBro
+
+(let [[s n j] ["EriTob" "Eric Tobin" "junk"]]
+(vector (keyword s) n (keyword j)))
+
+(def v ["EriTob" "Eric Tobin" "junk"])
+
+(let [[s n j] v]
+(vector (keyword s) n (keyword j)))
