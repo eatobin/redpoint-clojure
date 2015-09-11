@@ -38,16 +38,37 @@
 (assoc-in roster-list [:TroBro :gift-history 1]
           {:givee :givee3 :giver :giver3})
 
-(def parsed (csv/parse-csv (clojure.string/replace (slurp "blackhawks2010.txt") #", " ",")))
+(def parsed (csv/parse-csv (clojure.string/replace
+                             (slurp "blackhawks2010.txt") #", " ",")))
 (second parsed)
 ;;=> ["TroBro" "Troy Brouwer" "DavBol" "JoeQue"]
 (keyword "TroBro")
 ;;=> :TroBro
 
 (let [[s n j] ["EriTob" "Eric Tobin" "junk"]]
-(vector (keyword s) n (keyword j)))
+  (vector (keyword s) n (keyword j)))
 
 (def v ["EriTob" "Eric Tobin" "junk"])
+(def v1 ["EriTob" "Eric Tobin"])
 
 (let [[s n j] v]
-(vector (keyword s) n (keyword j)))
+  (vector (keyword s) n (keyword j)))
+
+(defn add-person9 [v]
+  (if (= 2 (count v))
+    (let [[a b] v]
+      (vector (keyword a) b))
+    (let [[s n j] v]
+      (vector (keyword s) n (keyword j)))))
+
+(add-person9 v1)
+(add-person9 v)
+
+(defn make-roster [v]
+  (if (= 2 (count v))
+    (let [[tn fy] v]
+      (hash-map :team-name tn :first-year (read-string fy)))
+    (let [[s n j] v]
+      (vector (keyword s) n (keyword j)))))
+
+(make-roster (first parsed))
