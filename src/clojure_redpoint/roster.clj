@@ -64,11 +64,14 @@
 (add-person9 v1)
 (add-person9 v)
 
-(defn make-roster [v]
-  (if (= 2 (count v))
-    (let [[tn fy] v]
-      (hash-map :team-name tn :first-year (read-string fy)))
-    (let [[s n j] v]
-      (vector (keyword s) n (keyword j)))))
+;(defn make-roster [v]
+;  (if (= 2 (count v))
+;    (let [[tn fy] v]
+;      (hash-map :team-name tn :first-year (read-string fy)))
+;    (let [[s n ge gr] v]
+;      (hash-map (keyword s) n (keyword j)))))
 
 (make-roster (first parsed))
+((hash-map (keyword "Trobro") (vector 1 2)) :Trobro)
+((hash-map (keyword "Trobro") (hash-map :name "Troy Brouwer" :gift-history (vector (hash-map :givee (keyword "DavBol") :giver (keyword "JoeQue"))))) :Trobro)
+(hash-map :gift-history (vector (hash-map :givee (keyword "DavBol") :giver (keyword "JoeQue"))))
