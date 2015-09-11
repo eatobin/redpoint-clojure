@@ -38,18 +38,8 @@
 (assoc-in roster-list [:TroBro :gift-history 1]
           {:givee :givee3 :giver :giver3})
 
-(with-open [rdr (io/reader "blackhawks2010.txt")]
-  (doseq [line (line-seq rdr)]
-    (println line)))
-
-(def test-data "2012-02-17,31.20,31.32,30.95,31.25,70036500,31.25")
-(first (csv/parse-csv test-data))
-
-(with-open [rdr (io/reader "blackhawks2010.txt")]
-  (doseq [line (line-seq rdr)]
-    (println (first (csv/parse-csv line)))))
-
-(with-open [rdr (io/reader "blackhawks2010.txt")]
-  (doseq [line (line-seq rdr)
-          contents (csv/parse-csv line)]
-    (if (= 2 (count contents)) (team-name (contents 0)))))
+(def parsed (csv/parse-csv (clojure.string/replace (slurp "blackhawks2010.txt") #", " ",")))
+(second parsed)
+;;=> ["TroBro" "Troy Brouwer" "DavBol" "JoeQue"]
+(keyword "TroBro")
+;;=> :TroBro
