@@ -71,12 +71,12 @@
 ;    (let [[s n ge gr] v]
 ;      (hash-map (keyword s) n (keyword j)))))
 
-((hash-map (keyword "Trobro") (vector 1 2)) :Trobro)
-((hash-map (keyword "Trobro")
+((hash-map (keyword "TroBro") (vector 1 2)) :TroBro)
+((hash-map (keyword "TroBro")
            (hash-map :name "Troy Brouwer"
                      :gift-history (vector (hash-map
                                              :givee (keyword "DavBol")
-                                             :giver (keyword "JoeQue"))))) :Trobro)
+                                             :giver (keyword "JoeQue"))))) :TroBro)
 
 (hash-map :gift-history (vector (hash-map :givee (keyword "DavBol") :giver (keyword "JoeQue"))))
 
