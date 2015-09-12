@@ -1,4 +1,4 @@
-(ns clojure-redpoint.roster
+(ns clojure-redpoint.scratch
   (:require [clojure-csv.core :as csv]))
 
 ;(def team-name "placeholder")
@@ -37,8 +37,12 @@
 (assoc-in roster-list [:TroBro :gift-history 1]
           {:givee :givee3 :giver :giver3})
 
-(def parsed (csv/parse-csv (clojure.string/replace
-                             (slurp "blackhawks2010.txt") #", " ",")))
+(def parsed
+  (let [f "blackhawks2010.txt"
+        slurped (slurp f)
+        de-spaced (clojure.string/replace slurped #", " ",")]
+    (csv/parse-csv de-spaced)))
+
 (second parsed)
 ;;=> ["TroBro" "Troy Brouwer" "DavBol" "JoeQue"]
 (keyword "TroBro")
