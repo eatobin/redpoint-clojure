@@ -108,3 +108,12 @@
 (get-in roster
         [:first-year])
 roster
+
+(assoc-in roster [:TroBro :gift-history 1]
+          {:givee :givee3 :giver :giver3})
+
+(defn add-history [p y ge gr]
+  (assoc-in roster [p :gift-history y]
+            {:givee ge :giver gr}))
+
+(add-history :CriHue 1 :test1 :test2)
