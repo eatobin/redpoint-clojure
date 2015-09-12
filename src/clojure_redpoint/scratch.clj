@@ -42,6 +42,10 @@
         slurped (slurp f)
         de-spaced (clojure.string/replace slurped #", " ",")]
     (csv/parse-csv de-spaced)))
+    
+(let [slurped (slurp f)
+      de-spaced (clojure.string/replace slurped #", " ",")
+      v (csv/parse-csv de-spaced)])
 
 (second parsed)
 ;;=> ["TroBro" "Troy Brouwer" "DavBol" "JoeQue"]
@@ -75,9 +79,21 @@
       (hash-map (keyword s)
                 (hash-map :name n
                           :gift-history (vector (hash-map
+                   
+(defn make-roster [f]
+(let [slurped (slurp f)
+      de-spaced (clojure.string/replace slurped #", " ",")
+      v (csv/parse-csv de-spaced)]
+  (if (= 2 (count v))
+    (let [[tn fy] v]
+      (hash-map :team-name tn :first-year (read-string fy)))
+    (let [[s n ge gr] v]
+      (hash-map (keyword s)
+                (hash-map :name n
+                          :gift-history (vector (hash-map
                                                   :givee (keyword ge)
-                                                  :giver (keyword gr))))))))
-
+                                                  :giver (keyword gr)))))))))
+                                                  
 ((hash-map (keyword "TroBro") (vector 1 2)) :TroBro)
 ((hash-map (keyword "TroBro")
            (hash-map :name "Troy Brouwer"
