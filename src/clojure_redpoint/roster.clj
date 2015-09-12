@@ -99,3 +99,12 @@
 (make-roster (first parsed))
 (make-roster (second parsed))
 (make-roster (last parsed))
+
+(def roster (into {} (map make-roster parsed)))
+(get-in roster
+        [:CriHue :gift-history 0 :giver])
+(get-in roster
+        [:team-name])
+(get-in roster
+        [:first-year])
+roster
