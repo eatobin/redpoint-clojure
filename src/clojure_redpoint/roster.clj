@@ -19,8 +19,12 @@
                                                   :givee (keyword ge)
                                                   :giver (keyword gr))))))))
 
-(def roster (into {} (map make-map parsed-team)))
+(def roster
+  (atom
+    (into {} (map make-map parsed-team))))
 
 (defn add-history [p y ge gr]
-  (assoc-in roster [p :gift-history y]
-            {:givee ge :giver gr}))
+  (swap! roster assoc-in
+         [p :gift-history y]
+         {:givee ge :giver gr}))
+
