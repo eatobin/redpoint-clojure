@@ -9,24 +9,19 @@ TroBro, Troy Brouwer, DavBol, JoeQue
 JoeQue, Joel Quenneville, TroBro, AndLad
 AdaBur, Adam Burish, DunKei, JonToe\n"))
 
-;(reset! people (into [] (yaml/parse-string
-;                          (slurp "people-test.yaml")))))
-;
-;(defn teardown [])
-;
-;(defn each-fixture [f]
-;  (setup)
-;  (f)
-;  (teardown))
-;
-;(use-fixtures :each each-fixture)
-;
-;(deftest add-person-test
-;  (is (= [{:name "Person One", :max-books 2}
-;          {:name "Person Two", :max-books 6}
-;          {:name "Fred" :max-books 3}]
-;         (add-person "Fred"))))
-;
+(defn teardown [])
+
+(defn each-fixture [f]
+  (setup)
+  (f)
+  (teardown))
+
+(use-fixtures :each each-fixture)
+
+(deftest get-player-name-test
+  (is (= "Adam Burish"
+         (get-player-name :AdaBur))))
+
 ;(deftest add-person-2-test
 ;  (is (= [{:name "Person One", :max-books 2}
 ;          {:name "Person Two", :max-books 6}
