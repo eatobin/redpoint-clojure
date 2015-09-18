@@ -1,13 +1,17 @@
 (ns clojure-redpoint.roster
   (:require [clojure-csv.core :as csv]))
 
-;(def file "blackhawks2010.txt")
-(def file "roster-test.txt")
+;"blackhawks2010.txt"
+;"roster-test.txt"
 
-(defn parsed-team [f]
+;(def parsed {})
+
+(defn parse-file [f]
   (let [slurped (slurp f)
-        de-spaced (clojure.string/replace slurped #", " ",")]
-    (csv/parse-csv de-spaced)))
+        de-spaced (clojure.string/replace slurped #", " ",")
+        parsed (csv/parse-csv de-spaced)]
+    (def parsed parsed)
+    parsed))
 
 (defn make-map [v]
   (if (= 2 (count v))
@@ -22,7 +26,7 @@
 
 (def roster
   (atom
-    (into {} (map make-map (parsed-team file)))))
+    (into {} (map make-map parsed))))
 
 (defn get-player-name [p]
   (get-in (deref roster)
