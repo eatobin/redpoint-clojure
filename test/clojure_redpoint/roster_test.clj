@@ -9,6 +9,8 @@ TroBro, Troy Brouwer, DavBol, JoeQue
 JoeQue, Joel Quenneville, TroBro, AndLad
 AdaBur, Adam Burish, DunKei, JonToe\n"))
 
+(make-roster "roster-test.txt")
+
 (defn teardown [])
 
 (defn each-fixture [f]
@@ -17,6 +19,12 @@ AdaBur, Adam Burish, DunKei, JonToe\n"))
   (teardown))
 
 (use-fixtures :each each-fixture)
+
+(deftest make-roster-test
+  (is (= 5
+         (count (deref roster))))
+  (is (= [:team-name "Blackhawks"]
+         (first (deref roster)))))
 
 (deftest get-player-name-test
   (is (= "Adam Burish"

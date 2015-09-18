@@ -4,14 +4,7 @@
 ;"blackhawks2010.txt"
 ;"roster-test.txt"
 
-;(def parsed {})
-
-(defn parse-file [f]
-  (let [slurped (slurp f)
-        de-spaced (clojure.string/replace slurped #", " ",")
-        parsed (csv/parse-csv de-spaced)]
-    (def parsed parsed)
-    parsed))
+(def roster (atom {}))
 
 (defn make-map [v]
   (if (= 2 (count v))
@@ -24,9 +17,12 @@
                                                   :givee (keyword ge)
                                                   :giver (keyword gr))))))))
 
-(def roster
-  (atom
-    (into {} (map make-map parsed))))
+(defn make-roster [f]
+  (let [slurped (slurp f)
+        de-spaced (clojure.string/replace slurped #", " ",")
+        parsed (csv/parse-csv de-spaced)]
+    (reset! roster
+            (into {} (map make-map parsed)))))
 
 (defn get-player-name [p]
   (get-in (deref roster)
