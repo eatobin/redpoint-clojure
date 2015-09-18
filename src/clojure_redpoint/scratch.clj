@@ -120,7 +120,7 @@ roster
   (assoc-in roster [p :gift-history y]
             {:givee ge :giver gr}))
 
-(add-history :CriHue 1 :test1 :test2)
+(add-history :TroBro 1 :test1 :test2)
 
 (def ten-times (fn [x] (* 10 x)))
 (def twenty (ten-times 2))
