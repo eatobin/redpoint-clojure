@@ -36,10 +36,12 @@
 
 (def file "blackhawks2010.txt")
 
-(def parsed
-  (let [slurped (slurp file)
-        de-spaced (clojure.string/replace slurped #", " ",")]
-    (csv/parse-csv de-spaced)))
+(defn parse-file [f]
+  (let [slurped (slurp f)
+        de-spaced (clojure.string/replace slurped #", " ",")
+        parsed (csv/parse-csv de-spaced)]
+    (def parsed parsed)
+    parsed))
 
 (second parsed)
 ;;=> ["TroBro" "Troy Brouwer" "DavBol" "JoeQue"]
