@@ -126,7 +126,10 @@ roster
 (def slurp2 (fn [f] (slurp f)))
 (def slurped2 (slurp2 "roster-test.txt"))
 
-(def xxx 8)
+; pg 206
+;(def xxx 8)
 (defn never-do-this []
   (def xxx 123)
-  xxx)
+  (def yyy 456)
+  (def jjj (+ xxx yyy))
+  jjj)
