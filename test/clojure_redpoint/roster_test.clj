@@ -31,7 +31,11 @@ AdaBur, Adam Burish, DunKei, JonToe\n"))
          (get-player-name :AdaBur))))
 
 (deftest add-history-test
-  (is (= {:team-name "Blackhawks", :first-year 1956, :TroBro {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol} {:givee :test1, :giver :test2}]}, :JoeQue {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}]}, :AdaBur {:name "Adam Burish", :gift-history [{:giver :JonToe, :givee :DunKei}]}}
+  (is (= {:team-name  "Blackhawks",
+          :first-year 1956,
+          :TroBro     {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol} {:givee :test1, :giver :test2}]},
+          :JoeQue     {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}]},
+          :AdaBur     {:name "Adam Burish", :gift-history [{:giver :JonToe, :givee :DunKei}]}}
          (add-history :TroBro 1 :test1 :test2))))
 
 ;(deftest add-person-2-test
