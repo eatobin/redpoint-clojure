@@ -1,7 +1,6 @@
 (ns clojure-redpoint.roster-test
   (:require [clojure.test :refer :all]
-            [clojure-redpoint.roster :refer :all]
-            [clojure-csv.core :as csv]))
+            [clojure-redpoint.roster :refer :all]))
 
 (defn setup []
   (spit "roster-test.txt" "Blackhawks, 1956
@@ -37,6 +36,14 @@ AdaBur, Adam Burish, DunKei, JonToe\n"))
           :JoeQue     {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}]},
           :AdaBur     {:name "Adam Burish", :gift-history [{:giver :JonToe, :givee :DunKei}]}}
          (add-history :TroBro 1 :test1 :test2))))
+
+(deftest get-givee-code-test
+  (is (= nil
+         (get-givee-code :TroBroX 0)))
+  (is (= nil
+         (get-givee-code :TroBro 9)))
+  (is (= :DavBol
+         (get-givee-code :TroBro 0))))
 
 ;(deftest add-person-2-test
 ;  (is (= [{:name "Person One", :max-books 2}

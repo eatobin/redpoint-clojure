@@ -43,7 +43,7 @@
     (def parsed parsed)
     parsed))
 
-(second parsed)
+(second (parse-file file))
 ;;=> ["TroBro" "Troy Brouwer" "DavBol" "JoeQue"]
 (keyword "TroBro")
 ;;=> :TroBro
@@ -100,11 +100,11 @@
 (get-in best-shot
         [:TroBro :gift-history 0 :giver])
 
-(make-roster (first parsed))
-(make-roster (second parsed))
-(make-roster (last parsed))
+(make-roster (first (parse-file file)))
+(make-roster (second (parse-file file)))
+(make-roster (last (parse-file file)))
 
-(def roster (into {} (map make-roster parsed)))
+(def roster (into {} (map make-roster (parse-file file))))
 (get-in roster
         [:CriHue :gift-history 0 :giver])
 (get-in roster
@@ -122,16 +122,20 @@ roster
 
 (add-history :TroBro 1 :test1 :test2)
 
-(def ten-times (fn [x] (* 10 x)))
-(def twenty (ten-times 2))
-
-(def slurp2 (fn [f] (slurp f)))
-(def slurped2 (slurp2 "roster-test.txt"))
-
 ; pg 206
 ;(def xxx 8)
-(defn never-do-this []
-  (def xxx 123)
-  (def yyy 456)
-  (def jjj (+ xxx yyy))
-  jjj)
+;(defn never-do-this []
+;  (def xxx 123)
+;  (def yyy 456)
+;  (def jjj (+ xxx yyy))
+;  jjj)
+;(never-do-this)
+
+; most of the time this works
+(some #{101} '(100 101 102))
+; => 101
+(some #{109} '(100 101 102))
+
+(if (some #{109} '(100 101 102)) "true" "false")
+
+(contains? {:a 1} :a)

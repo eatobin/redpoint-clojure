@@ -28,8 +28,28 @@
   (get-in (deref roster)
           [p :name]))
 
+(defn get-givee-code [p y]
+  (get-in (deref roster)
+          [p :gift-history y :givee]))
+
+;(defn set-givee-code [p ge y]
+;  TODO: code this as below
+;  )
+
 (defn add-history [p y ge gr]
   (swap! roster assoc-in
          [p :gift-history y]
          {:givee ge :giver gr}))
 
+
+
+;def set_givee_code(player_code, setee_code, gift_year)
+;if get_player(player_code).nil? || get_player(setee_code).nil?
+;nil
+;else
+;roles = get_player(player_code).gift_history[gift_year]
+;roles[:givee] = setee_code
+;get_player(player_code).gift_history[gift_year] = roles
+;get_player(player_code).gift_history[gift_year][:givee]
+;end
+;end
