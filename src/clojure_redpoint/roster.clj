@@ -32,9 +32,10 @@
   (get-in (deref roster)
           [p :gift-history y :givee]))
 
-;(defn set-givee-code [p ge y]
-;  TODO: code this as below
-;  )
+(defn set-givee-code [p y ge]
+  (swap! roster assoc-in
+         [p :gift-history y]
+         {:givee ge}))
 
 (defn add-history [p y ge gr]
   (swap! roster assoc-in
