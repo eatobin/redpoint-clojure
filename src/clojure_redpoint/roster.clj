@@ -62,3 +62,21 @@
   (swap! roster assoc-in
          [p :gift-history y]
          {:givee ge :giver gr}))
+
+(defn add-new-year [p y ge gr]
+  (swap! roster assoc-in
+         [p :gift-history y]
+         {:givee ge :giver gr}))
+
+;def add_new_year
+;@roster_list.each_value do |player|
+;player.gift_history << {:givee => :none, :giver => :none}
+;end
+;end
+
+(swap! roster assoc-in
+       [p :gift-history y]
+       {:givee ge :giver gr})
+
+((fn [coll]
+   (into {} (concat coll {:givee :none :giver :none}))) {:giver :JoeQue, :givee :DavBol})
