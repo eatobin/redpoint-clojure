@@ -43,6 +43,21 @@
              [p :gift-history y]
              {:giver gr :givee ge}))))
 
+(defn get-giver-code [p y]
+  (get-in (deref roster)
+          [p :gift-history y :giver]))
+
+(defn set-giver-code [p y gr]
+  (if (and (contains? (deref roster) p)
+           (<= (+ y 1) (count
+                         (get-in (deref roster)
+                                 [p :gift-history]))))
+    (let [ge (get-in (deref roster)
+                     [p :gift-history y :givee])]
+      (swap! roster assoc-in
+             [p :gift-history y]
+             {:giver gr :givee ge}))))
+
 (defn add-history [p y ge gr]
   (swap! roster assoc-in
          [p :gift-history y]
