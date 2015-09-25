@@ -6,9 +6,8 @@
   (spit "roster-test.txt" "Blackhawks, 1956
 TroBro, Troy Brouwer, DavBol, JoeQue
 JoeQue, Joel Quenneville, TroBro, AndLad
-AdaBur, Adam Burish, DunKei, JonToe\n"))
-
-(make-roster "roster-test.txt")
+AdaBur, Adam Burish, DunKei, JonToe\n")
+  (make-roster "roster-test.txt"))
 
 (defn teardown [])
 
@@ -45,29 +44,14 @@ AdaBur, Adam Burish, DunKei, JonToe\n"))
   (is (= :DavBol
          (get-givee-code :TroBro 0))))
 
-;(deftest add-person-2-test
-;  (is (= [{:name "Person One", :max-books 2}
-;          {:name "Person Two", :max-books 6}
-;          {:name "Wilma" :max-books 5}]
-;         (add-person "Wilma" 5))))
-;
-;(deftest get-person-test
-;  (add-person "Fred")
-;  (is (= {:max-books 3 :name "Fred"}
-;         (get-person "Fred"))))
-;
-;(deftest get-person-2-test
-;  (is (= nil
-;         (get-person "Fred"))))
-;
-;(deftest person-to-string-test
-;  (add-person "Fred Flintstone" 7)
-;  (is (= "Fred Flintstone (7 books)\n"
-;         (person-to-string "Fred Flintstone"))))
-;
-;(deftest write-people-test
-;  (reset! people [{:name "Fred" :max-books 3}])
-;  (write-people)
-;  (is (= [{:name "Fred" :max-books 3}]
-;         (into [] (yaml/parse-string
-;                    (slurp "people.yaml"))))))
+(deftest set-givee-code-test
+  (is (= {:team-name  "Blackhawks",
+          :first-year 1956,
+          :TroBro     {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol}]},
+          :JoeQue     {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}]},
+          :AdaBur     {:name "Adam Burish", :gift-history [{:giver :JonToe, :givee :test1}]}}
+         (set-givee-code :AdaBur 0 :test1)))
+  (is (= nil
+         (set-givee-code :AdaBurX 0 :test1)))
+  (is (= nil
+         (set-givee-code :AdaBur 1 :test1))))
