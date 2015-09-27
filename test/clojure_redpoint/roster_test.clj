@@ -55,3 +55,23 @@ AdaBur, Adam Burish, DunKei, JonToe\n")
          (set-givee-code :AdaBurX 0 :test1)))
   (is (= nil
          (set-givee-code :AdaBur 1 :test1))))
+
+(deftest get-giver-code-test
+  (is (= nil
+         (get-giver-code :TroBroX 0)))
+  (is (= nil
+         (get-giver-code :TroBro 9)))
+  (is (= :JoeQue
+         (get-giver-code :TroBro 0))))
+
+(deftest set-giver-code-test
+  (is (= {:team-name  "Blackhawks",
+          :first-year 1956,
+          :TroBro     {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol}]},
+          :JoeQue     {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}]},
+          :AdaBur     {:name "Adam Burish", :gift-history [{:giver :test1, :givee :DunKei}]}}
+         (set-giver-code :AdaBur 0 :test1)))
+  (is (= nil
+         (set-giver-code :AdaBurX 0 :test1)))
+  (is (= nil
+         (set-giver-code :AdaBur 1 :test1))))

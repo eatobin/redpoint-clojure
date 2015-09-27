@@ -43,7 +43,40 @@
              [p :gift-history y]
              {:giver gr :givee ge}))))
 
+(defn get-giver-code [p y]
+  (get-in (deref roster)
+          [p :gift-history y :giver]))
+
+(defn set-giver-code [p y gr]
+  (if (and (contains? (deref roster) p)
+           (<= (+ y 1) (count
+                         (get-in (deref roster)
+                                 [p :gift-history]))))
+    (let [ge (get-in (deref roster)
+                     [p :gift-history y :givee])]
+      (swap! roster assoc-in
+             [p :gift-history y]
+             {:giver gr :givee ge}))))
+
 (defn add-history [p y ge gr]
   (swap! roster assoc-in
          [p :gift-history y]
          {:givee ge :giver gr}))
+
+(defn add-new-year [p y ge gr]
+  (swap! roster assoc-in
+         [p :gift-history y]
+         {:givee ge :giver gr}))
+
+;def add_new_year
+;@roster_list.each_value do |player|
+;player.gift_history << {:givee => :none, :giver => :none}
+;end
+;end
+
+(swap! roster assoc-in
+       [p :gift-history y]
+       {:givee ge :giver gr})
+
+((fn [coll]
+   (into {} (concat coll {:givee :none :giver :none}))) {:giver :JoeQue, :givee :DavBol})
