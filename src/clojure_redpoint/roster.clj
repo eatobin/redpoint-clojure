@@ -77,6 +77,3 @@
 (swap! roster assoc-in
        [p :gift-history y]
        {:givee ge :giver gr})
-
-((fn [coll]
-   (into {} (concat coll {:givee :none :giver :none}))) {:giver :JoeQue, :givee :DavBol})
