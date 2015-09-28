@@ -1,3 +1,5 @@
+(ns clojure-redpoint.roster)
+
 (defn c-it [coll] 	(conj coll {:givee :none :giver :none}))
 
 (fn [coll] 	(conj coll {:givee :none :giver :none}))
@@ -11,3 +13,6 @@
 (def v [[{:givee :me1 :giver :you1} {:givee :me2 :giver :you2}] [{:givee :me3 :giver :you3} {:givee :me4 :giver :you4}]])
 
 (map c-it v)
+
+(#(conj % {:givee :none :giver :none}) (get-in (deref roster)
+                                               [:AdaBur :gift-history]))

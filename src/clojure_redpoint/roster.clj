@@ -4,12 +4,12 @@
 ;"blackhawks2010.txt"
 ;"roster-test.txt"
 
+(def team-name)
+(def first-year)
 (def roster (atom {}))
 
 (defn make-map [v]
-  (if (= 2 (count v))
-    (let [[tn fy] v]
-      (hash-map :team-name tn :first-year (read-string fy)))
+  (if (= 4 (count v))
     (let [[s n ge gr] v]
       (hash-map (keyword s)
                 (hash-map :name n
@@ -21,6 +21,8 @@
   (let [slurped (slurp f)
         de-spaced (clojure.string/replace slurped #", " ",")
         parsed (csv/parse-csv de-spaced)]
+    (def team-name ((first (vec parsed)) 0))
+    (def first-year ((first (vec parsed)) 1))
     (reset! roster
             (into {} (map make-map parsed)))))
 
@@ -63,17 +65,13 @@
          [p :gift-history y]
          {:givee ge :giver gr}))
 
-(defn add-new-year [p y ge gr]
-  (swap! roster assoc-in
-         [p :gift-history y]
-         {:givee ge :giver gr}))
+;(defn add-new-year [p y ge gr]
+;  (swap! roster assoc-in
+;         [p :gift-history y]
+;         {:givee ge :giver gr}))
 
 ;def add_new_year
 ;@roster_list.each_value do |player|
 ;player.gift_history << {:givee => :none, :giver => :none}
 ;end
 ;end
-
-(swap! roster assoc-in
-       [p :gift-history y]
-       {:givee ge :giver gr})
