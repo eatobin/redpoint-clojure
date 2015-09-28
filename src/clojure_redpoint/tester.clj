@@ -47,7 +47,7 @@
                          [{:givee :TroBro
                            :giver :AndLad}]}})
 
-(doseq [x roster-list] (println x))
+(doseq [[k v] roster-list] (println (:gift-history v)))
 
 (doseq [x roster-list
                :when (= x :gift-history)]
@@ -106,3 +106,9 @@
 
 {:TroBro {:name "Troy Brouwer" :gift-history [{:givee :DavBol :giver :JoeQue}]},
  :JoeQue {:name "Joel Quenneville" :gift-history [{:givee :TroBro :giver :AndLad}]}}
+
+;; prepare a seq of all keys from entries whose values are 0
+(for [[x y] '([:a 1] [:b 2] [:c 0]) :when (= y 0)] x)
+;;=> (:c)
+
+(for [[k v] roster-list] (fn [v] (conj (:gift-history v) {:givee :none :giver :none})))
