@@ -30,18 +30,15 @@
                          [{:givee :TroBro
                            :giver :AndLad}]}})
 
-(doseq [[k v] roster-list] (println (:gift-history v)))
+(doseq [[k v] roster-list] (println [k (:gift-history v)]))
 
-(doseq [x roster-list
-               :when (= x :gift-history)]
-         (println x))
+(def book {:name "SICP" :details {:pages 657 :isbn-10 "0262011530"}})
+(let [{name :name {pages :pages isbn-10 :isbn-10} :details} book]
+  (println "name:" name "pages:" pages "isbn-10:" isbn-10))
 
-(def config [{:host "test", :port 1},{:host "testtest", :port 2}])
-
-(for [{h :host p :port} config]
-  (format "host: %s ; port: %s" h p))
-
-(def config [{:host "test", :port 1},{:host "testtest", :port 2}])
+(def roster-list {:name "Troy Brouwer" :gift-history [{:givee :DavBol :giver :JoeQue}]})
+(let [{name :name [{givee :givee giver :giver}] :gift-history} roster-list]
+  (println "name:" name "gift-history" "[givee" givee "giver" giver "]"))
 
 (for [{gh :gift-history} roster-list]
   (#(conj % {:givee :none :giver :none}) gh))
@@ -84,3 +81,16 @@
 ;;=> (:c)
 
 (for [[k v] roster-list] (conj (:gift-history v) {:givee :none :giver :none}))
+
+(for [[k v] roster-list
+      :let [n (conj (:gift-history v) {:givee :none :giver :none})]]
+  n)
+
+(for [[k v] roster-list
+      :let [n (conj (:gift-history v) {:givee :none :giver :none})]]
+  [k n])
+
+(for [[k v] roster-list
+      :let [n (conj (:gift-history v) {:givee :none :giver :none})
+            nv (assoc-in roster-list [k :gift-history] n)]]
+  [k nv])
