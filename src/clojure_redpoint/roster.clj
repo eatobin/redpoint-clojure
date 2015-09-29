@@ -59,19 +59,11 @@
       (swap! roster assoc-in
              [p :gift-history y]
              {:giver gr :givee ge}))))
-
-(defn add-history [p y ge gr]
-  (swap! roster assoc-in
-         [p :gift-history y]
-         {:givee ge :giver gr}))
-
-;(defn add-new-year [p y ge gr]
-;  (swap! roster assoc-in
-;         [p :gift-history y]
-;         {:givee ge :giver gr}))
-
-;def add_new_year
-;@roster_list.each_value do |player|
-;player.gift_history << {:givee => :none, :giver => :none}
-;end
-;end
+(defn add-new-year []
+  (doseq [p (keys (deref roster))]
+    (let [y (count
+              (get-in (deref roster)
+                      [p :gift-history]))]
+      (swap! roster assoc-in
+             [p :gift-history y]
+             {:givee :none :giver :none}))))
