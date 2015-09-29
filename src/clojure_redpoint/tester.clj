@@ -19,23 +19,6 @@
 
 (assoc-in @roster [:AdaBur :gift-history] {:givee :none :giver :none})
 
-(defn postwalk-mapentry
-  [smap nmap form]
-  (postwalk (fn [coll] (conj coll {:givee :none :giver :none})) form))
-
-
-(defn postwalk-mapentry
-  [form]
-  (postwalk (fn [x] (if (= :gift-history x) #(conj % {:givee :none :giver :none}))) form))
-
-(defn prewalk-mapentry
-  [form]
-  (prewalk (fn [x] (if (= 1 1) (println x))) form))
-
-(defn prewalk-mapentry
-  [form]
-  (prewalk (fn [x] (if (= x :gift-history) (println x))) form))
-
 (def roster-list {:TroBro
                   {:name "Troy Brouwer"
                    :gift-history
@@ -90,17 +73,6 @@
 (assoc-in me [:name :initials] "JLA")
 (update-in me [:address :street] #(str "33 " %))
 
-(def roster-list2 {:TroBro
-                  {:name "Troy Brouwer"
-                   :gift-history
-                         [{:givee :DavBol
-                           :giver :JoeQue}]}
-                  :JoeQue
-                  {:name "Joel Quenneville"
-                   :gift-history
-                         [{:givee :TroBro
-                           :giver :AndLad}]}})
-
 [{:sym :Trobro, :name "Troy Brouwer", :gift-history [{:givee :DavBol :giver :JoeQue}]}
  {:sym :JoeQue, :name "Joel Quenneville", :gift-history [{:givee :TroBro :giver :AndLad}]}]
 
@@ -111,4 +83,4 @@
 (for [[x y] '([:a 1] [:b 2] [:c 0]) :when (= y 0)] x)
 ;;=> (:c)
 
-(for [[k v] roster-list] (fn [v] (conj (:gift-history v) {:givee :none :giver :none})))
+(for [[k v] roster-list] (conj (:gift-history v) {:givee :none :giver :none}))
