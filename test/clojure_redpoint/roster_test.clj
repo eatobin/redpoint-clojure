@@ -19,22 +19,14 @@ AdaBur, Adam Burish, DunKei, JonToe\n")
 (use-fixtures :each each-fixture)
 
 (deftest make-roster-test
-  (is (= 5
+  (is (= 3
          (count (deref roster))))
-  (is (= [:team-name "Blackhawks"]
+  (is (= [:TroBro {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol}]}]
          (first (deref roster)))))
 
 (deftest get-player-name-test
   (is (= "Adam Burish"
          (get-player-name :AdaBur))))
-
-(deftest add-history-test
-  (is (= {:team-name  "Blackhawks",
-          :first-year 1956,
-          :TroBro     {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol} {:givee :test1, :giver :test2}]},
-          :JoeQue     {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}]},
-          :AdaBur     {:name "Adam Burish", :gift-history [{:giver :JonToe, :givee :DunKei}]}}
-         (add-history :TroBro 1 :test1 :test2))))
 
 (deftest get-givee-code-test
   (is (= nil
@@ -45,11 +37,9 @@ AdaBur, Adam Burish, DunKei, JonToe\n")
          (get-givee-code :TroBro 0))))
 
 (deftest set-givee-code-test
-  (is (= {:team-name  "Blackhawks",
-          :first-year 1956,
-          :TroBro     {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol}]},
-          :JoeQue     {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}]},
-          :AdaBur     {:name "Adam Burish", :gift-history [{:giver :JonToe, :givee :test1}]}}
+  (is (= {:TroBro {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol}]},
+          :JoeQue {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}]},
+          :AdaBur {:name "Adam Burish", :gift-history [{:giver :JonToe, :givee :test1}]}}
          (set-givee-code :AdaBur 0 :test1)))
   (is (= nil
          (set-givee-code :AdaBurX 0 :test1)))
@@ -65,13 +55,22 @@ AdaBur, Adam Burish, DunKei, JonToe\n")
          (get-giver-code :TroBro 0))))
 
 (deftest set-giver-code-test
-  (is (= {:team-name  "Blackhawks",
-          :first-year 1956,
-          :TroBro     {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol}]},
-          :JoeQue     {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}]},
-          :AdaBur     {:name "Adam Burish", :gift-history [{:giver :test1, :givee :DunKei}]}}
+  (is (= {:TroBro {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol}]},
+          :JoeQue {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}]},
+          :AdaBur {:name "Adam Burish", :gift-history [{:giver :test1, :givee :DunKei}]}}
          (set-giver-code :AdaBur 0 :test1)))
   (is (= nil
          (set-giver-code :AdaBurX 0 :test1)))
   (is (= nil
          (set-giver-code :AdaBur 1 :test1))))
+
+(deftest add-new-year-test
+  (is (= nil
+         (add-new-year)))
+  (is (= {:TroBro {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol}
+                                                        {:givee :none, :giver :none}]},
+          :JoeQue {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}
+                                                            {:givee :none, :giver :none}]},
+          :AdaBur {:name "Adam Burish", :gift-history [{:giver :JonToe, :givee :DunKei}
+                                                       {:givee :none, :giver :none}]}}
+         (deref roster))))

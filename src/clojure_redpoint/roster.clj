@@ -59,6 +59,7 @@
       (swap! roster assoc-in
              [p :gift-history y]
              {:giver gr :givee ge}))))
+
 (defn add-new-year []
   (doseq [p (keys (deref roster))]
     (let [y (count
