@@ -62,17 +62,7 @@
 
 (defn add-new-year []
   (doseq [p (keys (deref roster))]
-    (let [y (count
-              (get-in (deref roster)
-                      [p :gift-history]))]
-      (swap! roster assoc-in
-             [p :gift-history y]
-             {:givee :none :giver :none}))))
-             
-             
-(defn add-new-year2 []
-  (doseq [p (keys (deref roster))]
-      (swap! roster update-in
-             [p :gift-history]
-             conj
-             {:givee :none :giver :none})))
+    (swap! roster update-in
+           [p :gift-history]
+           conj
+           {:givee :none :giver :none})))
