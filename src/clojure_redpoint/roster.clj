@@ -22,7 +22,7 @@
         de-spaced (clojure.string/replace slurped #", " ",")
         parsed (csv/parse-csv de-spaced)]
     (def team-name ((first (vec parsed)) 0))
-    (def first-year ((first (vec parsed)) 1))
+    (def first-year (read-string ((first (vec parsed)) 1)))
     (reset! roster
             (into {} (map make-map parsed)))))
 

@@ -19,6 +19,10 @@ AdaBur, Adam Burish, DunKei, JonToe\n")
 (use-fixtures :each each-fixture)
 
 (deftest make-roster-test
+  (is (= "Blackhawks"
+         team-name))
+  (is (= 1956
+         first-year))
   (is (= 3
          (count (deref roster))))
   (is (= [:TroBro {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol}]}]
