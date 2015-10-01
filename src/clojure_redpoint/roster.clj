@@ -95,7 +95,7 @@
 (apply str (deref r))
 
 (defn print-giving-roster [gift-year]
-  (def no-givee)
-  (def no-giver)
+  (def no-givee [])
+  (def no-giver [])
   (def roster-string (atom []))
   (swap! roster-string conj team-name " - Year " (+ first-year gift-year) " Gifts:\n"))
