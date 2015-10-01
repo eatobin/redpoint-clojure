@@ -7,10 +7,6 @@
 (def team-name)
 (def first-year)
 (def roster (atom {}))
-(def no-givee [])
-(def no-giver [])
-(def roster-string (atom []))
-
 
 (defn make-map [v]
   (if (= 4 (count v))
@@ -71,35 +67,23 @@
            conj
            {:givee :none :giver :none})))
 
-;def print_giving_roster(gift_year)
-;no_givee = Array.new
-;no_giver = Array.new
-;
-;puts @team_name + ' - Year ' + (@first_year.to_i + gift_year).to_s + ' Gifts:'
-;
-;@roster_list.keys.sort.each do |player_code|
-;player_name = get_player(player_code).player_name
-;# player_name = get_player_name(player_code)
-;givee_code = get_givee_code(player_code, gift_year)
-;giver_code = get_giver_code(player_code, gift_year)
-;
-;if givee_code.equal?(:none)
-;no_givee << player_code
-;else
-;puts player_name + ' is buying for ' + get_player(givee_code).player_name
-;end
-;if giver_code.equal?(:none)
-;no_giver << player_code
-;end
-;end
-
 (def r (atom []))
 (swap! r conj "Test 1 ")
 (swap! r conj "and test 2")
 (apply str (deref r))
 
 (defn print-giving-roster [gift-year]
-  (def no-givee [])
-  (def no-giver [])
-  (def roster-string (atom []))
-  (swap! roster-string conj team-name " - Year " (+ first-year gift-year) " Gifts:\n"))
+  (let [no-givee []
+        no-giver []
+        roster-string (atom [])]
+    (swap! roster-string conj team-name " - Year " (+ first-year gift-year) " Gifts:\n")
+    (doseq [p (keys (into (sorted-map) (deref roster)))]
+      (let [player-name (get-player-name p)
+            givee-code (get-givee-code p gift-year)
+            giver-code (get-giver-code p gift-year)]
+        (if (= givee-code :none)
+          (conj no-givee p)
+          (swap! roster-string conj player-name " is buying for " (get-player-name givee-code) "\n"))
+        (if (= giver-code :none)
+          (conj no-giver p))))
+    (println (apply str (deref roster-string)))))
