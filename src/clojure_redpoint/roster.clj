@@ -7,6 +7,10 @@
 (def team-name)
 (def first-year)
 (def roster (atom {}))
+(def no-givee [])
+(def no-giver [])
+(def roster-string (atom []))
+
 
 (defn make-map [v]
   (if (= 4 (count v))
