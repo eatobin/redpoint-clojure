@@ -67,7 +67,7 @@
            conj
            {:givee :none :giver :none})))
 
-(defn print-giving-roster [gift-year]
+(defn print-string-giving-roster [gift-year]
   (let [no-givee (atom [])
         no-giver (atom [])
         roster-string (atom [])]
@@ -89,4 +89,4 @@
           (swap! roster-string conj (get-player-name p) " is giving to no one.\n"))
         (doseq [p (deref no-giver)]
           (swap! roster-string conj (get-player-name p) " is receiving from no one.\n"))))
-    (println (apply str (deref roster-string)))))
+    (apply str (deref roster-string))))
