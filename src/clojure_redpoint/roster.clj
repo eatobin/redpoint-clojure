@@ -67,11 +67,6 @@
            conj
            {:givee :none :giver :none})))
 
-(def r (atom []))
-(swap! r conj "Test 1 ")
-(swap! r conj "and test 2")
-(apply str (deref r))
-
 (defn print-giving-roster [gift-year]
   (let [no-givee (atom [])
         no-giver (atom [])
