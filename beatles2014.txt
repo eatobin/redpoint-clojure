@@ -1,5 +1,5 @@
-An Empty Team, 2014
+The Beatles, 2014
 RinSta, Ringo Starr, JohLen, GeoHar
-JohLen, John Lennon, none, RinSta
+JohLen, John Lennon, PauMcc, RinSta
 GeoHar, George Harrison, RinSta, PauMcc
-PauMcc, Paul McCartney, GeoHar, none
+PauMcc, Paul McCartney, GeoHar, JohLen
