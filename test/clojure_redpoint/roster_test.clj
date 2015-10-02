@@ -78,3 +78,26 @@ AdaBur, Adam Burish, DunKei, JonToe\n")
           :AdaBur {:name "Adam Burish", :gift-history [{:giver :JonToe, :givee :DunKei}
                                                        {:givee :none, :giver :none}]}}
          (deref roster))))
+
+(deftest print-string-giving-roster-test
+  (make-roster "beatles2014.txt")
+  (is (= "The Beatles - Year 2014 Gifts:
+
+George Harrison is buying for Ringo Starr
+John Lennon is buying for Paul McCartney
+Paul McCartney is buying for George Harrison
+Ringo Starr is buying for John Lennon\n"
+         (print-string-giving-roster 0)))
+  (make-roster "beatles-partial2014.txt")
+  (is (= "The Partial Beatles - Year 2014 Gifts:
+
+George Harrison is buying for Ringo Starr
+Paul McCartney is buying for George Harrison
+Ringo Starr is buying for John Lennon
+
+There is a logic error in this year's pairings.
+Do you see it?\nIf not... call me and I'll explain!
+
+John Lennon is giving to no one.
+Paul McCartney is receiving from no one.\n"
+         (print-string-giving-roster 0))))
