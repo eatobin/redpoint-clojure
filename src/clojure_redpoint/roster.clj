@@ -2,7 +2,8 @@
   (:require [clojure-csv.core :as csv]))
 
 ;"blackhawks2010.txt"
-;"roster-test.txt"
+;"beatles2014.txt"
+;"partial-beatles2014.txt"
 
 (def team-name)
 (def first-year)
