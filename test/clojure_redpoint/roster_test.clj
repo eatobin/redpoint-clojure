@@ -3,11 +3,12 @@
             [clojure-redpoint.roster :refer :all]))
 
 (defn setup []
-  (spit "roster-test.txt" "Blackhawks, 1956
-TroBro, Troy Brouwer, DavBol, JoeQue
-JoeQue, Joel Quenneville, TroBro, AndLad
-AdaBur, Adam Burish, DunKei, JonToe\n")
-  (make-roster "roster-test.txt"))
+  (spit "beatles2014.txt" "The Beatles, 2014
+RinSta, Ringo Starr, JohLen, GeoHar
+JohLen, John Lennon, PauMcc, RinSta
+GeoHar, George Harrison, RinSta, PauMcc
+PauMcc, Paul McCartney, GeoHar, JohLen\n")
+  (make-roster "beatles2014.txt"))
 
 (defn teardown [])
 
@@ -19,32 +20,33 @@ AdaBur, Adam Burish, DunKei, JonToe\n")
 (use-fixtures :each each-fixture)
 
 (deftest make-roster-test
-  (is (= "Blackhawks"
+  (is (= "The Beatles"
          team-name))
-  (is (= 1956
+  (is (= 2014
          first-year))
-  (is (= 3
+  (is (= 4
          (count (deref roster))))
-  (is (= [:TroBro {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol}]}]
+  (is (= [:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}]
          (first (deref roster)))))
 
 (deftest get-player-name-test
-  (is (= "Adam Burish"
-         (get-player-name :AdaBur))))
+  (is (= "Ringo Starr"
+         (get-player-name :RinSta))))
 
 (deftest get-givee-code-test
   (is (= nil
-         (get-givee-code :TroBroX 0)))
+         (get-givee-code :RinStaX 0)))
   (is (= nil
-         (get-givee-code :TroBro 9)))
-  (is (= :DavBol
-         (get-givee-code :TroBro 0))))
+         (get-givee-code :RinSta 9)))
+  (is (= :JohLen
+         (get-givee-code :RinSta 0))))
 
 (deftest set-givee-code-test
-  (is (= {:TroBro {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol}]},
-          :JoeQue {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}]},
-          :AdaBur {:name "Adam Burish", :gift-history [{:giver :JonToe, :givee :test1}]}}
-         (set-givee-code :AdaBur 0 :test1)))
+  (is (= {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
+          :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+          :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+          :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :test1}]}}
+         (set-givee-code :PauMcc 0 :test1)))
   (is (= nil
          (set-givee-code :AdaBurX 0 :test1)))
   (is (= nil
@@ -52,31 +54,30 @@ AdaBur, Adam Burish, DunKei, JonToe\n")
 
 (deftest get-giver-code-test
   (is (= nil
-         (get-giver-code :TroBroX 0)))
+         (get-giver-code :RinStaX 0)))
   (is (= nil
-         (get-giver-code :TroBro 9)))
-  (is (= :JoeQue
-         (get-giver-code :TroBro 0))))
+         (get-giver-code :RinSta 9)))
+  (is (= :GeoHar
+         (get-giver-code :RinSta 0))))
 
 (deftest set-giver-code-test
-  (is (= {:TroBro {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol}]},
-          :JoeQue {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}]},
-          :AdaBur {:name "Adam Burish", :gift-history [{:giver :test1, :givee :DunKei}]}}
-         (set-giver-code :AdaBur 0 :test1)))
+  (is (= {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
+          :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+          :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+          :PauMcc {:name "Paul McCartney", :gift-history [{:giver :test1, :givee :GeoHar}]}}
+         (set-giver-code :PauMcc 0 :test1)))
   (is (= nil
-         (set-giver-code :AdaBurX 0 :test1)))
+         (set-giver-code :PauMccX 0 :test1)))
   (is (= nil
-         (set-giver-code :AdaBur 1 :test1))))
+         (set-giver-code :PauMcc 1 :test1))))
 
 (deftest add-new-year-test
   (is (= nil
          (add-new-year)))
-  (is (= {:TroBro {:name "Troy Brouwer", :gift-history [{:giver :JoeQue, :givee :DavBol}
-                                                        {:givee :none, :giver :none}]},
-          :JoeQue {:name "Joel Quenneville", :gift-history [{:giver :AndLad, :givee :TroBro}
-                                                            {:givee :none, :giver :none}]},
-          :AdaBur {:name "Adam Burish", :gift-history [{:giver :JonToe, :givee :DunKei}
-                                                       {:givee :none, :giver :none}]}}
+  (is (= {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen} {:givee :none, :giver :none}]},
+          :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc} {:givee :none, :giver :none}]},
+          :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta} {:givee :none, :giver :none}]},
+          :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar} {:givee :none, :giver :none}]}}
          (deref roster))))
 
 (deftest print-string-giving-roster-test
