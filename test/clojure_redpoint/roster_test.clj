@@ -48,9 +48,9 @@ PauMcc, Paul McCartney, GeoHar, JohLen\n")
           :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :test1}]}}
          (set-givee-code :PauMcc 0 :test1)))
   (is (= nil
-         (set-givee-code :AdaBurX 0 :test1)))
+         (set-givee-code :PauMccX 0 :test1)))
   (is (= nil
-         (set-givee-code :AdaBur 1 :test1))))
+         (set-givee-code :PauMcc 1 :test1))))
 
 (deftest get-giver-code-test
   (is (= nil
