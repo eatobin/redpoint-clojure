@@ -18,3 +18,9 @@
 (defn discard-puck [p]
   (if (remove-puck p)
     (swap! discards conj p)))
+
+(defn return-discards []
+  (if (> (count (deref discards)) 0)
+    (do
+      (swap! pucks into (deref discards))
+      (reset! discards []))))
