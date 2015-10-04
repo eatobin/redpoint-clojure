@@ -139,3 +139,10 @@ roster
 (if (some #{109} '(100 101 102)) "true" "false")
 
 (contains? {:a 1} :a)
+
+(defn chkr [top]
+  (range top (- top 5) -1))
+(chkr 2)
+
+(filter #(>= % 0) (chkr 3))
+(filter (fn [n] (>= n 0)) (chkr 3))
