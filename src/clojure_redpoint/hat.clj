@@ -1,5 +1,4 @@
-(ns clojure-redpoint.hat
-  (:require [clojure-redpoint.roster :refer :all]))
+(ns clojure-redpoint.hat)
 
 (def pucks (atom []))
 (def discards (atom []))
@@ -24,3 +23,5 @@
     (do
       (swap! pucks into (deref discards))
       (reset! discards []))))
+
+;; (make-hat (atom {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}, :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]}, :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]}, :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}}))
