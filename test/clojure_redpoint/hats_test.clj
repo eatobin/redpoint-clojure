@@ -25,18 +25,24 @@
   (is (= []
          (deref discards))))
 
-;(deftest get-player-name-test
-;  (is (= "Ringo Starr"
-;         (get-player-name :RinSta))))
-;
-;(deftest get-givee-code-test
-;  (is (= nil
-;         (get-givee-code :RinStaX 0)))
-;  (is (= nil
-;         (get-givee-code :RinSta 9)))
-;  (is (= :JohLen
-;         (get-givee-code :RinSta 0))))
-;
+(deftest draw-puck-givee-test
+  (is (some?
+        (some #{(draw-puck-givee)} (deref pucks-givee)))))
+
+(deftest draw-puck-givee-test
+  (is (some?
+        (some #{(draw-puck-giver)} (deref pucks-giver)))))
+
+(deftest discard-puck-test
+  (is (= [:RinSta]
+         (discard-puck :RinSta)))
+  (is (= [:JohLen :GeoHar :PauMcc]
+         (deref pucks-givee)))
+  (is (= [:RinSta]
+         (deref discards)))
+  (is (= nil
+         (discard-puck :RinStaX))))
+
 ;(deftest set-givee-code-test
 ;  (is (= {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
 ;          :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
