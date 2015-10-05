@@ -1,11 +1,15 @@
 (ns clojure-redpoint.hat)
 
-(def pucks (atom []))
-(def discards (atom []))
+(def pucks-givee (atom []))
+(def pucks-giver (atom []))
+(def discards-givee (atom []))
+(def discards-giver (atom []))
 
-(defn make-hat [r]
-  (reset! pucks (into [] (keys (deref r))))
-  (reset! discards []))
+(defn make-hats [r]
+  (reset! pucks-givee (into [] (keys (deref r))))
+  (reset! pucks-giver (into [] (keys (deref r))))
+  (reset! discards-givee [])
+  (reset! discards-giver []))
 
 (defn draw-puck []
   (rand-nth (deref pucks)))
