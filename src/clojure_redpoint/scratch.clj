@@ -146,3 +146,9 @@ roster
 
 (filter #(>= % 0) (chkr 3))
 (filter (fn [n] (>= n 0)) (chkr 3))
+
+(defn truer [n]
+  (if (= n 1) true false))
+(def v88 [3 2 1 0])
+(map truer v88)
+

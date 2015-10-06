@@ -10,8 +10,10 @@
     (not= gr ge-giving-to)))
 
 (defn givee-not-repeat [gr ge y]
-  ;TODO
-  )
+  (let [past4 (range (- y 1) (- y 4) -1)
+        past (filter #(>= % 0) past4)
+        ge-in-yr (get-givee-code gr y)]
+    ge-in-yr))
 
 ;def self.givee_not_repeat(giver_code, givee_code, roster, this_year)
 ;result = true
