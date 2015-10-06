@@ -28,7 +28,13 @@
 ;result
 ;end
 
-(defn truer [n x]
-  (if (= n x) true false))
+(defn truer [x]
+  (if ((p6 1) x) true false))
 (def v88 [3 2 1 0])
-(map (truer _ 1) v88)
+(map truer v88)
+
+(defn p4 [n] (partial + n))
+((p4 7) 7)
+(defn p6 [n] (partial = n))
+((p6 7) 7)
+(defn p6 [n] (partial = n))
