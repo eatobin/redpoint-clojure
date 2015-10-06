@@ -27,3 +27,8 @@
 ;end
 ;result
 ;end
+
+(defn truer [n x]
+  (if (= n x) true false))
+(def v88 [3 2 1 0])
+(map (truer _ 1) v88)
