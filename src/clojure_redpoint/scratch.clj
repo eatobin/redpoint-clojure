@@ -157,3 +157,19 @@ roster
   (if ((p6 1) x) true false))
 (def v88 [3 2 1 0])
 (map truer v88)
+
+(if true "pass" "fail1")
+(if true (if true "pass" "fail2") "fail1")
+;pass
+(if false (if true "pass" "fail2") "fail1")
+;fail1
+(if true (if false "pass" "fail2") "fail1")
+;fail2
+(if true (if false "pass"))
+;nil
+(if false (if false "pass"))
+;nil
+(if false (if true "pass"))
+;nil
+(if true (if true "pass"))
+;pass
