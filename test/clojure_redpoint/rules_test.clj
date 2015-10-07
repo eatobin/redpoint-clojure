@@ -21,17 +21,17 @@ PauMcc, Paul McCartney, GeoHar, JohLen\n")
 
 (use-fixtures :each each-fixture)
 
-(deftest make-hats-test
-  (is (= [:RinSta :JohLen :GeoHar :PauMcc]
-         (deref pucks-givee)))
-  (is (= [:RinSta :JohLen :GeoHar :PauMcc]
-         (deref pucks-giver)))
-  (is (= []
-         (deref discards))))
+(deftest givee-not-self-test
+  (is (= true
+         (givee-not-self :RinSta :GeoHar)))
+  (is (= false
+         (givee-not-self :RinSta :RinSta))))
 
-(deftest draw-puck-givee-test
-  (is (some?
-        (some #{(draw-puck-givee)} (deref pucks-givee)))))
+(deftest givee-not-recip-test
+  (is (= true
+         (givee-not-recip :RinSta :GeoHar 0)))
+  (is (= false
+         (givee-not-recip :RinSta :RinSta 0))))
 
 (deftest draw-puck-givee-test
   (is (some?
