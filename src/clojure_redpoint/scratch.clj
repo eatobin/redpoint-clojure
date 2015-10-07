@@ -161,6 +161,8 @@ roster
 (if true "pass" "fail1")
 (if true (if true "pass" "fail2") "fail1")
 ;pass
+(if false (if false "pass" "fail2") "fail1")
+;fail1
 (if false (if true "pass" "fail2") "fail1")
 ;fail1
 (if true (if false "pass" "fail2") "fail1")
