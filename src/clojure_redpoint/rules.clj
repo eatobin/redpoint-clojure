@@ -12,6 +12,6 @@
 (defn givee-not-repeat [gr ge y]
   (let [past (filter #(>= % 0)
                      (range (- y 1) (- y 4) -1))
-        gr-y (partial get-givee-code gr)
-        ge-in-yrs (into [] (map gr-y past))]
+        ge-y (partial get-givee-code gr)
+        ge-in-yrs (into [] (map ge-y past))]
     (not-any? #{ge} ge-in-yrs)))
