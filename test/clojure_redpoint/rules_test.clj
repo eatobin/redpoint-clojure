@@ -39,25 +39,30 @@ KarLav, Karen Lavengood, RinSta, EriTob\n")
 ;  (is (some?
 ;        (some #{(draw-puck-giver)} (deref pucks-giver)))))
 ;
-;(deftest discard-puck-test
-;  (is (= [:RinSta]
-;         (discard-puck :RinSta)))
-;  (is (= [:JohLen :GeoHar :PauMcc]
-;         (deref pucks-givee)))
-;  (is (= [:RinSta]
-;         (deref discards)))
-;  (is (= nil
-;         (discard-puck :RinStaX))))
-;
-;(deftest remove-puck-giver-test
-;  (is (= [:JohLen :GeoHar :PauMcc]
-;         (remove-puck-giver :RinSta))))
-;
-;(deftest return-discards-test
-;  (discard-puck :RinSta)
-;  (is (= []
-;         (return-discards)))
-;  (is (= [:JohLen :GeoHar :PauMcc :RinSta]
-;         (deref pucks-givee)))
-;  (is (= []
-;         (deref discards))))
+(deftest givee-not-repeat-test
+  (add-new-year)
+  (add-new-year)
+  (add-new-year)
+  (add-new-year)
+  (set-givee-code :RinSta 1 :GeoHar)
+  (set-givee-code :RinSta 2 :PauMcc)
+  (set-givee-code :RinSta 3 :EriTob)
+  (set-givee-code :RinSta 4 :KarLav)
+  (is (= false
+         (givee-not-repeat :RinSta :JohLen 2)))
+  (is (= false
+         (givee-not-repeat :RinSta :GeoHar 2)))
+  (is (= true
+         (givee-not-repeat :RinSta :KarLav 2)))
+  (is (= false
+         (givee-not-repeat :RinSta :GeoHar 2)))
+  (is (= true
+         (givee-not-repeat :RinSta :JohLen 5)))
+  (is (= true
+         (givee-not-repeat :RinSta :GeoHar 5)))
+  (is (= false
+         (givee-not-repeat :RinSta :PauMcc 5)))
+  (is (= false
+         (givee-not-repeat :RinSta :EriTob 5)))
+  (is (= false
+         (givee-not-repeat :RinSta :KarLav 5))))
