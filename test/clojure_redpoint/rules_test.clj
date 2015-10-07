@@ -5,12 +5,14 @@
             [clojure-redpoint.hats :refer :all]))
 
 (defn setup []
-  (spit "beatles2014.txt" "The Beatles, 2014
-RinSta, Ringo Starr, JohLen, GeoHar
-JohLen, John Lennon, PauMcc, RinSta
-GeoHar, George Harrison, RinSta, PauMcc
-PauMcc, Paul McCartney, GeoHar, JohLen\n")
-  (make-roster "beatles2014.txt"))
+  (spit "beatles+2014.txt" "The Beatles, 2014
+RinSta, Ringo Starr, JohLen, KarLav
+JohLen, John Lennon, GeoHar, RinSta
+GeoHar, George Harrison, PauMcc, JohLen
+PauMcc, Paul McCartney, EriTob, GeoHar
+EriTob, Eric Tobin, KarLav, PauMcc
+KarLav, Karen Lavengood, RinSta, EriTob\n")
+  (make-roster "beatles+2014.txt"))
 
 (defn teardown [])
 
@@ -31,7 +33,7 @@ PauMcc, Paul McCartney, GeoHar, JohLen\n")
   (is (= true
          (givee-not-recip :RinSta :JohLen 0)))
   (is (= false
-         (givee-not-recip :RinSta :GeoHar 0))))
+         (givee-not-recip :RinSta :KarLav 0))))
 
 ;(deftest draw-puck-givee-test
 ;  (is (some?
