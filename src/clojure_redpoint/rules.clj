@@ -6,7 +6,7 @@
   (not= gr ge))
 
 (defn givee-not-recip [gr ge y]
-    (not= gr (get-givee-code ge y)))
+  (not= gr (get-givee-code ge y)))
 
 (defn givee-not-repeat [gr ge y]
   (let [past (filter #(>= % 0)
