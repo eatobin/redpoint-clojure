@@ -37,6 +37,7 @@
 
 (defn set-givee-code [p y ge]
   (if (and (contains? (deref roster) p)
+           (contains? (deref roster) ge)
            (<= (+ y 1) (count
                          (get-in (deref roster)
                                  [p :gift-history]))))
@@ -52,6 +53,7 @@
 
 (defn set-giver-code [p y gr]
   (if (and (contains? (deref roster) p)
+           (contains? (deref roster) gr)
            (<= (+ y 1) (count
                          (get-in (deref roster)
                                  [p :gift-history]))))
