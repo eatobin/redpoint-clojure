@@ -29,33 +29,33 @@ PauMcc, Paul McCartney, GeoHar, JohLen\n")
 
 (deftest givee-not-recip-test
   (is (= true
-         (givee-not-recip :RinSta :GeoHar 0)))
+         (givee-not-recip :RinSta :JohLen 0)))
   (is (= false
-         (givee-not-recip :RinSta :RinSta 0))))
+         (givee-not-recip :RinSta :GeoHar 0))))
 
-(deftest draw-puck-givee-test
-  (is (some?
-        (some #{(draw-puck-giver)} (deref pucks-giver)))))
-
-(deftest discard-puck-test
-  (is (= [:RinSta]
-         (discard-puck :RinSta)))
-  (is (= [:JohLen :GeoHar :PauMcc]
-         (deref pucks-givee)))
-  (is (= [:RinSta]
-         (deref discards)))
-  (is (= nil
-         (discard-puck :RinStaX))))
-
-(deftest remove-puck-giver-test
-  (is (= [:JohLen :GeoHar :PauMcc]
-         (remove-puck-giver :RinSta))))
-
-(deftest return-discards-test
-  (discard-puck :RinSta)
-  (is (= []
-         (return-discards)))
-  (is (= [:JohLen :GeoHar :PauMcc :RinSta]
-         (deref pucks-givee)))
-  (is (= []
-         (deref discards))))
+;(deftest draw-puck-givee-test
+;  (is (some?
+;        (some #{(draw-puck-giver)} (deref pucks-giver)))))
+;
+;(deftest discard-puck-test
+;  (is (= [:RinSta]
+;         (discard-puck :RinSta)))
+;  (is (= [:JohLen :GeoHar :PauMcc]
+;         (deref pucks-givee)))
+;  (is (= [:RinSta]
+;         (deref discards)))
+;  (is (= nil
+;         (discard-puck :RinStaX))))
+;
+;(deftest remove-puck-giver-test
+;  (is (= [:JohLen :GeoHar :PauMcc]
+;         (remove-puck-giver :RinSta))))
+;
+;(deftest return-discards-test
+;  (discard-puck :RinSta)
+;  (is (= []
+;         (return-discards)))
+;  (is (= [:JohLen :GeoHar :PauMcc :RinSta]
+;         (deref pucks-givee)))
+;  (is (= []
+;         (deref discards))))
