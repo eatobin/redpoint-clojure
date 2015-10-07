@@ -13,8 +13,8 @@
   (let [past4 (range (- y 1) (- y 4) -1)
         past (filter #(>= % 0) past4)
         gr-y (partial get-givee-code gr)
-        ge-in-yrs (map (gr-y) past)]
-    ge-in-yr))
+        ge-in-yrs (into [] (map gr-y past))]
+    ge-in-yrs))
 
 ;def self.givee_not_repeat(giver_code, givee_code, roster, this_year)
 ;result = true
@@ -29,13 +29,14 @@
 ;result
 ;end
 
-(defn truer [x]
-  (if ((p6 1) x) true false))
-(def v88 [3 2 1 0])
-(map truer v88)
-
 (defn p4 [n] (partial + n))
 ((p4 7) 7)
 (defn p6 [n] (partial = n))
 ((p6 7) 7)
 (defn p6 [n] (partial = n))
+
+(defn truer [x]
+  (if ((p6 1) x) true false))
+(def v88 [3 2 1 0])
+(map truer v88)
+
