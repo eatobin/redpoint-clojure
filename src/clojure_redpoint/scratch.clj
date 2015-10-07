@@ -147,8 +147,13 @@ roster
 (filter #(>= % 0) (chkr 3))
 (filter (fn [n] (>= n 0)) (chkr 3))
 
-(defn truer [n]
-  (if (= n 1) true false))
+(defn p4 [n] (partial + n))
+((p4 7) 7)
+(defn p6 [n] (partial = n))
+((p6 7) 7)
+(defn p6 [n] (partial = n))
+
+(defn truer [x]
+  (if ((p6 1) x) true false))
 (def v88 [3 2 1 0])
 (map truer v88)
-

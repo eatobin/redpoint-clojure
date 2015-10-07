@@ -14,29 +14,4 @@
         past (filter #(>= % 0) past4)
         gr-y (partial get-givee-code gr)
         ge-in-yrs (into [] (map gr-y past))]
-    ge-in-yrs))
-
-;def self.givee_not_repeat(giver_code, givee_code, roster, this_year)
-;result = true
-;counter = this_year - 1
-;while (counter >= 0) && (counter >= (this_year - 4))
-;givee_in_year = roster.get_givee_code(giver_code, counter)
-;if givee_code == givee_in_year
-;result = false
-;end
-;counter = counter - 1
-;end
-;result
-;end
-
-(defn p4 [n] (partial + n))
-((p4 7) 7)
-(defn p6 [n] (partial = n))
-((p6 7) 7)
-(defn p6 [n] (partial = n))
-
-(defn truer [x]
-  (if ((p6 1) x) true false))
-(def v88 [3 2 1 0])
-(map truer v88)
-
+    (not-any? #{ge} ge-in-yrs)))
