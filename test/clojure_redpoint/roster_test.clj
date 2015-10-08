@@ -45,8 +45,8 @@ PauMcc, Paul McCartney, GeoHar, JohLen\n")
   (is (= {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
           :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
           :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-          :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :test1}]}}
-         (set-givee-code :PauMcc 0 :test1)))
+          :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}}
+         (set-givee-code :PauMcc 0 :GeoHar)))
   (is (= nil
          (set-givee-code :PauMccX 0 :test1)))
   (is (= nil
@@ -64,8 +64,8 @@ PauMcc, Paul McCartney, GeoHar, JohLen\n")
   (is (= {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
           :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
           :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-          :PauMcc {:name "Paul McCartney", :gift-history [{:giver :test1, :givee :GeoHar}]}}
-         (set-giver-code :PauMcc 0 :test1)))
+          :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}}
+         (set-giver-code :PauMcc 0 :JohLen)))
   (is (= nil
          (set-giver-code :PauMccX 0 :test1)))
   (is (= nil
