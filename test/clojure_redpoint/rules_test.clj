@@ -35,10 +35,6 @@ KarLav, Karen Lavengood, RinSta, EriTob\n")
   (is (= false
          (givee-not-recip :RinSta :KarLav 0))))
 
-;(deftest draw-puck-givee-test
-;  (is (some?
-;        (some #{(draw-puck-giver)} (deref pucks-giver)))))
-;
 (deftest givee-not-repeat-test
   (add-new-year)
   (add-new-year)
