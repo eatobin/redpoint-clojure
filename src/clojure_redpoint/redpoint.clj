@@ -10,7 +10,29 @@
   (reset! year 0)
   (make-roster "blackhawks2010.txt"))
 
+(defn year-runner []
+  ;TODO
+  )
 
+(defn start-new-year []
+  ;TODO
+  )
+
+(defn select-new-giver []
+  ;TODO
+  )
+
+(defn givee-is-success []
+  ;TODO
+  )
+
+(defn givee-is-failure []
+  ;TODO
+  )
+
+(defn print-and-ask [year]
+  ;TODO
+  )
 
 
 ;class Redpoint
