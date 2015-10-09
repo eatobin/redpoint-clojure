@@ -151,7 +151,6 @@ roster
 ((p4 7) 7)
 (defn p6 [n] (partial = n))
 ((p6 7) 7)
-(defn p6 [n] (partial = n))
 
 (defn truer [x]
   (if ((p6 1) x) true false))
