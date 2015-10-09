@@ -5,11 +5,13 @@
   (:gen-class))
 
 (def year (atom 0))
-(def giver (atom nil))
-(def givee (atom nil))
+(def giver (atom :none))
+(def givee (atom :none))
 
 (defn initialize-state []
   (reset! year 0)
+  (reset! giver :none)
+  (reset! givee :none)
   (make-roster "blackhawks2010.txt"))
 
 (defn year-runner []
