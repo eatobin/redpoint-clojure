@@ -5,6 +5,8 @@
   (:gen-class))
 
 (def year (atom 0))
+(def giver (atom nil))
+(def givee (atom nil))
 
 (defn initialize-state []
   (reset! year 0)
@@ -15,8 +17,11 @@
   )
 
 (defn start-new-year []
-  ;TODO
-  )
+  (swap! inc year)
+  (add-new-year)
+  (make-hats [roster])
+  (swap! draw-puck-giver giver)
+  (swap! draw-puck-givee givee))
 
 (defn select-new-giver []
   ;TODO
