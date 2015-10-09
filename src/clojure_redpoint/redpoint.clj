@@ -17,11 +17,11 @@
   )
 
 (defn start-new-year []
-  (swap! inc year)
+  (swap! year inc)
   (add-new-year)
-  (make-hats [roster])
-  (swap! draw-puck-giver giver)
-  (swap! draw-puck-givee givee))
+  (make-hats roster)
+  (reset! giver (draw-puck-giver))
+  (reset! givee (draw-puck-givee)))
 
 (defn select-new-giver []
   ;TODO

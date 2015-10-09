@@ -19,25 +19,25 @@
 
 (deftest make-hats-test
   (is (= [:RinSta :JohLen :GeoHar :PauMcc]
-         (deref pucks-givee)))
+         (deref givee-hat)))
   (is (= [:RinSta :JohLen :GeoHar :PauMcc]
-         (deref pucks-giver)))
+         (deref giver-hat)))
   (is (= []
          (deref discards))))
 
 (deftest draw-puck-givee-test
   (is (some?
-        (some #{(draw-puck-givee)} (deref pucks-givee)))))
+        (some #{(draw-puck-givee)} (deref givee-hat)))))
 
 (deftest draw-puck-givee-test
   (is (some?
-        (some #{(draw-puck-giver)} (deref pucks-giver)))))
+        (some #{(draw-puck-giver)} (deref giver-hat)))))
 
 (deftest discard-puck-test
   (is (= [:RinSta]
          (discard-puck :RinSta)))
   (is (= [:JohLen :GeoHar :PauMcc]
-         (deref pucks-givee)))
+         (deref givee-hat)))
   (is (= [:RinSta]
          (deref discards)))
   (is (= nil
@@ -52,6 +52,6 @@
   (is (= []
          (return-discards)))
   (is (= [:JohLen :GeoHar :PauMcc :RinSta]
-         (deref pucks-givee)))
+         (deref givee-hat)))
   (is (= []
          (deref discards))))
