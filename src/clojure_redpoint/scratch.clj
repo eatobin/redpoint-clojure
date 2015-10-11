@@ -175,6 +175,22 @@ roster
 (if true (if true "pass"))
 ;pass
 
+
+;; in real repl only (read-line):
+;;
+;; (println (read-line))
+;; (if-let [result (read-line)]
+;;     result
+;;     "I'll go to a cafe.")
+
+;; (defn input []
+;;    (println "What is your decision?")
+;;    (if-let [v (not-empty (read-line))]
+;;       v
+;;       (do
+;;          (println "That is not valid...")
+;;          (recur))))
+
 ;; --- 3 functions:
 ;; (defn valid? [x]
 ;;   (if (= x "Go!")
