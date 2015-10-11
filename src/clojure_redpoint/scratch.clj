@@ -174,3 +174,23 @@ roster
 ;nil
 (if true (if true "pass"))
 ;pass
+
+;; --- 3 functions:
+;; (defn valid? [x]
+;;   (if (= x "Go!")
+;;     x
+;;     nil))
+
+;; (defn input []
+;;    (println "What is your decision?")
+;;    (if-let [v (valid? (read-line))]
+;;       v
+;;       (do
+;;          (println "That is not valid...")
+;;          (recur))))
+
+;; (let [yayinput (read-line)]
+;;   (if (= yayinput "1234")
+;;     (println "Correct")
+;;     (println "Wrong")))
+;; ---
