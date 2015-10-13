@@ -40,3 +40,14 @@
                    :gift-history [{:giver :KriVer, :givee :JoeQue}
                                   {:giver :none, :givee :none}]}]
          (first (deref roster)))))
+
+(deftest select-new-giver-test
+  (start-new-year)
+  (discard-puck :AdaBur)
+  (is (= 1
+         (count (deref discards))))
+  (select-new-giver)
+  (is (= 17
+         (count (deref giver-hat))))
+  (is (= 0
+         (count (deref discards)))))

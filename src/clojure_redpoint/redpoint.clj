@@ -26,8 +26,10 @@
   (reset! givee (draw-puck-givee)))
 
 (defn select-new-giver []
-  ;TODO
-  )
+  (remove-puck-giver (deref giver))
+  (return-discards)
+  (reset! giver (draw-puck-giver))
+  (reset! givee (draw-puck-givee)))
 
 (defn givee-is-success []
   ;TODO
