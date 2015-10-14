@@ -39,8 +39,8 @@
   (remove-puck-givee (deref givee)))
 
 (defn givee-is-failure []
-  ;TODO
-  )
+  (discard-puck (deref givee))
+  (draw-puck-givee))
 
 (defn print-and-ask [year]
   ;TODO
