@@ -32,8 +32,11 @@
   (reset! givee (draw-puck-givee)))
 
 (defn givee-is-success []
-  ;TODO
-  )
+  (set-givee-code (deref giver)
+    (deref year) (deref givee))
+  (set-giver-code (deref givee)
+    (deref year) (deref giver))
+  (remove-puck-givee (deref givee)))
 
 (defn givee-is-failure []
   ;TODO
