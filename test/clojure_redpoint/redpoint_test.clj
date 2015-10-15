@@ -51,3 +51,13 @@
          (count (deref giver-hat))))
   (is (= 0
          (count (deref discards)))))
+
+(deftest givee-is-success-test
+  (start-new-year)
+  (givee-is-success)
+  (is (= (deref givee)
+         (get-givee-code (deref giver) (deref year))))
+  (is (= (deref giver)
+         (get-giver-code (deref givee) (deref year))))
+  (is (= nil
+         (some #{(deref givee)} (deref givee-hat)))))
