@@ -61,3 +61,11 @@
          (get-giver-code (deref givee) (deref year))))
   (is (= nil
          (some #{(deref givee)} (deref givee-hat)))))
+
+(deftest givee-is-failure-test
+  (start-new-year)
+  (givee-is-failure)
+  (is (= (deref givee)
+         (some #{(deref givee)} (deref discards))))
+  (is (= nil
+         (some #{(deref givee)} (deref givee-hat)))))
