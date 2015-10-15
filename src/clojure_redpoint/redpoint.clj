@@ -42,16 +42,19 @@
   (discard-puck (deref givee))
   (draw-puck-givee))
 
-(defn print-and-ask [year]
+(defn ask []
   (let [valid? (fn [x] (if (= x "q")
-                         x
-                         nil))]
-    (if-let [v (valid? (clojure.string/lower-case (read-line)))]
-      v
+                         true
+                         false))]
+    (if (valid? (clojure.string/lower-case (read-line)))
+      true
       (do
         (println "That is not a valid response.\nPlease re-enter.")
         (println)
-        (recur))))
+        (recur)))))
+
+(defn print-and-ask [year]
+  (if)
   (print-string-giving-roster (deref year))
   (println "Continue? ('q' to quit): "))
 
