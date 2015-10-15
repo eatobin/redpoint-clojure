@@ -43,8 +43,8 @@
   (draw-puck-givee))
 
 (defn print-and-ask [year]
-  ;TODO
-  )
+  (print-string-giving-roster (deref year))
+  (lprint "\"Continue? ('q' to quit): \")))
 
 
 ;class Redpoint
