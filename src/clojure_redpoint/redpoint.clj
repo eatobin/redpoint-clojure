@@ -33,9 +33,9 @@
 
 (defn givee-is-success []
   (set-givee-code (deref giver)
-    (deref year) (deref givee))
+                  (deref year) (deref givee))
   (set-giver-code (deref givee)
-    (deref year) (deref giver))
+                  (deref year) (deref giver))
   (remove-puck-givee (deref givee)))
 
 (defn givee-is-failure []
@@ -43,8 +43,17 @@
   (draw-puck-givee))
 
 (defn print-and-ask [year]
+  (let [valid? (fn [x] (if (= x "q")
+                         x
+                         nil))]
+    (if-let [v (valid? (clojure.string/lower-case (read-line)))]
+      v
+      (do
+        (println "That is not a valid response.\nPlease re-enter.")
+        (println)
+        (recur))))
   (print-string-giving-roster (deref year))
-  (lprint "\"Continue? ('q' to quit): \")))
+  (println "Continue? ('q' to quit): "))
 
 
 ;class Redpoint
