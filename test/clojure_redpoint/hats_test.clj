@@ -29,7 +29,7 @@
   (is (some?
         (some #{(draw-puck-givee)} (deref givee-hat)))))
 
-(deftest draw-puck-givee-test
+(deftest draw-puck-giver-test
   (is (some?
         (some #{(draw-puck-giver)} (deref giver-hat)))))
 
