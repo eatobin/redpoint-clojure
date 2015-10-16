@@ -56,27 +56,27 @@
   (read-line))
 
 
-  def runner
-    until print_and_ask(@year).downcase.eql?('q')
-      self.start_new_year
-      until @giver.nil?
-        until @givee.nil?
-          if Rules.givee_not_self(@giver, @givee) &&
-              Rules.givee_not_recip(@giver, @givee, @roster, @year) &&
-              Rules.givee_not_repeat(@giver, @givee, @roster, @year)
-            @givee = self.givee_is_success
-          else
-            @givee = self.givee_is_failure
-          end
-        end
-        self.select_new_giver
-      end
-      puts
-    end
-
-    puts
-    puts 'This was fun!'
-    puts 'Talk about a position with Redpoint?'
-    puts 'Please call: Eric Tobin 773-325-1516'
-    puts 'Thanks! Bye...'
-  end
+;def runner
+;  until print_and_ask(@year).downcase.eql?('q')
+;    self.start_new_year
+;    until @giver.nil?
+;      until @givee.nil?
+;        if Rules.givee_not_self(@giver, @givee) &&
+;            Rules.givee_not_recip(@giver, @givee, @roster, @year) &&
+;            Rules.givee_not_repeat(@giver, @givee, @roster, @year)
+;          @givee = self.givee_is_success
+;        else
+;          @givee = self.givee_is_failure
+;        end
+;      end
+;      self.select_new_giver
+;    end
+;    puts
+;  end
+;
+;  puts
+;  puts 'This was fun!'
+;  puts 'Talk about a position with Redpoint?'
+;  puts 'Please call: Eric Tobin 773-325-1516'
+;  puts 'Thanks! Bye...'
+;end
