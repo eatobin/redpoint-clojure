@@ -50,7 +50,7 @@
 ;      (println)
 ;      (recur))))
 
-(defn print-and-ask
+(defn print-and-ask []
   (println (print-string-giving-roster (deref year)))
   (println "Continue? ('q' to quit): ")
   (read-line))
