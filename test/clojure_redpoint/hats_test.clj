@@ -29,15 +29,13 @@
   (is (some?
         (some #{(draw-puck-givee)} (deref givee-hat))))
   (reset! givee-hat [])
-  (is (= nil
-         (draw-puck-givee))))
+  (is (nil? (draw-puck-givee))))
 
 (deftest draw-puck-giver-test
   (is (some?
         (some #{(draw-puck-giver)} (deref giver-hat))))
   (reset! giver-hat [])
-  (is (= nil
-         (draw-puck-giver))))
+  (is (nil? (draw-puck-giver))))
 
 (deftest discard-puck-test
   (is (= [:RinSta]
@@ -45,9 +43,8 @@
   (is (= [:JohLen :GeoHar :PauMcc]
          (deref givee-hat)))
   (is (= [:RinSta]
-         (deref discards)))
-  (is (= nil
-         (discard-puck :RinStaX))))
+         (deref discards))) nil? test
+  (is (nil? (discard-puck :RinStaX))))
 
 (deftest remove-puck-giver-test
   (is (= [:JohLen :GeoHar :PauMcc]

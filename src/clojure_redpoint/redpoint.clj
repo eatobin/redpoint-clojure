@@ -53,9 +53,10 @@
 
 (defn runner []
   (initialize-state)
-  (while (#(not= % "q") (clojure.string/lower-case (print-and-ask)))
+  (while (not= (clojure.string/lower-case (print-and-ask)) "q"))
     (do (start-new-year)
-        (println "Bye!"))))
+        (while (some? (deref givee)))
+        (while (some? (deref giver)))))
 
 ;(some? :foo) => true
 ;(some? nil) => false
