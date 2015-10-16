@@ -14,10 +14,6 @@
   (reset! givee :none)
   (make-roster "blackhawks2010.txt"))
 
-(defn year-runner []
-  ;TODO
-  )
-
 (defn start-new-year []
   (swap! year inc)
   (add-new-year)
@@ -43,7 +39,7 @@
   (draw-puck-givee))
 
 ;(defn ask []
-;  (if (#(= % "q") (clojure.string/lower-case (read-line)))
+;  (if (#(not= % "q") (clojure.string/lower-case (print-and-ask)))
 ;    true
 ;    (do
 ;      (println "That is not a valid response.\nPlease re-enter.")
@@ -54,6 +50,15 @@
   (println (print-string-giving-roster (deref year)))
   (println "Continue? ('q' to quit): ")
   (read-line))
+
+(defn runner []
+  (initialize-state)
+  (while (#(not= % "q") (clojure.string/lower-case (print-and-ask)))
+    (do (start-new-year)
+        (println "Bye!"))))
+
+;(some? :foo) => true
+;(some? nil) => false
 
 
 ;def runner
