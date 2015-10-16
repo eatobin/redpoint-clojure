@@ -43,7 +43,7 @@
   (is (= [:JohLen :GeoHar :PauMcc]
          (deref givee-hat)))
   (is (= [:RinSta]
-         (deref discards))) nil? test
+         (deref discards)))
   (is (nil? (discard-puck :RinStaX))))
 
 (deftest remove-puck-giver-test
