@@ -32,7 +32,8 @@
                   (deref year) (deref givee))
   (set-giver-code (deref givee)
                   (deref year) (deref giver))
-  (remove-puck-givee (deref givee)))
+  (remove-puck-givee (deref givee))
+  (reset! givee nil))
 
 (defn givee-is-failure []
   (discard-puck (deref givee))
@@ -53,13 +54,20 @@
 
 (defn runner []
   (initialize-state)
-  (while (not= (clojure.string/lower-case (print-and-ask)) "q"))
-    (do (start-new-year)
-        (while (some? (deref givee)))
-        (while (some? (deref giver)))))
-
-;(some? :foo) => true
-;(some? nil) => false
+  (while (not= (clojure.string/lower-case (print-and-ask)) "q")
+    (do
+      (start-new-year)
+      (while (some? (deref givee))
+        (do
+          (while (some? (deref giver))
+            (do
+              (if (and
+                    (givee-not-self (deref giver) (deref givee))
+                    (givee-not-recip (deref giver) (deref givee) (deref year))
+                    (givee-not-repeat (deref giver) (deref givee) (deref year)))
+                (givee-is-success)
+                (givee-is-failure))))))
+      (select-new-giver))))
 
 
 ;def runner
