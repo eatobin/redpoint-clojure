@@ -27,6 +27,9 @@
 
 (deftest draw-puck-givee-test
   (is (some?
+        (some #{(draw-puck-givee)} (deref givee-hat))))
+  (reset! givee-hat (empty (deref givee-hat)))
+  (is (some?
         (some #{(draw-puck-givee)} (deref givee-hat)))))
 
 (deftest draw-puck-giver-test

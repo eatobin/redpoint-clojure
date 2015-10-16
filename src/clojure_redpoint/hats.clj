@@ -10,10 +10,12 @@
   (reset! discards []))
 
 (defn draw-puck-givee []
-  (rand-nth (deref givee-hat)))
+  (if (not= 0 (count (deref givee-hat)))
+    (rand-nth (deref givee-hat))))
 
 (defn draw-puck-giver []
-  (rand-nth (deref giver-hat)))
+  (if (not= 0 (count (deref giver-hat)))
+    (rand-nth (deref giver-hat))))
 
 (defn remove-puck-givee [p]
   (if (some #{p} (deref givee-hat))
