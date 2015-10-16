@@ -28,13 +28,16 @@
 (deftest draw-puck-givee-test
   (is (some?
         (some #{(draw-puck-givee)} (deref givee-hat))))
-  (reset! givee-hat (empty (deref givee-hat)))
-  (is (some?
-        (some #{(draw-puck-givee)} (deref givee-hat)))))
+  (reset! givee-hat [])
+  (is (= nil
+         (draw-puck-givee))))
 
 (deftest draw-puck-giver-test
   (is (some?
-        (some #{(draw-puck-giver)} (deref giver-hat)))))
+        (some #{(draw-puck-giver)} (deref giver-hat))))
+  (reset! giver-hat [])
+  (is (= nil
+         (draw-puck-giver))))
 
 (deftest discard-puck-test
   (is (= [:RinSta]

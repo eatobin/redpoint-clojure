@@ -10,27 +10,27 @@
   (reset! discards []))
 
 (defn draw-puck-givee []
-  (if (not= 0 (count (deref givee-hat)))
+  (when (not= 0 (count (deref givee-hat)))
     (rand-nth (deref givee-hat))))
 
 (defn draw-puck-giver []
-  (if (not= 0 (count (deref giver-hat)))
+  (when (not= 0 (count (deref giver-hat)))
     (rand-nth (deref giver-hat))))
 
 (defn remove-puck-givee [p]
-  (if (some #{p} (deref givee-hat))
+  (when (some #{p} (deref givee-hat))
     (reset! givee-hat (into [] (remove #{p} (deref givee-hat))))))
 
 (defn remove-puck-giver [p]
-  (if (some #{p} (deref giver-hat))
+  (when (some #{p} (deref giver-hat))
     (reset! giver-hat (into [] (remove #{p} (deref giver-hat))))))
 
 (defn discard-puck [p]
-  (if (remove-puck-givee p)
+  (when (remove-puck-givee p)
     (swap! discards conj p)))
 
 (defn return-discards []
-  (if (> (count (deref discards)) 0)
+  (when (> (count (deref discards)) 0)
     (do
       (swap! givee-hat into (deref discards))
       (reset! discards []))))
