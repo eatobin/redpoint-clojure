@@ -54,13 +54,14 @@
 
 (deftest givee-is-success-test
   (start-new-year)
-  (givee-is-success)
-  (is (= (deref givee)
-         (get-givee-code (deref giver) (deref year))))
-  (is (= (deref giver)
-         (get-giver-code (deref givee) (deref year))))
-  (is (= nil
-         (some #{(deref givee)} (deref givee-hat)))))
+  (let [temp-ge (deref givee)]
+    (givee-is-success)
+    (is (= temp-ge
+           (get-givee-code (deref giver) (deref year))))
+    (is (= (deref giver)
+           (get-giver-code temp-ge (deref year))))
+    (is (= nil
+           (some #{temp-ge} (deref givee-hat))))))
 
 (deftest givee-is-failure-test
   (start-new-year)
