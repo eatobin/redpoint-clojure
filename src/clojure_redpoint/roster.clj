@@ -89,7 +89,7 @@
       (do
         (swap! roster-string conj "\nThere is a logic error in this year's pairings.\nDo you see it?\nIf not... call me and I'll explain!\n\n")
         (doseq [p (deref no-givee)]
-          (swap! roster-string conj (get-player-name p) " is giving to no one.\n"))
+          (swap! roster-string conj (get-player-name p) " is buying for no one.\n"))
         (doseq [p (deref no-giver)]
           (swap! roster-string conj (get-player-name p) " is receiving from no one.\n"))))
     (apply str (deref roster-string))))

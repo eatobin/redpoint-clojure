@@ -44,7 +44,7 @@
   (println "Continue? ('q' to quit): ")
   (read-line))
 
-(defn runner []
+(defn -main []
   (initialize-state)
   (while (not= (clojure.string/lower-case (print-and-ask)) "q")
     (start-new-year)
