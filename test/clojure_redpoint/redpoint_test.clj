@@ -65,8 +65,9 @@
 
 (deftest givee-is-failure-test
   (start-new-year)
-  (givee-is-failure)
-  (is (= (deref givee)
-         (some #{(deref givee)} (deref discards))))
-  (is (= nil
-         (some #{(deref givee)} (deref givee-hat)))))
+  (let [temp-ge (deref givee)]
+    (givee-is-failure)
+    (is (= temp-ge
+           (some #{temp-ge} (deref discards))))
+    (is (= nil
+           (some #{temp-ge} (deref givee-hat))))))

@@ -99,6 +99,6 @@ Ringo Starr is buying for John Lennon
 There is a logic error in this year's pairings.
 Do you see it?\nIf not... call me and I'll explain!
 
-John Lennon is giving to no one.
+John Lennon is buying for no one.
 Paul McCartney is receiving from no one.\n"
          (print-string-giving-roster 0))))
