@@ -37,15 +37,7 @@
 
 (defn givee-is-failure []
   (discard-puck (deref givee))
-  (draw-puck-givee))
-
-;(defn ask []
-;  (if (#(not= % "q") (clojure.string/lower-case (print-and-ask)))
-;    true
-;    (do
-;      (println "That is not a valid response.\nPlease re-enter.")
-;      (println)
-;      (recur))))
+  (reset! givee (draw-puck-givee)))
 
 (defn print-and-ask []
   (println (print-string-giving-roster (deref year)))
@@ -55,42 +47,19 @@
 (defn runner []
   (initialize-state)
   (while (not= (clojure.string/lower-case (print-and-ask)) "q")
-    (do
-      (start-new-year)
+    (start-new-year)
+    (while (some? (deref giver))
       (while (some? (deref givee))
-        (do
-          (while (some? (deref giver))
-            (do
-              (if (and
-                    (givee-not-self (deref giver) (deref givee))
-                    (givee-not-recip (deref giver) (deref givee) (deref year))
-                    (givee-not-repeat (deref giver) (deref givee) (deref year)))
-                (givee-is-success)
-                (givee-is-failure))))))
-      (select-new-giver))))
-
-
-;def runner
-;  until print_and_ask(@year).downcase.eql?('q')
-;    self.start_new_year
-;    until @giver.nil?
-;      until @givee.nil?
-;        if Rules.givee_not_self(@giver, @givee) &&
-;            Rules.givee_not_recip(@giver, @givee, @roster, @year) &&
-;            Rules.givee_not_repeat(@giver, @givee, @roster, @year)
-;          @givee = self.givee_is_success
-;        else
-;          @givee = self.givee_is_failure
-;        end
-;      end
-;      self.select_new_giver
-;    end
-;    puts
-;  end
-;
-;  puts
-;  puts 'This was fun!'
-;  puts 'Talk about a position with Redpoint?'
-;  puts 'Please call: Eric Tobin 773-325-1516'
-;  puts 'Thanks! Bye...'
-;end
+        (if (and
+              (givee-not-self (deref giver) (deref givee))
+              (givee-not-recip (deref giver) (deref givee) (deref year))
+              (givee-not-repeat (deref giver) (deref givee) (deref year)))
+          (givee-is-success)
+          (givee-is-failure)))
+      (select-new-giver))
+    (println))
+  (println)
+  (println "This was fun!")
+  (println "Talk about a position with Redpoint?")
+  (println "Please call: Eric Tobin 773-325-1516")
+  (println "Thanks! Bye..."))
