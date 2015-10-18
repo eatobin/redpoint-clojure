@@ -62,4 +62,5 @@
   (println "This was fun!")
   (println "Talk about a position with Redpoint?")
   (println "Please call: Eric Tobin 773-325-1516")
-  (println "Thanks! Bye..."))
+  (println "Thanks! Bye...")
+  (println))
