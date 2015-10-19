@@ -25,15 +25,15 @@ KarLav, Karen Lavengood, RinSta, EriTob\n")
 
 (deftest givee-not-self-test
   (is (= true
-         (givee-not-self :RinSta :GeoHar)))
+         (givee-not-self? :RinSta :GeoHar)))
   (is (= false
-         (givee-not-self :RinSta :RinSta))))
+         (givee-not-self? :RinSta :RinSta))))
 
 (deftest givee-not-recip-test
   (is (= true
-         (givee-not-recip :RinSta :JohLen 0)))
+         (givee-not-recip? :RinSta :JohLen 0)))
   (is (= false
-         (givee-not-recip :RinSta :KarLav 0))))
+         (givee-not-recip? :RinSta :KarLav 0))))
 
 (deftest givee-not-repeat-test
   (add-new-year)
@@ -45,20 +45,20 @@ KarLav, Karen Lavengood, RinSta, EriTob\n")
   (set-givee-code :RinSta 3 :EriTob)
   (set-givee-code :RinSta 4 :KarLav)
   (is (= false
-         (givee-not-repeat :RinSta :JohLen 2)))
+         (givee-not-repeat? :RinSta :JohLen 2)))
   (is (= false
-         (givee-not-repeat :RinSta :GeoHar 2)))
+         (givee-not-repeat? :RinSta :GeoHar 2)))
   (is (= true
-         (givee-not-repeat :RinSta :KarLav 2)))
+         (givee-not-repeat? :RinSta :KarLav 2)))
   (is (= false
-         (givee-not-repeat :RinSta :GeoHar 2)))
+         (givee-not-repeat? :RinSta :GeoHar 2)))
   (is (= true
-         (givee-not-repeat :RinSta :JohLen 5)))
+         (givee-not-repeat? :RinSta :JohLen 5)))
   (is (= true
-         (givee-not-repeat :RinSta :GeoHar 5)))
+         (givee-not-repeat? :RinSta :GeoHar 5)))
   (is (= false
-         (givee-not-repeat :RinSta :PauMcc 5)))
+         (givee-not-repeat? :RinSta :PauMcc 5)))
   (is (= false
-         (givee-not-repeat :RinSta :EriTob 5)))
+         (givee-not-repeat? :RinSta :EriTob 5)))
   (is (= false
-         (givee-not-repeat :RinSta :KarLav 5))))
+         (givee-not-repeat? :RinSta :KarLav 5))))

@@ -51,9 +51,9 @@
     (while (some? (deref giver))
       (while (some? (deref givee))
         (if (and
-              (givee-not-self (deref giver) (deref givee))
-              (givee-not-recip (deref giver) (deref givee) (deref year))
-              (givee-not-repeat (deref giver) (deref givee) (deref year)))
+              (givee-not-self? (deref giver) (deref givee))
+              (givee-not-recip? (deref giver) (deref givee) (deref year))
+              (givee-not-repeat? (deref giver) (deref givee) (deref year)))
           (givee-is-success)
           (givee-is-failure)))
       (select-new-giver))
