@@ -1,6 +1,6 @@
-(ns clojure-redpoint.redpoint-test
+(ns clojure-redpoint.main-test
   (:require [clojure.test :refer :all]
-            [clojure-redpoint.redpoint :refer :all]
+            [clojure-redpoint.main :refer :all]
             [clojure-redpoint.roster :refer :all]
             [clojure-redpoint.hats :refer :all]
             [clojure-redpoint.rules :refer :all]))

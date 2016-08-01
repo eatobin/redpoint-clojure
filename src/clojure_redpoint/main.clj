@@ -1,4 +1,4 @@
-(ns clojure-redpoint.redpoint
+(ns clojure-redpoint.main
   (:require [clojure-redpoint.roster :refer :all]
             [clojure-redpoint.hats :refer :all]
             [clojure-redpoint.rules :refer :all])

@@ -1,5 +1,6 @@
 (ns clojure-redpoint.roster
-  (:require [clojure-csv.core :as csv]))
+  (:require [clojure-csv.core :as csv]
+            [clojure.string :as cs]))
 
 ;"blackhawks2010.txt"
 ;"beatles2014.txt"
@@ -20,7 +21,7 @@
 
 (defn make-roster [f]
   (let [slurped (slurp f)
-        de-spaced (clojure.string/replace slurped #", " ",")
+        de-spaced (cs/replace slurped #", " ",")
         parsed (csv/parse-csv de-spaced)]
     (def team-name ((first (vec parsed)) 0))
     (def first-year (read-string ((first (vec parsed)) 1)))
