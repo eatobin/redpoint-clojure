@@ -8,6 +8,11 @@ RinSta, Ringo Starr, JohLen, GeoHar
 JohLen, John Lennon, PauMcc, RinSta
 GeoHar, George Harrison, RinSta, PauMcc
 PauMcc, Paul McCartney, GeoHar, JohLen\n")
+  (spit "beatles-partial2014.txt" "The Partial Beatles, 2014
+RinSta, Ringo Starr, JohLen, GeoHar
+JohLen, John Lennon, none, RinSta
+GeoHar, George Harrison, RinSta, PauMcc
+PauMcc, Paul McCartney, GeoHar, none\n")
   (make-roster "beatles2014.txt"))
 
 (defn teardown [])
