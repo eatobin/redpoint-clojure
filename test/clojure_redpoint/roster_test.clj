@@ -86,7 +86,6 @@ PauMcc, Paul McCartney, GeoHar, none\n")
          (deref roster))))
 
 (deftest print-string-giving-roster-test
-  (make-roster "beatles2014.txt")
   (is (= "The Beatles - Year 2014 Gifts:
 
 George Harrison is buying for Ringo Starr
