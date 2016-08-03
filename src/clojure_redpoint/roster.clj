@@ -3,8 +3,6 @@
             [clojure.string :as cs]))
 
 ;"blackhawks2010.txt"
-;"beatles2014.txt"
-;"beatles-partial2014.txt"
 
 (def team-name)
 (def first-year)
