@@ -1,5 +1,6 @@
 (ns clojure-redpoint.main
-  (:require [clojure-redpoint.roster :refer :all]
+  (:require [clojure.string :as cs]
+            [clojure-redpoint.roster :refer :all]
             [clojure-redpoint.hats :refer :all]
             [clojure-redpoint.rules :refer :all])
   (:gen-class))
@@ -46,7 +47,7 @@
 
 (defn -main []
   (initialize-state)
-  (while (not= (clojure.string/lower-case (print-and-ask)) "q")
+  (while (not= (cs/lower-case (print-and-ask)) "q")
     (start-new-year)
     (while (some? (deref giver))
       (while (some? (deref givee))
