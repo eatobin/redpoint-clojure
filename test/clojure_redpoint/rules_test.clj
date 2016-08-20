@@ -50,8 +50,6 @@ KarLav, Karen Lavengood, RinSta, EriTob\n")
          (givee-not-repeat? :RinSta :GeoHar 2)))
   (is (= true
          (givee-not-repeat? :RinSta :KarLav 2)))
-  (is (= false
-         (givee-not-repeat? :RinSta :GeoHar 2)))
   (is (= true
          (givee-not-repeat? :RinSta :JohLen 5)))
   (is (= true
