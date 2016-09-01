@@ -22,3 +22,12 @@
 (defn make-player [p-name gift-history]
   (hash-map :name p-name
             :gift-history gift-history))
+
+(defn make-player-map [[s n ge gr]]
+  (let [gp (make-gift-pair ge gr)
+        plr (make-player n (vector gp))]
+    (hash-map (keyword s) plr)))
+
+(defn make-players-map [roster-list]
+  (let [pl (make-players-list roster-list)]
+    (map make-player-map pl)))
