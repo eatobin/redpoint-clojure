@@ -52,3 +52,8 @@
 (defn get-giver-in-gift-pair [g-pair]
   (get g-pair :giver))
 
+(defn set-gift-pair-in-gift-history [g-year g-pair g-hist]
+  (assoc g-hist g-year g-pair))
+
+(defn set-gift-history-in-player [g-hist plr]
+  (assoc plr :gift-history g-hist))
