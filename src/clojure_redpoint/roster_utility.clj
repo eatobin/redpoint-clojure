@@ -31,3 +31,6 @@
 (defn make-players-map [roster-list]
   (let [pl (make-players-list roster-list)]
     (map make-player-map pl)))
+
+(defn get-player-in-roster [plr-sym plrs-map]
+  (get plrs-map plr-sym))
