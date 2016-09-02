@@ -19,9 +19,9 @@
     :givee givee
     :giver giver))
 
-(defn make-player [p-name gift-history]
+(defn make-player [p-name g-hist]
   (hash-map :name p-name
-            :gift-history gift-history))
+            :gift-history g-hist))
 
 (defn make-player-map [[s n ge gr]]
   (let [gp (make-gift-pair ge gr)
@@ -34,3 +34,21 @@
 
 (defn get-player-in-roster [plr-sym plrs-map]
   (get plrs-map plr-sym))
+
+(defn get-gift-history-in-player [plr]
+  (get plr :gift-history))
+
+(defn get-gift-pair-in-gift-history [g-hist g-year]
+  (get g-hist g-year))
+
+(defn get-gift-pair-in-roster [plr-sym plrs-map g-year]
+  (let [plr (get-player-in-roster plr-sym plrs-map)
+        gh (get-gift-history-in-player plr)]
+    (get-gift-pair-in-gift-history gh g-year)))
+
+(defn get-givee-in-gift-pair [g-pair]
+  (get g-pair :givee))
+
+(defn get-giver-in-gift-pair [g-pair]
+  (get g-pair :giver))
+
