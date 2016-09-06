@@ -57,3 +57,26 @@
 
 (defn set-gift-history-in-player [g-hist plr]
   (assoc plr :gift-history g-hist))
+
+(defn set-gift-pair-in-roster [plr-sym g-year g-pair plrs-map]
+  (let [plr (get-player-in-roster plr-sym plrs-map)
+        gh (get-gift-history-in-player plr)
+        ngh (set-gift-pair-in-gift-history g-year g-pair gh)
+        nplr (set-gift-history-in-player ngh plr)]
+    (assoc plrs-map plr-sym nplr)))
+
+(defn check-give [plr-sym g-year give plrs-map]
+  (let [plr (get-player-in-roster plr-sym plrs-map)
+        gh (get-gift-history-in-player plr)
+        h-len (count gh)]
+    (and (contains? plrs-map plr-sym)
+         (contains? plrs-map give)
+         (<= (+ g-year 1) h-len))))
+
+(defn add-year-in-player [plr]
+  (let [gh (get-gift-history-in-player plr)
+        ngh (conj gh {:giver :none, :givee :none})]
+    (set-gift-history-in-player ngh plr)))
+
+(defn add-year-in-roster [plrs-map]
+  (map add-year-in-player (vals plrs-map)))
