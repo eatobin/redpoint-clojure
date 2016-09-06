@@ -78,5 +78,13 @@
         ngh (conj gh {:giver :none, :givee :none})]
     (set-gift-history-in-player ngh plr)))
 
+;(defn add-year-in-roster [plrs-map]
+;  (map add-year-in-player (vals plrs-map)))
+
 (defn add-year-in-roster [plrs-map]
-  (map add-year-in-player (vals plrs-map)))
+  (into {}
+    (for [[k v] plrs-map]
+      [k (add-year-in-player v)])))
+
+(defn foo [m f]
+  (into {} (for [[k v] m] [k (f v)])))
