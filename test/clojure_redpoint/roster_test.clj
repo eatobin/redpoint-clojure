@@ -54,6 +54,10 @@
   (is (= test-player
          (get-player-in-roster :RinSta test-players-map))))
 
+(deftest get-player-name-in-roster-test
+  (is (= "Ringo Starr"
+         (get-player-name-in-roster :RinSta test-players-map))))
+
 ;(deftest make-roster-test
 ;  (is (= "The Beatles"
 ;         team-name))
