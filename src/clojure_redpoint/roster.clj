@@ -11,6 +11,16 @@
   (let [line (make-roster-info roster-list)]
     (read-string (last line))))
 
+(defn get-player-name-in-roster [plr-sym plrs-map]
+  (let [plr (get-player-in-roster plr-sym plrs-map)]
+    (get plr :name)))
+
+(defn get-givee-in-roster [plr-sym plrs-map g-year]
+  (let [gp (get-gift-pair-in-roster plr-sym plrs-map g-year)]
+    (get-giver-in-gift-pair gp)))
+
+
+
 ;"blackhawks2010.txt"
 
 (def team-name)
