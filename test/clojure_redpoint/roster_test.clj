@@ -36,6 +36,8 @@
                        :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
                        :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
 
+(def test-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]})
+
 (deftest get-roster-name-test
   (is (= "The Beatles"
          (get-roster-name test-roster-list))))
@@ -47,6 +49,10 @@
 (deftest make-players-map-test
   (is (= test-players-map
          (make-players-map test-roster-list))))
+
+(deftest get-player-in-roster-test
+  (is (= test-player
+         (get-player-in-roster :RinSta test-players-map))))
 
 ;(deftest make-roster-test
 ;  (is (= "The Beatles"
