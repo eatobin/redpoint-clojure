@@ -36,6 +36,11 @@
                        :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
                        :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
 
+(def test-players-map-ge {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
+                          :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                          :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :GeoHar}]},
+                          :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
+
 (def test-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]})
 
 (deftest get-roster-name-test
@@ -61,6 +66,10 @@
 (deftest get-givee-in-roster-test
   (is (= :GeoHar
          (get-givee-in-roster :PauMcc test-players-map 0))))
+
+(deftest set-givee-in-roster-pass-test
+  (is (= test-players-map-ge
+         (set-givee-in-roster :GeoHar 0 :GeoHar test-players-map))))
 
 ;(deftest make-roster-test
 ;  (is (= "The Beatles"
