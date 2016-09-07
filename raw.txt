@@ -62,3 +62,6 @@ fromList [("GeoHar",Player {name = "George Harrison", giftHist = [GiftPair {give
 
 fromList [("PauMcc",Player {name = "Paul McCartney", giftHist = [GiftPair {givee = "GeoHar", giver = "JohLen"}]})]
 fromList [("RinSta",Player {name = "Ringo Starr", giftHist = [GiftPair {givee = "JohLen", giver = "GeoHar"}]})]
+
+(defn foo [m f]
+  (into {} (for [[k v] m] [k (f v)])))
