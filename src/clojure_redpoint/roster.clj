@@ -17,9 +17,18 @@
 
 (defn get-givee-in-roster [plr-sym plrs-map g-year]
   (let [gp (get-gift-pair-in-roster plr-sym plrs-map g-year)]
+    (get-givee-in-gift-pair gp)))
+
+(defn get-giver-in-roster [plr-sym plrs-map g-year]
+  (let [gp (get-gift-pair-in-roster plr-sym plrs-map g-year)]
     (get-giver-in-gift-pair gp)))
 
-
+(defn set-givee-in-roster [plr-sym g-year ge plrs-map]
+  (if (check-give plr-sym g-year ge plrs-map)
+    (let [gr (get-giver-in-roster plr-sym plrs-map g-year)
+          gp (make-gift-pair ge gr)]
+      (set-gift-pair-in-roster plr-sym g-year gp plrs-map))
+    plrs-map))
 
 ;"blackhawks2010.txt"
 
