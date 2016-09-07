@@ -58,6 +58,10 @@
   (is (= "Ringo Starr"
          (get-player-name-in-roster :RinSta test-players-map))))
 
+(deftest get-givee-in-roster-test
+  (is (= :GeoHar
+         (get-givee-in-roster :PauMcc test-players-map 0))))
+
 ;(deftest make-roster-test
 ;  (is (= "The Beatles"
 ;         team-name))
