@@ -41,6 +41,11 @@
                           :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :GeoHar}]},
                           :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
 
+(def test-players-map-gr {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
+                          :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                          :GeoHar {:name "George Harrison", :gift-history [{:giver :GeoHar, :givee :RinSta}]},
+                          :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
+
 (def test-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]})
 
 (deftest get-roster-name-test
@@ -70,6 +75,49 @@
 (deftest set-givee-in-roster-pass-test
   (is (= test-players-map-ge
          (set-givee-in-roster :GeoHar 0 :GeoHar test-players-map))))
+
+(deftest set-givee-in-roster-fail-plr-test
+  (is (= test-players-map
+         (set-givee-in-roster :GeoHarX 0 :GeoHar test-players-map))))
+
+(deftest set-givee-in-roster-fail-yr-test
+  (is (= test-players-map
+         (set-givee-in-roster :GeoHar 9 :GeoHar test-players-map))))
+
+(deftest set-givee-in-roster-fail-ge-test
+  (is (= test-players-map
+         (set-givee-in-roster :GeoHar 0 :GeoHarX test-players-map))))
+
+
+(deftest set-giver-in-roster-pass-test
+  (is (= test-players-map-gr
+         (set-giver-in-roster :GeoHar 0 :GeoHar test-players-map))))
+
+(deftest set-giver-in-roster-fail-plr-test
+  (is (= test-players-map
+         (set-giver-in-roster :GeoHarX 0 :GeoHar test-players-map))))
+
+(deftest set-giver-in-roster-fail-yr-test
+  (is (= test-players-map
+         (set-giver-in-roster :GeoHar 9 :GeoHar test-players-map))))
+
+(deftest set-giver-in-roster-fail-ge-test
+  (is (= test-players-map
+         (set-giver-in-roster :GeoHar 0 :GeoHarX test-players-map))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ;(deftest make-roster-test
 ;  (is (= "The Beatles"
