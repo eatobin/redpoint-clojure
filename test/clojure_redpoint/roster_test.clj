@@ -46,6 +46,19 @@
                           :GeoHar {:name "George Harrison", :gift-history [{:giver :GeoHar, :givee :RinSta}]},
                           :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
 
+(def test-players-map-add {:RinSta {:name         "Ringo Starr",
+                                    :gift-history [{:giver :GeoHar, :givee :JohLen}
+                                                   {:giver :none, :givee :none}]},
+                           :JohLen {:name         "John Lennon",
+                                    :gift-history [{:giver :RinSta, :givee :PauMcc}
+                                                   {:giver :none, :givee :none}]},
+                           :GeoHar {:name         "George Harrison",
+                                    :gift-history [{:giver :PauMcc, :givee :RinSta}
+                                                   {:giver :none, :givee :none}]},
+                           :PauMcc {:name         "Paul McCartney",
+                                    :gift-history [{:giver :JohLen, :givee :GeoHar}
+                                                   {:giver :none, :givee :none}]}})
+
 (def test-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]})
 
 (deftest get-roster-name-test
@@ -88,7 +101,6 @@
   (is (= test-players-map
          (set-givee-in-roster :GeoHar 0 :GeoHarX test-players-map))))
 
-
 (deftest set-giver-in-roster-pass-test
   (is (= test-players-map-gr
          (set-giver-in-roster :GeoHar 0 :GeoHar test-players-map))))
@@ -105,7 +117,9 @@
   (is (= test-players-map
          (set-giver-in-roster :GeoHar 0 :GeoHarX test-players-map))))
 
-
+(deftest add-year-in-roster-test
+  (is (= test-players-map-add
+         (add-year-in-roster test-players-map))))
 
 
 
