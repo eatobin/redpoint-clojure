@@ -16,8 +16,8 @@
 
 (defn make-gift-pair [givee giver]
   (hash-map
-    :givee givee
-    :giver giver))
+    :givee (keyword givee)
+    :giver (keyword giver)))
 
 (defn make-player [p-name g-hist]
   (hash-map :name p-name
@@ -30,7 +30,7 @@
 
 (defn make-players-map [roster-list]
   (let [pl (make-players-list roster-list)]
-    (map make-player-map pl)))
+    (into {} (map make-player-map pl))))
 
 (defn get-player-in-roster [plr-sym plrs-map]
   (get plrs-map plr-sym))
