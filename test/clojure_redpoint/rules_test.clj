@@ -18,7 +18,7 @@
                                                               (set-givee-in-roster :RinSta 2 :PauMcc
                                                                                    (set-givee-in-roster :RinSta 1 :GeoHar extended)))))
 
-(deftest givee-not-self-testg-year
+(deftest givee-not-self-test
   (is (= true
          (givee-not-self? :RinSta :GeoHar)))
   (is (= false
