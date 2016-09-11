@@ -90,3 +90,10 @@
 ;        (doseq [p (deref no-giver)]
 ;          (swap! roster-string conj (get-player-name p) " is receiving from no one.\n"))))
 ;    (apply str (deref roster-string))))
+
+
+;(deftest draw-puck-givee-test
+;  (is (some?
+;        (some #{(draw-puck-givee)} (deref givee-hat))))
+;  (reset! givee-hat [])
+;  (is (nil? (draw-puck-givee))))
