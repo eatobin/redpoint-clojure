@@ -25,19 +25,15 @@
 (defn read-file-into-string [file-path]
   (slurp file-path))
 
-;(defn initialize-state []
-;  (reset! year 0)
-;  (reset! giver :none)
-;  (reset! givee :none)
-;  (make-roster "blackhawks2010.txt"))
-;
-;(defn start-new-year []
-;  (swap! year inc)
-;  (add-new-year)
-;  (make-hats roster)
-;  (reset! giver (draw-puck-giver))
-;  (reset! givee (draw-puck-givee)))
-;
+(defn start-new-year []
+  (swap! a-g-year inc)
+  (swap! a-plrs-map add-year-in-roster)
+  (reset! a-gr-hat (make-hat (deref a-plrs-map)))
+  (reset! a-ge-hat (make-hat (deref a-plrs-map)))
+  (reset! a-giver (draw-puck-giver (deref a-gr-hat)))
+  (reset! a-givee (draw-puck-givee (deref a-ge-hat)))
+  (swap! a-discards empty-discards))
+
 ;(defn select-new-giver []
 ;  (remove-puck-giver (deref giver))
 ;  (return-discards)
@@ -73,6 +69,7 @@
     (reset! a-gr-hat [])
     (reset! a-ge-hat [])
     (reset! a-discards [])
+    (start-new-year)
     ;  (while (not= (cs/lower-case (print-and-ask)) "q")
     ;    (start-new-year)
     ;    (while (some? (deref giver))
