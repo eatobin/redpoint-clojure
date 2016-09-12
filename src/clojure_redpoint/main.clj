@@ -1,14 +1,30 @@
 (ns clojure-redpoint.main
   (:require [clojure.string :as cs]
+            [clojure-redpoint.roster-utility :refer :all]
             [clojure-redpoint.roster :refer :all]
             [clojure-redpoint.hats :refer :all]
             [clojure-redpoint.rules :refer :all])
   (:gen-class))
 
-;(def year (atom 0))
-;(def giver (atom :none))
-;(def givee (atom :none))
-;
+(def a-g-year (atom 0))
+(def a-giver (atom :none))
+(def a-givee (atom :none))
+(def a-plrs-map (atom {}))
+(def a-gr-hat (atom []))
+(def a-ge-hat (atom []))
+(def a-discards (atom []))
+
+(defn draw-puck-givee [ge-hat]
+  (when (not= 0 (count ge-hat))
+    (rand-nth ge-hat)))
+
+(defn draw-puck-giver [gr-hat]
+  (when (not= 0 (count gr-hat))
+    (rand-nth gr-hat)))
+
+(defn read-file-into-string [file-path]
+  (slurp file-path))
+
 ;(defn initialize-state []
 ;  (reset! year 0)
 ;  (reset! giver :none)
@@ -46,25 +62,35 @@
 ;  (read-line))
 ;
 (defn -main []
-  ;  (initialize-state)
-  ;  (while (not= (cs/lower-case (print-and-ask)) "q")
-  ;    (start-new-year)
-  ;    (while (some? (deref giver))
-  ;      (while (some? (deref givee))
-  ;        (if (and
-  ;              (givee-not-self? (deref giver) (deref givee))
-  ;              (givee-not-recip? (deref giver) (deref givee) (deref year))
-  ;              (givee-not-repeat? (deref giver) (deref givee) (deref year)))
-  ;          (givee-is-success)
-  ;          (givee-is-failure)))
-  ;      (select-new-giver))
-  ;    (println))
-  ;  (println)
-  ;  (println "This was fun!")
-  ;  (println "Talk about a position with Redpoint?")
-  ;  (println "Please call: Eric Tobin 773-325-1516")
-  (println "Thanks! Bye...")
-  (println))
+  (reset! a-g-year 0)
+  (reset! a-giver :none)
+  (reset! a-givee :none)
+  (let [roster-list (make-roster-list
+                      (read-file-into-string "blackhawks2010.txt"))
+        r-name (get-roster-name roster-list)
+        r-year (get-roster-year roster-list)]
+    (reset! a-plrs-map (make-players-map roster-list))
+    (reset! a-gr-hat [])
+    (reset! a-ge-hat [])
+    (reset! a-discards [])
+    ;  (while (not= (cs/lower-case (print-and-ask)) "q")
+    ;    (start-new-year)
+    ;    (while (some? (deref giver))
+    ;      (while (some? (deref givee))
+    ;        (if (and
+    ;              (givee-not-self? (deref giver) (deref givee))
+    ;              (givee-not-recip? (deref giver) (deref givee) (deref year))
+    ;              (givee-not-repeat? (deref giver) (deref givee) (deref year)))
+    ;          (givee-is-success)
+    ;          (givee-is-failure)))
+    ;      (select-new-giver))
+    ;    (println))
+    ;  (println)
+    ;  (println "This was fun!")
+    ;  (println "Talk about a position with Redpoint?")
+    ;  (println "Please call: Eric Tobin 773-325-1516")
+    (println (deref a-plrs-map))
+    (println)))
 
 
 ;(defn print-string-giving-roster [gift-year]
