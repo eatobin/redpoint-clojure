@@ -82,7 +82,7 @@
   (read-line))
 
 (defn -main []
-  (reset! a-g-year -1)
+  (reset! a-g-year 0)
   (reset! a-giver :none)
   (reset! a-givee :none)
   (let [roster-list (make-roster-list
@@ -93,30 +93,19 @@
     (reset! a-gr-hat [])
     (reset! a-ge-hat [])
     (reset! a-discards [])
-    (start-new-year)
     (while (not= (cs/lower-case (print-and-ask r-name r-year)) "q")
-      ;    (start-new-year)
-      ;    (while (some? (deref giver))
-      ;      (while (some? (deref givee))
-      ;        (if (and
-      ;              (givee-not-self? (deref giver) (deref givee))
-      ;              (givee-not-recip? (deref giver) (deref givee) (deref year))
-      ;              (givee-not-repeat? (deref giver) (deref givee) (deref year)))
-      ;          (givee-is-success)
-      ;          (givee-is-failure)))
-      ;      (select-new-giver))
-      ;    (println))
-      ;  (println)
-      ;  (println "This was fun!")
-      ;  (println "Talk about a position with Redpoint?")
-      ;  (println "Please call: Eric Tobin 773-325-1516")
-      (println))))
-
-
-
-
-;(deftest draw-puck-givee-test
-;  (is (some?
-;        (some #{(draw-puck-givee)} (deref givee-hat))))
-;  (reset! givee-hat [])
-;  (is (nil? (draw-puck-givee))))
+      (start-new-year)
+      (while (some? (deref a-giver))
+        (while (some? (deref a-givee))
+          (if (and
+                (givee-not-self? (deref a-giver) (deref a-givee))
+                (givee-not-recip? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map))
+                (givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map)))
+            (givee-is-success)
+            (givee-is-failure)))
+        (select-new-giver))
+      (println))
+    (println)
+    (println "This was fun!")
+    (println "Talk about a position with Redpoint?")
+    (println "Please call: Eric Tobin 773-325-1516")))
