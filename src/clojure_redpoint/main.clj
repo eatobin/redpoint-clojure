@@ -56,7 +56,7 @@
   (let [no-givee (atom [])
         no-giver (atom [])
         roster-string (atom [])]
-    (swap! roster-string conj r-name " - Year " (+ r-year (deref a-g-year)) " Gifts:\n\n")
+    (swap! roster-string conj "\n" r-name " - Year " (+ r-year (deref a-g-year)) " Gifts:\n\n")
     (doseq [p (keys (into (sorted-map) (deref a-plrs-map)))]
       (let [player-name (get-player-name-in-roster (deref a-plrs-map) p)
             givee-code (get-givee-in-roster (deref a-plrs-map) p (deref a-g-year))
