@@ -11,16 +11,16 @@
 
 (deftest remove-puck-givee-test
   (is (= [:JohLen :GeoHar :PauMcc]
-         (remove-puck-givee :RinSta test-hat))))
+         (remove-puck-givee test-hat :RinSta))))
 
 (deftest remove-puck-givee-empty-test
   (is (= []
-         (remove-puck-givee :RinSta []))))
+         (remove-puck-givee [] :RinSta))))
 
 (deftest discard-puck-givee-test
   (is (= [:PauMcc :JohLen]
-         (discard-puck-givee :JohLen [:PauMcc]))))
+         (discard-puck-givee [:PauMcc] :JohLen))))
 
 (deftest return-discards-test
   (is (= [:PauMcc :JohLen :GeoHar]
-         (return-discards [:GeoHar] [:PauMcc :JohLen]))))
+         (return-discards [:PauMcc :JohLen] [:GeoHar]))))

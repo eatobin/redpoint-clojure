@@ -58,12 +58,12 @@
         roster-string (atom [])]
     (swap! roster-string conj r-name " - Year " (+ r-year (deref a-g-year)) " Gifts:\n\n")
     (doseq [p (keys (into (sorted-map) (deref a-plrs-map)))]
-      (let [player-name (get-player-name-in-roster p (deref a-plrs-map))
-            givee-code (get-givee-in-roster p (deref a-plrs-map) (deref a-g-year))
-            giver-code (get-giver-in-roster p (deref a-plrs-map) (deref a-g-year))]
+      (let [player-name (get-player-name-in-roster (deref a-plrs-map) p)
+            givee-code (get-givee-in-roster (deref a-plrs-map) p (deref a-g-year))
+            giver-code (get-giver-in-roster (deref a-plrs-map) p (deref a-g-year))]
         (if (= givee-code :none)
           (swap! no-givee conj p)
-          (swap! roster-string conj player-name " is buying for " (get-player-name-in-roster givee-code (deref a-plrs-map)) "\n"))
+          (swap! roster-string conj player-name " is buying for " (get-player-name-in-roster (deref a-plrs-map) givee-code) "\n"))
         (if (= giver-code :none)
           (swap! no-giver conj p))))
     (if-not (and (empty? (deref no-givee))
@@ -71,9 +71,9 @@
       (do
         (swap! roster-string conj "\nThere is a logic error in this year's pairings.\nDo you see it?\nIf not... call me and I'll explain!\n\n")
         (doseq [p (deref no-givee)]
-          (swap! roster-string conj (get-player-name-in-roster p (deref a-plrs-map)) " is buying for no one.\n"))
+          (swap! roster-string conj (get-player-name-in-roster (deref a-plrs-map) p) " is buying for no one.\n"))
         (doseq [p (deref no-giver)]
-          (swap! roster-string conj (get-player-name-in-roster p (deref a-plrs-map)) " is receiving from no one.\n"))))
+          (swap! roster-string conj (get-player-name-in-roster (deref a-plrs-map) p) " is receiving from no one.\n"))))
     (apply str (deref roster-string))))
 
 (defn print-and-ask [r-name r-year]

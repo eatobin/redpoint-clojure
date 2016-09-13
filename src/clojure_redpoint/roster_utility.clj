@@ -32,7 +32,7 @@
   (let [pl (make-players-list roster-list)]
     (into {} (map make-player-map pl))))
 
-(defn get-player-in-roster [plr-sym plrs-map]
+(defn get-player-in-roster [plrs-map plr-sym]
   (get plrs-map plr-sym))
 
 (defn get-gift-history-in-player [plr]
@@ -41,8 +41,8 @@
 (defn get-gift-pair-in-gift-history [g-hist g-year]
   (get g-hist g-year))
 
-(defn get-gift-pair-in-roster [plr-sym plrs-map g-year]
-  (let [plr (get-player-in-roster plr-sym plrs-map)
+(defn get-gift-pair-in-roster [plrs-map plr-sym g-year]
+  (let [plr (get-player-in-roster plrs-map plr-sym)
         gh (get-gift-history-in-player plr)]
     (get-gift-pair-in-gift-history gh g-year)))
 
@@ -58,15 +58,15 @@
 (defn set-gift-history-in-player [g-hist plr]
   (assoc plr :gift-history g-hist))
 
-(defn set-gift-pair-in-roster [plr-sym g-year g-pair plrs-map]
-  (let [plr (get-player-in-roster plr-sym plrs-map)
+(defn set-gift-pair-in-roster [plrs-map plr-sym g-year g-pair]
+  (let [plr (get-player-in-roster plrs-map plr-sym)
         gh (get-gift-history-in-player plr)
         ngh (set-gift-pair-in-gift-history g-year g-pair gh)
         nplr (set-gift-history-in-player ngh plr)]
     (assoc plrs-map plr-sym nplr)))
 
-(defn check-give [plr-sym g-year give plrs-map]
-  (let [plr (get-player-in-roster plr-sym plrs-map)
+(defn check-give [plrs-map plr-sym g-year give]
+  (let [plr (get-player-in-roster plrs-map plr-sym)
         gh (get-gift-history-in-player plr)
         h-len (count gh)]
     (and (contains? plrs-map plr-sym)

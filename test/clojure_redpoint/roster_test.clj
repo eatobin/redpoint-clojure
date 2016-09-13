@@ -54,47 +54,47 @@
 
 (deftest get-player-in-roster-test
   (is (= test-player
-         (get-player-in-roster :RinSta test-players-map))))
+         (get-player-in-roster test-players-map :RinSta))))
 
 (deftest get-player-name-in-roster-test
   (is (= "Ringo Starr"
-         (get-player-name-in-roster :RinSta test-players-map))))
+         (get-player-name-in-roster test-players-map :RinSta))))
 
 (deftest get-givee-in-roster-test
   (is (= :GeoHar
-         (get-givee-in-roster :PauMcc test-players-map 0))))
+         (get-givee-in-roster test-players-map :PauMcc 0))))
 
 (deftest set-givee-in-roster-pass-test
   (is (= test-players-map-ge
-         (set-givee-in-roster :GeoHar 0 :GeoHar test-players-map))))
+         (set-givee-in-roster test-players-map :GeoHar 0 :GeoHar))))
 
 (deftest set-givee-in-roster-fail-plr-test
   (is (= test-players-map
-         (set-givee-in-roster :GeoHarX 0 :GeoHar test-players-map))))
+         (set-givee-in-roster test-players-map :GeoHarX 0 :GeoHar))))
 
 (deftest set-givee-in-roster-fail-yr-test
   (is (= test-players-map
-         (set-givee-in-roster :GeoHar 9 :GeoHar test-players-map))))
+         (set-givee-in-roster test-players-map :GeoHar 9 :GeoHar))))
 
 (deftest set-givee-in-roster-fail-ge-test
   (is (= test-players-map
-         (set-givee-in-roster :GeoHar 0 :GeoHarX test-players-map))))
+         (set-givee-in-roster test-players-map :GeoHar 0 :GeoHarX))))
 
 (deftest set-giver-in-roster-pass-test
   (is (= test-players-map-gr
-         (set-giver-in-roster :GeoHar 0 :GeoHar test-players-map))))
+         (set-giver-in-roster test-players-map :GeoHar 0 :GeoHar))))
 
 (deftest set-giver-in-roster-fail-plr-test
   (is (= test-players-map
-         (set-giver-in-roster :GeoHarX 0 :GeoHar test-players-map))))
+         (set-giver-in-roster test-players-map :GeoHarX 0 :GeoHar))))
 
 (deftest set-giver-in-roster-fail-yr-test
   (is (= test-players-map
-         (set-giver-in-roster :GeoHar 9 :GeoHar test-players-map))))
+         (set-giver-in-roster test-players-map :GeoHar 9 :GeoHar))))
 
 (deftest set-giver-in-roster-fail-ge-test
   (is (= test-players-map
-         (set-giver-in-roster :GeoHar 0 :GeoHarX test-players-map))))
+         (set-giver-in-roster test-players-map :GeoHar 0 :GeoHarX))))
 
 (deftest add-year-in-roster-test
   (is (= test-players-map-add
