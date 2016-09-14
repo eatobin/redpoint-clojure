@@ -5,10 +5,10 @@
   (into [] (keys plrs-map)))
 
 (defn remove-puck-givee [ge-hat givee]
-  (into [] (remove #{givee} ge-hat)))
+  (into [] (filter #(not= % givee) ge-hat)))
 
 (defn remove-puck-giver [gr-hat giver]
-  (into [] (remove #{giver} gr-hat)))
+  (into [] (filter #(not= % giver) gr-hat)))
 
 (defn discard-puck-givee [discards givee]
   (conj discards givee))
