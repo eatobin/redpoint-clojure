@@ -13,10 +13,10 @@
                      add-year-in-roster
                      add-year-in-roster)
                 beatles-plus-pm))
-(def beatles-plus-4 (set-givee-in-roster :RinSta 4 :KarLav
-                                         (set-givee-in-roster :RinSta 3 :EriTob
-                                                              (set-givee-in-roster :RinSta 2 :PauMcc
-                                                                                   (set-givee-in-roster :RinSta 1 :GeoHar extended)))))
+(def beatles-plus-4 (set-givee-in-roster
+                      (set-givee-in-roster
+                        (set-givee-in-roster
+                          (set-givee-in-roster extended :RinSta 1 :GeoHar) :RinSta 2 :PauMcc) :RinSta 3 :EriTob) :RinSta 4 :KarLav))
 
 (deftest givee-not-self-test
   (is (= true
