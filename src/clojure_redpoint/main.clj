@@ -57,23 +57,23 @@
         no-giver (atom [])
         roster-string (atom [])]
     (swap! roster-string conj "\n" r-name " - Year " (+ r-year (deref a-g-year)) " Gifts:\n\n")
-    (doseq [p (keys (into (sorted-map) (deref a-plrs-map)))]
-      (let [player-name (get-player-name-in-roster (deref a-plrs-map) p)
-            givee-code (get-givee-in-roster (deref a-plrs-map) p (deref a-g-year))
-            giver-code (get-giver-in-roster (deref a-plrs-map) p (deref a-g-year))]
+    (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))]
+      (let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
+            givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
+            giver-code (get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
         (if (= givee-code :none)
-          (swap! no-givee conj p)
+          (swap! no-givee conj plr-sym)
           (swap! roster-string conj player-name " is buying for " (get-player-name-in-roster (deref a-plrs-map) givee-code) "\n"))
         (if (= giver-code :none)
-          (swap! no-giver conj p))))
+          (swap! no-giver conj plr-sym))))
     (if-not (and (empty? (deref no-givee))
                  (empty? (deref no-giver)))
       (do
         (swap! roster-string conj "\nThere is a logic error in this year's pairings.\nDo you see it?\nIf not... call me and I'll explain!\n\n")
-        (doseq [p (deref no-givee)]
-          (swap! roster-string conj (get-player-name-in-roster (deref a-plrs-map) p) " is buying for no one.\n"))
-        (doseq [p (deref no-giver)]
-          (swap! roster-string conj (get-player-name-in-roster (deref a-plrs-map) p) " is receiving from no one.\n"))))
+        (doseq [plr-sym (deref no-givee)]
+          (swap! roster-string conj (get-player-name-in-roster (deref a-plrs-map) plr-sym) " is buying for no one.\n"))
+        (doseq [plr-sym (deref no-giver)]
+          (swap! roster-string conj (get-player-name-in-roster (deref a-plrs-map) plr-sym) " is receiving from no one.\n"))))
     (apply str (deref roster-string))))
 
 (defn print-and-ask [r-name r-year]

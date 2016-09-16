@@ -1,10 +1,11 @@
-;(ns clojure-redpoint.main-test
-;  (:require [clojure.test :refer :all]
-;            [clojure-redpoint.main :refer :all]
-;            [clojure-redpoint.roster :refer :all]
-;            [clojure-redpoint.hats :refer :all]
-;            [clojure-redpoint.rules :refer :all]))
-;
+(ns clojure-redpoint.main-test
+  (:require [clojure.test :refer :all]
+            [clojure-redpoint.main :refer :all]
+            [clojure-redpoint.roster :refer :all]
+            [clojure-redpoint.roster-utility :refer :all]
+            [clojure-redpoint.hats :refer :all]
+            [clojure-redpoint.rules :refer :all]))
+
 ;(defn setup []
 ;  (initialize-state))
 ;
@@ -28,29 +29,41 @@
 ;                   :gift-history [{:giver :KriVer, :givee :JoeQue}]}]
 ;         (first (deref roster)))))
 ;
-;(deftest start-new-year-test
-;  (start-new-year)
-;  (is (= 1
-;         (deref year)))
-;  (is (not= :none
-;            (deref giver)))
-;  (is (not= :none
-;            (deref givee)))
-;  (is (= [:AndLad {:name         "Andrew Ladd",
-;                   :gift-history [{:giver :KriVer, :givee :JoeQue}
-;                                  {:giver :none, :givee :none}]}]
-;         (first (deref roster)))))
-;
-;(deftest select-new-giver-test
-;  (start-new-year)
-;  (discard-puck :AdaBur)
-;  (is (= 1
-;         (count (deref discards))))
-;  (select-new-giver)
-;  (is (= 17
-;         (count (deref giver-hat))))
-;  (is (= 0
-;         (count (deref discards)))))
+(deftest start-new-year-test
+  (reset! a-g-year 0)
+  (reset! a-giver :none)
+  (reset! a-givee :none)
+  (let [roster-list (make-roster-list
+                      (read-file-into-string "blackhawks2010.txt"))]
+    (reset! a-plrs-map (make-players-map roster-list))
+    (start-new-year)
+    (is (= 1
+           (deref a-g-year)))
+    (is (not= :none
+              (deref a-giver)))
+    (is (not= :none
+              (deref a-givee)))
+    (is (= [:AndLad {:name         "Andrew Ladd",
+                     :gift-history [{:giver :KriVer, :givee :JoeQue}
+                                    {:giver :none, :givee :none}]}]
+           (first (deref a-plrs-map))))))
+
+(deftest select-new-giver-test
+  (reset! a-g-year 0)
+  (reset! a-giver :none)
+  (reset! a-givee :none)
+  (let [roster-list (make-roster-list
+                      (read-file-into-string "blackhawks2010.txt"))]
+    (reset! a-plrs-map (make-players-map roster-list))
+    (start-new-year)
+    (swap! a-discards discard-puck-givee :AdaBur)
+    (is (= 1
+           (count (deref a-discards))))
+    (select-new-giver)
+    (is (= 17
+           (count (deref a-gr-hat))))
+    (is (= 0
+           (count (deref a-discards))))))
 ;
 ;(deftest givee-is-success-test
 ;  (start-new-year)
