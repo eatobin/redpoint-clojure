@@ -64,17 +64,23 @@
            (count (deref a-gr-hat))))
     (is (= 0
            (count (deref a-discards))))))
-;
-;(deftest givee-is-success-test
-;  (start-new-year)
-;  (let [temp-ge (deref givee)]
-;    (givee-is-success)
-;    (is (= temp-ge
-;           (get-givee-code (deref giver) (deref year))))
-;    (is (= (deref giver)
-;           (get-giver-code temp-ge (deref year))))
-;    (is (= nil
-;           (some #{temp-ge} (deref givee-hat))))))
+
+(deftest givee-is-success-test
+  (reset! a-g-year 0)
+  (reset! a-giver :none)
+  (reset! a-givee :none)
+  (let [roster-list (make-roster-list
+                      (read-file-into-string "blackhawks2010.txt"))]
+    (reset! a-plrs-map (make-players-map roster-list))
+    (start-new-year)
+    (let [temp-ge (deref a-givee)]
+      (givee-is-success)
+      (is (= temp-ge
+             (get-givee-in-roster (deref a-plrs-map) (deref a-giver) (deref a-g-year))))
+      (is (= (deref a-giver)
+             (get-giver-in-roster (deref a-plrs-map) temp-ge (deref a-g-year))))
+      (is (= nil
+             (some #{temp-ge} (deref a-ge-hat)))))))
 ;
 ;(deftest givee-is-failure-test
 ;  (start-new-year)
