@@ -6,29 +6,6 @@
             [clojure-redpoint.hats :refer :all]
             [clojure-redpoint.rules :refer :all]))
 
-;(defn setup []
-;  (initialize-state))
-;
-;(defn teardown [])
-;
-;(defn each-fixture [f]
-;  (setup)
-;  (f)
-;  (teardown))
-;
-;(use-fixtures :each each-fixture)
-;
-;(deftest initialize-state-test
-;  (is (= 0
-;         (deref year)))
-;  (is (= :none
-;         (deref giver)))
-;  (is (= :none
-;         (deref givee)))
-;  (is (= [:AndLad {:name         "Andrew Ladd",
-;                   :gift-history [{:giver :KriVer, :givee :JoeQue}]}]
-;         (first (deref roster)))))
-;
 (deftest start-new-year-test
   (reset! a-g-year 0)
   (reset! a-giver :none)
