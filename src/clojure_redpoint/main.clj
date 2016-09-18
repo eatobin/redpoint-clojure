@@ -52,6 +52,21 @@
   (swap! a-discards discard-puck-givee (deref a-givee))
   (reset! a-givee (draw-puck-givee (deref a-ge-hat))))
 
+
+(defn print-string-giving-roster1 [r-name r-year]
+  (println)
+  (println r-name "- Year" (+ r-year (deref a-g-year)) "Gifts:")
+  (println)
+  (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
+          :let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
+                givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
+                givee-name (get-player-name-in-roster (deref a-plrs-map) givee-code)]
+          :when (not= givee-code :none)]
+    (println player-name "is buying for" givee-name)))
+
+
+
+
 (defn print-string-giving-roster [r-name r-year]
   (let [no-givee (atom [])
         no-giver (atom [])
@@ -77,7 +92,7 @@
     (apply str (deref roster-string))))
 
 (defn print-and-ask [r-name r-year]
-  (println (print-string-giving-roster r-name r-year))
+  (println (print-string-giving-roster1 r-name r-year))
   (println "Continue? ('q' to quit): ")
   (read-line))
 
