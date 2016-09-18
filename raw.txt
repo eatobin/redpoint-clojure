@@ -71,3 +71,34 @@ fromList [("RinSta",Player {name = "Ringo Starr", giftHist = [GiftPair {givee = 
 
 (defn foo [m f]
   (into {} (for [[k v] m] [k (f v)])))
+
+(defn print-string-giving-roster1 [r-name r-year]
+  (println)
+  (println r-name "- Year" (+ r-year (deref a-g-year)) "Gifts:")
+  (println)
+  (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
+          :let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
+                givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
+                givee-name (get-player-name-in-roster (deref a-plrs-map) givee-code)]
+          :when (not= givee-code :none)]
+    (println player-name "is buying for" givee-name))
+  (let [errors? (seq (for [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
+                           :let [givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
+                           :when (= givee-code :none)]
+                       [plr-sym]))]
+    (when errors?
+      (println)
+      (println "There is a logic error in this year's pairings.")
+      (println "Do you see it?")
+      (println "If not... call me and I'll explain!")
+      (println)
+      (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
+              :let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
+                    givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
+              :when (= givee-code :none)]
+        (println player-name "is buying for no one."))
+      (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
+              :let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
+                    giver-code (get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
+              :when (= giver-code :none)]
+        (println player-name "is receiving from no one.")))))

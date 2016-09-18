@@ -52,21 +52,6 @@
   (swap! a-discards discard-puck-givee (deref a-givee))
   (reset! a-givee (draw-puck-givee (deref a-ge-hat))))
 
-
-(defn print-string-giving-roster1 [r-name r-year]
-  (println)
-  (println r-name "- Year" (+ r-year (deref a-g-year)) "Gifts:")
-  (println)
-  (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
-          :let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
-                givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
-                givee-name (get-player-name-in-roster (deref a-plrs-map) givee-code)]
-          :when (not= givee-code :none)]
-    (println player-name "is buying for" givee-name)))
-
-
-
-
 (defn print-string-giving-roster [r-name r-year]
   (let [no-givee (atom [])
         no-giver (atom [])
@@ -81,8 +66,8 @@
           (swap! roster-string conj player-name " is buying for " (get-player-name-in-roster (deref a-plrs-map) givee-code) "\n"))
         (if (= giver-code :none)
           (swap! no-giver conj plr-sym))))
-    (if-not (and (empty? (deref no-givee))
-                 (empty? (deref no-giver)))
+    (when (and (seq (deref no-givee))
+               (seq (deref no-giver)))
       (do
         (swap! roster-string conj "\nThere is a logic error in this year's pairings.\nDo you see it?\nIf not... call me and I'll explain!\n\n")
         (doseq [plr-sym (deref no-givee)]
@@ -92,7 +77,7 @@
     (apply str (deref roster-string))))
 
 (defn print-and-ask [r-name r-year]
-  (println (print-string-giving-roster1 r-name r-year))
+  (println (print-string-giving-roster r-name r-year))
   (println "Continue? ('q' to quit): ")
   (read-line))
 
@@ -118,9 +103,9 @@
                 (givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map)))
             (givee-is-success)
             (givee-is-failure)))
-        (select-new-giver))
-      (println))
+        (select-new-giver)))
     (println)
     (println "This was fun!")
     (println "Talk about a position with Redpoint?")
-    (println "Please call: Eric Tobin 773-325-1516")))
+    (println "Please call: Eric Tobin 773-325-1516")
+    (println)))
