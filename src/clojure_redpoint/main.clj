@@ -78,8 +78,10 @@
 
 (defn print-and-ask [r-name r-year]
   (println (print-string-giving-roster r-name r-year))
-  (println "Continue? ('q' to quit): ")
-  (read-line))
+  (do
+    (print "Continue? ('q' to quit): ")
+    (flush)
+    (read-line)))
 
 (defn -main []
   (reset! a-g-year 0)
