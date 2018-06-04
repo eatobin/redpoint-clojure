@@ -2,11 +2,11 @@
   (:require [clojure-redpoint.roster-utility :refer :all]))
 
 (defn get-roster-name [roster-list]
-  (let [line (make-roster-info roster-list)]
+  (let [line (extract-roster-info roster-list)]
     (first line)))
 
 (defn get-roster-year [roster-list]
-  (let [line (make-roster-info roster-list)]
+  (let [line (extract-roster-info roster-list)]
     (read-string (last line))))
 
 (defn get-player-name-in-roster [plrs-map plr-sym]

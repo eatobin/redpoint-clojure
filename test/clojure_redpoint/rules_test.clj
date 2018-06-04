@@ -6,7 +6,7 @@
             [clojure-redpoint.roster-test :refer :all]))
 
 (def beatles-plus-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, KarLav\nJohLen, John Lennon, GeoHar, RinSta\nGeoHar, George Harrison, PauMcc, JohLen\nPauMcc, Paul McCartney, EriTob, GeoHar\nEriTob, Eric Tobin, KarLav, PauMcc\nKarLav, Karen Lavengood, RinSta, EriTob\n")
-(def beatles-plus-rl (make-roster-list beatles-plus-string))
+(def beatles-plus-rl (make-roster-seq beatles-plus-string))
 (def beatles-plus-pm (make-players-map beatles-plus-rl))
 (def extended ((comp add-year-in-roster
                      add-year-in-roster

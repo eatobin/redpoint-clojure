@@ -95,7 +95,7 @@
   (reset! a-g-year 0)
   (reset! a-giver :none)
   (reset! a-givee :none)
-  (let [roster-list (make-roster-list
+  (let [roster-list (make-roster-seq
                       (read-file-into-string "blackhawks2010.txt"))
         r-name (get-roster-name roster-list)
         r-year (get-roster-year roster-list)]

@@ -10,7 +10,7 @@
   (reset! a-g-year 0)
   (reset! a-giver :none)
   (reset! a-givee :none)
-  (let [roster-list (make-roster-list
+  (let [roster-list (make-roster-seq
                       (read-file-into-string "blackhawks2010.txt"))]
     (reset! a-plrs-map (make-players-map roster-list))
     (start-new-year)
@@ -29,7 +29,7 @@
   (reset! a-g-year 0)
   (reset! a-giver :none)
   (reset! a-givee :none)
-  (let [roster-list (make-roster-list
+  (let [roster-list (make-roster-seq
                       (read-file-into-string "blackhawks2010.txt"))]
     (reset! a-plrs-map (make-players-map roster-list))
     (start-new-year)
@@ -46,7 +46,7 @@
   (reset! a-g-year 0)
   (reset! a-giver :none)
   (reset! a-givee :none)
-  (let [roster-list (make-roster-list
+  (let [roster-list (make-roster-seq
                       (read-file-into-string "blackhawks2010.txt"))]
     (reset! a-plrs-map (make-players-map roster-list))
     (start-new-year)
@@ -63,7 +63,7 @@
   (reset! a-g-year 0)
   (reset! a-giver :none)
   (reset! a-givee :none)
-  (let [roster-list (make-roster-list
+  (let [roster-list (make-roster-seq
                       (read-file-into-string "blackhawks2010.txt"))]
     (reset! a-plrs-map (make-players-map roster-list))
     (start-new-year)

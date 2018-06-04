@@ -1,86 +1,102 @@
 (ns clojure-redpoint.roster-utility
-  (:require [clojure-csv.core :as csv]
-            [clojure.string :as cs]))
+  (:require [clojure.string :as cs]
+            [clojure-csv.core :as csv]
+            [clojure.spec.alpha :as s]
+            [clojure.spec.test.alpha :as stest]))
 
-(defn make-roster-list
-  "Returns a lazy roster-list"
+(s/def ::roster-string string?)
+(s/def ::roster-seq seq?)
+(s/def ::plrs-seq (s/coll-of vector?))
+
+(defn make-roster-seq
+  "Returns a lazy roster-seq"
   [roster-string]
   (let [de-spaced (cs/replace roster-string #", " ",")]
     (csv/parse-csv de-spaced)))
 
-(defn make-roster-info [roster-list]
-  (first roster-list))
+(s/fdef make-roster-seq
+        :args (s/cat :roster-string ::roster-string)
+        :ret ::roster-seq)
 
-(defn make-players-list [roster-list]
-  (rest roster-list))
+(defn extract-roster-info [roster-seq]
+  (first roster-seq))
 
-(defn make-gift-pair [givee giver]
-  (hash-map
-    :givee (keyword givee)
-    :giver (keyword giver)))
+(s/fdef extract-roster-info
+        :args (s/cat :roster-seq ::roster-seq)
+        :ret vector?)
 
-(defn make-player [p-name g-hist]
-  (hash-map
-    :name p-name
-    :gift-history g-hist))
+;(defn extract-players-list [roster-seq]
+;  (rest roster-seq))
 
-(defn make-player-map [[s n ge gr]]
-  (let [gp (make-gift-pair ge gr)
-        plr (make-player n (vector gp))]
-    (hash-map
-      (keyword s) plr)))
+;(defn make-gift-pair [givee giver]
+;  (hash-map
+;    :givee (keyword givee)
+;    :giver (keyword giver)))
+;
+;(defn make-player [p-name g-hist]
+;  (hash-map
+;    :name p-name
+;    :gift-history g-hist))
+;
+;(defn make-player-map [[s n ge gr]]
+;  (let [gp (make-gift-pair ge gr)
+;        plr (make-player n (vector gp))]
+;    (hash-map
+;      (keyword s) plr)))
+;
+;(defn make-players-map [roster-list]
+;  (let [pl (make-players-list roster-list)]
+;    (into {} (map make-player-map pl))))
+;
+;(defn get-player-in-roster [plrs-map plr-sym]
+;  (get plrs-map plr-sym))
+;
+;(defn get-gift-history-in-player [plr]
+;  (get plr :gift-history))
+;
+;(defn get-gift-pair-in-gift-history [g-hist g-year]
+;  (get g-hist g-year))
+;
+;(defn get-gift-pair-in-roster [plrs-map plr-sym g-year]
+;  (let [plr (get-player-in-roster plrs-map plr-sym)
+;        gh (get-gift-history-in-player plr)]
+;    (get-gift-pair-in-gift-history gh g-year)))
+;
+;(defn get-givee-in-gift-pair [g-pair]
+;  (get g-pair :givee))
+;
+;(defn get-giver-in-gift-pair [g-pair]
+;  (get g-pair :giver))
+;
+;(defn set-gift-pair-in-gift-history [g-year g-pair g-hist]
+;  (assoc g-hist g-year g-pair))
+;
+;(defn set-gift-history-in-player [g-hist plr]
+;  (assoc plr :gift-history g-hist))
+;
+;(defn set-gift-pair-in-roster [plrs-map plr-sym g-year g-pair]
+;  (let [plr (get-player-in-roster plrs-map plr-sym)
+;        gh (get-gift-history-in-player plr)
+;        ngh (set-gift-pair-in-gift-history g-year g-pair gh)
+;        nplr (set-gift-history-in-player ngh plr)]
+;    (assoc plrs-map plr-sym nplr)))
+;
+;(defn check-give [plrs-map plr-sym g-year give]
+;  (let [plr (get-player-in-roster plrs-map plr-sym)
+;        gh (get-gift-history-in-player plr)
+;        h-len (count gh)]
+;    (and (contains? plrs-map plr-sym)
+;         (contains? plrs-map give)
+;         (<= (+ g-year 1) h-len))))
+;
+;(defn add-year-in-player [plr]
+;  (let [gh (get-gift-history-in-player plr)
+;        ngh (conj gh {:giver :none, :givee :none})]
+;    (set-gift-history-in-player ngh plr)))
+;
+;(defn add-year-in-roster [plrs-map]
+;  (into {}
+;        (for [[k v] plrs-map]
+;          [k (add-year-in-player v)])))
 
-(defn make-players-map [roster-list]
-  (let [pl (make-players-list roster-list)]
-    (into {} (map make-player-map pl))))
-
-(defn get-player-in-roster [plrs-map plr-sym]
-  (get plrs-map plr-sym))
-
-(defn get-gift-history-in-player [plr]
-  (get plr :gift-history))
-
-(defn get-gift-pair-in-gift-history [g-hist g-year]
-  (get g-hist g-year))
-
-(defn get-gift-pair-in-roster [plrs-map plr-sym g-year]
-  (let [plr (get-player-in-roster plrs-map plr-sym)
-        gh (get-gift-history-in-player plr)]
-    (get-gift-pair-in-gift-history gh g-year)))
-
-(defn get-givee-in-gift-pair [g-pair]
-  (get g-pair :givee))
-
-(defn get-giver-in-gift-pair [g-pair]
-  (get g-pair :giver))
-
-(defn set-gift-pair-in-gift-history [g-year g-pair g-hist]
-  (assoc g-hist g-year g-pair))
-
-(defn set-gift-history-in-player [g-hist plr]
-  (assoc plr :gift-history g-hist))
-
-(defn set-gift-pair-in-roster [plrs-map plr-sym g-year g-pair]
-  (let [plr (get-player-in-roster plrs-map plr-sym)
-        gh (get-gift-history-in-player plr)
-        ngh (set-gift-pair-in-gift-history g-year g-pair gh)
-        nplr (set-gift-history-in-player ngh plr)]
-    (assoc plrs-map plr-sym nplr)))
-
-(defn check-give [plrs-map plr-sym g-year give]
-  (let [plr (get-player-in-roster plrs-map plr-sym)
-        gh (get-gift-history-in-player plr)
-        h-len (count gh)]
-    (and (contains? plrs-map plr-sym)
-         (contains? plrs-map give)
-         (<= (+ g-year 1) h-len))))
-
-(defn add-year-in-player [plr]
-  (let [gh (get-gift-history-in-player plr)
-        ngh (conj gh {:giver :none, :givee :none})]
-    (set-gift-history-in-player ngh plr)))
-
-(defn add-year-in-roster [plrs-map]
-  (into {}
-        (for [[k v] plrs-map]
-          [k (add-year-in-player v)])))
+(stest/instrument)
