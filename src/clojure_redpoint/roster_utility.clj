@@ -5,8 +5,8 @@
             [clojure.spec.test.alpha :as stest]))
 
 (s/def ::roster-string string?)
-(s/def ::roster-seq seq?)
-(s/def ::plrs-seq (s/coll-of vector?))
+(s/def ::roster-seq (s/coll-of vector?))
+(s/def ::plrs-list (s/coll-of vector?))
 
 (defn make-roster-seq
   "Returns a lazy roster-seq"
@@ -23,10 +23,16 @@
 
 (s/fdef extract-roster-info
         :args (s/cat :roster-seq ::roster-seq)
-        :ret vector?)
+        :ret (s/or :found vector?
+                   :not-found nil?))
 
-;(defn extract-players-list [roster-seq]
-;  (rest roster-seq))
+(defn extract-players-list [roster-seq]
+  (into () (rest roster-seq)))
+
+(s/fdef extract-players-list
+        :args (s/cat :roster-seq ::roster-seq)
+        :ret (s/or :found ::plrs-list
+                   :not-found nil?))
 
 ;(defn make-gift-pair [givee giver]
 ;  (hash-map
