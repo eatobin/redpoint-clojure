@@ -17,10 +17,10 @@
         :args (s/cat :roster-string string?)
         :ret ::roster-seq)
 
-(defn- extract-roster-info [roster-string]
+(defn- extract-roster-info-vector [roster-string]
   (first (make-roster-seq roster-string)))
 
-(s/fdef extract-roster-info
+(s/fdef extract-roster-info-vector
         :args (s/cat :roster-string string?)
         :ret (s/or :found vector?
                    :not-found nil?))
@@ -33,11 +33,11 @@
         :ret ::plrs-list)
 
 ;(defn get-roster-name [roster-list]
-;  (let [line (extract-roster-info roster-list)]
+;  (let [line (extract-roster-info-vector roster-list)]
 ;    (first line)))
 ;
 ;(defn get-roster-year [roster-list]
-;  (let [line (extract-roster-info roster-list)]
+;  (let [line (extract-roster-info-vector roster-list)]
 ;    (read-string (last line))))
 ;
 ;(defn get-player-name-in-roster [plrs-map plr-sym]
@@ -65,3 +65,5 @@
 ;          gp (make-gift-pair ge gr)]
 ;      (set-gift-pair-in-roster plrs-map plr-sym g-year gp))
 ;    plrs-map))
+
+(stest/instrument)

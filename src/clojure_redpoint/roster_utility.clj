@@ -1,38 +1,6 @@
 (ns clojure-redpoint.roster-utility
   (:require [clojure.string :as cs]
-            [clojure-csv.core :as csv]
-            [clojure.spec.alpha :as s]
-            [clojure.spec.test.alpha :as stest]))
-
-(s/def ::roster-string string?)
-(s/def ::roster-seq (s/coll-of vector?))
-(s/def ::plrs-list (s/coll-of vector?))
-
-(defn make-roster-seq
-  "Returns a lazy roster-seq"
-  [roster-string]
-  (let [de-spaced (cs/replace roster-string #", " ",")]
-    (csv/parse-csv de-spaced)))
-
-(s/fdef make-roster-seq
-        :args (s/cat :roster-string ::roster-string)
-        :ret ::roster-seq)
-
-(defn extract-roster-info [roster-seq]
-  (first roster-seq))
-
-(s/fdef extract-roster-info
-        :args (s/cat :roster-seq ::roster-seq)
-        :ret (s/or :found vector?
-                   :not-found nil?))
-
-(defn extract-players-list [roster-seq]
-  (into () (rest roster-seq)))
-
-(s/fdef extract-players-list
-        :args (s/cat :roster-seq ::roster-seq)
-        :ret (s/or :found ::plrs-list
-                   :not-found nil?))
+            [clojure-csv.core :as csv]))
 
 ;(defn make-gift-pair [givee giver]
 ;  (hash-map
@@ -104,5 +72,3 @@
 ;  (into {}
 ;        (for [[k v] plrs-map]
 ;          [k (add-year-in-player v)])))
-
-(stest/instrument)
