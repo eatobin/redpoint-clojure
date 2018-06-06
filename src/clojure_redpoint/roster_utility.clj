@@ -2,11 +2,7 @@
   (:require [clojure.string :as cs]
             [clojure-csv.core :as csv]))
 
-;(defn make-gift-pair [givee giver]
-;  (hash-map
-;    :givee (keyword givee)
-;    :giver (keyword giver)))
-;
+
 ;(defn make-player [p-name g-hist]
 ;  (hash-map
 ;    :name p-name
