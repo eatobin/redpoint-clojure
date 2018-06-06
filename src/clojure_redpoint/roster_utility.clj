@@ -3,11 +3,7 @@
             [clojure-csv.core :as csv]))
 
 
-;(defn make-player [p-name g-hist]
-;  (hash-map
-;    :name p-name
-;    :gift-history g-hist))
-;
+
 ;(defn make-player-map [[s n ge gr]]
 ;  (let [gp (make-gift-pair ge gr)
 ;        plr (make-player n (vector gp))]

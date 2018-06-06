@@ -8,7 +8,9 @@
 (s/def ::plrs-list (s/coll-of vector?))
 (s/def ::givee keyword?)
 (s/def ::giver keyword?)
-(s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
+(s/def ::gift-pair (s/keys :req [::givee ::giver]))
+(s/def ::name string?)
+(s/def ::gift-history (s/coll-of ::gift-pair))
 
 (defn- make-roster-seq
   "Returns a lazy roster-seq"
@@ -37,12 +39,17 @@
 
 (defn make-gift-pair [givee giver]
   (hash-map
-    :givee (keyword givee)
-    :giver (keyword giver)))
+    ::givee (keyword givee)
+    ::giver (keyword giver)))
 
 (s/fdef make-gift-pair
         :args (s/cat :givee string? :giver string?)
-        :ret :unq/gift-pair)
+        :ret ::gift-pair)
+
+(defn make-player [p-name g-hist]
+  (hash-map
+    :name p-name
+    :gift-history g-hist))
 
 ;(defn get-roster-name [roster-list]
 ;  (let [line (extract-roster-info-vector roster-list)]
