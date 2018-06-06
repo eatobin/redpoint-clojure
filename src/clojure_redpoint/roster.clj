@@ -12,6 +12,12 @@
 (s/def ::name string?)
 (s/def :unq/gift-history (s/coll-of :unq/gift-pair))
 (s/def :unq/player (s/keys :req-un [::name :unq/gift-history]))
+;(s/def ::plr-sym keyword?)
+(s/def :unq/plr-map (s/keys :req-un [::plr-sym :unq/player]))
+(s/def ::bindings (s/and vector? (s/* ::binding)))
+(s/def ::binding (s/cat :binding ::binding-form
+                        :init-expr any?))
+(s/def ::binding-form simple-symbol?)
 
 (defn- make-roster-seq
   "Returns a lazy roster-seq"
@@ -55,6 +61,19 @@
 (s/fdef make-player
         :args (s/cat :p-name ::name :g-hist :unq/gift-history)
         :ret :unq/player)
+
+(defn- make-player-map [[s n ge gr]]
+  (let [gp (make-gift-pair ge gr)
+        plr (make-player n (vector gp))]
+    (hash-map
+      (keyword s) plr)))
+
+(s/fdef make-player-map
+        :args [(s/cat :s string?)
+               (s/cat :n string?)
+               (s/cat :ge string?)
+               (s/cat :gr string?)]
+        :ret :unq/plr-map)
 
 ;(defn get-roster-name [roster-list]
 ;  (let [line (extract-roster-info-vector roster-list)]
