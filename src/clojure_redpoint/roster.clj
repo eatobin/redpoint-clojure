@@ -7,32 +7,23 @@
 
 (s/def ::roster-seq (s/coll-of vector?))
 (s/def ::plrs-list (s/coll-of vector?))
-(s/def ::givee keyword?)
-(s/def ::giver keyword?)
 (s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
 (s/def ::name string?)
 (s/def :unq/gift-history (s/coll-of :unq/gift-pair))
 (s/def :unq/player (s/keys :req-un [::name :unq/gift-history]))
-;(s/def ::plr-sym keyword?)
-(s/def :unq/plr-map (s/keys :req-un [::plr-sym :unq/player]))
-(s/def ::bindings (s/and vector? (s/* ::binding)))
-(s/def ::binding (s/cat :binding ::binding-form
-                        :init-expr any?))
-(s/def ::binding-form simple-symbol?)
+(s/def ::vstring4 (s/coll-of string? :kind vector? :count 4 :distinct false))
 
 (defn- make-roster-seq
   "Returns a lazy roster-seq"
   [roster-string]
   (let [de-spaced (cs/replace roster-string #", " ",")]
     (csv/parse-csv de-spaced)))
-
 (s/fdef make-roster-seq
         :args (s/cat :roster-string string?)
         :ret ::roster-seq)
 
 (defn- extract-roster-info-vector [roster-string]
   (first (make-roster-seq roster-string)))
-
 (s/fdef extract-roster-info-vector
         :args (s/cat :roster-string string?)
         :ret (s/or :found vector?
@@ -40,7 +31,6 @@
 
 (defn- extract-players-list [roster-string]
   (into () (rest (make-roster-seq roster-string))))
-
 (s/fdef extract-players-list
         :args (s/cat :roster-string string?)
         :ret ::plrs-list)
@@ -49,7 +39,6 @@
   (hash-map
     :givee (keyword givee)
     :giver (keyword giver)))
-
 (s/fdef make-gift-pair
         :args (s/cat :givee string? :giver string?)
         :ret :unq/gift-pair)
@@ -58,7 +47,6 @@
   (hash-map
     :name p-name
     :gift-history g-hist))
-
 (s/fdef make-player
         :args (s/cat :p-name ::name :g-hist :unq/gift-history)
         :ret :unq/player)
@@ -68,13 +56,9 @@
         plr (make-player n (vector gp))]
     (hash-map
       (keyword s) plr)))
-
 (s/fdef make-player-map
-        :args [(s/cat :s string?)
-               (s/cat :n string?)
-               (s/cat :ge string?)
-               (s/cat :gr string?)]
-        :ret :unq/plr-map)
+        :args (s/cat :arg1 ::vstring4)
+        :ret map?)
 
 ;(defn get-roster-name [roster-list]
 ;  (let [line (extract-roster-info-vector roster-list)]
@@ -127,3 +111,5 @@
 (s/conform :unq/gift-history h)
 (s/conform :unq/player
            (make-player "eric" h))
+(s/conform map? (make-player-map ["s" "n" "ge" "gr"]))
+(stest/check `make-player-map)
