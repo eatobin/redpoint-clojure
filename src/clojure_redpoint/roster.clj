@@ -2,7 +2,8 @@
   (:require [clojure.string :as cs]
             [clojure-csv.core :as csv]
             [clojure.spec.alpha :as s]
-            [clojure.spec.test.alpha :as stest]))
+            [clojure.spec.test.alpha :as stest]
+            [orchestra.spec.test :as st]))
 
 (s/def ::roster-seq (s/coll-of vector?))
 (s/def ::plrs-list (s/coll-of vector?))
@@ -109,4 +110,20 @@
 ;      (set-gift-pair-in-roster plrs-map plr-sym g-year gp))
 ;    plrs-map))
 
-(stest/instrument)
+(st/instrument)
+
+(def rs "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
+(s/conform vector?
+           (extract-roster-info-vector rs))
+(s/conform nil?
+           (extract-roster-info-vector ""))
+(s/conform ::plrs-list
+           (extract-players-list rs))
+(s/conform ::plrs-list
+           (extract-players-list ""))
+(def x (make-gift-pair "joe" "bob"))
+(def y (make-gift-pair "joey" "bobby"))
+(def h [x y])
+(s/conform :unq/gift-history h)
+(s/conform :unq/player
+           (make-player "eric" h))
