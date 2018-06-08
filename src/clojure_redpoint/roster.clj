@@ -7,6 +7,8 @@
 
 (s/def ::roster-seq (s/coll-of vector?))
 (s/def ::plrs-list (s/coll-of vector?))
+(s/def ::givee keyword?)
+(s/def ::giver keyword?)
 (s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
 (s/def ::name string?)
 (s/def :unq/gift-history (s/coll-of :unq/gift-pair))
