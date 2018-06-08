@@ -13,7 +13,7 @@
 (s/def ::name string?)
 (s/def :unq/gift-history (s/coll-of :unq/gift-pair))
 (s/def :unq/player (s/keys :req-un [::name :unq/gift-history]))
-(s/def ::vstring4 (s/coll-of string? :kind vector? :count 4 :distinct false))
+(s/def ::plr-map-vec (s/coll-of string? :kind vector? :count 4 :distinct false))
 
 (defn- make-roster-seq
   "Returns a lazy roster-seq"
@@ -59,7 +59,7 @@
     (hash-map
       (keyword s) plr)))
 (s/fdef make-player-map
-        :args (s/cat :arg1 ::vstring4)
+        :args (s/cat :arg1 ::plr-map-vec)
         :ret map?)
 
 ;(defn get-roster-name [roster-list]
