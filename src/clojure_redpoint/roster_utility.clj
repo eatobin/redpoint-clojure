@@ -2,9 +2,6 @@
   (:require [clojure.string :as cs]
             [clojure-csv.core :as csv]))
 
-;(defn get-player-in-roster [plrs-map plr-sym]
-;  (get plrs-map plr-sym))
-;
 ;(defn get-gift-history-in-player [plr]
 ;  (get plr :gift-history))
 ;

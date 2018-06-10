@@ -2,7 +2,6 @@
   (:require [clojure.string :as cs]
             [clojure-csv.core :as csv]
             [clojure.spec.alpha :as s]
-            [clojure.spec.test.alpha :as stest]
             [orchestra.spec.test :as st]))
 
 (s/def ::roster-seq (s/coll-of vector?))
@@ -68,6 +67,12 @@
 (s/fdef make-players-map
         :args (s/cat :roster-string string?)
         :ret map?)
+
+(defn get-player-in-roster [plrs-map plr-sym]
+  (get plrs-map plr-sym))
+(s/fdef get-player-in-roster
+        :args (s/cat :plrs-map map? :plr-sym keyword?)
+        :ret (s/or :unq/player nil?))
 
 ;(defn get-roster-name [roster-list]
 ;  (let [line (extract-roster-info-vector roster-list)]
