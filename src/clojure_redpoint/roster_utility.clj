@@ -2,13 +2,6 @@
   (:require [clojure.string :as cs]
             [clojure-csv.core :as csv]))
 
-
-
-
-;(defn make-players-map [roster-list]
-;  (let [pl (make-players-list roster-list)]
-;    (into {} (map make-player-map pl))))
-;
 ;(defn get-player-in-roster [plrs-map plr-sym]
 ;  (get plrs-map plr-sym))
 ;

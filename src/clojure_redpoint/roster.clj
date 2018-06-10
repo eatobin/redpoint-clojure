@@ -62,6 +62,10 @@
         :args (s/cat :arg1 ::plr-map-vec)
         :ret map?)
 
+(defn make-players-map [roster-string]
+  (let [pl (extract-players-list roster-string)]
+    (into {} (map make-player-map pl))))
+
 ;(defn get-roster-name [roster-list]
 ;  (let [line (extract-roster-info-vector roster-list)]
 ;    (first line)))
@@ -114,4 +118,3 @@
 (s/conform :unq/player
            (make-player "eric" h))
 (s/conform map? (make-player-map ["s" "n" "ge" "gr"]))
-(stest/check `make-player-map)

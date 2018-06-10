@@ -7,3 +7,4 @@
 (stest/check `rost/extract-players-list)
 (stest/check `rost/make-gift-pair)
 (stest/check `rost/make-player)
+(stest/check `make-player-map)
