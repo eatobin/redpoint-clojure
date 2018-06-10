@@ -65,6 +65,9 @@
 (defn make-players-map [roster-string]
   (let [pl (extract-players-list roster-string)]
     (into {} (map make-player-map pl))))
+(s/fdef make-players-map
+        :args (s/cat :roster-string string?)
+        :ret map?)
 
 ;(defn get-roster-name [roster-list]
 ;  (let [line (extract-roster-info-vector roster-list)]
