@@ -83,6 +83,13 @@
         :ret (s/or :found :unq/gift-history
                    :not-found nil?))
 
+(defn get-gift-pair-in-gift-history [g-hist g-year]
+  (get g-hist g-year))
+(s/fdef get-gift-pair-in-gift-history
+        :args (s/cat :g-hist :unq/gift-history :g-year int?)
+        :ret (s/or :found :unq/gift-pair
+                   :not-found nil?))
+
 ;(defn get-roster-name [roster-list]
 ;  (let [line (extract-roster-info-vector roster-list)]
 ;    (first line)))
