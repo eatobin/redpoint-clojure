@@ -2,9 +2,6 @@
   (:require [clojure.string :as cs]
             [clojure-csv.core :as csv]))
 
-;(defn get-gift-history-in-player [plr]
-;  (get plr :gift-history))
-;
 ;(defn get-gift-pair-in-gift-history [g-hist g-year]
 ;  (get g-hist g-year))
 ;
