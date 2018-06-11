@@ -79,7 +79,8 @@
 (defn get-gift-history-in-player [plr]
   (get plr :gift-history))
 (s/fdef get-gift-history-in-player
-        :args (s/cat :plr :unq/player)
+        :args (s/or :input-plr (s/cat :plr :unq/player)
+                    :input-nil (s/cat :plr nil?))
         :ret (s/or :found :unq/gift-history
                    :not-found nil?))
 
@@ -89,6 +90,14 @@
         :args (s/cat :g-hist :unq/gift-history :g-year int?)
         :ret (s/or :found :unq/gift-pair
                    :not-found nil?))
+
+(defn get-gift-pair-in-roster [plrs-map plr-sym g-year]
+  (let [plr (get-player-in-roster plrs-map plr-sym)
+        gh (get-gift-history-in-player plr)]
+    (get-gift-pair-in-gift-history gh g-year)))
+;(s/fdef get-gift-pair-in-roster
+;        :args (s/cat :plrs-map ::plr-map
+;                     ))
 
 ;(defn get-roster-name [roster-list]
 ;  (let [line (extract-roster-info-vector roster-list)]
