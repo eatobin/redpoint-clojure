@@ -87,7 +87,7 @@
 (defn- get-gift-pair-in-gift-history [g-hist g-year]
   (get g-hist g-year))
 (s/fdef get-gift-pair-in-gift-history
-        :args (s/or :input-plr (s/cat :g-hist :unq/gift-history
+        :args (s/or :input-hist (s/cat :g-hist :unq/gift-history
                                       :g-year int?)
                     :input-nil (s/cat :g-hist nil?
                                       :g-year int?))
