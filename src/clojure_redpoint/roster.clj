@@ -62,21 +62,21 @@
         :args (s/cat :arg1 ::plr-map-vec)
         :ret ::plr-map)
 
-(defn make-players-map [roster-string]
+(defn- make-players-map [roster-string]
   (let [pl (extract-players-list roster-string)]
     (into {} (map make-player-map pl))))
 (s/fdef make-players-map
         :args (s/cat :roster-string string?)
         :ret ::plr-map)
 
-(defn get-player-in-roster [plrs-map plr-sym]
+(defn- get-player-in-roster [plrs-map plr-sym]
   (get plrs-map plr-sym))
 (s/fdef get-player-in-roster
         :args (s/cat :plrs-map ::plr-map :plr-sym keyword?)
         :ret (s/or :found :unq/player
                    :not-found nil?))
 
-(defn get-gift-history-in-player [plr]
+(defn- get-gift-history-in-player [plr]
   (get plr :gift-history))
 (s/fdef get-gift-history-in-player
         :args (s/or :input-plr (s/cat :plr :unq/player)
@@ -84,7 +84,7 @@
         :ret (s/or :found :unq/gift-history
                    :not-found nil?))
 
-(defn get-gift-pair-in-gift-history [g-hist g-year]
+(defn- get-gift-pair-in-gift-history [g-hist g-year]
   (get g-hist g-year))
 (s/fdef get-gift-pair-in-gift-history
         :args (s/or :input-plr (s/cat :g-hist :unq/gift-history
@@ -94,7 +94,7 @@
         :ret (s/or :found :unq/gift-pair
                    :not-found nil?))
 
-(defn get-gift-pair-in-roster [plrs-map plr-sym g-year]
+(defn- get-gift-pair-in-roster [plrs-map plr-sym g-year]
   (let [plr (get-player-in-roster plrs-map plr-sym)
         gh (get-gift-history-in-player plr)]
     (get-gift-pair-in-gift-history gh g-year)))
