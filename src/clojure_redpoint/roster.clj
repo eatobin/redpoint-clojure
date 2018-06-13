@@ -2,6 +2,7 @@
   (:require [clojure.string :as cs]
             [clojure-csv.core :as csv]
             [clojure.spec.alpha :as s]
+            [clojure.spec.test.alpha :as stest]
             [orchestra.spec.test :as st]))
 
 (s/def ::roster-seq (s/coll-of vector?))
@@ -88,7 +89,7 @@
   (get g-hist g-year))
 (s/fdef get-gift-pair-in-gift-history
         :args (s/or :input-hist (s/cat :g-hist :unq/gift-history
-                                      :g-year int?)
+                                       :g-year int?)
                     :input-nil (s/cat :g-hist nil?
                                       :g-year int?))
         :ret (s/or :found :unq/gift-pair
@@ -104,6 +105,18 @@
                      :g-year int?)
         :ret (s/or :found :unq/gift-pair
                    :not-found nil?))
+
+(defn get-givee-in-gift-pair [g-pair]
+  (get g-pair :givee))
+(s/fdef get-givee-in-gift-pair
+        :args (s/cat :g-pair :unq/gift-pair)
+        :ret ::givee)
+
+(defn get-giver-in-gift-pair [g-pair]
+  (get g-pair :giver))
+(s/fdef get-giver-in-gift-pair
+        :args (s/cat :g-pair :unq/gift-pair)
+        :ret ::giver)
 
 ;(defn get-roster-name [roster-list]
 ;  (let [line (extract-roster-info-vector roster-list)]
@@ -170,3 +183,5 @@
                  :not-found nil?)
            (get-player-in-roster pm :GeoHarX))
 ; => [:not-found nil]
+(s/conform ::givee
+           (get-givee-in-gift-pair {:giver :PauMcc, :givee :RinSta}))

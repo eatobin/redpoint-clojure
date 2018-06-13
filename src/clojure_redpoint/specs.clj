@@ -1,12 +1,12 @@
 (ns clojure-redpoint.specs
-  (:require [clojure.spec.alpha :as s]
-            [clojure.spec.test.alpha :as stest]
+  (:require [clojure.spec.test.alpha :as stest]
             [clojure-redpoint.roster :as rost]))
 
 (stest/check `rost/extract-roster-info-vector)
 (stest/check `rost/extract-players-list)
 (stest/check `rost/make-gift-pair)
 (stest/check `rost/make-player)
-(stest/check `make-player-map)
-(stest/check `get-gift-history-in-player)
-(stest/check `get-gift-pair-in-gift-history)
+(stest/check `rost/make-player-map)
+(stest/check `rost/get-gift-history-in-player)
+(stest/check `rost/get-gift-pair-in-gift-history)
+(stest/check `rost/get-givee-in-gift-pair)
