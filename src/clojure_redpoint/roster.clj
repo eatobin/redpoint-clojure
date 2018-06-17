@@ -121,7 +121,7 @@
 (defn set-gift-pair-in-gift-history [g-year g-pair g-hist]
   (assoc g-hist g-year g-pair))
 (s/fdef set-gift-pair-in-gift-history
-        :args (s/cat :g-year (s/and int? #(< % (count :g-hist)):g-pair :unq/gift-pair :g-hist :unq/gift-history)
+        :args (s/cat :g-year (s/and int? #(< % (count :g-hist))) :g-pair :unq/gift-pair :g-hist :unq/gift-history)
         :ret :unq/gift-history)
 
 ;(defn get-roster-name [roster-list]
