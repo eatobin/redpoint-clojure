@@ -118,11 +118,24 @@
         :args (s/cat :g-pair :unq/gift-pair)
         :ret ::giver)
 
-(defn set-gift-pair-in-gift-history [g-year g-pair g-hist]
+;(defn set-gift-pair-in-gift-history [g-year g-pair g-hist]
+;  (assoc g-hist g-year g-pair))
+(defn set-gift-pair-in-gift-history [g-hist g-year g-pair]
   (assoc g-hist g-year g-pair))
+;(s/fdef set-gift-pair-in-gift-history
+;        :args (s/cat :g-year (s/and int? #(< % (count :g-hist))) :g-pair :unq/gift-pair :g-hist :unq/gift-history)
+;        :ret :unq/gift-history)
 (s/fdef set-gift-pair-in-gift-history
-        :args (s/cat :g-year (s/and int? #(< % (count :g-hist))) :g-pair :unq/gift-pair :g-hist :unq/gift-history)
+        :args (s/cat :g-hist :unq/gift-history
+                     :g-year #(< % (count :g-hist))
+                     :g-pair :unq/gift-pair)
         :ret :unq/gift-history)
+
+;(s/fdef set-gift-pair-in-gift-history
+;        :args (s/cat :g-hist :unq/gift-history
+;                     :g-year int?
+;                     :g-pair :unq/gift-pair)
+;        :ret :unq/gift-history)
 
 ;(defn get-roster-name [roster-list]
 ;  (let [line (extract-roster-info-vector roster-list)]
