@@ -3,7 +3,8 @@
             [clojure-csv.core :as csv]
             [clojure.spec.alpha :as s]
             [clojure.spec.test.alpha :as stest]
-            [orchestra.spec.test :as st]))
+            [orchestra.spec.test :as st]
+            [clojure.test.check.generators :as gen]))
 
 (s/def ::roster-seq (s/coll-of vector?))
 (s/def ::plrs-list (s/coll-of vector?))
@@ -121,11 +122,17 @@
 (defn set-gift-pair-in-gift-history [g-hist g-year g-pair]
   (assoc g-hist g-year g-pair))
 (s/fdef set-gift-pair-in-gift-history
-        :args (s/and (s/cat :g-hist :unq/gift-history
-                            :g-year int?
-                            :g-pair :unq/gift-pair)
-                     #(< (:g-year %) (count (:g-hist %)))
-                     #(> (:g-year %) -1))
+        :args (s/with-gen
+                (s/and
+                  (s/cat :g-hist :unq/gift-history
+                         :g-year int?
+                         :g-pair :unq/gift-pair)
+                  #(< (:g-year %) (count (:g-hist %)))
+                  #(> (:g-year %) -1))
+                #(gen/let [hist (s/gen :unq/gift-history)
+                           year (gen/large-integer* {:min 0 :max (max 0 (dec (count hist)))})
+                           pair (s/gen :unq/gift-pair)]
+                          [hist year pair]))
         :ret :unq/gift-history)
 
 
