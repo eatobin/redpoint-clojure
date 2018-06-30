@@ -211,3 +211,4 @@
 ; => [:not-found nil]
 (s/conform ::givee
            (get-givee-in-gift-pair {:giver :PauMcc, :givee :RinSta}))
+(stest/check `set-gift-pair-in-gift-history)
