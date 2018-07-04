@@ -135,7 +135,12 @@
                           [hist year pair]))
         :ret :unq/gift-history)
 
-
+(defn set-gift-history-in-player [g-hist plr]
+  (assoc plr :gift-history g-hist))
+(s/fdef set-gift-history-in-player
+        :args (s/cat :g-hist :unq/gift-history
+                     :plr :unq/player)
+        :ret :unq/player)
 
 
 ;(s/fdef set-gift-pair-in-gift-history
@@ -211,4 +216,7 @@
 ; => [:not-found nil]
 (s/conform ::givee
            (get-givee-in-gift-pair {:giver :PauMcc, :givee :RinSta}))
-(stest/check `set-gift-pair-in-gift-history)
+;(stest/check `set-gift-pair-in-gift-history)
+;(stest/check `set-gift-history-in-player)
+(s/conform :unq/player
+           (set-gift-history-in-player [{:giver :RinSta, :givee :PauMcc}] {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))
