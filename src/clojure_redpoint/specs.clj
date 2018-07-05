@@ -1,3 +1,5 @@
+; Don't load this file. Instead copy ns + require to repl and eval checks
+
 (ns clojure-redpoint.specs
   (:require [clojure.spec.test.alpha :as stest]
             [clojure-redpoint.roster :as rost]))
@@ -11,3 +13,5 @@
 (stest/check `rost/get-gift-pair-in-gift-history)
 (stest/check `rost/get-givee-in-gift-pair)
 (stest/check `rost/set-gift-pair-in-gift-history)
+(stest/check `rost/set-gift-pair-in-gift-history)
+(stest/check `rost/set-gift-history-in-player)

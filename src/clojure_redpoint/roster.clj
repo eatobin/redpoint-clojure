@@ -216,7 +216,5 @@
 ; => [:not-found nil]
 (s/conform ::givee
            (get-givee-in-gift-pair {:giver :PauMcc, :givee :RinSta}))
-;(stest/check `set-gift-pair-in-gift-history)
-;(stest/check `set-gift-history-in-player)
 (s/conform :unq/player
            (set-gift-history-in-player [{:giver :RinSta, :givee :PauMcc}] {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))
