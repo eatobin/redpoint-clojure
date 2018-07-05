@@ -2,13 +2,6 @@
   (:require [clojure.string :as cs]
             [clojure-csv.core :as csv]))
 
-;(defn set-gift-pair-in-roster [plrs-map plr-sym g-year g-pair]
-;  (let [plr (get-player-in-roster plrs-map plr-sym)
-;        gh (get-gift-history-in-player plr)
-;        ngh (set-gift-pair-in-gift-history g-year g-pair gh)
-;        nplr (set-gift-history-in-player ngh plr)]
-;    (assoc plrs-map plr-sym nplr)))
-;
 ;(defn check-give [plrs-map plr-sym g-year give]
 ;  (let [plr (get-player-in-roster plrs-map plr-sym)
 ;        gh (get-gift-history-in-player plr)

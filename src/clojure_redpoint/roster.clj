@@ -2,7 +2,6 @@
   (:require [clojure.string :as cs]
             [clojure-csv.core :as csv]
             [clojure.spec.alpha :as s]
-            [clojure.spec.test.alpha :as stest]
             [orchestra.spec.test :as st]
             [clojure.test.check.generators :as gen]))
 
@@ -142,6 +141,34 @@
                      :plr :unq/player)
         :ret :unq/player)
 
+(defn set-gift-pair-in-roster [plrs-map plr-sym g-year g-pair]
+  (let [plr (get-player-in-roster plrs-map plr-sym)
+        gh (get-gift-history-in-player plr)
+        ngh (set-gift-pair-in-gift-history g-year g-pair gh)
+        nplr (set-gift-history-in-player ngh plr)]
+    (assoc plrs-map plr-sym nplr)))
+(s/fdef set-gift-pair-in-roster
+        :args (s/cat :plrs-map ::plr-map
+                     :plr-sym keyword?
+                     ))
+
+
+
+(def keyword-vector (gen/such-that not-empty (gen/vector gen/keyword)))
+
+(def vec-and-elem
+  (gen/bind keyword-vector
+            (fn [v] (gen/tuple (gen/elements v) (gen/return v)))))
+
+(gen/sample vec-and-elem 9)
+
+(def hist (s/gen :unq/gift-history))
+
+(def year
+  (gen/bind hist
+            (fn [v] (gen/large-integer* {:min 0 :max (max 0 (dec (count v)))}))))
+
+(def pair (s/gen :unq/gift-pair))
 
 ;(s/fdef set-gift-pair-in-gift-history
 ;        :args (s/cat :g-hist :unq/gift-history
