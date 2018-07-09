@@ -148,14 +148,11 @@
         nplr (set-gift-history-in-player ngh plr)]
     (assoc plrs-map plr-sym nplr)))
 (s/fdef set-gift-pair-in-roster
-        :args (s/with-gen
-                (s/and
-                 (s/cat :plrs-map ::plr-map
+        :args (s/cat :plrs-map ::plr-map
                      :plr-sym keyword?
                      :g-year int?
                      :g-pair :unq/gift-pair)
-                 #(< (:g-year %) (count (:g-hist %)))
-                 #(> (:g-year %) -1))))
+        :ret :plrs-map)
 
 
 
