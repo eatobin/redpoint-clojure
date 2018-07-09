@@ -148,27 +148,32 @@
         nplr (set-gift-history-in-player ngh plr)]
     (assoc plrs-map plr-sym nplr)))
 (s/fdef set-gift-pair-in-roster
-        :args (s/cat :plrs-map ::plr-map
+        :args (s/with-gen
+                (s/and
+                 (s/cat :plrs-map ::plr-map
                      :plr-sym keyword?
-                     ))
+                     :g-year int?
+                     :g-pair :unq/gift-pair)
+                 #(< (:g-year %) (count (:g-hist %)))
+                 #(> (:g-year %) -1))))
 
 
 
-(def keyword-vector (gen/such-that not-empty (gen/vector gen/keyword)))
+; (def keyword-vector (gen/such-that not-empty (gen/vector gen/keyword)))
 
-(def vec-and-elem
-  (gen/bind keyword-vector
-            (fn [v] (gen/tuple (gen/elements v) (gen/return v)))))
+; (def vec-and-elem
+;   (gen/bind keyword-vector
+;             (fn [v] (gen/tuple (gen/elements v) (gen/return v)))))
 
-(gen/sample vec-and-elem 9)
+; (gen/sample vec-and-elem 9)
 
-(def hist (s/gen :unq/gift-history))
+; (def hist (s/gen :unq/gift-history))
 
-(def year
-  (gen/bind hist
-            (fn [v] (gen/large-integer* {:min 0 :max (max 0 (dec (count v)))}))))
+; (def year
+;   (gen/bind hist
+;             (fn [v] (gen/large-integer* {:min 0 :max (max 0 (dec (count v)))}))))
 
-(def pair (s/gen :unq/gift-pair))
+; (def pair (s/gen :unq/gift-pair))
 
 ;(s/fdef set-gift-pair-in-gift-history
 ;        :args (s/cat :g-hist :unq/gift-history
