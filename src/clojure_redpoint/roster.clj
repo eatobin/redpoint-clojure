@@ -131,7 +131,7 @@
                 #(gen/let [hist (s/gen :unq/gift-history)
                            year (gen/large-integer* {:min 0 :max (max 0 (dec (count hist)))})
                            pair (s/gen :unq/gift-pair)]
-                          [hist year pair]))
+                   [hist year pair]))
         :ret :unq/gift-history)
 
 (defn set-gift-history-in-player [g-hist plr]
@@ -144,7 +144,7 @@
 (defn set-gift-pair-in-roster [plrs-map plr-sym g-year g-pair]
   (let [plr (get-player-in-roster plrs-map plr-sym)
         gh (get-gift-history-in-player plr)
-        ngh (set-gift-pair-in-gift-history g-year g-pair gh)
+        ngh (set-gift-pair-in-gift-history gh g-year g-pair)
         nplr (set-gift-history-in-player ngh plr)]
     (assoc plrs-map plr-sym nplr)))
 (s/fdef set-gift-pair-in-roster
@@ -152,7 +152,7 @@
                      :plr-sym keyword?
                      :g-year int?
                      :g-pair :unq/gift-pair)
-        :ret :plrs-map)
+        :ret ::plr-map)
 
 
 
