@@ -13,6 +13,5 @@
 (stest/check `rost/get-gift-pair-in-gift-history)
 (stest/check `rost/get-givee-in-gift-pair)
 (stest/check `rost/set-gift-pair-in-gift-history)
-(stest/check `rost/set-gift-pair-in-gift-history)
 (stest/check `rost/set-gift-history-in-player)
 (stest/check `rost/set-gift-pair-in-roster)

@@ -3,7 +3,8 @@
             [clojure-csv.core :as csv]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as st]
-            [clojure.test.check.generators :as gen]))
+            [clojure.test.check.generators :as gen]
+            [clojure.spec.test.alpha :as stest]))
 
 (s/def ::roster-seq (s/coll-of vector?))
 (s/def ::plrs-list (s/coll-of vector?))
@@ -124,10 +125,9 @@
         :args (s/with-gen
                 (s/and
                   (s/cat :g-hist :unq/gift-history
-                         :g-year int?
+                         :g-year (s/and int? #(> % -1))
                          :g-pair :unq/gift-pair)
-                  #(< (:g-year %) (count (:g-hist %)))
-                  #(> (:g-year %) -1))
+                  #(<= (:g-year %) (count (:g-hist %))))
                 #(gen/let [hist (s/gen :unq/gift-history)
                            year (gen/large-integer* {:min 0 :max (max 0 (dec (count hist)))})
                            pair (s/gen :unq/gift-pair)]
@@ -247,3 +247,4 @@
            (get-givee-in-gift-pair {:giver :PauMcc, :givee :RinSta}))
 (s/conform :unq/player
            (set-gift-history-in-player [{:giver :RinSta, :givee :PauMcc}] {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))
+;(stest/check `set-gift-pair-in-gift-history)
