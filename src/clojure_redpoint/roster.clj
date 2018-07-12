@@ -82,6 +82,9 @@
 (s/fdef make-player-map
         :args (s/cat :arg1 ::plr-map-vec)
         :ret ::plr-map)
+(s/conform ::plr-map
+           (make-player-map ["s" "n" "ge" "gr"]))
+;(stest/check `make-player-map)
 
 (defn- make-players-map [roster-string]
   (let [pl (extract-players-list roster-string)]
@@ -89,6 +92,9 @@
 (s/fdef make-players-map
         :args (s/cat :roster-string string?)
         :ret ::plr-map)
+(s/conform ::plr-map
+           (make-players-map rs))
+;(stest/check `make-players-map)
 
 (defn- get-player-in-roster [plrs-map plr-sym]
   (get plrs-map plr-sym))
