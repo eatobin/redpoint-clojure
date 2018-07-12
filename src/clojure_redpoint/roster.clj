@@ -142,11 +142,13 @@
         :ret :unq/gift-history)
 
 (defn set-gift-history-in-player [g-hist plr]
-  (assoc plr :gift-history g-hist))
-(s/fdef set-gift-history-in-player
-        :args (s/cat :g-hist :unq/gift-history
-                     :plr :unq/player)
-        :ret :unq/player)
+  (if (nil? g-hist)
+    (assoc plr :gift-history [{:giver :none, :givee :none}])
+    (assoc plr :gift-history g-hist)))
+;(s/fdef set-gift-history-in-player
+;        :args (s/cat :g-hist :unq/gift-history
+;                     :plr :unq/player)
+;        :ret :unq/player)
 
 (defn set-gift-pair-in-roster [plrs-map plr-sym g-year g-pair]
   (let [plr (get-player-in-roster plrs-map plr-sym)
