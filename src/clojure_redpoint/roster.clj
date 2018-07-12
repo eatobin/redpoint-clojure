@@ -142,14 +142,18 @@
         :ret :unq/gift-history)
 
 (defn set-gift-history-in-player [g-hist plr]
-  (if (nil? g-hist)
-    (assoc plr :gift-history [{:giver :none, :givee :none}])
+  (if (or (nil? g-hist) (nil? plr))
+    {:name "none", :gift-history [{:giver :none, :givee :none}]}
     (assoc plr :gift-history g-hist)))
 (s/fdef set-gift-history-in-player
-        :args (s/or :input-hist (s/cat :g-hist :unq/gift-history
+        :args (s/or :input-good (s/cat :g-hist :unq/gift-history
                                        :plr :unq/player)
-                    :input-nil (s/cat :g-hist nil?
-                                      :plr :unq/player))
+                    :input-hist-nil (s/cat :g-hist nil?
+                                           :plr :unq/player)
+                    :input-plr-nil (s/cat :g-hist :unq/gift-history
+                                          :plr nil?)
+                    :input-both-nil (s/cat :g-hist nil?
+                                           :plr nil?))
         :ret :unq/player)
 
 (defn set-gift-pair-in-roster [plrs-map plr-sym g-year g-pair]
@@ -161,7 +165,7 @@
 (s/fdef set-gift-pair-in-roster
         :args (s/cat :plrs-map ::plr-map
                      :plr-sym keyword?
-                     :g-year int?
+                     :g-year (s/and int? #(> % -1))
                      :g-pair :unq/gift-pair)
         :ret ::plr-map)
 
