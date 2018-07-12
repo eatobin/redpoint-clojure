@@ -358,3 +358,8 @@
 ;                                                      :orchestra.spec.test/caller {:file "roster.clj",
 ;                                                                                   :line 162,
 ;                                                                                   :var-scope clojure-redpoint.roster/set-gift-pair-in-roster}},
+(def roster-map
+  {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
+   :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+   :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+   :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
