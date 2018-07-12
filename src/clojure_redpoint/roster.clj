@@ -6,7 +6,8 @@
             [clojure.test.check.generators :as gen]
             [clojure.spec.test.alpha :as stest]))
 
-(s/def ::roster-seq (s/coll-of vector?))
+(s/def ::roster-seq (s/coll-of vector? :kind seq?))
+(s/def ::roster-info-vector (s/coll-of string? :kind vector?))
 (s/def ::plrs-list (s/coll-of vector?))
 (s/def ::givee keyword?)
 (s/def ::giver keyword?)
@@ -25,13 +26,19 @@
 (s/fdef make-roster-seq
         :args (s/cat :roster-string string?)
         :ret ::roster-seq)
+;(s/conform ::roster-seq
+;           (make-roster-seq rs))
+;(stest/check `make-roster-seq)
 
 (defn- extract-roster-info-vector [roster-string]
   (first (make-roster-seq roster-string)))
 (s/fdef extract-roster-info-vector
         :args (s/cat :roster-string string?)
-        :ret (s/or :found vector?
+        :ret (s/or :found ::roster-info-vector
                    :not-found nil?))
+;(s/conform ::roster-info-vector
+;           (extract-roster-info-vector rs))
+;(stest/check `extract-roster-info-vector)
 
 (defn- extract-players-list [roster-string]
   (into () (rest (make-roster-seq roster-string))))
@@ -140,6 +147,9 @@
                            pair (s/gen :unq/gift-pair)]
                    [hist year pair]))
         :ret :unq/gift-history)
+
+
+
 
 (defn set-gift-history-in-player [g-hist plr]
   (if (or (nil? g-hist) (nil? plr))
