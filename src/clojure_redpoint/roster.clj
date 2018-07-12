@@ -120,14 +120,21 @@
         :ret ::giver)
 
 (defn set-gift-pair-in-gift-history [g-hist g-year g-pair]
-  (assoc g-hist g-year g-pair))
+  (if (nil? g-hist)
+    [{:giver :none, :givee :none}]
+    (assoc g-hist g-year g-pair)))
 (s/fdef set-gift-pair-in-gift-history
         :args (s/with-gen
-                (s/and
-                  (s/cat :g-hist :unq/gift-history
-                         :g-year (s/and int? #(> % -1))
-                         :g-pair :unq/gift-pair)
-                  #(<= (:g-year %) (count (:g-hist %))))
+                (s/or :input-hist (s/and
+                                    (s/cat :g-hist :unq/gift-history
+                                           :g-year (s/and int? #(> % -1))
+                                           :g-pair :unq/gift-pair)
+                                    #(<= (:g-year %) (count (:g-hist %))))
+                      :input-nil (s/and
+                                   (s/cat :g-hist nil?
+                                          :g-year (s/and int? #(> % -1))
+                                          :g-pair :unq/gift-pair)
+                                   #(<= (:g-year %) (count (:g-hist %)))))
                 #(gen/let [hist (s/gen :unq/gift-history)
                            year (gen/large-integer* {:min 0 :max (max 0 (dec (count hist)))})
                            pair (s/gen :unq/gift-pair)]
