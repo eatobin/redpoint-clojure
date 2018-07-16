@@ -42,11 +42,7 @@
                                            :g-year (s/and int? #(> % -1))
                                            :g-pair :unq/gift-pair)
                                     #(<= (:g-year %) (count (:g-hist %))))
-                      :input-nil (s/and
-                                   (s/cat :g-hist nil?
-                                          :g-year (s/and int? #(> % -1))
-                                          :g-pair :unq/gift-pair)
-                                   #(<= (:g-year %) (count (:g-hist %)))))
+                      :input-nil (s/cat :g-hist nil? :g-year any? :g-pair any?))
                 #(gen/let [hist (s/gen :unq/gift-history)
                            year (gen/large-integer* {:min 0 :max (max 0 (dec (count hist)))})
                            pair (s/gen :unq/gift-pair)]
