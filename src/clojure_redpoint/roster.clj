@@ -170,19 +170,12 @@
                                            :g-year (s/and int? #(> % -1))
                                            :g-pair :unq/gift-pair)
                                     #(<= (:g-year %) (count (:g-hist %))))
-                      :input-nil (s/and
-                                   (s/cat :g-hist nil?
-                                          :g-year (s/and int? #(> % -1))
-                                          :g-pair :unq/gift-pair)
-                                   #(<= (:g-year %) (count (:g-hist %)))))
+                      :input-nil (s/cat :g-hist nil? :g-year any? :g-pair any?))
                 #(gen/let [hist (s/gen :unq/gift-history)
                            year (gen/large-integer* {:min 0 :max (max 0 (dec (count hist)))})
                            pair (s/gen :unq/gift-pair)]
                    [hist year pair]))
         :ret :unq/gift-history)
-
-
-
 
 (defn set-gift-history-in-player [g-hist plr]
   (if (or (nil? g-hist) (nil? plr))
@@ -306,60 +299,3 @@
 ;(s/conform :unq/player
 ;           (set-gift-history-in-player [{:giver :RinSta, :givee :PauMcc}] {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))
 ;(stest/check `set-gift-pair-in-gift-history)
-
-
-
-
-;(stest/check `set-gift-pair-in-roster)
-;=>
-;({:spec #object[clojure.spec.alpha$fspec_impl$reify__2451
-;                0x7f3251fa
-;                "clojure.spec.alpha$fspec_impl$reify__2451@7f3251fa"],
-;  :clojure.spec.test.check/ret {:result #error{:cause "Call to #'clojure-redpoint.roster/set-gift-pair-in-gift-history did not conform to spec:
-;                                                       In: [0] val: nil fails spec: :unq/gift-history at: [:args :input-hist :g-hist] predicate: vector?
-;                                                       val: {:g-hist nil, :g-year 43, :g-pair {:givee :t, :giver :h}} fails at: [:args :input-nil] predicate: (<= (:g-year %) (count (:g-hist %)))
-;                                                       ",
-;                                               :data {:clojure.spec.alpha/problems ({:path [:args
-;                                                                                            :input-hist
-;                                                                                            :g-hist],
-;                                                                                     :pred clojure.core/vector?,
-;                                                                                     :val nil,
-;                                                                                     :via [:unq/gift-history
-;                                                                                           :unq/gift-history],
-;                                                                                     :in [0]}
-;                                                                                     {:path [:args
-;                                                                                             :input-nil],
-;                                                                                      :pred (clojure.core/fn
-;                                                                                              [%]
-;                                                                                              (clojure.core/<=
-;                                                                                                (:g-year
-;                                                                                                  %)
-;                                                                                                (clojure.core/count
-;                                                                                                  (:g-hist
-;                                                                                                    %)))),
-;                                                                                      :val {:g-hist nil,
-;                                                                                            :g-year 43,
-;                                                                                            :g-pair {:givee :t,
-;                                                                                                     :giver :h}},
-;                                                                                      :via [],
-;                                                                                      :in []}),
-;                                                      :clojure.spec.alpha/spec #object[clojure.spec.alpha$or_spec_impl$reify__2046
-;                                                                                       0x46e540de
-;                                                                                       "clojure.spec.alpha$or_spec_impl$reify__2046@46e540de"],
-;                                                      :clojure.spec.alpha/value (nil
-;                                                                                  43
-;                                                                                  {:givee :t,
-;                                                                                   :giver :h}),
-;                                                      :clojure.spec.alpha/args (nil
-;                                                                                 43
-;                                                                                 {:givee :t,
-;                                                                                  :giver :h}),
-;                                                      :clojure.spec.alpha/failure :instrument,
-;                                                      :orchestra.spec.test/caller {:file "roster.clj",
-;                                                                                   :line 162,
-;                                                                                   :var-scope clojure-redpoint.roster/set-gift-pair-in-roster}},
-(def roster-map
-  {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
-   :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-   :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-   :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
