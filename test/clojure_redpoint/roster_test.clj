@@ -1,19 +1,27 @@
 (ns clojure-redpoint.roster-test
   (:require [clojure.test :refer :all]
-            [clojure-redpoint.roster :as rost]))
+            [clojure-redpoint.roster-utility :as rost-u]))
 
-;(def roster-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
-;
+(def roster-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
+(def test-roster-seq (lazy-seq (list ["The Beatles" "2014"]
+                                     ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
+                                     ["JohLen" "John Lennon" "PauMcc" "RinSta"]
+                                     ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
+                                     ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"])))
+(deftest make-roster-seq
+  (is (= (lazy-seq '(["no"] ["data"]))
+         (rost-u/make-roster-seq "")))
+  (is (= (lazy-seq '(["no"] ["data"]))
+         (rost-u/make-roster-seq nil)))
+  (is (= test-roster-seq
+         (rost-u/make-roster-seq roster-string))))
+
 ;(def roster-info-vector (rost/extract-roster-info-vector roster-string))
 ;
 ;(def player-list (rost/extract-players-list roster-string))
 
-;(def test-roster-list ([["The Beatles" "2014"]
-;                      ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
-;                      ["JohLen" "John Lennon" "PauMcc" "RinSta"]
-;                      ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
-;                      ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]])
-;
+
+
 ;(def test-players-map {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
 ;                       :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
 ;                       :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
