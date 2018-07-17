@@ -19,14 +19,8 @@
 (s/def ::plr-map-vec (s/tuple string? string? string? string?))
 (s/def ::plr-map (s/map-of keyword? :unq/player))
 
-(defn- make-roster-seq
-  "Returns a lazy roster-seq"
-  [roster-string]
-  (let [de-spaced (cs/replace roster-string #", " ",")]
-    (csv/parse-csv de-spaced)))
-(s/fdef make-roster-seq
-        :args (s/cat :roster-string string?)
-        :ret ::roster-seq)
+
+
 (s/conform ::roster-seq
            (make-roster-seq rs))
 ;(stest/check `make-roster-seq)
