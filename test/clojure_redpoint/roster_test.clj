@@ -20,7 +20,6 @@
            (rost-u/make-roster-seq ""))
 (s/conform nil?
            (rost-u/make-roster-seq nil))
-;(stest/check `make-roster-seq)
 
 ;(def roster-info-vector (rost/extract-roster-info-vector roster-string))
 ;
