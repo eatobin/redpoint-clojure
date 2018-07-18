@@ -10,17 +10,15 @@
                                      ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
                                      ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"])))
 (deftest make-roster-seq
-  (is (= (lazy-seq '(["no"] ["data"]))
-         (rost-u/make-roster-seq "")))
-  (is (= (lazy-seq '(["no"] ["data"]))
-         (rost-u/make-roster-seq nil)))
+  (is (nil? (rost-u/make-roster-seq "")))
+  (is (nil? (rost-u/make-roster-seq nil)))
   (is (= test-roster-seq
          (rost-u/make-roster-seq roster-string))))
 (s/conform ::rost-u/roster-seq
            (rost-u/make-roster-seq roster-string))
-(s/conform ::rost-u/roster-seq
+(s/conform nil?
            (rost-u/make-roster-seq ""))
-(s/conform ::rost-u/roster-seq
+(s/conform nil?
            (rost-u/make-roster-seq nil))
 ;(stest/check `make-roster-seq)
 

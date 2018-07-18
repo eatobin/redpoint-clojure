@@ -23,12 +23,7 @@
 
 
 
-(defn- extract-roster-info-vector [roster-string]
-  (first (make-roster-seq roster-string)))
-(s/fdef extract-roster-info-vector
-        :args (s/cat :roster-string string?)
-        :ret (s/or :found ::roster-info-vector
-                   :not-found nil?))
+
 (s/conform ::roster-info-vector
            (extract-roster-info-vector rs))
 (s/conform nil?

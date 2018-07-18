@@ -2,9 +2,7 @@
   (:require [clojure.string :as cs]
             [clojure-csv.core :as csv]
             [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as st]
-            [clojure.test.check.generators :as gen]
-            [clojure.spec.test.alpha :as stest]))
+            [orchestra.spec.test :as st]))
 
 (s/def ::roster-seq (s/coll-of vector? :kind seq?))
 
@@ -12,13 +10,21 @@
   "Returns a lazy roster-seq"
   [roster-string]
   (if (or (= roster-string "") (nil? roster-string))
-    (lazy-seq '(["no"] ["data"]))
+    nil
     (let [de-spaced (cs/replace roster-string #", " ",")]
       (csv/parse-csv de-spaced))))
 (s/fdef make-roster-seq
         :args (s/or :input-str (s/cat :roster-string string?)
                     :input-nil (s/cat :roster-string nil?))
-        :ret ::roster-seq)
+        :ret (s/or :output-seq ::roster-seq
+                   :output-nil nil?))
+
+(defn- extract-roster-info-vector [roster-string]
+  (first (make-roster-seq roster-string)))
+(s/fdef extract-roster-info-vector
+        :args (s/cat :roster-string string?)
+        :ret (s/or :found ::roster-info-vector
+                   :not-found nil?))
 
 (st/instrument)
 
