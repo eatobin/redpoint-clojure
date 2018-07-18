@@ -1,6 +1,7 @@
 (ns clojure-redpoint.roster-test
   (:require [clojure.test :refer :all]
-            [clojure-redpoint.roster-utility :as rost-u]))
+            [clojure-redpoint.roster-utility :as rost-u]
+            [clojure.spec.alpha :as s]))
 
 (def roster-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 (def test-roster-seq (lazy-seq (list ["The Beatles" "2014"]
@@ -15,6 +16,13 @@
          (rost-u/make-roster-seq nil)))
   (is (= test-roster-seq
          (rost-u/make-roster-seq roster-string))))
+(s/conform ::rost-u/roster-seq
+           (rost-u/make-roster-seq roster-string))
+(s/conform ::rost-u/roster-seq
+           (rost-u/make-roster-seq ""))
+(s/conform ::rost-u/roster-seq
+           (rost-u/make-roster-seq nil))
+;(stest/check `make-roster-seq)
 
 ;(def roster-info-vector (rost/extract-roster-info-vector roster-string))
 ;

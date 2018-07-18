@@ -21,9 +21,7 @@
 
 
 
-(s/conform ::roster-seq
-           (make-roster-seq rs))
-;(stest/check `make-roster-seq)
+
 
 (defn- extract-roster-info-vector [roster-string]
   (first (make-roster-seq roster-string)))
