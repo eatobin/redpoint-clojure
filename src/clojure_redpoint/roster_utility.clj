@@ -5,9 +5,10 @@
             [orchestra.spec.test :as st]))
 
 (s/def ::roster-seq (s/coll-of vector? :kind seq?))
+(s/def ::roster-info-vector (s/coll-of string? :kind vector?))
 
 (defn make-roster-seq
-  "Returns a lazy roster-seq"
+  "Returns a lazy roster-seq or nil."
   [roster-string]
   (if (or (= roster-string "") (nil? roster-string))
     nil
@@ -19,12 +20,15 @@
         :ret (s/or :output-seq ::roster-seq
                    :output-nil nil?))
 
-(defn- extract-roster-info-vector [roster-string]
-  (first (make-roster-seq roster-string)))
+(defn extract-roster-info-vector [roster-string]
+  (if (or (= roster-string "") (nil? roster-string))
+    nil
+    (first (make-roster-seq roster-string))))
 (s/fdef extract-roster-info-vector
-        :args (s/cat :roster-string string?)
-        :ret (s/or :found ::roster-info-vector
-                   :not-found nil?))
+        :args (s/or :input-str (s/cat :roster-string string?)
+                    :input-nil (s/cat :roster-string nil?))
+        :ret (s/or :output-vec ::roster-info-vector
+                   :output-nil nil?))
 
 (st/instrument)
 
