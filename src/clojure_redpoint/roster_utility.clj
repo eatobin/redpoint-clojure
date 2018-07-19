@@ -6,6 +6,7 @@
 
 (s/def ::roster-seq (s/coll-of vector? :kind seq?))
 (s/def ::roster-info-vector (s/coll-of string? :kind vector?))
+(s/def ::plrs-list (s/coll-of vector? :kind list?))
 
 (defn make-roster-seq
   "Returns a lazy roster-seq"
@@ -28,6 +29,16 @@
         :args (s/or :input-str (s/cat :roster-string string?)
                     :input-nil (s/cat :roster-string nil?))
         :ret (s/or :output-vec ::roster-info-vector
+                   :output-nil nil?))
+
+(defn extract-players-list [roster-string]
+  (if (or (= roster-string "") (nil? roster-string))
+    nil
+    (into () (rest (make-roster-seq roster-string)))))
+(s/fdef extract-players-list
+        :args (s/or :input-str (s/cat :roster-string string?)
+                    :input-nil (s/cat :roster-string nil?))
+        :ret (s/or :output-list ::plrs-list
                    :output-nil nil?))
 
 (st/instrument)

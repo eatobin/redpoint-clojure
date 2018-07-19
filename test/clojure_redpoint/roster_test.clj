@@ -4,11 +4,11 @@
             [clojure.spec.alpha :as s]))
 
 (def roster-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
-(def test-roster-seq (lazy-seq (list ["The Beatles" "2014"]
-                                     ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
-                                     ["JohLen" "John Lennon" "PauMcc" "RinSta"]
-                                     ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
-                                     ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"])))
+(def test-roster-seq (lazy-seq '(["The Beatles" "2014"]
+                                 ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
+                                 ["JohLen" "John Lennon" "PauMcc" "RinSta"]
+                                 ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
+                                 ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"])))
 (deftest make-roster-seq-test
   (is (nil? (rost-u/make-roster-seq "")))
   (is (nil? (rost-u/make-roster-seq nil)))
@@ -32,6 +32,21 @@
            (rost-u/extract-roster-info-vector ""))
 (s/conform nil?
            (rost-u/extract-roster-info-vector nil))
+
+(deftest extract-players-list-test
+  (is (nil? (rost-u/extract-players-list "")))
+  (is (nil? (rost-u/extract-players-list nil)))
+  (is (= '(["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]
+           ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
+           ["JohLen" "John Lennon" "PauMcc" "RinSta"]
+           ["RinSta" "Ringo Starr" "JohLen" "GeoHar"])
+         (rost-u/extract-players-list roster-string))))
+(s/conform ::rost-u/plrs-list
+           (rost-u/extract-players-list roster-string))
+(s/conform nil?
+           (rost-u/extract-players-list ""))
+(s/conform nil?
+           (rost-u/extract-players-list nil))
 
 ;(def roster-info-vector (rost/extract-roster-info-vector roster-string))
 ;

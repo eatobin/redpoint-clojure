@@ -6,10 +6,6 @@
             [clojure.test.check.generators :as gen]
             [clojure.spec.test.alpha :as stest]))
 
-(def rs "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
-(s/def ::roster-seq (s/coll-of vector? :kind seq?))
-(s/def ::roster-info-vector (s/coll-of string? :kind vector?))
-(s/def ::plrs-list (s/coll-of vector? :kind list?))
 (s/def ::givee keyword?)
 (s/def ::giver keyword?)
 (s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
@@ -23,18 +19,6 @@
 
 
 
-
-(s/conform ::roster-info-vector
-           (extract-roster-info-vector rs))
-(s/conform nil?
-           (extract-roster-info-vector ""))
-;(stest/check `extract-roster-info-vector)
-
-(defn- extract-players-list [roster-string]
-  (into () (rest (make-roster-seq roster-string))))
-(s/fdef extract-players-list
-        :args (s/cat :roster-string string?)
-        :ret ::plrs-list)
 (s/conform ::plrs-list
            (extract-players-list rs))
 ;(stest/check `extract-players-list)
