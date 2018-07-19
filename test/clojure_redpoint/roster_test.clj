@@ -21,18 +21,6 @@
 (s/conform nil?
            (rost-u/make-roster-seq nil))
 
-(deftest extract-roster-info-vector
-  (is (nil? (rost-u/extract-roster-info-vector "")))
-  (is (nil? (rost-u/extract-roster-info-vector nil)))
-  (is (= ["the Beatles" 2019]
-         (rost-u/extract-roster-info-vector roster-string))))
-(s/conform ::rost-u/roster-info-vector
-           (rost-u/extract-roster-info-vector roster-string))
-(s/conform nil?
-           (rost-u/extract-roster-info-vector ""))
-(s/conform nil?
-           (rost-u/extract-roster-info-vector nil))
-
 ;(def roster-info-vector (rost/extract-roster-info-vector roster-string))
 ;
 ;(def player-list (rost/extract-players-list roster-string))
