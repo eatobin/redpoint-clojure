@@ -9,7 +9,7 @@
                                      ["JohLen" "John Lennon" "PauMcc" "RinSta"]
                                      ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
                                      ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"])))
-(deftest make-roster-seq
+(deftest make-roster-seq-test
   (is (nil? (rost-u/make-roster-seq "")))
   (is (nil? (rost-u/make-roster-seq nil)))
   (is (= test-roster-seq
@@ -20,6 +20,18 @@
            (rost-u/make-roster-seq ""))
 (s/conform nil?
            (rost-u/make-roster-seq nil))
+
+(deftest extract-roster-info-vector-test
+  (is (nil? (rost-u/extract-roster-info-vector "")))
+  (is (nil? (rost-u/extract-roster-info-vector nil)))
+  (is (= ["The Beatles" "2014"]
+         (rost-u/extract-roster-info-vector roster-string))))
+(s/conform ::rost-u/roster-info-vector
+           (rost-u/extract-roster-info-vector roster-string))
+(s/conform nil?
+           (rost-u/extract-roster-info-vector ""))
+(s/conform nil?
+           (rost-u/extract-roster-info-vector nil))
 
 ;(def roster-info-vector (rost/extract-roster-info-vector roster-string))
 ;
