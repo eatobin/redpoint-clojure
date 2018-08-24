@@ -1,7 +1,8 @@
 (ns clojure-redpoint.roster-test
   (:require [clojure.test :refer :all]
             [clojure-redpoint.roster-utility :refer :all]
-            [clojure.spec.alpha :as s]))
+            [clojure.spec.alpha :as s]
+            [clojure.spec.test.alpha :as stest]))
 
 (def roster-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 (def test-roster-seq (lazy-seq '(["The Beatles" "2014"]
@@ -20,6 +21,7 @@
            (make-roster-seq ""))
 (s/conform nil?
            (make-roster-seq nil))
+(stest/check `make-roster-seq)
 
 (deftest extract-roster-info-vector-test
   (is (nil? (extract-roster-info-vector "")))
@@ -32,6 +34,7 @@
            (extract-roster-info-vector ""))
 (s/conform nil?
            (extract-roster-info-vector nil))
+(stest/check `extract-roster-info-vector)
 
 (deftest extract-players-list-test
   (is (nil? (extract-players-list "")))
@@ -47,12 +50,14 @@
            (extract-players-list ""))
 (s/conform nil?
            (extract-players-list nil))
+(stest/check `extract-players-list)
 
 (deftest make-gift-pair-test
   (is (= {:givee :PauMcc, :giver :GeoHar}
          (make-gift-pair "PauMcc" "GeoHar"))))
 (s/conform :unq/gift-pair
            (make-gift-pair "me" "you"))
+(stest/check `make-gift-pair)
 
 (def roster-info-vector (extract-roster-info-vector roster-string))
 
