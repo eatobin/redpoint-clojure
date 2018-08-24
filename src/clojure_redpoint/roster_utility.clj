@@ -2,11 +2,14 @@
   (:require [clojure.string :as cs]
             [clojure-csv.core :as csv]
             [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as st]))
+            [orchestra.spec.test :as st]
+            [clojure.repl :refer :all]))
 
 (s/def ::roster-seq (s/coll-of vector? :kind seq?))
 (s/def ::roster-info-vector (s/coll-of string? :kind vector?))
 (s/def ::plrs-list (s/coll-of vector? :kind list?))
+(s/def ::givee keyword?)
+(s/def ::giver keyword?)
 
 (defn make-roster-seq
   "Returns a lazy roster-seq - or nil on error"

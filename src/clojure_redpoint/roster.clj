@@ -18,11 +18,6 @@
 
 
 
-
-(s/conform ::plrs-list
-           (extract-players-list rs))
-;(stest/check `extract-players-list)
-
 (defn- make-gift-pair [givee giver]
   (hash-map
     :givee (keyword givee)
