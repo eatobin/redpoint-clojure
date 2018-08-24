@@ -18,9 +18,13 @@
     nil
     (let [de-spaced (cs/replace roster-string #", " ",")]
       (csv/parse-csv de-spaced))))
+;(s/fdef make-roster-seq
+;        :args (s/or :input-str (s/cat :roster-string string?)
+;                    :input-nil (s/cat :roster-string nil?))
+;        :ret (s/or :output-seq ::roster-seq
+;                   :output-nil nil?))
 (s/fdef make-roster-seq
-        :args (s/or :input-str (s/cat :roster-string string?)
-                    :input-nil (s/cat :roster-string nil?))
+        :args (s/cat :roster-string (s/nilable string?))
         :ret (s/or :output-seq ::roster-seq
                    :output-nil nil?))
 
