@@ -6,10 +6,10 @@
 
 (def roster-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 (def test-roster-seq (lazy-seq '(["The Beatles" "2014"]
-                                 ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
-                                 ["JohLen" "John Lennon" "PauMcc" "RinSta"]
-                                 ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
-                                 ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"])))
+                                  ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
+                                  ["JohLen" "John Lennon" "PauMcc" "RinSta"]
+                                  ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
+                                  ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"])))
 (deftest make-roster-seq-test
   (is (nil? (make-roster-seq "")))
   (is (nil? (make-roster-seq nil)))
@@ -58,6 +58,13 @@
 (s/conform :unq/gift-pair
            (make-gift-pair "me" "you"))
 (stest/check `make-gift-pair)
+
+(deftest make-player-test
+  (is (= {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}
+         (make-player "Ringo Starr" [{:giver :GeoHar, :givee :JohLen}]))))
+(s/conform :unq/player
+           (make-player "Ringo Starr" [{:giver :GeoHar, :givee :JohLen}]))
+(stest/check `make-player)
 
 (def roster-info-vector (extract-roster-info-vector roster-string))
 

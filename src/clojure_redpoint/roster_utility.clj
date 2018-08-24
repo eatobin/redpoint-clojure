@@ -11,6 +11,9 @@
 (s/def ::givee keyword?)
 (s/def ::giver keyword?)
 (s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
+(s/def ::name string?)
+(s/def :unq/gift-history (s/coll-of :unq/gift-pair :kind vector?))
+(s/def :unq/player (s/keys :req-un [::name :unq/gift-history]))
 
 (defn make-roster-seq
   "Returns a lazy roster-seq - or nil on error"
@@ -46,13 +49,23 @@
                    :output-nil nil?))
 
 (defn make-gift-pair [givee giver]
-  "Returns a gift pair given givee and giver as strings"
+  "Returns a gift pair hash map given givee and giver as strings"
   (hash-map
     :givee (keyword givee)
     :giver (keyword giver)))
 (s/fdef make-gift-pair
         :args (s/cat :givee string? :giver string?)
         :ret :unq/gift-pair)
+
+(defn make-player [p-name g-hist]
+  "Returns a player hash map given a player name (string) and a gift history
+  (vector of gift pairs)"
+  (hash-map
+    :name p-name
+    :gift-history g-hist))
+(s/fdef make-player
+        :args (s/cat :p-name ::name :g-hist :unq/gift-history)
+        :ret :unq/player)
 
 (st/instrument)
 
