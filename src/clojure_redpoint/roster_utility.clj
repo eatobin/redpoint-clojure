@@ -10,6 +10,7 @@
 (s/def ::plrs-list (s/coll-of vector? :kind list?))
 (s/def ::givee keyword?)
 (s/def ::giver keyword?)
+(s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
 
 (defn make-roster-seq
   "Returns a lazy roster-seq - or nil on error"
@@ -43,6 +44,15 @@
         :args (s/cat :roster-string (s/nilable string?))
         :ret (s/or :output-list ::plrs-list
                    :output-nil nil?))
+
+(defn make-gift-pair [givee giver]
+  "Returns a gift pair given givee and giver as strings"
+  (hash-map
+    :givee (keyword givee)
+    :giver (keyword giver)))
+(s/fdef make-gift-pair
+        :args (s/cat :givee string? :giver string?)
+        :ret :unq/gift-pair)
 
 (st/instrument)
 

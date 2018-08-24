@@ -18,15 +18,7 @@
 
 
 
-(defn- make-gift-pair [givee giver]
-  (hash-map
-    :givee (keyword givee)
-    :giver (keyword giver)))
-(s/fdef make-gift-pair
-        :args (s/cat :givee string? :giver string?)
-        :ret :unq/gift-pair)
-(s/conform :unq/gift-pair
-           (make-gift-pair "me" "you"))
+
 ;(stest/check `make-gift-pair)
 
 (defn- make-player [p-name g-hist]

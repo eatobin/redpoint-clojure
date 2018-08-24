@@ -48,6 +48,12 @@
 (s/conform nil?
            (extract-players-list nil))
 
+(deftest make-gift-pair-test
+  (is (= {:givee :PauMcc, :giver :GeoHar}
+         (make-gift-pair "PauMcc" "GeoHar"))))
+(s/conform :unq/gift-pair
+           (make-gift-pair "me" "you"))
+
 (def roster-info-vector (extract-roster-info-vector roster-string))
 
 (def player-list (extract-players-list roster-string))
