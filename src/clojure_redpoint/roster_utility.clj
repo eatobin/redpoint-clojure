@@ -9,7 +9,7 @@
 (s/def ::plrs-list (s/coll-of vector? :kind list?))
 
 (defn make-roster-seq
-  "Returns a lazy roster-seq"
+  "Returns a lazy roster-seq - or nil on error"
   [roster-string]
   (if (or (= roster-string "") (nil? roster-string))
     nil
@@ -22,6 +22,7 @@
                    :output-nil nil?))
 
 (defn extract-roster-info-vector [roster-string]
+  "Returns a vector containing the roster name and year - or nil on error"
   (if (or (= roster-string "") (nil? roster-string))
     nil
     (first (make-roster-seq roster-string))))
@@ -32,6 +33,8 @@
                    :output-nil nil?))
 
 (defn extract-players-list [roster-string]
+  "Returns a list of vectors - each vector a player symbol, player name, first
+  givee and first giver - or nil on error"
   (if (or (= roster-string "") (nil? roster-string))
     nil
     (into () (rest (make-roster-seq roster-string)))))

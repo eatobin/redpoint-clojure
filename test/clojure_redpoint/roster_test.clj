@@ -1,6 +1,6 @@
 (ns clojure-redpoint.roster-test
   (:require [clojure.test :refer :all]
-            [clojure-redpoint.roster-utility :as rost-u]
+            [clojure-redpoint.roster-utility :refer :all]
             [clojure.spec.alpha :as s]))
 
 (def roster-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
@@ -10,49 +10,47 @@
                                  ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
                                  ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"])))
 (deftest make-roster-seq-test
-  (is (nil? (rost-u/make-roster-seq "")))
-  (is (nil? (rost-u/make-roster-seq nil)))
+  (is (nil? (make-roster-seq "")))
+  (is (nil? (make-roster-seq nil)))
   (is (= test-roster-seq
-         (rost-u/make-roster-seq roster-string))))
-(s/conform ::rost-u/roster-seq
-           (rost-u/make-roster-seq roster-string))
+         (make-roster-seq roster-string))))
+(s/conform :clojure-redpoint.roster-utility/roster-seq
+           (make-roster-seq roster-string))
 (s/conform nil?
-           (rost-u/make-roster-seq ""))
+           (make-roster-seq ""))
 (s/conform nil?
-           (rost-u/make-roster-seq nil))
+           (make-roster-seq nil))
 
 (deftest extract-roster-info-vector-test
-  (is (nil? (rost-u/extract-roster-info-vector "")))
-  (is (nil? (rost-u/extract-roster-info-vector nil)))
+  (is (nil? (extract-roster-info-vector "")))
+  (is (nil? (extract-roster-info-vector nil)))
   (is (= ["The Beatles" "2014"]
-         (rost-u/extract-roster-info-vector roster-string))))
-(s/conform ::rost-u/roster-info-vector
-           (rost-u/extract-roster-info-vector roster-string))
+         (extract-roster-info-vector roster-string))))
+(s/conform :clojure-redpoint.roster-utility/roster-info-vector
+           (extract-roster-info-vector roster-string))
 (s/conform nil?
-           (rost-u/extract-roster-info-vector ""))
+           (extract-roster-info-vector ""))
 (s/conform nil?
-           (rost-u/extract-roster-info-vector nil))
+           (extract-roster-info-vector nil))
 
 (deftest extract-players-list-test
-  (is (nil? (rost-u/extract-players-list "")))
-  (is (nil? (rost-u/extract-players-list nil)))
+  (is (nil? (extract-players-list "")))
+  (is (nil? (extract-players-list nil)))
   (is (= '(["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]
-           ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
-           ["JohLen" "John Lennon" "PauMcc" "RinSta"]
-           ["RinSta" "Ringo Starr" "JohLen" "GeoHar"])
-         (rost-u/extract-players-list roster-string))))
-(s/conform ::rost-u/plrs-list
-           (rost-u/extract-players-list roster-string))
+            ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
+            ["JohLen" "John Lennon" "PauMcc" "RinSta"]
+            ["RinSta" "Ringo Starr" "JohLen" "GeoHar"])
+         (extract-players-list roster-string))))
+(s/conform :clojure-redpoint.roster-utility/plrs-list
+           (extract-players-list roster-string))
 (s/conform nil?
-           (rost-u/extract-players-list ""))
+           (extract-players-list ""))
 (s/conform nil?
-           (rost-u/extract-players-list nil))
+           (extract-players-list nil))
 
-;(def roster-info-vector (rost/extract-roster-info-vector roster-string))
-;
-;(def player-list (rost/extract-players-list roster-string))
+(def roster-info-vector (extract-roster-info-vector roster-string))
 
-
+(def player-list (extract-players-list roster-string))
 
 ;(def test-players-map {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
 ;                       :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
