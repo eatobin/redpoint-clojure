@@ -40,8 +40,7 @@
     nil
     (into () (rest (make-roster-seq roster-string)))))
 (s/fdef extract-players-list
-        :args (s/or :input-str (s/cat :roster-string string?)
-                    :input-nil (s/cat :roster-string nil?))
+        :args (s/cat :roster-string (s/nilable string?))
         :ret (s/or :output-list ::plrs-list
                    :output-nil nil?))
 
