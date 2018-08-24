@@ -63,7 +63,7 @@
   (is (= {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}
          (make-player "Ringo Starr" [{:giver :GeoHar, :givee :JohLen}]))))
 (s/conform :unq/player
-           (make-player "Ringo Starr" [{:giver :GeoHar, :givee :JohLen}]))
+           (make-player "us" [{:giver :me, :givee :meToo} {:givee :you :giver :youToo}]))
 (stest/check `make-player)
 
 (def roster-info-vector (extract-roster-info-vector roster-string))

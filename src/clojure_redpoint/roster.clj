@@ -14,10 +14,6 @@
 
 
 
-(s/conform :unq/player
-           (make-player "us" [{:giver :me, :givee :meToo} {:givee :you :giver :youToo}]))
-;(stest/check `make-player)
-
 (defn- make-player-map [[s n ge gr]]
   (let [gp (make-gift-pair ge gr)
         plr (make-player n (vector gp))]
