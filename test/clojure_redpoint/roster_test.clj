@@ -10,6 +10,12 @@
                                   ["JohLen" "John Lennon" "PauMcc" "RinSta"]
                                   ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
                                   ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"])))
+(def players-map {:PauMcc {:name         "Paul McCartney",
+                           :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+                  :GeoHar {:name         "George Harrison",
+                           :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+                  :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                  :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
 (deftest make-roster-seq-test
   (is (nil? (make-roster-seq "")))
   (is (= test-roster-seq
@@ -63,6 +69,13 @@
 (s/conform :clojure-redpoint.roster-utility/plr-map
            (make-player-map ["s" "n" "ge" "gr"]))
 (stest/check `make-player-map)
+
+(deftest make-players-map-test
+  (is (= players-map
+         (make-players-map roster-string))))
+(s/conform :clojure-redpoint.roster-utility/plr-map
+           (make-players-map roster-string))
+(stest/check `make-players-map)
 
 ;(def roster-info-vector (extract-roster-info-vector roster-string))
 

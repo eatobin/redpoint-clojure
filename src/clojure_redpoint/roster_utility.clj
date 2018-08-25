@@ -78,6 +78,13 @@
         :args (s/cat :arg1 ::plr-map-vec)
         :ret ::plr-map)
 
+(defn make-players-map [roster-string]
+  (let [pl (extract-players-list roster-string)]
+    (into {} (map make-player-map pl))))
+(s/fdef make-players-map
+        :args (s/cat :roster-string string?)
+        :ret ::plr-map)
+
 (st/instrument)
 
 

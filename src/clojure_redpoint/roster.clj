@@ -16,15 +16,8 @@
 
 
 
-(defn- make-players-map [roster-string]
-  (let [pl (extract-players-list roster-string)]
-    (into {} (map make-player-map pl))))
-(s/fdef make-players-map
-        :args (s/cat :roster-string string?)
-        :ret ::plr-map)
-(s/conform ::plr-map
-           (make-players-map rs))
-;(stest/check `make-players-map)
+
+
 
 (defn- get-player-in-roster [plrs-map plr-sym]
   (get plrs-map plr-sym))
