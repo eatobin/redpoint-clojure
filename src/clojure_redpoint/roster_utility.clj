@@ -39,12 +39,12 @@
 
 (defn extract-players-list [roster-string]
   "Returns a list of vectors - each vector a player symbol, player name, first
-  givee and first giver - or nil on error"
-  (if (or (= roster-string "") (nil? roster-string))
+  givee and first giver - or nil on empty string"
+  (if (= roster-string "")
     nil
     (into () (rest (make-roster-seq roster-string)))))
 (s/fdef extract-players-list
-        :args (s/cat :roster-string (s/nilable string?))
+        :args (s/cat :roster-string string?)
         :ret (s/or :output-list ::plrs-list
                    :output-nil nil?))
 

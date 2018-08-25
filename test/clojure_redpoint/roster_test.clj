@@ -32,7 +32,6 @@
 
 (deftest extract-players-list-test
   (is (nil? (extract-players-list "")))
-  (is (nil? (extract-players-list nil)))
   (is (= '(["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]
             ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
             ["JohLen" "John Lennon" "PauMcc" "RinSta"]
@@ -42,8 +41,6 @@
            (extract-players-list roster-string))
 (s/conform nil?
            (extract-players-list ""))
-(s/conform nil?
-           (extract-players-list nil))
 (stest/check `extract-players-list)
 
 (deftest make-gift-pair-test
