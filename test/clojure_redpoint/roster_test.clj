@@ -22,15 +22,12 @@
 
 (deftest extract-roster-info-vector-test
   (is (nil? (extract-roster-info-vector "")))
-  (is (nil? (extract-roster-info-vector nil)))
   (is (= ["The Beatles" "2014"]
          (extract-roster-info-vector roster-string))))
 (s/conform :clojure-redpoint.roster-utility/roster-info-vector
            (extract-roster-info-vector roster-string))
 (s/conform nil?
            (extract-roster-info-vector ""))
-(s/conform nil?
-           (extract-roster-info-vector nil))
 (stest/check `extract-roster-info-vector)
 
 (deftest extract-players-list-test

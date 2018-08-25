@@ -28,12 +28,12 @@
                    :output-nil nil?))
 
 (defn extract-roster-info-vector [roster-string]
-  "Returns a vector containing the roster name and year - or nil on error"
-  (if (or (= roster-string "") (nil? roster-string))
+  "Returns a vector containing the roster name and year - or nil on empty string"
+  (if (= roster-string "")
     nil
     (first (make-roster-seq roster-string))))
 (s/fdef extract-roster-info-vector
-        :args (s/cat :roster-string (s/nilable string?))
+        :args (s/cat :roster-string string?)
         :ret (s/or :output-vec ::roster-info-vector
                    :output-nil nil?))
 
