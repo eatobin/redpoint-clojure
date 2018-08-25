@@ -12,15 +12,12 @@
                                   ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"])))
 (deftest make-roster-seq-test
   (is (nil? (make-roster-seq "")))
-  (is (nil? (make-roster-seq nil)))
   (is (= test-roster-seq
          (make-roster-seq roster-string))))
 (s/conform :clojure-redpoint.roster-utility/roster-seq
            (make-roster-seq roster-string))
 (s/conform nil?
            (make-roster-seq ""))
-(s/conform nil?
-           (make-roster-seq nil))
 (stest/check `make-roster-seq)
 
 (deftest extract-roster-info-vector-test

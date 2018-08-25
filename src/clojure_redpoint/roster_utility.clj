@@ -16,14 +16,14 @@
 (s/def :unq/player (s/keys :req-un [::name :unq/gift-history]))
 
 (defn make-roster-seq
-  "Returns a lazy roster-seq - or nil on error"
+  "Returns a lazy roster-seq - or nil on empty string"
   [roster-string]
-  (if (or (= roster-string "") (nil? roster-string))
+  (if (= roster-string "")
     nil
     (let [de-spaced (cs/replace roster-string #", " ",")]
       (csv/parse-csv de-spaced))))
 (s/fdef make-roster-seq
-        :args (s/cat :roster-string (s/nilable string?))
+        :args (s/cat :roster-string string?)
         :ret (s/or :output-seq ::roster-seq
                    :output-nil nil?))
 
