@@ -19,12 +19,7 @@
 
 
 
-(defn- get-player-in-roster [plrs-map plr-sym]
-  (get plrs-map plr-sym))
-(s/fdef get-player-in-roster
-        :args (s/cat :plrs-map ::plr-map :plr-sym keyword?)
-        :ret (s/or :found :unq/player
-                   :not-found nil?))
+
 (s/conform (s/or :found :unq/player
                  :not-found nil?)
            (get-player-in-roster {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},

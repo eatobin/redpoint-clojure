@@ -85,6 +85,13 @@
         :args (s/cat :roster-string string?)
         :ret ::plr-map)
 
+(defn get-player-in-roster [plrs-map plr-sym]
+  (get plrs-map plr-sym))
+(s/fdef get-player-in-roster
+        :args (s/cat :plrs-map ::plr-map :plr-sym keyword?)
+        :ret (s/or :found :unq/player
+                   :not-found nil?))
+
 (st/instrument)
 
 
