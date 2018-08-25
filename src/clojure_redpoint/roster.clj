@@ -8,23 +8,13 @@
 
 
 
-(s/def ::plr-map-vec (s/tuple string? string? string? string?))
-(s/def ::plr-map (s/map-of keyword? :unq/player))
 
 
 
 
-(defn- make-player-map [[s n ge gr]]
-  (let [gp (make-gift-pair ge gr)
-        plr (make-player n (vector gp))]
-    (hash-map
-      (keyword s) plr)))
-(s/fdef make-player-map
-        :args (s/cat :arg1 ::plr-map-vec)
-        :ret ::plr-map)
-(s/conform ::plr-map
-           (make-player-map ["s" "n" "ge" "gr"]))
-;(stest/check `make-player-map)
+
+
+
 
 (defn- make-players-map [roster-string]
   (let [pl (extract-players-list roster-string)]

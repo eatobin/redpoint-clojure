@@ -57,9 +57,16 @@
            (make-player "us" [{:giver :me, :givee :meToo} {:givee :you :giver :youToo}]))
 (stest/check `make-player)
 
-(def roster-info-vector (extract-roster-info-vector roster-string))
+(deftest make-player-map-test
+  (is (= {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
+         (make-player-map ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]))))
+(s/conform :clojure-redpoint.roster-utility/plr-map
+           (make-player-map ["s" "n" "ge" "gr"]))
+(stest/check `make-player-map)
 
-(def player-list (extract-players-list roster-string))
+;(def roster-info-vector (extract-roster-info-vector roster-string))
+
+;(def player-list (extract-players-list roster-string))
 
 ;(def test-players-map {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
 ;                       :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},

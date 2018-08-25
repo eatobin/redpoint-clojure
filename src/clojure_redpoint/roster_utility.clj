@@ -14,6 +14,8 @@
 (s/def ::name string?)
 (s/def :unq/gift-history (s/coll-of :unq/gift-pair :kind vector?))
 (s/def :unq/player (s/keys :req-un [::name :unq/gift-history]))
+(s/def ::plr-map-vec (s/tuple string? string? string? string?))
+(s/def ::plr-map (s/map-of keyword? :unq/player))
 
 (defn make-roster-seq
   "Returns a lazy roster-seq - or nil on empty string"
@@ -66,6 +68,15 @@
 (s/fdef make-player
         :args (s/cat :p-name ::name :g-hist :unq/gift-history)
         :ret :unq/player)
+
+(defn make-player-map [[s n ge gr]]
+  (let [gp (make-gift-pair ge gr)
+        plr (make-player n (vector gp))]
+    (hash-map
+      (keyword s) plr)))
+(s/fdef make-player-map
+        :args (s/cat :arg1 ::plr-map-vec)
+        :ret ::plr-map)
 
 (st/instrument)
 
