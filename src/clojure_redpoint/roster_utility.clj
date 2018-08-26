@@ -92,6 +92,13 @@
         :ret (s/or :found :unq/player
                    :not-found nil?))
 
+(defn get-gift-history-in-player [plr]
+  (get plr :gift-history))
+(s/fdef get-gift-history-in-player
+        :args (s/cat :plr :unq/player)
+        :ret (s/or :found :unq/gift-history
+                   :not-found nil?))
+
 (st/instrument)
 
 

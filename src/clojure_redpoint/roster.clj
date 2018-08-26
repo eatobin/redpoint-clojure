@@ -1,10 +1,8 @@
 (ns clojure-redpoint.roster
-  (:require [clojure.string :as cs]
-            [clojure-csv.core :as csv]
-            [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as st]
-            [clojure.test.check.generators :as gen]
-            [clojure.spec.test.alpha :as stest]))
+  (:require
+    [clojure.spec.alpha :as s]
+    [orchestra.spec.test :as st]
+    [clojure.test.check.generators :as gen]))
 
 
 
@@ -23,13 +21,7 @@
 
 
 
-(defn- get-gift-history-in-player [plr]
-  (get plr :gift-history))
-(s/fdef get-gift-history-in-player
-        :args (s/or :input-plr (s/cat :plr :unq/player)
-                    :input-nil (s/cat :plr nil?))
-        :ret (s/or :found :unq/gift-history
-                   :not-found nil?))
+
 
 (defn- get-gift-pair-in-gift-history [g-hist g-year]
   (get g-hist g-year))
