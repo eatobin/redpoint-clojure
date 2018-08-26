@@ -101,6 +101,11 @@
                                  :PauMccX))
 ;(stest/check `get-player-in-roster) ****memory failure****
 
+(deftest get-gift-history-in-player-test
+  (is (= [{:giver :JohLen, :givee :GeoHarX}]
+         (get-gift-history-in-player {:name         "Paul McCartney",
+                                      :gift-history [{:giver :JohLen, :givee :GeoHar}]}))))
+
 ;(def roster-info-vector (extract-roster-info-vector roster-string))
 
 ;(def player-list (extract-players-list roster-string))
