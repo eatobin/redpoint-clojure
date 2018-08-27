@@ -102,7 +102,7 @@
 ;(stest/check `get-player-in-roster) ****memory failure****
 
 (deftest get-gift-history-in-player-test
-  (is (= [{:giver :JohLen, :givee :GeoHarX}]
+  (is (= [{:giver :JohLen, :givee :GeoHar}]
          (get-gift-history-in-player {:name         "Paul McCartney",
                                       :gift-history [{:giver :JohLen, :givee :GeoHar}]}))))
 
