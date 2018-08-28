@@ -23,15 +23,7 @@
 ;
 ;
 ;
-;(defn- get-gift-pair-in-gift-history [g-hist g-year]
-;  (get g-hist g-year))
-;(s/fdef get-gift-pair-in-gift-history
-;        :args (s/or :input-hist (s/cat :g-hist :unq/gift-history
-;                                       :g-year int?)
-;                    :input-nil (s/cat :g-hist nil?
-;                                      :g-year int?))
-;        :ret (s/or :found :unq/gift-pair
-;                   :not-found nil?))
+
 ;
 ;(defn- get-gift-pair-in-roster [plrs-map plr-sym g-year]
 ;  (let [plr (get-player-in-roster plrs-map plr-sym)

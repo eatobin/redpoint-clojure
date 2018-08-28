@@ -107,6 +107,18 @@
          (get-gift-history-in-player {:name         "Paul McCartney",
                                       :gift-history [{:giver :JohLen, :givee :GeoHar}]}))))
 
+(deftest get-gift-pair-in-gift-history-test
+  (is (= {:giver :JohLen, :givee :GeoHar}
+         (get-gift-pair-in-gift-history [{:giver :JohLen, :givee :GeoHar}] 0)))
+  (is (nil? (get-gift-pair-in-gift-history [{:giver :JohLen, :givee :GeoHar}] 1))))
+(s/conform (s/or :found :unq/gift-pair
+                 :not-found nil?)
+           (get-gift-pair-in-gift-history [{:giver :GeoHar, :givee :JohLen}] 0))
+(s/conform (s/or :found :unq/gift-pair
+                 :not-found nil?)
+           (get-gift-pair-in-gift-history [{:giver :GeoHar, :givee :JohLen}] 1))
+(stest/check `get-gift-pair-in-gift-history)
+
 ;(def roster-info-vector (extract-roster-info-vector roster-string))
 
 ;(def player-list (extract-players-list roster-string))
