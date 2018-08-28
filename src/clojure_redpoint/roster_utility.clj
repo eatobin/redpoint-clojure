@@ -6,9 +6,6 @@
             [orchestra.spec.test :as st]
             [clojure.repl :refer :all]))
 
-(s/def ::givee keyword?)
-(s/def ::giver keyword?)
-(s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
 (s/def ::name string?)
 (s/def :unq/gift-history (s/coll-of :unq/gift-pair :kind vector?))
 (s/def :unq/player (s/keys :req-un [::name :unq/gift-history]))
