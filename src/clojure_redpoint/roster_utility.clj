@@ -70,10 +70,11 @@
         :ret ::dom/plr-map)
 
 (defn make-players-map [roster-string]
+  "Returns a hash map of multiple players given a roster string"
   (let [pl (extract-players-list roster-string)]
     (into {} (map make-player-map pl))))
 (s/fdef make-players-map
-        :args (s/cat :roster-string string?)
+        :args (s/cat :roster-string ::dom/roster-string)
         :ret ::dom/plr-map)
 
 (defn get-player-in-roster [plrs-map plr-sym]
