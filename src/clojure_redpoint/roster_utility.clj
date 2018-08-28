@@ -6,7 +6,6 @@
             [orchestra.spec.test :as st]
             [clojure.repl :refer :all]))
 
-(s/def ::plrs-list (s/coll-of vector? :kind list?))
 (s/def ::givee keyword?)
 (s/def ::giver keyword?)
 (s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
@@ -45,8 +44,8 @@
     nil
     (into () (rest (make-roster-seq roster-string)))))
 (s/fdef extract-players-list
-        :args (s/cat :roster-string string?)
-        :ret (s/or :output-list ::plrs-list
+        :args (s/cat :roster-string ::dom/roster-string)
+        :ret (s/or :output-list ::dom/plrs-list
                    :output-nil nil?))
 
 (defn make-gift-pair [givee giver]

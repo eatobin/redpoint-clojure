@@ -8,3 +8,4 @@
                                               (gen/tuple gen/string-alphanumeric gen/nat))))
 (s/def ::roster-seq (s/coll-of vector? :kind seq?))
 (s/def ::roster-info-vector (s/coll-of string? :kind vector?))
+(s/def ::plrs-list (s/coll-of vector? :kind list?))

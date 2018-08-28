@@ -44,7 +44,7 @@
             ["JohLen" "John Lennon" "PauMcc" "RinSta"]
             ["RinSta" "Ringo Starr" "JohLen" "GeoHar"])
          (extract-players-list roster-string))))
-(s/conform :clojure-redpoint.roster-utility/plrs-list
+(s/conform ::dom/plrs-list
            (extract-players-list roster-string))
 (s/conform nil?
            (extract-players-list ""))
