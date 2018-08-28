@@ -18,8 +18,9 @@
         :ret (s/or :output-seq ::dom/roster-seq
                    :output-nil nil?))
 
-(defn extract-roster-info-vector [roster-string]
+(defn extract-roster-info-vector
   "Returns a vector containing the roster name and year - or nil on empty string"
+  [roster-string]
   (if (= roster-string "")
     nil
     (first (make-roster-seq roster-string))))
@@ -28,9 +29,10 @@
         :ret (s/or :output-vec ::dom/roster-info-vector
                    :output-nil nil?))
 
-(defn extract-players-list [roster-string]
+(defn extract-players-list
   "Returns a list of vectors - each vector a player symbol, player name, first
   givee and first giver - or nil on empty string"
+  [roster-string]
   (if (= roster-string "")
     nil
     (into () (rest (make-roster-seq roster-string)))))
@@ -39,8 +41,9 @@
         :ret (s/or :output-list ::dom/plrs-list
                    :output-nil nil?))
 
-(defn make-gift-pair [givee giver]
+(defn make-gift-pair
   "Returns a gift pair hash map given givee and giver as strings"
+  [givee giver]
   (hash-map
     :givee (keyword givee)
     :giver (keyword giver)))
@@ -48,9 +51,10 @@
         :args (s/cat :givee string? :giver string?)
         :ret :unq/gift-pair)
 
-(defn make-player [p-name g-hist]
+(defn make-player
   "Returns a player hash map given a player name (string) and a gift history
   (vector of gift pairs)"
+  [p-name g-hist]
   (hash-map
     :name p-name
     :gift-history g-hist))
@@ -58,9 +62,10 @@
         :args (s/cat :p-name ::dom/name :g-hist :unq/gift-history)
         :ret :unq/player)
 
-(defn make-player-map [[s n ge gr]]
+(defn make-player-map
   "Returns a hash map linking a player symbol (key) to a player hash map (value)
   given a player symbol, name, initial givee and initial giver - all strings"
+  [[s n ge gr]]
   (let [gp (make-gift-pair ge gr)
         plr (make-player n (vector gp))]
     (hash-map
@@ -69,22 +74,27 @@
         :args (s/cat :arg1 ::dom/plr-map-vec)
         :ret ::dom/plr-map)
 
-(defn make-players-map [roster-string]
+(defn make-players-map
   "Returns a hash map of multiple players given a roster string"
+  [roster-string]
   (let [pl (extract-players-list roster-string)]
     (into {} (map make-player-map pl))))
 (s/fdef make-players-map
         :args (s/cat :roster-string ::dom/roster-string)
         :ret ::dom/plr-map)
 
-(defn get-player-in-roster [plrs-map plr-sym]
+(defn get-player-in-roster
+  "Returns a player given a players map and a player symbol"
+  [plrs-map plr-sym]
   (get plrs-map plr-sym))
 (s/fdef get-player-in-roster
         :args (s/cat :plrs-map ::dom/plr-map :plr-sym keyword?)
         :ret (s/or :found :unq/player
                    :not-found nil?))
 
-(defn get-gift-history-in-player [plr]
+(defn get-gift-history-in-player
+  "Returns a gift history given a player"
+  [plr]
   (get plr :gift-history))
 (s/fdef get-gift-history-in-player
         :args (s/cat :plr :unq/player)
