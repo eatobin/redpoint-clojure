@@ -6,7 +6,6 @@
             [orchestra.spec.test :as st]
             [clojure.repl :refer :all]))
 
-(s/def ::roster-info-vector (s/coll-of string? :kind vector?))
 (s/def ::plrs-list (s/coll-of vector? :kind list?))
 (s/def ::givee keyword?)
 (s/def ::giver keyword?)
@@ -35,8 +34,8 @@
     nil
     (first (make-roster-seq roster-string))))
 (s/fdef extract-roster-info-vector
-        :args (s/cat :roster-string string?)
-        :ret (s/or :output-vec ::roster-info-vector
+        :args (s/cat :roster-string ::dom/roster-string)
+        :ret (s/or :output-vec ::dom/roster-info-vector
                    :output-nil nil?))
 
 (defn extract-players-list [roster-string]

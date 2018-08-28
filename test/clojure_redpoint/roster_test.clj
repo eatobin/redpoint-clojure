@@ -31,7 +31,7 @@
   (is (nil? (extract-roster-info-vector "")))
   (is (= ["The Beatles" "2014"]
          (extract-roster-info-vector roster-string))))
-(s/conform :clojure-redpoint.roster-utility/roster-info-vector
+(s/conform ::dom/roster-info-vector
            (extract-roster-info-vector roster-string))
 (s/conform nil?
            (extract-roster-info-vector ""))
