@@ -2,7 +2,8 @@
   (:require [clojure.test :refer :all]
             [clojure-redpoint.roster-utility :refer :all]
             [clojure.spec.alpha :as s]
-            [clojure.spec.test.alpha :as stest]))
+            [clojure.spec.test.alpha :as stest]
+            [clojure-redpoint.domain :as dom]))
 
 (def roster-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 (def test-roster-seq (lazy-seq '(["The Beatles" "2014"]
@@ -20,7 +21,7 @@
   (is (nil? (make-roster-seq "")))
   (is (= test-roster-seq
          (make-roster-seq roster-string))))
-(s/conform :clojure-redpoint.roster-utility/roster-seq
+(s/conform ::dom/roster-seq
            (make-roster-seq roster-string))
 (s/conform nil?
            (make-roster-seq ""))

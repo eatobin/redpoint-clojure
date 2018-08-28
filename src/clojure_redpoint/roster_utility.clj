@@ -1,16 +1,11 @@
 (ns clojure-redpoint.roster-utility
-  (:require [clojure.string :as cs]
+  (:require [clojure-redpoint.domain :as dom]
+            [clojure.string :as cs]
             [clojure-csv.core :as csv]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as st]
-            [clojure.repl :refer :all]
-            [clojure.test.check.generators :as gen]))
+            [clojure.repl :refer :all]))
 
-(s/def ::roster-string (s/with-gen string?
-                                   #(gen/fmap (fn [[name year]]
-                                                (str name ", " year))
-                                              (gen/tuple gen/string-alphanumeric gen/nat))))
-(s/def ::roster-seq (s/coll-of vector? :kind seq?))
 (s/def ::roster-info-vector (s/coll-of string? :kind vector?))
 (s/def ::plrs-list (s/coll-of vector? :kind list?))
 (s/def ::givee keyword?)
@@ -30,8 +25,8 @@
     (let [de-spaced (cs/replace roster-string #", " ",")]
       (csv/parse-csv de-spaced))))
 (s/fdef make-roster-seq
-        :args (s/cat :roster-string ::roster-string)
-        :ret (s/or :output-seq ::roster-seq
+        :args (s/cat :roster-string ::dom/roster-string)
+        :ret (s/or :output-seq ::dom/roster-seq
                    :output-nil nil?))
 
 (defn extract-roster-info-vector [roster-string]
