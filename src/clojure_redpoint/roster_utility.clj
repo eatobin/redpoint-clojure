@@ -6,12 +6,6 @@
             [orchestra.spec.test :as st]
             [clojure.repl :refer :all]))
 
-(s/def ::name string?)
-(s/def :unq/gift-history (s/coll-of :unq/gift-pair :kind vector?))
-(s/def :unq/player (s/keys :req-un [::name :unq/gift-history]))
-(s/def ::plr-map-vec (s/tuple string? string? string? string?))
-(s/def ::plr-map (s/map-of keyword? :unq/player))
-
 (defn make-roster-seq
   "Returns a lazy roster-seq - or nil on empty string"
   [roster-string]
@@ -61,29 +55,31 @@
     :name p-name
     :gift-history g-hist))
 (s/fdef make-player
-        :args (s/cat :p-name ::name :g-hist :unq/gift-history)
+        :args (s/cat :p-name ::dom/name :g-hist :unq/gift-history)
         :ret :unq/player)
 
 (defn make-player-map [[s n ge gr]]
+  "Returns a hash map linking a player symbol (key) to a player hash map (value)
+  given a player symbol, name, initial givee and initial giver - all strings"
   (let [gp (make-gift-pair ge gr)
         plr (make-player n (vector gp))]
     (hash-map
       (keyword s) plr)))
 (s/fdef make-player-map
-        :args (s/cat :arg1 ::plr-map-vec)
-        :ret ::plr-map)
+        :args (s/cat :arg1 ::dom/plr-map-vec)
+        :ret ::dom/plr-map)
 
 (defn make-players-map [roster-string]
   (let [pl (extract-players-list roster-string)]
     (into {} (map make-player-map pl))))
 (s/fdef make-players-map
         :args (s/cat :roster-string string?)
-        :ret ::plr-map)
+        :ret ::dom/plr-map)
 
 (defn get-player-in-roster [plrs-map plr-sym]
   (get plrs-map plr-sym))
 (s/fdef get-player-in-roster
-        :args (s/cat :plrs-map ::plr-map :plr-sym keyword?)
+        :args (s/cat :plrs-map ::dom/plr-map :plr-sym keyword?)
         :ret (s/or :found :unq/player
                    :not-found nil?))
 

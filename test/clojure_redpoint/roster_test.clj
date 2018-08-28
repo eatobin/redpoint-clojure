@@ -67,14 +67,14 @@
 (deftest make-player-map-test
   (is (= {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
          (make-player-map ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]))))
-(s/conform :clojure-redpoint.roster-utility/plr-map
+(s/conform ::dom/plr-map
            (make-player-map ["s" "n" "ge" "gr"]))
 (stest/check `make-player-map)
 
 (deftest make-players-map-test
   (is (= players-map
          (make-players-map roster-string))))
-(s/conform :clojure-redpoint.roster-utility/plr-map
+(s/conform ::dom/plr-map
            (make-players-map roster-string))
 (stest/check `make-players-map)
 
