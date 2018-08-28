@@ -6,5 +6,4 @@
                                    #(gen/fmap (fn [[name year]]
                                                 (str name ", " year))
                                               (gen/tuple gen/string-alphanumeric gen/nat))))
-
 (s/def ::roster-seq (s/coll-of vector? :kind seq?))
