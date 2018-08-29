@@ -25,7 +25,7 @@
            (make-roster-seq roster-string))
 (s/conform nil?
            (make-roster-seq ""))
-(stest/check `make-roster-seq)
+;; (stest/check `make-roster-seq)
 
 (deftest extract-roster-info-vector-test
   (is (nil? (extract-roster-info-vector "")))
@@ -35,7 +35,7 @@
            (extract-roster-info-vector roster-string))
 (s/conform nil?
            (extract-roster-info-vector ""))
-(stest/check `extract-roster-info-vector)
+;; (stest/check `extract-roster-info-vector)
 
 (deftest extract-players-list-test
   (is (nil? (extract-players-list "")))
@@ -48,14 +48,14 @@
            (extract-players-list roster-string))
 (s/conform nil?
            (extract-players-list ""))
-(stest/check `extract-players-list)
+;; (stest/check `extract-players-list)
 
 (deftest make-gift-pair-test
   (is (= {:givee :PauMcc, :giver :GeoHar}
          (make-gift-pair "PauMcc" "GeoHar"))))
 (s/conform :unq/gift-pair
            (make-gift-pair "me" "you"))
-(stest/check `make-gift-pair)
+;; (stest/check `make-gift-pair)
 
 (deftest make-player-test
   (is (= {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}
@@ -69,14 +69,14 @@
          (make-player-map ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]))))
 (s/conform ::dom/plr-map
            (make-player-map ["s" "n" "ge" "gr"]))
-(stest/check `make-player-map)
+;; (stest/check `make-player-map)
 
 (deftest make-players-map-test
   (is (= players-map
          (make-players-map roster-string))))
 (s/conform ::dom/plr-map
            (make-players-map roster-string))
-(stest/check `make-players-map)
+;; (stest/check `make-players-map)
 
 (def test-players-map {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
                        :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
@@ -117,7 +117,7 @@
 (s/conform (s/or :found :unq/gift-pair
                  :not-found nil?)
            (get-gift-pair-in-gift-history [{:giver :GeoHar, :givee :JohLen}] 1))
-(stest/check `get-gift-pair-in-gift-history)
+;; (stest/check `get-gift-pair-in-gift-history)
 
 ;(def roster-info-vector (extract-roster-info-vector roster-string))
 
