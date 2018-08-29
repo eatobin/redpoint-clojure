@@ -100,7 +100,7 @@
                                   :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
                                   :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}}
                                  :PauMccX))
-;(stest/check `get-player-in-roster) ****memory failure****
+;; (stest/check `get-player-in-roster) ****memory failure****
 
 (deftest get-gift-history-in-player-test
   (is (= [{:giver :JohLen, :givee :GeoHar}]
