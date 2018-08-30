@@ -31,24 +31,24 @@
   (is (nil? (extract-roster-info-vector nil)))
   (is (= ["The Beatles" "2014"]
          (extract-roster-info-vector test-roster-seq))))
-(s/conform ::dom/roster-info-vector
+(s/conform ::dom/roster-line
            (extract-roster-info-vector test-roster-seq))
 (s/conform nil?
            (extract-roster-info-vector nil))
 ;(stest/check `extract-roster-info-vector)
 
-;(deftest extract-players-list-test
-;  (is (nil? (extract-players-list "")))
-;  (is (= '(["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]
-;            ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
-;            ["JohLen" "John Lennon" "PauMcc" "RinSta"]
-;            ["RinSta" "Ringo Starr" "JohLen" "GeoHar"])
-;         (extract-players-list roster-string))))
-;(s/conform ::dom/plrs-list
-;           (extract-players-list roster-string))
-;(s/conform nil?
-;           (extract-players-list ""))
-;;; (stest/check `extract-players-list)
+(deftest extract-players-list-test
+  (is (nil? (extract-players-list nil)))
+  (is (= '(["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]
+            ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
+            ["JohLen" "John Lennon" "PauMcc" "RinSta"]
+            ["RinSta" "Ringo Starr" "JohLen" "GeoHar"])
+         (extract-players-list test-roster-seq))))
+(s/conform ::dom/plrs-list
+           (extract-players-list test-roster-seq))
+(s/conform nil?
+           (extract-players-list nil))
+;(stest/check `extract-players-list)
 ;
 ;(deftest make-gift-pair-test
 ;  (is (= {:givee :PauMcc, :giver :GeoHar}

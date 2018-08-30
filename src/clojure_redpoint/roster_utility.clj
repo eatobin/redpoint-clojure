@@ -27,21 +27,22 @@
 (s/fdef extract-roster-info-vector
         :args (s/or :input-seq (s/cat :roster-sequence ::dom/roster-seq)
                     :input-nil (s/cat :roster-sequence nil?))
-        :ret (s/or :output-vec ::dom/roster-info-vector
+        :ret (s/or :output-vec ::dom/roster-line
                    :output-nil nil?))
 
-;(defn extract-players-list
-;  "Returns a list of vectors - each vector a player symbol, player name, first
-;  givee and first giver - or nil on nil"
-;  [roster-string]
-;  (if (= roster-string "")
-;    nil
-;    (into () (rest (make-roster-seq roster-string)))))
-;(s/fdef extract-players-list
-;        :args (s/cat :roster-string ::dom/roster-string)
-;        :ret (s/or :output-list ::dom/plrs-list
-;                   :output-nil nil?))
-;
+(defn extract-players-list
+  "Returns a list of vectors - each vector a player symbol, player name, first
+  givee and first giver - or nil on nil"
+  [roster-sequence]
+  (if (nil? roster-sequence)
+    nil
+    (into () (rest roster-sequence))))
+(s/fdef extract-players-list
+        :args (s/or :input-seq (s/cat :roster-sequence ::dom/roster-seq)
+                    :input-nil (s/cat :roster-sequence nil?))
+        :ret (s/or :output-list ::dom/plrs-list
+                   :output-nil nil?))
+
 ;(defn make-gift-pair
 ;  "Returns a gift pair hash map given givee and giver as strings"
 ;  [givee giver]
