@@ -17,6 +17,10 @@
                            :gift-history [{:giver :PauMcc, :givee :RinSta}]},
                   :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
                   :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
+(def players-list '(["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]
+                     ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
+                     ["JohLen" "John Lennon" "PauMcc" "RinSta"]
+                     ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]))
 (deftest make-roster-seq-test
   (is (nil? (make-roster-seq "")))
   (is (= test-roster-seq
@@ -39,10 +43,7 @@
 
 (deftest extract-players-list-test
   (is (nil? (extract-players-list nil)))
-  (is (= '(["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]
-            ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
-            ["JohLen" "John Lennon" "PauMcc" "RinSta"]
-            ["RinSta" "Ringo Starr" "JohLen" "GeoHar"])
+  (is (= players-list
          (extract-players-list test-roster-seq))))
 (s/conform ::dom/plrs-list
            (extract-players-list test-roster-seq))
@@ -56,27 +57,27 @@
 (s/conform :unq/gift-pair
            (make-gift-pair "me" "you"))
 ;(stest/check `make-gift-pair)
-;
-;(deftest make-player-test
-;  (is (= {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}
-;         (make-player "Ringo Starr" [{:giver :GeoHar, :givee :JohLen}]))))
-;(s/conform :unq/player
-;           (make-player "us" [{:giver :me, :givee :meToo} {:givee :you :giver :youToo}]))
+
+(deftest make-player-test
+  (is (= {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}
+         (make-player "Ringo Starr" [{:giver :GeoHar, :givee :JohLen}]))))
+(s/conform :unq/player
+           (make-player "us" [{:giver :me, :givee :meToo} {:givee :you :giver :youToo}]))
 ;(stest/check `make-player)
-;
-;(deftest make-player-map-test
-;  (is (= {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
-;         (make-player-map ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]))))
-;(s/conform ::dom/plr-map
-;           (make-player-map ["s" "n" "ge" "gr"]))
-;;; (stest/check `make-player-map)
-;
-;(deftest make-players-map-test
-;  (is (= players-map
-;         (make-players-map roster-string))))
-;(s/conform ::dom/plr-map
-;           (make-players-map roster-string))
-;;; (stest/check `make-players-map)
+
+(deftest make-player-map-test
+  (is (= {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
+         (make-player-map ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]))))
+(s/conform ::dom/plr-map
+           (make-player-map ["s" "n" "ge" "gr"]))
+;(stest/check `make-player-map)
+
+(deftest make-players-map-test
+  (is (= players-map
+         (make-players-map players-list))))
+(s/conform ::dom/plr-map
+           (make-players-map players-list))
+;(stest/check `make-players-map)
 ;
 ;(def test-players-map {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
 ;                       :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
