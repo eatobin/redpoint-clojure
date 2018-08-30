@@ -18,25 +18,24 @@
                   :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
                   :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
 (deftest make-roster-seq-test
-  (is (= (lazy-seq '())
-         (make-roster-seq "")))
+  (is (nil? (make-roster-seq "")))
   (is (= test-roster-seq
          (make-roster-seq roster-string))))
 (s/conform ::dom/roster-seq
            (make-roster-seq roster-string))
-(s/conform ::dom/roster-seq
+(s/conform nil?
            (make-roster-seq ""))
-;; (stest/check `make-roster-seq)
-;
-;(deftest extract-roster-info-vector-test
-;  (is (nil? (extract-roster-info-vector "")))
-;  (is (= ["The Beatles" "2014"]
-;         (extract-roster-info-vector roster-string))))
-;(s/conform ::dom/roster-info-vector
-;           (extract-roster-info-vector roster-string))
-;(s/conform nil?
-;           (extract-roster-info-vector ""))
-;;; (stest/check `extract-roster-info-vector)
+;(stest/check `make-roster-seq)
+
+(deftest extract-roster-info-vector-test
+  (is (nil? (extract-roster-info-vector nil)))
+  (is (= ["The Beatles" "2014"]
+         (extract-roster-info-vector test-roster-seq))))
+(s/conform ::dom/roster-info-vector
+           (extract-roster-info-vector test-roster-seq))
+(s/conform nil?
+           (extract-roster-info-vector nil))
+;(stest/check `extract-roster-info-vector)
 ;
 ;(deftest extract-players-list-test
 ;  (is (nil? (extract-players-list "")))
