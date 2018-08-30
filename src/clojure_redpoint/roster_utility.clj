@@ -9,14 +9,11 @@
 (defn make-roster-seq
   "Returns a lazy roster-seq - or nil on empty string"
   [roster-string]
-  (if (= roster-string "")
-    nil
-    (let [de-spaced (cs/replace roster-string #", " ",")]
-      (csv/parse-csv de-spaced))))
+  (let [de-spaced (cs/replace roster-string #", " ",")]
+    (csv/parse-csv de-spaced)))
 (s/fdef make-roster-seq
         :args (s/cat :roster-string ::dom/roster-string)
-        :ret (s/or :output-seq ::dom/roster-seq
-                   :output-nil nil?))
+        :ret ::dom/roster-seq)
 
 (defn extract-roster-info-vector
   "Returns a vector containing the roster name and year - or nil on empty string"
