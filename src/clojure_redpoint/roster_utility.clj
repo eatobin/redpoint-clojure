@@ -84,34 +84,33 @@
         :args (s/cat :players-list ::dom/plrs-list)
         :ret ::dom/plr-map)
 
-;(defn get-player-in-roster
-;  "Returns a player given a players map and a player symbol"
-;  [plrs-map plr-sym]
-;  (get plrs-map plr-sym))
-;(s/fdef get-player-in-roster
-;        :args (s/cat :plrs-map ::dom/plr-map :plr-sym keyword?)
-;        :ret (s/or :found :unq/player
-;                   :not-found nil?))
-;
-;(defn get-gift-history-in-player
-;  "Returns a gift history given a player"
-;  [plr]
-;  (get plr :gift-history))
-;(s/fdef get-gift-history-in-player
-;        :args (s/cat :plr :unq/player)
-;        :ret (s/or :found :unq/gift-history
-;                   :not-found nil?))
-;
-;(defn get-gift-pair-in-gift-history
-;  "Returns a gift pair given a gift history and a gift year"
-;  [g-hist g-year]
-;  (get g-hist g-year))
-;(s/fdef get-gift-pair-in-gift-history
-;        :args (s/cat :g-hist :unq/gift-history
-;                     :g-year int?)
-;        :ret (s/or :found :unq/gift-pair
-;                   :not-found nil?))
-;
+(defn get-player-in-roster
+  "Returns a player given a players map and a player symbol"
+  [plrs-map plr-sym]
+  (get plrs-map plr-sym))
+(s/fdef get-player-in-roster
+        :args (s/cat :plrs-map ::dom/plr-map :plr-sym keyword?)
+        :ret (s/or :found :unq/player
+                   :not-found nil?))
+
+(defn get-gift-history-in-player
+  "Returns a gift history given a player"
+  [plr]
+  (get plr :gift-history))
+(s/fdef get-gift-history-in-player
+        :args (s/cat :plr :unq/player)
+        :ret :unq/gift-history)
+
+(defn get-gift-pair-in-gift-history
+  "Returns a gift pair given a gift history and a gift year"
+  [g-hist g-year]
+  (get g-hist g-year))
+(s/fdef get-gift-pair-in-gift-history
+        :args (s/cat :g-hist :unq/gift-history
+                     :g-year int?)
+        :ret (s/or :found :unq/gift-pair
+                   :not-found nil?))
+
 ;(defn get-gift-pair-in-roster
 ;  "Returns s gift pair given a player map, a player symbol and a gift year"
 ;  [plrs-map plr-sym g-year]
