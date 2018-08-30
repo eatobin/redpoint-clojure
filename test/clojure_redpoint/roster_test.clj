@@ -119,6 +119,18 @@
            (get-gift-pair-in-gift-history [{:giver :GeoHar, :givee :JohLen}] 1))
 ;; (stest/check `get-gift-pair-in-gift-history)
 
+(deftest get-gift-pair-in-roster-test
+  (is (= {:giver :JohLen :givee :GeoHar}
+         (get-gift-pair-in-roster players-map :PauMcc 0)))
+  (is (nil? (get-gift-pair-in-roster players-map :PauMcc 1))))
+(s/conform (s/or :found :unq/gift-pair
+                 :not-found nil?)
+           (get-gift-pair-in-roster players-map :PauMcc 0))
+(s/conform (s/or :found :unq/gift-pair
+                 :not-found nil?)
+           (get-gift-pair-in-roster players-map :PauMcc 1))
+(stest/check `get-gift-pair-in-roster)
+
 ;(def roster-info-vector (extract-roster-info-vector roster-string))
 
 ;(def player-list (extract-players-list roster-string))

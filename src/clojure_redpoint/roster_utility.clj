@@ -111,6 +111,19 @@
         :ret (s/or :found :unq/gift-pair
                    :not-found nil?))
 
+(defn get-gift-pair-in-roster
+  "Returns s gift pair given a player map, a player symbol and a gift year"
+  [plrs-map plr-sym g-year]
+  (let [plr (get-player-in-roster plrs-map plr-sym)
+        gh (get-gift-history-in-player plr)]
+    (get-gift-pair-in-gift-history gh g-year)))
+(s/fdef get-gift-pair-in-roster
+        :args (s/cat :plrs-map ::dom/plr-map
+                     :plr-sym keyword?
+                     :g-year int?)
+        :ret (s/or :found :unq/gift-pair
+                   :not-found nil?))
+
 (st/instrument)
 
 
