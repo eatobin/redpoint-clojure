@@ -96,33 +96,45 @@
 (defn get-gift-history-in-player
   "Returns a gift history given a player"
   [plr]
-  (get plr :gift-history))
+  (if (nil? plr)
+    nil
+    (get plr :gift-history)))
 (s/fdef get-gift-history-in-player
-        :args (s/cat :plr :unq/player)
-        :ret :unq/gift-history)
+        :args (s/or :input-plr (s/cat :plr :unq/player)
+                    :input-nil (s/cat :plr nil?))
+        :ret (s/or :output-gh :unq/gift-history
+                   :output-nil nil?))
 
 (defn get-gift-pair-in-gift-history
   "Returns a gift pair given a gift history and a gift year"
   [g-hist g-year]
-  (get g-hist g-year))
+  (if (or (nil? g-hist) (nil? g-year))
+    nil
+    (get g-hist g-year)))
 (s/fdef get-gift-pair-in-gift-history
-        :args (s/cat :g-hist :unq/gift-history
-                     :g-year int?)
+        :args (s/or :input-valid (s/cat :g-hist :unq/gift-history
+                                        :g-year int?)
+                    :input-hist-nil (s/cat :g-hist nil?
+                                           :g-year int?)
+                    :input-year-nil (s/cat :g-hist :unq/gift-history
+                                           :g-year nil?)
+                    :input-both-nil (s/cat :g-hist nil?
+                                           :g-year nil?))
         :ret (s/or :found :unq/gift-pair
                    :not-found nil?))
 
-;(defn get-gift-pair-in-roster
-;  "Returns s gift pair given a player map, a player symbol and a gift year"
-;  [plrs-map plr-sym g-year]
-;  (let [plr (get-player-in-roster plrs-map plr-sym)
-;        gh (get-gift-history-in-player plr)]
-;    (get-gift-pair-in-gift-history gh g-year)))
-;(s/fdef get-gift-pair-in-roster
-;        :args (s/cat :plrs-map ::dom/plr-map
-;                     :plr-sym keyword?
-;                     :g-year int?)
-;        :ret (s/or :found :unq/gift-pair
-;                   :not-found nil?))
+(defn get-gift-pair-in-roster
+  "Returns s gift pair given a player map, a player symbol and a gift year"
+  [plrs-map plr-sym g-year]
+  (let [plr (get-player-in-roster plrs-map plr-sym)
+        gh (get-gift-history-in-player plr)]
+    (get-gift-pair-in-gift-history gh g-year)))
+(s/fdef get-gift-pair-in-roster
+        :args (s/cat :plrs-map ::dom/plr-map
+                     :plr-sym keyword?
+                     :g-year int?)
+        :ret (s/or :found :unq/gift-pair
+                   :not-found nil?))
 
 (st/instrument)
 

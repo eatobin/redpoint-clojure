@@ -106,33 +106,48 @@
 (deftest get-gift-history-in-player-test
   (is (= [{:giver :JohLen, :givee :GeoHar}]
          (get-gift-history-in-player {:name         "Paul McCartney",
-                                      :gift-history [{:giver :JohLen, :givee :GeoHar}]}))))
+                                      :gift-history [{:giver :JohLen, :givee :GeoHar}]})))
+  (is (nil? (get-gift-history-in-player nil))))
 (s/conform :unq/gift-history
            (get-gift-history-in-player {:name         "Paul McCartney",
                                         :gift-history [{:giver :JohLen, :givee :GeoHar}]}))
+(s/conform nil?
+           (get-gift-history-in-player nil))
 
 (deftest get-gift-pair-in-gift-history-test
   (is (= {:giver :JohLen, :givee :GeoHar}
          (get-gift-pair-in-gift-history [{:giver :JohLen, :givee :GeoHar}] 0)))
-  (is (nil? (get-gift-pair-in-gift-history [{:giver :JohLen, :givee :GeoHar}] 1))))
+  (is (nil? (get-gift-pair-in-gift-history [{:giver :JohLen, :givee :GeoHar}] 1)))
+  (is (nil? (get-gift-pair-in-gift-history nil 0)))
+  (is (nil? (get-gift-pair-in-gift-history [{:giver :JohLen, :givee :GeoHar}] nil)))
+  (is (nil? (get-gift-pair-in-gift-history nil nil))))
 (s/conform (s/or :found :unq/gift-pair
                  :not-found nil?)
            (get-gift-pair-in-gift-history [{:giver :GeoHar, :givee :JohLen}] 0))
 (s/conform (s/or :found :unq/gift-pair
                  :not-found nil?)
            (get-gift-pair-in-gift-history [{:giver :GeoHar, :givee :JohLen}] 1))
-;;; (stest/check `get-gift-pair-in-gift-history)
-;
-;(deftest get-gift-pair-in-roster-test
-;  (is (= {:giver :JohLen :givee :GeoHar}
-;         (get-gift-pair-in-roster players-map :PauMcc 0)))
-;  (is (nil? (get-gift-pair-in-roster players-map :PauMcc 1))))
-;(s/conform (s/or :found :unq/gift-pair
-;                 :not-found nil?)
-;           (get-gift-pair-in-roster players-map :PauMcc 0))
-;(s/conform (s/or :found :unq/gift-pair
-;                 :not-found nil?)
-;           (get-gift-pair-in-roster players-map :PauMcc 1))
+(s/conform (s/or :found :unq/gift-pair
+                 :not-found nil?)
+           (get-gift-pair-in-gift-history nil 0))
+(s/conform (s/or :found :unq/gift-pair
+                 :not-found nil?)
+           (get-gift-pair-in-gift-history [{:giver :GeoHar, :givee :JohLen}] nil))
+(s/conform (s/or :found :unq/gift-pair
+                 :not-found nil?)
+           (get-gift-pair-in-gift-history nil nil))
+;(stest/check `get-gift-pair-in-gift-history)
+
+(deftest get-gift-pair-in-roster-test
+  (is (= {:giver :JohLen :givee :GeoHar}
+         (get-gift-pair-in-roster players-map :PauMcc 0)))
+  (is (nil? (get-gift-pair-in-roster players-map :PauMcc 1))))
+(s/conform (s/or :found :unq/gift-pair
+                 :not-found nil?)
+           (get-gift-pair-in-roster players-map :PauMcc 0))
+(s/conform (s/or :found :unq/gift-pair
+                 :not-found nil?)
+           (get-gift-pair-in-roster players-map :PauMcc 1))
 ;(stest/check `get-gift-pair-in-roster)
 
 ;(def roster-info-vector (extract-roster-info-vector roster-string))
