@@ -43,16 +43,16 @@
         :ret (s/or :output-list ::dom/plrs-list
                    :output-nil nil?))
 
-;(defn make-gift-pair
-;  "Returns a gift pair hash map given givee and giver as strings"
-;  [givee giver]
-;  (hash-map
-;    :givee (keyword givee)
-;    :giver (keyword giver)))
-;(s/fdef make-gift-pair
-;        :args (s/cat :givee string? :giver string?)
-;        :ret :unq/gift-pair)
-;
+(defn make-gift-pair
+  "Returns a gift pair hash map given givee and giver as strings"
+  [givee giver]
+  (hash-map
+    :givee (keyword givee)
+    :giver (keyword giver)))
+(s/fdef make-gift-pair
+        :args (s/cat :givee string? :giver string?)
+        :ret :unq/gift-pair)
+
 ;(defn make-player
 ;  "Returns a player hash map given a player name (string) and a gift history
 ;  (vector of gift pairs)"

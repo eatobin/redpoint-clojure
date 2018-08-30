@@ -48,14 +48,14 @@
            (extract-players-list test-roster-seq))
 (s/conform nil?
            (extract-players-list nil))
-;(stest/check `extract-players-list)
-;
-;(deftest make-gift-pair-test
-;  (is (= {:givee :PauMcc, :giver :GeoHar}
-;         (make-gift-pair "PauMcc" "GeoHar"))))
-;(s/conform :unq/gift-pair
-;           (make-gift-pair "me" "you"))
-;;; (stest/check `make-gift-pair)
+(stest/check `extract-players-list)
+
+(deftest make-gift-pair-test
+  (is (= {:givee :PauMcc, :giver :GeoHar}
+         (make-gift-pair "PauMcc" "GeoHar"))))
+(s/conform :unq/gift-pair
+           (make-gift-pair "me" "you"))
+;(stest/check `make-gift-pair)
 ;
 ;(deftest make-player-test
 ;  (is (= {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}
