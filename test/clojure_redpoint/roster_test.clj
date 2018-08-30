@@ -36,7 +36,7 @@
 (s/conform nil?
            (extract-roster-info-vector nil))
 ;(stest/check `extract-roster-info-vector)
-;
+
 ;(deftest extract-players-list-test
 ;  (is (nil? (extract-players-list "")))
 ;  (is (= '(["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]
