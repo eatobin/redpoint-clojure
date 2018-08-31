@@ -6,36 +6,9 @@
 ;
 ;
 ;
-;(defn get-givee-in-gift-pair [g-pair]
-;  (get g-pair :givee))
-;(s/fdef get-givee-in-gift-pair
-;        :args (s/cat :g-pair :unq/gift-pair)
-;        :ret ::givee)
+
 ;
-;(defn get-giver-in-gift-pair [g-pair]
-;  (get g-pair :giver))
-;(s/fdef get-giver-in-gift-pair
-;        :args (s/cat :g-pair :unq/gift-pair)
-;        :ret ::giver)
-;
-;(defn set-gift-pair-in-gift-history [g-hist g-year g-pair]
-;  (if (nil? g-hist)
-;    [{:giver :none, :givee :none}]
-;    (assoc g-hist g-year g-pair)))
-;(s/fdef set-gift-pair-in-gift-history
-;        :args (s/with-gen
-;                (s/or :input-hist (s/and
-;                                    (s/cat :g-hist :unq/gift-history
-;                                           :g-year (s/and int? #(> % -1))
-;                                           :g-pair :unq/gift-pair)
-;                                    #(<= (:g-year %) (count (:g-hist %))))
-;                      :input-nil (s/cat :g-hist nil? :g-year any? :g-pair any?))
-;                #(gen/let [hist (s/gen :unq/gift-history)
-;                           year (gen/large-integer* {:min 0 :max (max 0 (dec (count hist)))})
-;                           pair (s/gen :unq/gift-pair)]
-;                   [hist year pair]))
-;        :ret :unq/gift-history)
-;
+
 ;(defn set-gift-history-in-player [g-hist plr]
 ;  (if (or (nil? g-hist) (nil? plr))
 ;    {:name "none", :gift-history [{:giver :none, :givee :none}]}

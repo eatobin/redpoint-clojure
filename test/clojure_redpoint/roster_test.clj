@@ -110,11 +110,17 @@
 (s/conform :unq/gift-pair
            (get-gift-pair-in-roster players-map :PauMcc 0))
 
-;(def roster-info-vector (extract-roster-info-vector roster-string))
+(deftest get-givee-in-gift-pair-test
+  (is (= :GeoHar
+         (get-givee-in-gift-pair {:giver :JohLen :givee :GeoHar}))))
+(s/conform ::dom/givee
+           (get-givee-in-gift-pair {:giver :JohLen :givee :GeoHar}))
 
-;(def player-list (extract-players-list roster-string))
-
-
+(deftest get-giver-in-gift-pair-test
+  (is (= :JohLen
+         (get-giver-in-gift-pair {:giver :JohLen :givee :GeoHar}))))
+(s/conform ::dom/giver
+           (get-giver-in-gift-pair {:giver :JohLen :givee :GeoHar}))
 ;
 ;(def test-players-map-ge {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
 ;                          :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},

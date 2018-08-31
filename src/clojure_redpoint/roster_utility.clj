@@ -116,6 +116,18 @@
                      :g-year int?)
         :ret :unq/gift-pair)
 
+(defn get-givee-in-gift-pair [g-pair]
+  (get g-pair :givee))
+(s/fdef get-givee-in-gift-pair
+        :args (s/cat :g-pair :unq/gift-pair)
+        :ret ::dom/givee)
+
+(defn get-giver-in-gift-pair [g-pair]
+  (get g-pair :giver))
+(s/fdef get-giver-in-gift-pair
+        :args (s/cat :g-pair :unq/gift-pair)
+        :ret ::dom/giver)
+
 (st/instrument)
 
 
