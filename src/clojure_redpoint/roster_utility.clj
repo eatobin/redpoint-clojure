@@ -7,41 +7,36 @@
             [clojure.repl :refer :all]))
 
 (defn make-roster-seq
-  "Returns a lazy roster-seq - or nil on empty string"
+  "Returns a lazy roster-seq"
   [roster-string]
-  (if (= roster-string "")
-    nil
-    (let [de-spaced (cs/replace roster-string #", " ",")]
-      (csv/parse-csv de-spaced))))
+  (let [de-spaced (cs/replace roster-string #", " ",")]
+    (csv/parse-csv de-spaced)))
 (s/fdef make-roster-seq
         :args (s/cat :roster-string ::dom/roster-string)
-        :ret (s/or :output-seq ::dom/roster-seq
-                   :output-nil nil?))
+        :ret ::dom/roster-seq)
 
 (defn extract-roster-info-vector
-  "Returns a vector containing the roster name and year - or nil on nil"
+  "Returns a vector containing the roster name and year"
   [roster-sequence]
-  (if (nil? roster-sequence)
-    nil
-    (first roster-sequence)))
+  (let [res (first roster-sequence)]
+    (if (nil? res)
+      ["Is" "Empty!"]
+      res)))
 (s/fdef extract-roster-info-vector
-        :args (s/or :input-seq (s/cat :roster-sequence ::dom/roster-seq)
-                    :input-nil (s/cat :roster-sequence nil?))
-        :ret (s/or :output-vec ::dom/roster-line
-                   :output-nil nil?))
+        :args (s/cat :roster-sequence ::dom/roster-seq)
+        :ret ::dom/roster-line)
 
 (defn extract-players-list
   "Returns a list of vectors - each vector a player symbol, player name, first
-  givee and first giver - or nil on nil"
+  givee and first giver"
   [roster-sequence]
-  (if (nil? roster-sequence)
-    nil
-    (into () (rest roster-sequence))))
+  (let [res (rest roster-sequence)]
+    (if (= res '())
+      (into () [["Is" "Empty!"]])
+      (into () (rest roster-sequence)))))
 (s/fdef extract-players-list
-        :args (s/or :input-seq (s/cat :roster-sequence ::dom/roster-seq)
-                    :input-nil (s/cat :roster-sequence nil?))
-        :ret (s/or :output-list ::dom/plrs-list
-                   :output-nil nil?))
+        :args (s/cat :roster-sequence ::dom/roster-seq)
+        :ret ::dom/plrs-list)
 
 (defn make-gift-pair
   "Returns a gift pair hash map given givee and giver as strings"
@@ -90,38 +85,24 @@
   (get plrs-map plr-sym))
 (s/fdef get-player-in-roster
         :args (s/cat :plrs-map ::dom/plr-map :plr-sym keyword?)
-        :ret (s/or :found :unq/player
-                   :not-found nil?))
+        :ret :unq/player)
 
 (defn get-gift-history-in-player
   "Returns a gift history given a player"
   [plr]
-  (if (nil? plr)
-    nil
-    (get plr :gift-history)))
+  (get plr :gift-history))
 (s/fdef get-gift-history-in-player
-        :args (s/or :input-plr (s/cat :plr :unq/player)
-                    :input-nil (s/cat :plr nil?))
-        :ret (s/or :output-gh :unq/gift-history
-                   :output-nil nil?))
+        :args (s/cat :plr :unq/player)
+        :ret :unq/gift-history)
 
 (defn get-gift-pair-in-gift-history
   "Returns a gift pair given a gift history and a gift year"
   [g-hist g-year]
-  (if (or (nil? g-hist) (nil? g-year))
-    nil
-    (get g-hist g-year)))
+  (get g-hist g-year))
 (s/fdef get-gift-pair-in-gift-history
-        :args (s/or :input-valid (s/cat :g-hist :unq/gift-history
-                                        :g-year int?)
-                    :input-hist-nil (s/cat :g-hist nil?
-                                           :g-year int?)
-                    :input-year-nil (s/cat :g-hist :unq/gift-history
-                                           :g-year nil?)
-                    :input-both-nil (s/cat :g-hist nil?
-                                           :g-year nil?))
-        :ret (s/or :found :unq/gift-pair
-                   :not-found nil?))
+        :args (s/cat :g-hist :unq/gift-history
+                     :g-year int?)
+        :ret :unq/gift-pair)
 
 (defn get-gift-pair-in-roster
   "Returns s gift pair given a player map, a player symbol and a gift year"
@@ -133,8 +114,7 @@
         :args (s/cat :plrs-map ::dom/plr-map
                      :plr-sym keyword?
                      :g-year int?)
-        :ret (s/or :found :unq/gift-pair
-                   :not-found nil?))
+        :ret :unq/gift-pair)
 
 (st/instrument)
 

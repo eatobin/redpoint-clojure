@@ -1,11 +1,7 @@
 (ns clojure-redpoint.domain
-  (:require [clojure.spec.alpha :as s]
-            [clojure.test.check.generators :as gen]))
+  (:require [clojure.spec.alpha :as s]))
 
-(s/def ::roster-string (s/with-gen string?
-                                   #(gen/fmap (fn [[name year]]
-                                                (str name ", " year))
-                                              (gen/tuple gen/string-alphanumeric gen/nat))))
+(s/def ::roster-string string?)
 (s/def ::roster-line (s/coll-of string? :kind vector?))
 (s/def ::roster-seq (s/coll-of ::roster-line :kind seq?))
 (s/def ::plrs-list (s/coll-of ::roster-line :kind list?))

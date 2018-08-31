@@ -2,7 +2,6 @@
   (:require [clojure.test :refer :all]
             [clojure-redpoint.roster-utility :refer :all]
             [clojure.spec.alpha :as s]
-            [clojure.spec.test.alpha :as stest]
             [clojure-redpoint.domain :as dom]))
 
 (def roster-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
@@ -22,62 +21,59 @@
                      ["JohLen" "John Lennon" "PauMcc" "RinSta"]
                      ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]))
 (deftest make-roster-seq-test
-  (is (nil? (make-roster-seq "")))
   (is (= test-roster-seq
-         (make-roster-seq roster-string))))
+         (make-roster-seq roster-string)))
+  (is (= (lazy-seq '())
+         (make-roster-seq ""))))
+
 (s/conform ::dom/roster-seq
            (make-roster-seq roster-string))
-(s/conform nil?
+(s/conform ::dom/roster-seq
            (make-roster-seq ""))
-;(stest/check `make-roster-seq)
 
 (deftest extract-roster-info-vector-test
-  (is (nil? (extract-roster-info-vector nil)))
+  (is (= ["Is", "Empty!"]
+         (extract-roster-info-vector (lazy-seq '()))))
   (is (= ["The Beatles" "2014"]
          (extract-roster-info-vector test-roster-seq))))
 (s/conform ::dom/roster-line
            (extract-roster-info-vector test-roster-seq))
-(s/conform nil?
-           (extract-roster-info-vector nil))
-;(stest/check `extract-roster-info-vector)
+(s/conform ::dom/roster-line
+           (extract-roster-info-vector (lazy-seq '())))
 
 (deftest extract-players-list-test
-  (is (nil? (extract-players-list nil)))
+  (is (= '(["Is", "Empty!"])
+         (extract-players-list (lazy-seq '()))))
   (is (= players-list
          (extract-players-list test-roster-seq))))
 (s/conform ::dom/plrs-list
            (extract-players-list test-roster-seq))
-(s/conform nil?
-           (extract-players-list nil))
-(stest/check `extract-players-list)
+(s/conform ::dom/plrs-list
+           (extract-players-list (lazy-seq '())))
 
 (deftest make-gift-pair-test
   (is (= {:givee :PauMcc, :giver :GeoHar}
          (make-gift-pair "PauMcc" "GeoHar"))))
 (s/conform :unq/gift-pair
            (make-gift-pair "me" "you"))
-;(stest/check `make-gift-pair)
 
 (deftest make-player-test
   (is (= {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}
          (make-player "Ringo Starr" [{:giver :GeoHar, :givee :JohLen}]))))
 (s/conform :unq/player
            (make-player "us" [{:giver :me, :givee :meToo} {:givee :you :giver :youToo}]))
-;(stest/check `make-player)
 
 (deftest make-player-map-test
   (is (= {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
          (make-player-map ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]))))
 (s/conform ::dom/plr-map
            (make-player-map ["s" "n" "ge" "gr"]))
-;(stest/check `make-player-map)
 
 (deftest make-players-map-test
   (is (= players-map
          (make-players-map players-list))))
 (s/conform ::dom/plr-map
            (make-players-map players-list))
-;(stest/check `make-players-map)
 
 (def test-players-map {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
                        :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
@@ -87,68 +83,32 @@
 (deftest get-player-in-roster-test
   (is (= {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]}
          (get-player-in-roster test-players-map :GeoHar))))
-(s/conform (s/or :found :unq/player
-                 :not-found nil?)
+(s/conform :unq/player
            (get-player-in-roster {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
                                   :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
                                   :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
                                   :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}}
                                  :PauMcc))
-(s/conform (s/or :found :unq/player
-                 :not-found nil?)
-           (get-player-in-roster {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
-                                  :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-                                  :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-                                  :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}}
-                                 :PauMccX))
-;(stest/check `get-player-in-roster) ****memory failure****
 
 (deftest get-gift-history-in-player-test
   (is (= [{:giver :JohLen, :givee :GeoHar}]
          (get-gift-history-in-player {:name         "Paul McCartney",
-                                      :gift-history [{:giver :JohLen, :givee :GeoHar}]})))
-  (is (nil? (get-gift-history-in-player nil))))
+                                      :gift-history [{:giver :JohLen, :givee :GeoHar}]}))))
 (s/conform :unq/gift-history
            (get-gift-history-in-player {:name         "Paul McCartney",
                                         :gift-history [{:giver :JohLen, :givee :GeoHar}]}))
-(s/conform nil?
-           (get-gift-history-in-player nil))
 
 (deftest get-gift-pair-in-gift-history-test
   (is (= {:giver :JohLen, :givee :GeoHar}
-         (get-gift-pair-in-gift-history [{:giver :JohLen, :givee :GeoHar}] 0)))
-  (is (nil? (get-gift-pair-in-gift-history [{:giver :JohLen, :givee :GeoHar}] 1)))
-  (is (nil? (get-gift-pair-in-gift-history nil 0)))
-  (is (nil? (get-gift-pair-in-gift-history [{:giver :JohLen, :givee :GeoHar}] nil)))
-  (is (nil? (get-gift-pair-in-gift-history nil nil))))
-(s/conform (s/or :found :unq/gift-pair
-                 :not-found nil?)
+         (get-gift-pair-in-gift-history [{:giver :JohLen, :givee :GeoHar}] 0))))
+(s/conform :unq/gift-pair
            (get-gift-pair-in-gift-history [{:giver :GeoHar, :givee :JohLen}] 0))
-(s/conform (s/or :found :unq/gift-pair
-                 :not-found nil?)
-           (get-gift-pair-in-gift-history [{:giver :GeoHar, :givee :JohLen}] 1))
-(s/conform (s/or :found :unq/gift-pair
-                 :not-found nil?)
-           (get-gift-pair-in-gift-history nil 0))
-(s/conform (s/or :found :unq/gift-pair
-                 :not-found nil?)
-           (get-gift-pair-in-gift-history [{:giver :GeoHar, :givee :JohLen}] nil))
-(s/conform (s/or :found :unq/gift-pair
-                 :not-found nil?)
-           (get-gift-pair-in-gift-history nil nil))
-;(stest/check `get-gift-pair-in-gift-history)
 
 (deftest get-gift-pair-in-roster-test
   (is (= {:giver :JohLen :givee :GeoHar}
-         (get-gift-pair-in-roster players-map :PauMcc 0)))
-  (is (nil? (get-gift-pair-in-roster players-map :PauMcc 1))))
-(s/conform (s/or :found :unq/gift-pair
-                 :not-found nil?)
+         (get-gift-pair-in-roster players-map :PauMcc 0))))
+(s/conform :unq/gift-pair
            (get-gift-pair-in-roster players-map :PauMcc 0))
-(s/conform (s/or :found :unq/gift-pair
-                 :not-found nil?)
-           (get-gift-pair-in-roster players-map :PauMcc 1))
-;(stest/check `get-gift-pair-in-roster)
 
 ;(def roster-info-vector (extract-roster-info-vector roster-string))
 
