@@ -105,7 +105,7 @@
         :ret :unq/gift-pair)
 
 (defn get-gift-pair-in-roster
-  "Returns s gift pair given a player map, a player symbol and a gift year"
+  "Returns a gift pair given a player map, a player symbol and a gift year"
   [plrs-map plr-sym g-year]
   (let [plr (get-player-in-roster plrs-map plr-sym)
         gh (get-gift-history-in-player plr)]
@@ -116,17 +116,31 @@
                      :g-year int?)
         :ret :unq/gift-pair)
 
-(defn get-givee-in-gift-pair [g-pair]
+(defn get-givee-in-gift-pair
+  "Returns a givee given a gift pair"
+  [g-pair]
   (get g-pair :givee))
 (s/fdef get-givee-in-gift-pair
         :args (s/cat :g-pair :unq/gift-pair)
         :ret ::dom/givee)
 
-(defn get-giver-in-gift-pair [g-pair]
+(defn get-giver-in-gift-pair
+  "Returns a giver given a gift pair"
+  [g-pair]
   (get g-pair :giver))
 (s/fdef get-giver-in-gift-pair
         :args (s/cat :g-pair :unq/gift-pair)
         :ret ::dom/giver)
+
+(defn set-gift-history-in-player
+  "Sets a gift history into the provided player"
+  [g-hist plr]
+  (assoc plr :gift-history g-hist))
+(s/fdef set-gift-history-in-player
+        :args (s/cat :g-hist :unq/gift-history
+                     :plr :unq/player)
+        :ret :unq/player)
+
 
 (st/instrument)
 
