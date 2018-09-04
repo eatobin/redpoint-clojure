@@ -130,7 +130,15 @@
            (set-gift-history-in-player [{:giver :RinStaX, :givee :PauMccX}]
                                        {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]}))
 
-
+(deftest set-gift-pair-in-gift-history-test
+  (is (= [{:giver :me, :givee :you}]
+         (set-gift-pair-in-gift-history [{:giver :RinStaX, :givee :PauMccX}]
+                                        0
+                                        {:giver :me, :givee :you}))))
+(s/conform :unq/gift-history
+           (set-gift-pair-in-gift-history [{:giver :RinStaX, :givee :PauMccX}]
+                                          0
+                                          {:giver :me, :givee :you}))
 
 ;(def test-players-map-ge {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
 ;                          :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},

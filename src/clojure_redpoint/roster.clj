@@ -6,21 +6,7 @@
 ;
 ;
 ;
-;(defn set-gift-pair-in-roster [plrs-map plr-sym g-year g-pair]
-;  (let [plr (get-player-in-roster plrs-map plr-sym)
-;        gh (get-gift-history-in-player plr)
-;        ngh (set-gift-pair-in-gift-history gh g-year g-pair)
-;        nplr (set-gift-history-in-player ngh plr)]
-;    (assoc plrs-map plr-sym nplr)))
-;(s/fdef set-gift-pair-in-roster
-;        :args (s/cat :plrs-map ::plr-map
-;                     :plr-sym keyword?
-;                     :g-year (s/and int? #(> % -1))
-;                     :g-pair :unq/gift-pair)
-;        :ret ::plr-map)
-;
-;
-;
+
 ;; (def keyword-vector (gen/such-that not-empty (gen/vector gen/keyword)))
 ;
 ;; (def vec-and-elem

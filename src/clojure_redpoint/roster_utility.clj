@@ -141,6 +141,34 @@
                      :plr :unq/player)
         :ret :unq/player)
 
+(defn set-gift-pair-in-gift-history
+  "Returns a gift history with the provided gift pair at the supplied yeat"
+  [g-hist g-year g-pair]
+  (assoc g-hist g-year g-pair))
+(s/fdef set-gift-pair-in-gift-history
+        :args (s/and
+                (s/cat :g-hist :unq/gift-history
+                       :g-yearX (s/and int? #(> % -1))
+                       :g-pair :unq/gift-pair)
+                #(<= (:g-yearX %) (count (:g-hist %))))
+        :ret :unq/gift-history)
+
+;(defn set-gift-pair-in-roster [plrs-map plr-sym g-year g-pair]
+;  (let [plr (get-player-in-roster plrs-map plr-sym)
+;        gh (get-gift-history-in-player plr)
+;        ngh (set-gift-pair-in-gift-history gh g-year g-pair)
+;        nplr (set-gift-history-in-player ngh plr)]
+;    (assoc plrs-map plr-sym nplr)))
+;(s/fdef set-gift-pair-in-roster
+;        :args (s/cat :plrs-map ::plr-map
+;                     :plr-sym keyword?
+;                     :g-year (s/and int? #(> % -1))
+;                     :g-pair :unq/gift-pair)
+;        :ret ::plr-map)
+
+
+
+
 
 (st/instrument)
 
