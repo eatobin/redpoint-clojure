@@ -7,28 +7,7 @@
 ;
 ;
 
-;; (def keyword-vector (gen/such-that not-empty (gen/vector gen/keyword)))
-;
-;; (def vec-and-elem
-;;   (gen/bind keyword-vector
-;;             (fn [v] (gen/tuple (gen/elements v) (gen/return v)))))
-;
-;; (gen/sample vec-and-elem 9)
-;
-;; (def hist (s/gen :unq/gift-history))
-;
-;; (def year
-;;   (gen/bind hist
-;;             (fn [v] (gen/large-integer* {:min 0 :max (max 0 (dec (count v)))}))))
-;
-;; (def pair (s/gen :unq/gift-pair))
-;
-;;(s/fdef set-gift-pair-in-gift-history
-;;        :args (s/cat :g-hist :unq/gift-history
-;;                     :g-year int?
-;;                     :g-pair :unq/gift-pair)
-;;        :ret :unq/gift-history)
-;
+
 ;;(defn get-roster-name [roster-list]
 ;;  (let [line (extract-roster-info-vector roster-list)]
 ;;    (first line)))

@@ -150,6 +150,22 @@
 (s/conform ::dom/plr-map
            (set-gift-pair-in-roster players-map :GeoHar 0 {:giver :me, :givee :you}))
 
+(deftest check-give-test
+  (is (true? (check-give players-map :GeoHar 0 :PauMcc)))
+  (is (false? (check-give players-map :GeoHar 1 :PauMcc)))
+  (is (false? (check-give players-map :GeoHar 0 :PauMccX))))
+
+(deftest add-year-in-player-test
+  (is (= {:name         "Ringo Starr",
+          :gift-history [{:giver :GeoHar, :givee :JohLen} {:giver :none, :givee :none}]}
+         (add-year-in-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))))
+(s/conform :unq/player
+           (add-year-in-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))
+
+
+
+
+
 ;(def test-players-map-ge {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
 ;                          :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
 ;                          :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :GeoHar}]},

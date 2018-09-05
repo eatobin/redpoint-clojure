@@ -170,25 +170,38 @@
                      :g-pair :unq/gift-pair)
         :ret ::dom/plr-map)
 
+(defn check-give
+  "Returns true if a players map contains a valid giver,
+  givee and year"
+  [plrs-map giver g-year givee]
+  (let [plr (get-player-in-roster plrs-map giver)
+        gh (get-gift-history-in-player plr)
+        h-len (count gh)]
+    (and (contains? plrs-map giver)
+         (contains? plrs-map givee)
+         (<= (+ g-year 1) h-len))))
+(s/fdef check-give
+        :args (s/cat :plrs-map ::dom/plr-map
+                     :giver keyword?
+                     :g-year (s/and int? #(> % -1))
+                     :givee keyword?)
+        :ret boolean?)
 
-
-
+(defn add-year-in-player
+  "Adds a new placeholder year to the end of a player's gift history"
+  [plr]
+  (let [gh (get-gift-history-in-player plr)
+        ngh (conj gh {:giver :none, :givee :none})]
+    (set-gift-history-in-player ngh plr)))
+(s/fdef add-year-in-player
+        :args (s/cat :plr :unq/player)
+        :ret :unq/player)
 
 (st/instrument)
 
 
-;(defn check-give [plrs-map plr-sym g-year give]
-;  (let [plr (get-player-in-roster plrs-map plr-sym)
-;        gh (get-gift-history-in-player plr)
-;        h-len (count gh)]
-;    (and (contains? plrs-map plr-sym)
-;         (contains? plrs-map give)
-;         (<= (+ g-year 1) h-len))))
-;
-;(defn add-year-in-player [plr]
-;  (let [gh (get-gift-history-in-player plr)
-;        ngh (conj gh {:giver :none, :givee :none})]
-;    (set-gift-history-in-player ngh plr)))
+
+
 ;
 ;(defn add-year-in-roster [plrs-map]
 ;  (into {}
