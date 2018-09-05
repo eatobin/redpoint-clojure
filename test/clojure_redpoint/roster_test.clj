@@ -1,6 +1,7 @@
 (ns clojure-redpoint.roster-test
   (:require [clojure.test :refer :all]
             [clojure-redpoint.roster-utility :refer :all]
+            [clojure-redpoint.roster :refer :all]
             [clojure.spec.alpha :as s]
             [clojure-redpoint.domain :as dom]))
 
@@ -174,14 +175,14 @@
 (s/conform ::dom/plr-map
            (add-year-in-roster players-map))
 
+
 ;; End of roster-utility tests
 
 
-;
-;(deftest get-roster-name-test
-;  (is (= "The Beatles"
-;         (get-roster-name test-roster-list))))
-;
+(deftest get-roster-name-test
+  (is (= "The Beatles"
+         (get-roster-name test-roster-seq))))
+
 ;(deftest get-roster-year-test
 ;  (is (= 2014
 ;         (get-roster-year test-roster-list))))

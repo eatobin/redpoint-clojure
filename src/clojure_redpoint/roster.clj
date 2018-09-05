@@ -1,17 +1,21 @@
-;(ns clojure-redpoint.roster
-;  (:require
-;    [clojure.spec.alpha :as s]
-;    [orchestra.spec.test :as st]
-;    [clojure.test.check.generators :as gen]))
-;
-;
-;
+(ns clojure-redpoint.roster
+  (:require [clojure-redpoint.domain :as dom]
+            [clojure-redpoint.roster-utility :refer :all]
+            [clojure.spec.alpha :as s]
+            [orchestra.spec.test :as st]
+            [clojure.repl :refer :all]))
 
+(defn get-roster-name
+  "Return the roster name from a roster info vector"
+  [roster-seq]
+  (let [line (extract-roster-info-vector roster-seq)]
+    (first line)))
+(s/fdef get-roster-name
+        :args (s/cat :roster-seq ::dom/roster-seq)
+        :ret string?)
 
-;;(defn get-roster-name [roster-list]
-;;  (let [line (extract-roster-info-vector roster-list)]
-;;    (first line)))
-;;
+(st/instrument)
+
 ;;(defn get-roster-year [roster-list]
 ;;  (let [line (extract-roster-info-vector roster-list)]
 ;;    (read-string (last line))))
