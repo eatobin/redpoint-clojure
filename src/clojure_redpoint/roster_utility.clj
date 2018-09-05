@@ -197,13 +197,14 @@
         :args (s/cat :plr :unq/player)
         :ret :unq/player)
 
+(defn add-year-in-roster
+  "Add a year for each player in roster"
+  [plrs-map]
+  (into {}
+        (for [[k v] plrs-map]
+          [k (add-year-in-player v)])))
+(s/fdef add-year-in-roster
+        :args (s/cat :plrs-map ::dom/plr-map)
+        :ret ::dom/plr-map)
+
 (st/instrument)
-
-
-
-
-;
-;(defn add-year-in-roster [plrs-map]
-;  (into {}
-;        (for [[k v] plrs-map]
-;          [k (add-year-in-player v)])))

@@ -7,7 +7,7 @@
 
 (deftest make-hats-test
   (is (= [:RinSta :JohLen :GeoHar :PauMcc]
-         (make-hat test-players-map))))
+         (make-hat players-map))))
 
 (deftest remove-puck-givee-test
   (is (= [:JohLen :GeoHar :PauMcc]

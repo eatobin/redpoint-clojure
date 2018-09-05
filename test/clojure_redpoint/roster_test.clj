@@ -75,14 +75,9 @@
 (s/conform ::dom/plr-map
            (make-players-map players-list))
 
-(def test-players-map {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
-                       :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-                       :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-                       :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
-
 (deftest get-player-in-roster-test
   (is (= {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]}
-         (get-player-in-roster test-players-map :GeoHar))))
+         (get-player-in-roster players-map :GeoHar))))
 (s/conform :unq/player
            (get-player-in-roster {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
                                   :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
@@ -162,34 +157,26 @@
 (s/conform :unq/player
            (add-year-in-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))
 
+(deftest add-year-in-roster-test
+  (is (= {:PauMcc {:name         "Paul McCartney",
+                   :gift-history [{:giver :JohLen, :givee :GeoHar}
+                                  {:giver :none, :givee :none}]},
+          :GeoHar {:name         "George Harrison",
+                   :gift-history [{:giver :PauMcc, :givee :RinSta}
+                                  {:giver :none, :givee :none}]},
+          :JohLen {:name         "John Lennon",
+                   :gift-history [{:giver :RinSta, :givee :PauMcc}
+                                  {:giver :none, :givee :none}]},
+          :RinSta {:name         "Ringo Starr",
+                   :gift-history [{:giver :GeoHar, :givee :JohLen}
+                                  {:giver :none, :givee :none}]}}
+         (add-year-in-roster players-map))))
+(s/conform ::dom/plr-map
+           (add-year-in-roster players-map))
+
+;; End of roster-utility tests
 
 
-
-
-;(def test-players-map-ge {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
-;                          :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-;                          :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :GeoHar}]},
-;                          :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
-;
-;(def test-players-map-gr {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
-;                          :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-;                          :GeoHar {:name "George Harrison", :gift-history [{:giver :GeoHar, :givee :RinSta}]},
-;                          :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
-;
-;(def test-players-map-add {:RinSta {:name         "Ringo Starr",
-;                                    :gift-history [{:giver :GeoHar, :givee :JohLen}
-;                                                   {:giver :none, :givee :none}]},
-;                           :JohLen {:name         "John Lennon",
-;                                    :gift-history [{:giver :RinSta, :givee :PauMcc}
-;                                                   {:giver :none, :givee :none}]},
-;                           :GeoHar {:name         "George Harrison",
-;                                    :gift-history [{:giver :PauMcc, :givee :RinSta}
-;                                                   {:giver :none, :givee :none}]},
-;                           :PauMcc {:name         "Paul McCartney",
-;                                    :gift-history [{:giver :JohLen, :givee :GeoHar}
-;                                                   {:giver :none, :givee :none}]}})
-;
-;(def test-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]})
 ;
 ;(deftest get-roster-name-test
 ;  (is (= "The Beatles"
