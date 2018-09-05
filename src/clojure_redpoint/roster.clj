@@ -6,7 +6,7 @@
             [clojure.repl :refer :all]))
 
 (defn get-roster-name
-  "Return the roster name from a roster info vector"
+  "Return the roster name from a roster sequence"
   [roster-seq]
   (let [line (extract-roster-info-vector roster-seq)]
     (first line)))
