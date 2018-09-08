@@ -14,12 +14,12 @@
         :args (s/cat :roster-seq ::dom/roster-seq)
         :ret string?)
 
+(defn get-roster-year [roster-list]
+ (let [line (extract-roster-info-vector roster-list)]
+   (read-string (last line))))
+
 (st/instrument)
 
-;;(defn get-roster-year [roster-list]
-;;  (let [line (extract-roster-info-vector roster-list)]
-;;    (read-string (last line))))
-;;
 ;;(defn get-player-name-in-roster [plrs-map plr-sym]
 ;;  (let [plr (get-player-in-roster plrs-map plr-sym)]
 ;;    (get plr :name)))
