@@ -186,6 +186,8 @@
 (deftest get-roster-year-test
   (is (= 2014
          (get-roster-year test-roster-seq))))
+(s/conform int?
+           (get-roster-year test-roster-seq))
 
 ;(deftest get-roster-year-test
 ;  (is (= 2014

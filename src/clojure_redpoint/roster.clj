@@ -20,8 +20,8 @@
   (let [line (extract-roster-info-vector roster-seq)]
     (read-string (last line))))
 (s/fdef get-roster-year
-        :args (s/cat :roster-list ::dom/roster-seq)
-        :ret string?)
+        :args (s/cat :roster-seq ::dom/roster-seq)
+        :ret int?)
 
 (st/instrument)
 
