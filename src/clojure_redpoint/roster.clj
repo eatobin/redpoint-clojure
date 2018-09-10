@@ -14,9 +14,14 @@
         :args (s/cat :roster-seq ::dom/roster-seq)
         :ret string?)
 
-(defn get-roster-year [roster-list]
- (let [line (extract-roster-info-vector roster-list)]
-   (read-string (last line))))
+(defn get-roster-year
+  "Return the roster year from a roster sequence"
+  [roster-seq]
+  (let [line (extract-roster-info-vector roster-seq)]
+    (read-string (last line))))
+(s/fdef get-roster-year
+        :args (s/cat :roster-list ::dom/roster-seq)
+        :ret string?)
 
 (st/instrument)
 

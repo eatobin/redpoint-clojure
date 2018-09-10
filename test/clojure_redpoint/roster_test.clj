@@ -183,6 +183,10 @@
   (is (= "The Beatles"
          (get-roster-name test-roster-seq))))
 
+(deftest get-roster-year-test
+  (is (= 2014
+         (get-roster-year test-roster-seq))))
+
 ;(deftest get-roster-year-test
 ;  (is (= 2014
 ;         (get-roster-year test-roster-list))))
