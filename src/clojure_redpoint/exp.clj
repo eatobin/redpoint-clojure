@@ -23,3 +23,17 @@
 (str/split "" #",")
 
 (str/split " " #",")
+
+(def freqs (frequencies roster-string))
+
+(count (filter #(= % \newline) roster-string))
+
+(str/blank? roster-string)
+
+(= 2 (count (str/split info #",")))
+
+(get info 1)
+
+(def year (read-string (get (str/split info #",") 1)))
+
+(#(<= 1956 % 2056) year)
