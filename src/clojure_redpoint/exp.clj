@@ -40,10 +40,10 @@
 
 (<= 5 (count (filter #(= % \newline) roster-string)))
 
-(defn roster-string-valid?
-  "Return true if roster-string is not nil, empty or only spaces"
-  [roster-string]
-  (not (str/blank? roster-string)))
+(defn string-valid?
+  "Return true if string is not nil, empty or only spaces"
+  [string]
+  (not (str/blank? string)))
 
 (defn de-space
   "Remove the spaces between CSVs"
@@ -58,9 +58,20 @@
 (defn make-info-string
   "Return a string of first line if valid string parameter"
   [roster-string]
-  (if (roster-string-valid? roster-string)
+  (if (string-valid? roster-string)
     (->
      roster-string
+     de-space
+     lines
+     (get 0))
+    nil))
+
+(defn info-string-valid?
+  "Return true if info-string not blank, name not blank and 1956 <= year <= 2056"
+  [info-string]
+  (if (string-valid? info-string)
+    (->
+     info-string
      de-space
      lines
      (get 0))
