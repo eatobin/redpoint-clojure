@@ -72,7 +72,6 @@
   (if (string-valid? info-string)
     (->
      info-string
-     de-space
-     lines
-     (get 0))
-    nil))
+     (str/split #",")
+     (= 2 (count)))
+    false))
