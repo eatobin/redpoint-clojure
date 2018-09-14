@@ -37,3 +37,31 @@
 (def year (read-string (get (str/split info #",") 1)))
 
 (#(<= 1956 % 2056) year)
+
+(<= 5 (count (filter #(= % \newline) roster-string)))
+
+(defn roster-string-valid?
+  "Return true if roster-string is not nil, empty or only spaces"
+  [roster-string]
+  (not (str/blank? roster-string)))
+
+(defn de-space
+  "Remove the spaces between CSVs"
+  [roster-string]
+  (str/replace roster-string #", " ","))
+
+(defn lines
+  "Split string into lines"
+  [roster-strng]
+  (str/split-lines (de-space roster-string)))
+
+(defn make-info-string
+  "Return a string of first line if valid string parameter"
+  [roster-string]
+  (if (roster-string-valid? roster-string)
+    (->
+     roster-string
+     de-space
+     lines
+     (get 0))
+    nil))
