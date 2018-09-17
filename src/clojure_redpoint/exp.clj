@@ -1,4 +1,5 @@
-(require '[clojure.string :as str])
+(ns clojure-redpoint.exp
+  (:require [clojure.string :as str]))
 
 (def roster-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 
@@ -19,6 +20,12 @@
 (def info-bad2 ",2014")
 
 (str/split info-bad2 #",")
+
+(def info-bad3 "The Beatles,2096")
+
+(def info-bad4 "The Beatles,1896")
+
+(def info-bad5 "The Beatles,Pony")
 
 (str/split "" #",")
 
@@ -45,6 +52,12 @@
   [string]
   (not (str/blank? string)))
 
+(defn roster-string-valid?
+  "A valid string of >= 4 newlines?"
+  [roster-string]
+  (and (string-valid? roster-string)
+       (<= 4 (count (filter #(= % \newline) roster-string)))))
+
 (defn de-space
   "Remove the spaces between CSVs"
   [roster-string]
@@ -60,18 +73,33 @@
   [roster-string]
   (if (string-valid? roster-string)
     (->
-     roster-string
-     de-space
-     lines
-     (get 0))
+      roster-string
+      de-space
+      lines
+      (get 0))
     nil))
+
+(def info (make-info-string roster-string))
 
 (defn info-string-valid?
   "Return true if info-string not blank, name not blank and 1956 <= year <= 2056"
   [info-string]
-  (if (string-valid? info-string)
-    (->
-     info-string
-     (str/split #",")
-     (= 2 (count)))
-    false))
+  (and (string-valid? info-string)
+       (->
+         info-string
+         (str/split #",")
+         (count)
+         (= 2))
+       (->
+         info-string
+         (str/split #",")
+         (get 0)
+         (string-valid?))
+       (->
+         info-string
+         (str/split #",")
+         (get 1)
+         (Integer/parseInt)
+         (#(<= 1956 % 2056)))))
+
+(-> (/ 144 12) (/,,, 2 3) str keyword (list,,, :33) (count) (= 2))
