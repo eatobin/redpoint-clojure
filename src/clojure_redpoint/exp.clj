@@ -65,7 +65,7 @@
   (not (str/blank? string)))
 
 (defn roster-string-valid?
-  "A valid string of >= 4 newlines?"
+  "A valid string of <= 4 newlines?"
   [roster-string]
   (and (string-valid? roster-string)
        (<= 4 (count (filter #(= % \newline) roster-string)))))
