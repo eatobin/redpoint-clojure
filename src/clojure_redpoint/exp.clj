@@ -99,6 +99,13 @@
          info-string
          (str/split #",")
          (get 1)
+         (#(re-seq #"^[0-9]*$" %))
+         (nil?)
+         (not))
+       (->
+         info-string
+         (str/split #",")
+         (get 1)
          (Integer/parseInt)
          (#(<= 1956 % 2056)))))
 
