@@ -1,7 +1,7 @@
 (ns clojure-redpoint.exp
   (:require [clojure.string :as str]))
 
-(def roster-string-ok "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+(def roster-string-ok "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 
 (def roster-string-bad-length "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc")
 
@@ -122,3 +122,4 @@
              (#(<= 1956 % 2056)))))))
 
 (-> (/ 144 12) (/,,, 2 3) str keyword (list,,, :33) (count) (= 2))
+(str/trim roster-string-ok)
