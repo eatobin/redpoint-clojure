@@ -6,6 +6,69 @@
             [orchestra.spec.test :as st]
             [clojure.repl :refer :all]))
 
+(defn not-blank-string?
+  "Return true if string is not nil, empty or only spaces"
+  [string]
+  (not (str/blank? string)))
+
+(defn scrub
+  "Remove the spaces between CSVs and any final \n"
+  [roster-string]
+  (->
+    roster-string
+    (str/replace #", " ",")
+    (str/trim)))
+
+(defn roster-string-valid?
+  "A valid string of <= 4 newlines?"
+  [roster-string]
+  (and (not-blank-string? roster-string)
+       (<= 4 (count (filter #(= % \newline) (scrub roster-string))))))
+
+(defn lines
+  "Split string into lines"
+  [roster-string]
+  (str/split-lines (scrub roster-string)))
+
+(defn make-info-string
+  "Return a string of first line if valid string parameter"
+  [roster-string]
+  (if (roster-string-valid? roster-string)
+    (->
+      roster-string
+      scrub
+      lines
+      (get 0))
+    nil))
+
+(defn info-string-valid?
+  "Return true if info-string not blank, name not blank and 1956 <= year <= 2056"
+  [info-string]
+  (and (not-blank-string? info-string)
+       (let [info-line (->
+                         info-string
+                         (str/split #","))]
+         (and
+           (->
+             info-line
+             (count)
+             (= 2))
+           (->
+             info-line
+             (get 0)
+             (not-blank-string?))
+           (->
+             info-line
+             (get 1)
+             (#(re-seq #"^[0-9]*$" %))
+             (nil?)
+             (not))
+           (->
+             info-line
+             (get 1)
+             (Integer/parseInt)
+             (#(<= 1956 % 2056)))))))
+
 (defn make-roster-seq
   "Returns a lazy roster-seq"
   [roster-string]
