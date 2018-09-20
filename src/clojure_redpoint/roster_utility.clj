@@ -1,6 +1,5 @@
 (ns clojure-redpoint.roster-utility
   (:require [clojure-redpoint.domain :as dom]
-            [clojure.string :as cs]
             [clojure-csv.core :as csv]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as st]
@@ -81,11 +80,13 @@
 (defn make-roster-seq
   "Returns a lazy roster-seq"
   [roster-string]
-  (let [de-spaced (cs/replace roster-string #", " ",")]
-    (csv/parse-csv de-spaced)))
+  (if (master-roster-string-check? roster-string)
+    (csv/parse-csv (scrub roster-string))
+    nil))
 (s/fdef make-roster-seq
         :args (s/cat :roster-string ::dom/roster-string)
-        :ret ::dom/roster-seq)
+        :ret (s/or :seq ::dom/roster-seq
+                   :nil nil?))
 
 (defn extract-roster-info-vector
   "Returns a vector containing the roster name and year"

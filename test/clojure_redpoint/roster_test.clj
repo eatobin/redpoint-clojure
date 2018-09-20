@@ -6,6 +6,23 @@
             [clojure-redpoint.domain :as dom]))
 
 (def roster-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
+(def roster-string-bad-length "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\n")
+(def roster-string-bad-info1 "The Beatles\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+(def roster-string-bad-info2 ",2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+(def roster-string-bad-info3 "The Beatles,2096\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+(def roster-string-bad-info4 "The Beatles, 1896\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+(def roster-string-bad-info5 "The Beatles, 2014P\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+(def roster-string-bad-info6 "\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+
+(master-roster-string-check? roster-string)
+(master-roster-string-check? roster-string-bad-length)
+(master-roster-string-check? roster-string-bad-info1)
+(master-roster-string-check? roster-string-bad-info2)
+(master-roster-string-check? roster-string-bad-info3)
+(master-roster-string-check? roster-string-bad-info4)
+(master-roster-string-check? roster-string-bad-info5)
+(master-roster-string-check? roster-string-bad-info6)
+
 (def test-roster-seq (lazy-seq '(["The Beatles" "2014"]
                                   ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
                                   ["JohLen" "John Lennon" "PauMcc" "RinSta"]
@@ -24,13 +41,12 @@
 (deftest make-roster-seq-test
   (is (= test-roster-seq
          (make-roster-seq roster-string)))
-  (is (= (lazy-seq '())
-         (make-roster-seq ""))))
+  (is (nil? (make-roster-seq ""))))
 
-(s/conform ::dom/roster-seq
-           (make-roster-seq roster-string))
-(s/conform ::dom/roster-seq
-           (make-roster-seq ""))
+;(s/conform ::dom/roster-seq
+;           (make-roster-seq roster-string))
+;(s/conform ::dom/roster-seq
+;           (make-roster-seq ""))
 
 (deftest extract-roster-info-vector-test
   (is (= ["Is", "Empty!"]
