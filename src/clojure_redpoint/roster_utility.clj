@@ -18,10 +18,10 @@
   (->
     roster-string
     (str/replace #", " ",")
-    (str/trim)))
+    (str/trim-newline)))
 
 (defn roster-string-valid?
-  "A valid string of <= 4 newlines?"
+  "A not-blank string of <= 4 newlines?"
   [roster-string]
   (and (not-blank-string? roster-string)
        (<= 4 (count (filter #(= % \newline) (scrub roster-string))))))
@@ -45,30 +45,38 @@
 (defn info-string-valid?
   "Return true if info-string not blank, name not blank and 1956 <= year <= 2056"
   [info-string]
-  (and (not-blank-string? info-string)
-       (let [info-line (->
-                         info-string
-                         (str/split #","))]
-         (and
-           (->
-             info-line
-             (count)
-             (= 2))
-           (->
-             info-line
-             (get 0)
-             (not-blank-string?))
-           (->
-             info-line
-             (get 1)
-             (#(re-seq #"^[0-9]*$" %))
-             (nil?)
-             (not))
-           (->
-             info-line
-             (get 1)
-             (Integer/parseInt)
-             (#(<= 1956 % 2056)))))))
+  (and
+    (not (nil? info-string))
+    (let [info-line (->
+                      info-string
+                      (str/split #","))]
+      (and
+        (->
+          info-line
+          (count)
+          (= 2))
+        (->
+          info-line
+          (get 0)
+          (not-blank-string?))
+        (->
+          info-line
+          (get 1)
+          (#(re-seq #"^[0-9]*$" %))
+          (nil?)
+          (not))
+        (->
+          info-line
+          (get 1)
+          (Integer/parseInt)
+          (#(<= 1956 % 2056)))))))
+
+(defn master-roster-string-check?
+  "Checks for valid rs then is"
+  [roster-string]
+  (and
+    (roster-string-valid? roster-string)
+    (info-string-valid? (make-info-string roster-string))))
 
 (defn make-roster-seq
   "Returns a lazy roster-seq"
