@@ -4,7 +4,8 @@
             [clojure-csv.core :as csv]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as st]
-            [clojure.repl :refer :all]))
+            [clojure.repl :refer :all]
+            [clojure.string :as str]))
 
 (defn not-blank-string?
   "Return true if string is not nil, empty or only spaces"
