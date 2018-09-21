@@ -43,10 +43,10 @@
          (make-roster-seq roster-string)))
   (is (nil? (make-roster-seq ""))))
 
-;(s/conform ::dom/roster-seq
-;           (make-roster-seq roster-string))
-;(s/conform ::dom/roster-seq
-;           (make-roster-seq ""))
+(s/conform ::dom/roster-seq
+          (make-roster-seq roster-string))
+(s/conform nil?
+          (make-roster-seq ""))
 
 (deftest extract-roster-info-vector-test
   (is (= ["Is", "Empty!"]
