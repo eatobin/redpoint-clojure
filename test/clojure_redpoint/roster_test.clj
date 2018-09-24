@@ -41,7 +41,10 @@
 (deftest make-roster-seq-test
   (is (= test-roster-seq
          (make-roster-seq roster-string)))
-  (is (nil? (make-roster-seq ""))))
+  (is (nil? (make-roster-seq "")))
+  (is (nil? (make-roster-seq "  ")))
+  (is (nil? (make-roster-seq nil)))
+  (is (nil? (make-roster-seq nil)))
 
 (s/conform ::dom/roster-seq
           (make-roster-seq roster-string))
