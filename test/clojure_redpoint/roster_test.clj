@@ -44,21 +44,26 @@
   (is (nil? (make-roster-seq "")))
   (is (nil? (make-roster-seq "  ")))
   (is (nil? (make-roster-seq nil)))
-  (is (nil? (make-roster-seq nil)))
+  (is (nil? (make-roster-seq roster-string-bad-info1)))
+  (is (nil? (make-roster-seq roster-string-bad-info2)))
+  (is (nil? (make-roster-seq roster-string-bad-info3)))
+  (is (nil? (make-roster-seq roster-string-bad-info4)))
+  (is (nil? (make-roster-seq roster-string-bad-info5)))
+  (is (nil? (make-roster-seq roster-string-bad-info6))))
 
 (s/conform ::dom/roster-seq
-          (make-roster-seq roster-string))
+           (make-roster-seq roster-string))
 (s/conform nil?
-          (make-roster-seq ""))
+           (make-roster-seq ""))
 
 (deftest extract-roster-info-vector-test
-  (is (= ["Is", "Empty!"]
-         (extract-roster-info-vector (lazy-seq '()))))
+  (is (nil? (extract-roster-info-vector (lazy-seq '()))))
+  (is (nil? (extract-roster-info-vector nil)))
   (is (= ["The Beatles" "2014"]
          (extract-roster-info-vector test-roster-seq))))
 (s/conform ::dom/roster-line
            (extract-roster-info-vector test-roster-seq))
-(s/conform ::dom/roster-line
+(s/conform nil?
            (extract-roster-info-vector (lazy-seq '())))
 
 (deftest extract-players-list-test
