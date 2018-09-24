@@ -84,8 +84,8 @@
     (csv/parse-csv (scrub roster-string))
     nil))
 (s/fdef make-roster-seq
-  :args (s/or :not-nil (s/cat :roster-string ::dom/roster-string)
-              :nil (s/cat :roster-string nil?))
+        :args (s/or :not-nil (s/cat :roster-string ::dom/roster-string)
+                    :nil (s/cat :roster-string nil?))
         :ret (s/or :seq ::dom/roster-seq
                    :nil nil?))
 
@@ -97,10 +97,10 @@
       nil
       res)))
 (s/fdef extract-roster-info-vector
-  :args (s/or :not-nil (s/cat :roster-sequence ::dom/roster-seq)
-              :nil (s/cat :roster-sequence nil?))
-  :ret (s/or :line ::dom/roster-line
-             :nil nil?))
+        :args (s/or :not-nil (s/cat :roster-sequence ::dom/roster-seq)
+                    :nil (s/cat :roster-sequence nil?))
+        :ret (s/or :line ::dom/roster-line
+                   :nil nil?))
 
 (defn extract-players-list
   "Returns a list of vectors - each vector a player symbol, player name, first
@@ -108,10 +108,11 @@
   [roster-sequence]
   (let [res (rest roster-sequence)]
     (if (= res '())
-      (into () [["Is" "Empty!"]])
+      '()
       (into () (rest roster-sequence)))))
 (s/fdef extract-players-list
-        :args (s/cat :roster-sequence ::dom/roster-seq)
+        :args (s/or :not-nil (s/cat :roster-sequence ::dom/roster-seq)
+                    :nil (s/cat :roster-seq nil?))
         :ret ::dom/plrs-list)
 
 (defn make-gift-pair

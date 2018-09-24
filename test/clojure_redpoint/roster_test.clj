@@ -67,8 +67,10 @@
            (extract-roster-info-vector (lazy-seq '())))
 
 (deftest extract-players-list-test
-  (is (= '(["Is", "Empty!"])
+  (is (= '()
          (extract-players-list (lazy-seq '()))))
+  (is (= '()
+         (extract-players-list nil)))
   (is (= players-list
          (extract-players-list test-roster-seq))))
 (s/conform ::dom/plrs-list
