@@ -84,7 +84,8 @@
     (csv/parse-csv (scrub roster-string))
     nil))
 (s/fdef make-roster-seq
-        :args (s/cat :roster-string ::dom/roster-string)
+  :args (s/or :not-nil (s/cat :roster-string ::dom/roster-string)
+              :nil (s/cat :roster-string nil?))
         :ret (s/or :seq ::dom/roster-seq
                    :nil nil?))
 
