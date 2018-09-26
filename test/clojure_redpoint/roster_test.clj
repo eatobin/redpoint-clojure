@@ -16,15 +16,6 @@
 (def roster-string-bad-info7 "The Beatles, 2014\nRinStaX, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 (def roster-string-bad-info8 "The Beatles, 2014\nRinSta, Ringo Starr, JohLen\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 
-(master-roster-string-check? roster-string)
-(master-roster-string-check? roster-string-bad-length)
-(master-roster-string-check? roster-string-bad-info1)
-(master-roster-string-check? roster-string-bad-info2)
-(master-roster-string-check? roster-string-bad-info3)
-(master-roster-string-check? roster-string-bad-info4)
-(master-roster-string-check? roster-string-bad-info5)
-(master-roster-string-check? roster-string-bad-info6)
-
 (def test-roster-seq (lazy-seq '(["The Beatles" "2014"]
                                   ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
                                   ["JohLen" "John Lennon" "PauMcc" "RinSta"]
@@ -46,6 +37,7 @@
   (is (nil? (make-roster-seq "")))
   (is (nil? (make-roster-seq "  ")))
   (is (nil? (make-roster-seq nil)))
+  (is (nil? (make-roster-seq roster-string-bad-length)))
   (is (nil? (make-roster-seq roster-string-bad-info1)))
   (is (nil? (make-roster-seq roster-string-bad-info2)))
   (is (nil? (make-roster-seq roster-string-bad-info3)))
