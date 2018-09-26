@@ -70,6 +70,36 @@
           (Integer/parseInt)
           (#(<= 1956 % 2056)))))))
 
+(defn vec-remove
+  "remove elem in coll"
+  [coll pos]
+  (vec (concat (subvec coll 0 pos) (subvec coll (inc pos)))))
+
+
+(vec-remove (into [] (map #(str/split % #",") (str/split-lines (scrub roster-string)))) 0)
+;=>
+;[["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
+; ["JohLen" "John Lennon" "PauMcc" "RinSta"]
+; ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
+; ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]]
+
+(filter #(= (count %) 6) ["PauMcc" "GeoHar" "JohLen"])
+;=> ("PauMcc" "GeoHar" "JohLen")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (defn master-roster-string-check?
   "Checks for valid rs then is"
   [roster-string]
