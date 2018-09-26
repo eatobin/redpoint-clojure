@@ -71,41 +71,50 @@
           (#(<= 1956 % 2056)))))))
 
 (defn vec-remove
-  "remove elem in coll"
+  "Remove elem in coll"
   [coll pos]
   (vec (concat (subvec coll 0 pos) (subvec coll (inc pos)))))
 
+(defn pure-player-symbols
+  "Given a roster-string, return a vector of player vectors"
+  [roster-string]
+  (vec-remove (->>
+                (str/split-lines (scrub roster-string))
+                (map #(str/split % #","))
+                (into []))
+              0))
 
-(vec-remove (into [] (map #(str/split % #",") (str/split-lines (scrub roster-string)))) 0)
-;=>
-;[["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
-; ["JohLen" "John Lennon" "PauMcc" "RinSta"]
-; ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
-; ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]]
+(defn all-six-chars?
+  "All strings in the vector are 6 chars long"
+  [coll]
+  (and (= 3 (count coll))
+       (= 3 (count (filter #(= (count %) 6) coll)))))
 
-(filter #(= (count %) 6) ["PauMcc" "GeoHar" "JohLen"])
-;=> ("PauMcc" "GeoHar" "JohLen")
+(defn remove-name
+  "Given a player vector, return the vector without the player name"
+  [player-vector]
+  (vec-remove player-vector 1))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+(defn player-test?
+  "Checks the validity of the player sub-string given a roster string"
+  [roster-string]
+  (->>
+    roster-string
+    (pure-player-symbols)
+    (map remove-name)
+    (map all-six-chars?)
+    (every? true?)))
 
 (defn master-roster-string-check?
-  "Checks for valid rs then is"
+  "Given a roster-string,
+  checks for valid roster-string
+  then info-string sub-string and
+  player-string sub-string"
   [roster-string]
   (and
     (roster-string-valid? roster-string)
-    (info-string-valid? (make-info-string roster-string))))
+    (info-string-valid? (make-info-string roster-string))
+    (player-test? roster-string)))
 
 (defn make-roster-seq
   "Returns a lazy roster-seq"

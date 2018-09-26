@@ -13,6 +13,8 @@
 (def roster-string-bad-info4 "The Beatles, 1896\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
 (def roster-string-bad-info5 "The Beatles, 2014P\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
 (def roster-string-bad-info6 "\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+(def roster-string-bad-info7 "The Beatles, 2014\nRinStaX, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
+(def roster-string-bad-info8 "The Beatles, 2014\nRinSta, Ringo Starr, JohLen\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 
 (master-roster-string-check? roster-string)
 (master-roster-string-check? roster-string-bad-length)
@@ -49,7 +51,9 @@
   (is (nil? (make-roster-seq roster-string-bad-info3)))
   (is (nil? (make-roster-seq roster-string-bad-info4)))
   (is (nil? (make-roster-seq roster-string-bad-info5)))
-  (is (nil? (make-roster-seq roster-string-bad-info6))))
+  (is (nil? (make-roster-seq roster-string-bad-info6)))
+  (is (nil? (make-roster-seq roster-string-bad-info7)))
+  (is (nil? (make-roster-seq roster-string-bad-info8))))
 
 (s/conform ::dom/roster-seq
            (make-roster-seq roster-string))
