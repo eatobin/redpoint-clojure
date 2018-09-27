@@ -8,67 +8,68 @@
 
 (defn not-blank-string?
   "Return true if string is not nil, empty or only spaces"
-  [string]
-  (not (str/blank? string)))
+  [raw-string]
+  (not (str/blank? raw-string)))
 
 (defn scrub
   "Remove the spaces between CSVs and any final \n"
-  [roster-string]
+  [raw-string]
   (->
-    roster-string
+    raw-string
     (str/replace #", " ",")
     (str/trim-newline)))
 
-(defn roster-string-valid?
+(defn valid-roster-string?
   "A not-blank string of <= 4 newlines?"
-  [roster-string]
-  (and (not-blank-string? roster-string)
-       (<= 4 (count (filter #(= % \newline) (scrub roster-string))))))
+  [raw-string]
+  (and (not-blank-string? raw-string)
+       (<= 4 (count (filter #(= % \newline) (scrub raw-string))))))
 
 (defn lines
   "Split string into lines"
-  [roster-string]
-  (str/split-lines (scrub roster-string)))
+  [raw-string]
+  (str/split-lines (scrub raw-string)))
 
 (defn make-info-string
   "Return a string of first line if valid string parameter"
-  [roster-string]
-  (if (roster-string-valid? roster-string)
+  [raw-string]
+  (if (valid-roster-string? raw-string)
     (->
-      roster-string
+      raw-string
       scrub
       lines
       (get 0))
     nil))
 
-(defn info-string-valid?
+(defn valid-info-string?
   "Return true if info-string not blank, name not blank and 1956 <= year <= 2056"
-  [info-string]
-  (and
-    (not (nil? info-string))
-    (let [info-line (->
-                      info-string
-                      (str/split #","))]
-      (and
-        (->
-          info-line
-          (count)
-          (= 2))
-        (->
-          info-line
-          (get 0)
-          (not-blank-string?))
-        (->
-          info-line
-          (get 1)
-          (#(re-seq #"^[0-9]*$" %))
-          (nil?)
-          (not))
-        (->
-          info-line
-          (get 1)
-          (Integer/parseInt)
-          (#(<= 1956 % 2056)))))))
+  [raw-string]
+  (let [raw-info-string (make-info-string raw-string)]
+    (and
+      (not (nil? raw-info-string))
+      (let [info-line (->
+                        raw-info-string
+                        (str/split #","))]
+        (and
+          (->
+            info-line
+            (count)
+            (= 2))
+          (->
+            info-line
+            (get 0)
+            (not-blank-string?))
+          (->
+            info-line
+            (get 1)
+            (#(re-seq #"^[0-9]*$" %))
+            (nil?)
+            (not))
+          (->
+            info-line
+            (get 1)
+            (Integer/parseInt)
+            (#(<= 1956 % 2056))))))))
 
 (defn vec-remove
   "Remove elem in coll"
@@ -76,10 +77,10 @@
   (vec (concat (subvec coll 0 pos) (subvec coll (inc pos)))))
 
 (defn pure-player-symbols
-  "Given a roster-string, return a vector of player vectors"
-  [roster-string]
+  "Given a valid roster-string, return a vector of player vectors"
+  [valid-roster-string]
   (vec-remove (->>
-                (str/split-lines (scrub roster-string))
+                (str/split-lines (scrub valid-roster-string))
                 (map #(str/split % #","))
                 (into []))
               0))
@@ -97,30 +98,30 @@
 
 (defn player-test?
   "Checks the validity of the player sub-string given a roster string"
-  [roster-string]
+  [valid-roster-string]
   (->>
-    roster-string
+    valid-roster-string
     (pure-player-symbols)
     (map remove-name)
     (map all-six-chars?)
     (every? true?)))
 
-(defn master-roster-string-check?
-  "Given a roster-string,
+(defn master-string-check?
+  "Given a string,
   checks for valid roster-string
   then info-string sub-string and
   player-string sub-string"
-  [roster-string]
+  [string]
   (and
-    (roster-string-valid? roster-string)
-    (info-string-valid? (make-info-string roster-string))
-    (player-test? roster-string)))
+    (valid-roster-string? string)
+    (valid-info-string? string)
+    (player-test? string)))
 
 (defn make-roster-seq
   "Returns a lazy roster-seq"
-  [roster-string]
-  (if (master-roster-string-check? roster-string)
-    (csv/parse-csv (scrub roster-string))
+  [string]
+  (if (master-string-check? string)
+    (csv/parse-csv (scrub string))
     nil))
 (s/fdef make-roster-seq
         :args (s/or :not-nil (s/cat :roster-string ::dom/roster-string)
