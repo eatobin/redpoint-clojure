@@ -6,10 +6,36 @@
             [clojure.repl :refer :all]
             [clojure.string :as str]))
 
+
+(def roster-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
+(def roster-string-bad-length "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\n")
+(def roster-string-bad-info1 "The Beatles\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+(def roster-string-bad-info2 ",2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+(def roster-string-bad-info3 "The Beatles,2096\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+(def roster-string-bad-info4 "The Beatles, 1896\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+(def roster-string-bad-info5 "The Beatles, 2014P\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+(def roster-string-bad-info6 "\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
+(def roster-string-bad-info7 "The Beatles, 2014\nRinStaX, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
+(def roster-string-bad-info8 "The Beatles, 2014\nRinSta, Ringo Starr, JohLen\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
+
+
+
+
+
+
+
+
 (defn not-blank-string?
   "Return true if string is not nil, empty or only spaces"
   [raw-string]
   (not (str/blank? raw-string)))
+
+(defn non-blank-raw-string
+  "Return the string if string is not nil, empty or only spaces"
+  [raw-string]
+  (if (not-blank-string? raw-string)
+    [raw-string nil]
+    [nil "The roster string was nil, empty or only spaces"]))
 
 (defn scrub
   "Remove the spaces between CSVs and any final \n"
@@ -19,11 +45,25 @@
     (str/replace #", " ",")
     (str/trim-newline)))
 
-(defn valid-roster-string?
+;(defn valid-roster-string?
+;  "A not-blank string of <= 4 newlines?"
+;  [raw-string]
+;  (and (not-blank-string? raw-string)
+;       (<= 4 (count (filter #(= % \newline) (scrub raw-string))))))
+
+(defn valid-length-raw-string
+  "A string of <= 4 newlines?"
+  [raw-string]
+  (if (<= 4 (count (filter #(= % \newline) (scrub raw-string))))
+    [raw-string nil]
+    [nil "Roster string is not long enough"]))
+
+(defn valid-roster-string
   "A not-blank string of <= 4 newlines?"
   [raw-string]
-  (and (not-blank-string? raw-string)
-       (<= 4 (count (filter #(= % \newline) (scrub raw-string))))))
+  (let [[raw-string err1] (non-blank-raw-string raw-string)
+        [raw-string err2] (if (nil? err1) (valid-length-raw-string raw-string) [nil err1])]
+    [raw-string err2]))
 
 (defn lines
   "Split string into lines"
@@ -33,7 +73,7 @@
 (defn make-info-string
   "Return a string of first line if valid string parameter"
   [raw-string]
-  (if (valid-roster-string? raw-string)
+  (if (valid-roster-string raw-string)
     (->
       raw-string
       scrub
@@ -113,7 +153,7 @@
   player-string sub-string"
   [string]
   (and
-    (valid-roster-string? string)
+    (valid-roster-string string)
     (valid-info-string? string)
     (player-test? string)))
 
