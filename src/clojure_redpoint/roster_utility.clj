@@ -82,25 +82,70 @@
   [raw-string]
   (str/split-lines (scrub raw-string)))
 
+(defn name-present
+  "Return the info-string if a name value is present"
+  [info-string]
+  (let [info-vector (str/split (scrub info-string) #",")]
+    (if (->
+          info-vector
+          (get 0)
+          (non-blank-string)
+          (get 1)
+          (nil?))
+      [info-string nil]
+      [nil "The name value is missing"])))
+
 (defn year-present
-  "Return the raw-info-string if a year value is present"
+  "Return the info-string if a year value is present"
   [info-string]
   (let [info-vector (str/split (scrub info-string) #",")]
     (if (= 2 (count info-vector))
       [info-string nil]
       [nil "The year value is missing"])))
 
-;(defn make-info-string
-;  "Return a string of first line if valid string parameter"
-;  [raw-string]
-;  (let [[raw-string2 err] (valid-roster-string raw-string)]
-;    (if (nil? err)
-;      (->
-;        raw-string2
-;        scrub
-;        lines
-;        (get 0))
-;      [nil "Received an invalid roster-string"])))
+(defn year-text-all-digits
+  "Return the raw-info-string if the year text all digits"
+  [info-string]
+  (let [info-vector (str/split (scrub info-string) #",")]
+    (if (->
+          info-vector
+          (get 1)
+          (#(re-seq #"^[0-9]*$" %))
+          (nil?)
+          (not))
+      [info-string nil]
+      [nil "The year value is not all digits"])))
+
+(defn year-in-range
+  "Return the info-string if 1956 <= year <= 2056"
+  [info-string]
+  (let [info-vector (str/split (scrub info-string) #",")]
+    (if (->
+          info-vector
+          (get 1)
+          (Integer/parseInt)
+          (#(<= 1956 % 2056)))
+      [info-string nil]
+      [nil "Not 1956 <= year <= 2056"])))
+
+(defn make-info-string
+  "Return a string of first line if valid string parameter"
+  [raw-string]
+  (let [[raw-string err] (valid-roster-string raw-string)]
+    (if (nil? err)
+      (conj [] (->
+                 raw-string
+                 scrub
+                 lines
+                 (get 0)) nil)
+      [nil "Received an invalid roster-string"])))
+
+(defn make-valid-info-string
+  "Return a valid info-string or error from a raw-string"
+  [raw-string]
+  (let [result (make-info-string raw-string)
+        result (apply-or-error name-present result)]
+    result))
 ;
 ;(defn year-present
 ;  "Return the raw-info-string if a year value is present"
@@ -115,18 +160,7 @@
 ;      [raw-info-string nil]
 ;      [nil "The year value is missing"])))
 ;
-;(defn name-present
-;  "Return the raw-info-string if a name value is present"
-;  [raw-info-string]
-;  (let [info-line (->
-;                    raw-info-string
-;                    (str/split #","))]
-;    (if (->
-;          info-line
-;          (get 0)
-;          (not-blank-string?))
-;      [raw-info-string nil]
-;      [nil "The name value is missing"])))
+
 ;
 ;(defn year-text-all-digits
 ;  "Return the raw-info-string if the year text all digits"
