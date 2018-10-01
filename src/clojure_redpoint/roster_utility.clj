@@ -144,7 +144,10 @@
   "Return a valid info-string or error from a raw-string"
   [raw-string]
   (let [result (make-info-string raw-string)
-        result (apply-or-error name-present result)]
+        result (apply-or-error name-present result)
+        result (apply-or-error year-present result)
+        result (apply-or-error year-text-all-digits result)
+        result (apply-or-error year-in-range result)]
     result))
 ;
 ;(defn year-present
