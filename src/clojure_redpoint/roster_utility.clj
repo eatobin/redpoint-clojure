@@ -73,13 +73,14 @@
 (defn make-info-string
   "Return a string of first line if valid string parameter"
   [raw-string]
-  (if (valid-roster-string raw-string)
-    (->
-      raw-string
-      scrub
-      lines
-      (get 0))
-    nil))
+  (let [[raw-string2 err] (valid-roster-string raw-string)]
+    (if (nil? err)
+      (->
+        raw-string2
+        scrub
+        lines
+        (get 0))
+      [nil "Received an invalid roster-string"])))
 
 (defn valid-info-string?
   "Return true if info-string not blank, name not blank and 1956 <= year <= 2056"
