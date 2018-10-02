@@ -129,35 +129,70 @@
   [coll pos]
   (vec (concat (subvec coll 0 pos) (subvec coll (inc pos)))))
 
-(defn pure-player-symbols
-  "Given a valid roster-string, return a vector of player vectors"
-  [valid-roster-string]
-  (vec-remove (->>
-                (str/split-lines (scrub valid-roster-string))
-                (map #(str/split % #","))
-                (into []))
-              0))
-
-(defn all-six-chars?
-  "All strings in the vector are 6 chars long"
-  [coll]
-  (and (= 3 (count coll))
-       (= 3 (count (filter #(= (count %) 6) coll)))))
+(defn make-player-vectors
+  "Given a valid raw-string, return a vector of player vectors"
+  [raw-string]
+  (let [[raw-string err] (valid-roster-string raw-string)]
+    (if (nil? err)
+      (conj []
+            (vec-remove (->>
+                          (str/split-lines (scrub raw-string))
+                          (map #(str/split % #","))
+                          (into []))
+                        0)
+            nil)
+      [nil "Received an invalid roster-string"])))
 
 (defn remove-name
   "Given a player vector, return the vector without the player name"
   [player-vector]
   (vec-remove player-vector 1))
 
-(defn player-test?
+(defn only-symbols
+  "Returns player vectors void of names - symbols only"
+  [[player-vectors err]]
+  (if (nil? err)
+    (conj []
+          (map remove-name player-vectors)
+          nil)
+    [nil "Could not remove a name"]))
+
+(defn all-six-chars?
+  "All strings in the vector are 6 chars long"
+  [player-symbols]
+  (and (= 3 (count player-symbols))
+       (= 3 (count (filter #(= (count %) 6) player-symbols)))))
+
+(defn all-vectors-all-six?
+  "All of the vectors only symbols"
+  [[player-vectors err]]
+  (if (nil? err)
+    (map all-six-chars? player-vectors)
+    false))
+
+
+
+(defn player-test
   "Checks the validity of the player sub-string given a roster string"
-  [valid-roster-string]
-  (->>
-    valid-roster-string
-    (pure-player-symbols)
-    (map remove-name)
-    (map all-six-chars?)
-    (every? true?)))
+  [raw-string]
+  (let [[vectors err] (make-player-vectors raw-string)]
+    (if (nil? err)
+      (if (->>
+            vectors
+            (only-symbols)
+            (all-vectors-all-six?)
+            (every? true?))
+        [(scrub raw-string) nil]
+        [nil "Player substring is incorrect"])
+      [nil "Received a bad roster string"])))
+
+
+(defn make-valid-player-vectors
+  "Return a valid player vector or error from a raw-string"
+  [raw-string]
+  (let [result (make-player-vectors raw-string)
+        result (apply-or-error player-test result)]
+    result))
 
 ;(defn master-string-check?
 ;  "Given a string,
