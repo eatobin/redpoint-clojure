@@ -129,30 +129,6 @@
       [scrubbed nil]
       [nil "Not 1956 <= year <= 2056"])))
 
-;(defn make-info-string
-;  "Return a string of first line if valid string parameter"
-;  [raw-string]
-;  (let [[raw-string err] (valid-roster-string raw-string)]
-;    (if (nil? err)
-;      (conj [] (->
-;                 raw-string
-;                 scrub
-;                 lines
-;                 (get 0)) nil)
-;      [nil "Received an invalid roster-string"])))
-;
-;(defn make-valid-info-string
-;  "Return a valid info-string or error from a raw-string"
-;  [raw-string]
-;  (let [result (make-info-string raw-string)
-;        result (apply-or-error name-present result)
-;        result (apply-or-error year-present result)
-;        result (apply-or-error year-text-all-digits result)
-;        result (apply-or-error year-in-range result)]
-;    result))
-
-
-
 (defn make-player-vectors
   "Given a valid raw-string, return a vector of player vectors"
   [scrubbed]
@@ -193,8 +169,6 @@
     [scrubbed nil]
     [nil "The players sub-string is invalid"]))
 
-
-
 (defn scrubbed-roster-string
   "Ensure that raw-string is scrubbed and fully valid"
   [raw-string]
@@ -207,43 +181,6 @@
         result (apply-or-error year-in-range result)
         result (apply-or-error players-valid result)]
     result))
-
-
-
-
-
-;(defn player-test
-;  "Checks the validity of the player sub-string given a roster string"
-;  [raw-string]
-;  (let [[vectors err] (make-player-vectors raw-string)]
-;    (if (nil? err)
-;      (if (->>
-;            vectors
-;            (only-symbols)
-;            (all-vectors-all-six?)
-;            (every? true?))
-;        [(scrub raw-string) nil]
-;        [nil "Player substring is incorrect"])
-;      [nil "Received a bad roster string"])))
-;
-;
-;(defn make-valid-player-vectors
-;  "Return a valid player vector or error from a raw-string"
-;  [raw-string]
-;  (let [result (make-player-vectors raw-string)
-;        result (apply-or-error player-test result)]
-;    result))
-
-;(defn master-string-check?
-;  "Given a string,
-;  checks for valid roster-string
-;  then info-string sub-string and
-;  player-string sub-string"
-;  [string]
-;  (and
-;    (valid-roster-string string)
-;    (valid-info-string? string)
-;    (player-test? string)))
 
 ;(defn make-roster-seq
 ;  "Returns a lazy roster-seq"
