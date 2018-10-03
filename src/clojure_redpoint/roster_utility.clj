@@ -10,7 +10,7 @@
 (def roster-string-bad-length "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\n")
 (def roster-string-bad-info1 "The Beatles\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 (def roster-string-bad-info2 ",2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
-(def roster-string-bad-info3 "The Beatles,2096\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
+(def roster-string-bad-info3 "The Beatles, 2096\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 (def roster-string-bad-info4 "The Beatles, 1896\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 (def roster-string-bad-info5 "The Beatles, 2014P\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 (def roster-string-bad-info6 "\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
@@ -53,13 +53,6 @@
   (if (<= 4 (count (filter #(= % \newline) scrubbed)))
     [scrubbed nil]
     [nil "Roster string is not long enough"]))
-
-;(defn valid-roster-string
-;  "Ensure that raw-string is not blank and long enough"
-;  [raw-string]
-;  (let [result (non-blank-string raw-string)
-;        result (apply-or-error valid-length-string result)]
-;    result))
 
 (defn roster-info-line-present
   "test"
@@ -199,6 +192,24 @@
         (all-vectors-all-six?))
     [scrubbed nil]
     [nil "The players sub-string is invalid"]))
+
+
+
+(defn scrubbed-roster-string
+  "Ensure that raw-string is scrubbed and fully valid"
+  [raw-string]
+  (let [result (non-blank-string raw-string)
+        result (apply-or-error valid-length-string result)
+        result (apply-or-error roster-info-line-present result)
+        result (apply-or-error name-present result)
+        result (apply-or-error year-present result)
+        result (apply-or-error year-text-all-digits result)
+        result (apply-or-error year-in-range result)
+        result (apply-or-error players-valid result)]
+    result))
+
+
+
 
 
 ;(defn player-test
