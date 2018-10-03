@@ -60,21 +60,20 @@
 
 (defn name-present
   "Return the raw-string if a name value is present"
-  [raw-string]
-  (let [scrubbed (scrub raw-string)]
-    (let [info-vector (->
-                        scrubbed
-                        lines
-                        (get 0)
-                        (str/split #","))]
-      (if (->
-            info-vector
-            (get 0)
-            (non-blank-string)
-            (get 1)
-            (nil?))
-        [raw-string nil]
-        [nil "The name value is missing"]))))
+  [scrubbed]
+  (let [info-vector (->
+                      scrubbed
+                      lines
+                      (get 0)
+                      (str/split #","))]
+    (if (->
+          info-vector
+          (get 0)
+          (non-blank-string)
+          (get 1)
+          (nil?))
+      [scrubbed nil]
+      [nil "The name value is missing"])))
 
 (defn year-present
   "Return the info-string if a year value is present"
