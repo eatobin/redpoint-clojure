@@ -35,6 +35,11 @@
   [scrubbed]
   (str/split-lines scrubbed))
 
+(defn vec-remove
+  "Remove elem in coll"
+  [coll pos]
+  (vec (concat (subvec coll 0 pos) (subvec coll (inc pos)))))
+
 (defn non-blank-string
   "Ensure string is not nil, empty or only spaces. Returns a scrubbed string"
   [raw-string]
@@ -117,14 +122,18 @@
 
 (defn year-in-range
   "Return the info-string if 1956 <= year <= 2056"
-  [info-string]
-  (let [info-vector (str/split (scrub info-string) #",")]
+  [scrubbed]
+  (let [info-vector (->
+                      scrubbed
+                      lines
+                      (get 0)
+                      (str/split #","))]
     (if (->
           info-vector
           (get 1)
           (Integer/parseInt)
           (#(<= 1956 % 2056)))
-      [info-string nil]
+      [scrubbed nil]
       [nil "Not 1956 <= year <= 2056"])))
 
 ;(defn make-info-string
@@ -149,38 +158,26 @@
 ;        result (apply-or-error year-in-range result)]
 ;    result))
 
-(defn vec-remove
-  "Remove elem in coll"
-  [coll pos]
-  (vec (concat (subvec coll 0 pos) (subvec coll (inc pos)))))
 
-;(defn make-player-vectors
-;  "Given a valid raw-string, return a vector of player vectors"
-;  [raw-string]
-;  (let [[raw-string err] (valid-roster-string raw-string)]
-;    (if (nil? err)
-;      (conj []
-;            (vec-remove (->>
-;                          (str/split-lines (scrub raw-string))
-;                          (map #(str/split % #","))
-;                          (into []))
-;                        0)
-;            nil)
-;      [nil "Received an invalid roster-string"])))
+
+(defn make-player-vectors
+  "Given a valid raw-string, return a vector of player vectors"
+  [scrubbed]
+  (vec-remove (->>
+                (str/split-lines scrubbed)
+                (map #(str/split % #","))
+                (into []))
+              0))
 
 (defn remove-name
   "Given a player vector, return the vector without the player name"
   [player-vector]
   (vec-remove player-vector 1))
 
-(defn only-symbols
-  "Returns player vectors void of names - symbols only"
-  [[player-vectors err]]
-  (if (nil? err)
-    (conj []
-          (map remove-name player-vectors)
-          nil)
-    [nil "Could not remove a name"]))
+(defn make-only-symbols
+  "Returns all player vectors void of names - symbols only"
+  [player-vectors]
+  (map remove-name player-vectors))
 
 (defn all-six-chars?
   "All strings in the vector are 6 chars long"
@@ -190,11 +187,18 @@
 
 (defn all-vectors-all-six?
   "All of the vectors only symbols"
-  [[player-vectors err]]
-  (if (nil? err)
-    (map all-six-chars? player-vectors)
-    false))
+  [player-vectors]
+  (every? true? (map all-six-chars? player-vectors)))
 
+(defn players-valid
+  "Test"
+  [scrubbed]
+  (if (->
+        (make-player-vectors scrubbed)
+        (make-only-symbols)
+        (all-vectors-all-six?))
+    [scrubbed nil]
+    [nil "The players sub-string is invalid"]))
 
 
 ;(defn player-test
