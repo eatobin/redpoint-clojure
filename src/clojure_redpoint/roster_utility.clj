@@ -77,10 +77,14 @@
 
 (defn year-present
   "Return the info-string if a year value is present"
-  [info-string]
-  (let [info-vector (str/split (scrub info-string) #",")]
+  [scrubbed]
+  (let [info-vector (->
+                      scrubbed
+                      lines
+                      (get 0)
+                      (str/split #","))]
     (if (= 2 (count info-vector))
-      [info-string nil]
+      [scrubbed nil]
       [nil "The year value is missing"])))
 
 (defn year-text-all-digits
