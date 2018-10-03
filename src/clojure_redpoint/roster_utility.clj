@@ -38,7 +38,7 @@
     (str/trim-newline)))
 
 (defn valid-length-string
-  "A string of <= 4 newlines?"
+  "A string of newlines >= 4?"
   [raw-string]
   (if (<= 4 (count (filter #(= % \newline) (scrub raw-string))))
     [raw-string nil]
