@@ -22,13 +22,6 @@
     (f val)
     [nil err]))
 
-(defn non-blank-string
-  "Ensure string is not nil, empty or only spaces"
-  [raw-string]
-  (if (str/blank? raw-string)
-    [nil "The roster string was nil, empty or only spaces"]
-    [raw-string nil]))
-
 (defn scrub
   "Remove the spaces between CSVs and any final \n"
   [raw-string]
@@ -37,37 +30,51 @@
     (str/replace #", " ",")
     (str/trim-newline)))
 
-(defn valid-length-string
-  "A string of newlines >= 4?"
-  [raw-string]
-  (if (<= 4 (count (filter #(= % \newline) (scrub raw-string))))
-    [raw-string nil]
-    [nil "Roster string is not long enough"]))
-
-(defn valid-roster-string
-  "Ensure that raw-string is not blank and long enough"
-  [raw-string]
-  (let [result (non-blank-string raw-string)
-        result (apply-or-error valid-length-string result)]
-    result))
-
 (defn lines
   "Split string into lines"
+  [scrubbed]
+  (str/split-lines scrubbed))
+
+(defn non-blank-string
+  "Ensure string is not nil, empty or only spaces. Returns a scrubbed string"
   [raw-string]
-  (str/split-lines (scrub raw-string)))
+  (if (str/blank? raw-string)
+    [nil "The roster string was nil, empty or only spaces"]
+    [(scrub raw-string) nil]))
+
+(defn valid-length-string
+  "A string of newlines >= 4?"
+  [scrubbed]
+  (if (<= 4 (count (filter #(= % \newline) scrubbed)))
+    [scrubbed nil]
+    [nil "Roster string is not long enough"]))
+
+;(defn valid-roster-string
+;  "Ensure that raw-string is not blank and long enough"
+;  [raw-string]
+;  (let [result (non-blank-string raw-string)
+;        result (apply-or-error valid-length-string result)]
+;    result))
+
+
 
 (defn name-present
-  "Return the info-string if a name value is present"
-  [info-string]
-  (let [info-vector (str/split (scrub info-string) #",")]
-    (if (->
-          info-vector
-          (get 0)
-          (non-blank-string)
-          (get 1)
-          (nil?))
-      [info-string nil]
-      [nil "The name value is missing"])))
+  "Return the raw-string if a name value is present"
+  [raw-string]
+  (let [scrubbed (scrub raw-string)]
+    (let [info-vector (->
+                        scrubbed
+                        lines
+                        (get 0)
+                        (str/split #","))]
+      (if (->
+            info-vector
+            (get 0)
+            (non-blank-string)
+            (get 1)
+            (nil?))
+        [raw-string nil]
+        [nil "The name value is missing"]))))
 
 (defn year-present
   "Return the info-string if a year value is present"
@@ -102,46 +109,46 @@
       [info-string nil]
       [nil "Not 1956 <= year <= 2056"])))
 
-(defn make-info-string
-  "Return a string of first line if valid string parameter"
-  [raw-string]
-  (let [[raw-string err] (valid-roster-string raw-string)]
-    (if (nil? err)
-      (conj [] (->
-                 raw-string
-                 scrub
-                 lines
-                 (get 0)) nil)
-      [nil "Received an invalid roster-string"])))
-
-(defn make-valid-info-string
-  "Return a valid info-string or error from a raw-string"
-  [raw-string]
-  (let [result (make-info-string raw-string)
-        result (apply-or-error name-present result)
-        result (apply-or-error year-present result)
-        result (apply-or-error year-text-all-digits result)
-        result (apply-or-error year-in-range result)]
-    result))
+;(defn make-info-string
+;  "Return a string of first line if valid string parameter"
+;  [raw-string]
+;  (let [[raw-string err] (valid-roster-string raw-string)]
+;    (if (nil? err)
+;      (conj [] (->
+;                 raw-string
+;                 scrub
+;                 lines
+;                 (get 0)) nil)
+;      [nil "Received an invalid roster-string"])))
+;
+;(defn make-valid-info-string
+;  "Return a valid info-string or error from a raw-string"
+;  [raw-string]
+;  (let [result (make-info-string raw-string)
+;        result (apply-or-error name-present result)
+;        result (apply-or-error year-present result)
+;        result (apply-or-error year-text-all-digits result)
+;        result (apply-or-error year-in-range result)]
+;    result))
 
 (defn vec-remove
   "Remove elem in coll"
   [coll pos]
   (vec (concat (subvec coll 0 pos) (subvec coll (inc pos)))))
 
-(defn make-player-vectors
-  "Given a valid raw-string, return a vector of player vectors"
-  [raw-string]
-  (let [[raw-string err] (valid-roster-string raw-string)]
-    (if (nil? err)
-      (conj []
-            (vec-remove (->>
-                          (str/split-lines (scrub raw-string))
-                          (map #(str/split % #","))
-                          (into []))
-                        0)
-            nil)
-      [nil "Received an invalid roster-string"])))
+;(defn make-player-vectors
+;  "Given a valid raw-string, return a vector of player vectors"
+;  [raw-string]
+;  (let [[raw-string err] (valid-roster-string raw-string)]
+;    (if (nil? err)
+;      (conj []
+;            (vec-remove (->>
+;                          (str/split-lines (scrub raw-string))
+;                          (map #(str/split % #","))
+;                          (into []))
+;                        0)
+;            nil)
+;      [nil "Received an invalid roster-string"])))
 
 (defn remove-name
   "Given a player vector, return the vector without the player name"
@@ -172,27 +179,27 @@
 
 
 
-(defn player-test
-  "Checks the validity of the player sub-string given a roster string"
-  [raw-string]
-  (let [[vectors err] (make-player-vectors raw-string)]
-    (if (nil? err)
-      (if (->>
-            vectors
-            (only-symbols)
-            (all-vectors-all-six?)
-            (every? true?))
-        [(scrub raw-string) nil]
-        [nil "Player substring is incorrect"])
-      [nil "Received a bad roster string"])))
-
-
-(defn make-valid-player-vectors
-  "Return a valid player vector or error from a raw-string"
-  [raw-string]
-  (let [result (make-player-vectors raw-string)
-        result (apply-or-error player-test result)]
-    result))
+;(defn player-test
+;  "Checks the validity of the player sub-string given a roster string"
+;  [raw-string]
+;  (let [[vectors err] (make-player-vectors raw-string)]
+;    (if (nil? err)
+;      (if (->>
+;            vectors
+;            (only-symbols)
+;            (all-vectors-all-six?)
+;            (every? true?))
+;        [(scrub raw-string) nil]
+;        [nil "Player substring is incorrect"])
+;      [nil "Received a bad roster string"])))
+;
+;
+;(defn make-valid-player-vectors
+;  "Return a valid player vector or error from a raw-string"
+;  [raw-string]
+;  (let [result (make-player-vectors raw-string)
+;        result (apply-or-error player-test result)]
+;    result))
 
 ;(defn master-string-check?
 ;  "Given a string,
