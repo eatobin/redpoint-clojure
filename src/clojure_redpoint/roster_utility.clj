@@ -182,17 +182,21 @@
         result (apply-or-error players-valid result)]
     result))
 
-;(defn make-roster-seq
-;  "Returns a lazy roster-seq"
-;  [string]
-;  (if (master-string-check? string)
-;    (csv/parse-csv (scrub string))
-;    nil))
-;(s/fdef make-roster-seq
-;        :args (s/or :not-nil (s/cat :roster-string ::dom/roster-string)
-;                    :nil (s/cat :roster-string nil?))
-;        :ret (s/or :seq ::dom/roster-seq
-;                   :nil nil?))
+(defn make-roster-seq
+  "Returns a lazy roster-seq"
+  [raw-string]
+  (let [[scrubbed err] (scrubbed-roster-string raw-string)]
+    (if (nil? err)
+      (conj [] (csv/parse-csv scrubbed) nil)
+      [nil "Received an invalid roster string"])))
+(s/fdef make-roster-seq
+        :args (s/cat :raw-string ::dom/roster-string)
+        :ret (s/or :value (s/tuple ::dom/roster-seq nil?)
+                   :error (s/tuple nil? ::dom/error-string)))
+
+
+;; Stopped here!!
+
 
 (defn extract-roster-info-vector
   "Given a roster-sequence, returns a vector containing the roster name and year"

@@ -1,6 +1,7 @@
 (ns clojure-redpoint.domain
   (:require [clojure.spec.alpha :as s]))
 
+(s/def ::error-string string?)
 (s/def ::roster-string string?)
 (s/def ::roster-line (s/coll-of string? :kind vector?))
 (s/def ::roster-seq (s/coll-of ::roster-line :kind seq?))
