@@ -214,12 +214,13 @@
   [roster-sequence]
   (let [res (rest roster-sequence)]
     (if (= res '())
-      '()
-      (into () (rest roster-sequence)))))
+      [nil "The roster-sequence is invalid"]
+      [(into () (rest roster-sequence)) nil])))
 (s/fdef extract-players-list
         :args (s/or :not-nil (s/cat :roster-sequence ::dom/roster-seq)
                     :nil (s/cat :roster-seq nil?))
-        :ret ::dom/plrs-list)
+        :ret (s/or :value (s/tuple ::dom/plrs-list nil?)
+                   :error (s/tuple nil? ::dom/error-string)))
 
 (defn make-gift-pair
   "Returns a gift pair hash map given givee and giver as strings"
@@ -391,43 +392,3 @@
         :ret ::dom/plr-map)
 
 (st/instrument)
-
-(def params {:address "address" :email "email@email.com" :phone "(555) 555-5555" :state "WA"})
-
-(defn clean-address [params]
-  (if (empty? (params :address))
-    [nil "Please enter your address"]
-    [params nil]))
-
-(defn clean-email [params]
-  (if (re-find #".+\@.+\..+" (params :email))
-    [params nil]
-    [nil "Please enter an email address"]))
-
-(defn clean-phone [params]
-  (if (re-find #"\([0-9]{3}\) [0-9]{3}-[0-9]{4}" (params :phone))
-    [params nil]
-    [nil "Please enter your phone number in (555) 555-5555 format."]))
-
-(defn clean-state [params]
-  (case (params :state)
-    "WA" [params nil]
-    "OR" [params nil]
-    [nil "We only want people from Oregon or Washington, for some reason."]))
-
-(defn clean-contact [params]
-  (let [[params err1] (clean-email params)
-        [params err2] (if (nil? err1) (clean-address params) [nil err1])
-        [params err3] (if (nil? err2) (clean-phone params) [nil err2])
-        [params err4] (if (nil? err3) (clean-state params) [nil err3])]
-    [params err4]))
-
-(defn clean-contact-f [params]
-  (let [result1 (clean-email params)
-        result2 (apply-or-error clean-address result1)
-        result3 (apply-or-error clean-phone result2)
-        result4 (apply-or-error clean-state result3)]
-    result4))
-
-(clean-contact params)
-(clean-contact-f params)
