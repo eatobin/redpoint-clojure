@@ -70,8 +70,8 @@
 (deftest extract-players-list-test
   (is (= [nil "The roster-sequence is invalid"] (extract-players-list (lazy-seq '()))))
   (is (= [nil "The roster-sequence is invalid"] (extract-players-list nil)))
-  (is (= (get players-list 0)
-         (get (extract-players-list (get test-roster-seq 0)) 0))))
+  (is (= players-list
+         (extract-players-list (get test-roster-seq 0)))))
 (s/conform (s/tuple ::dom/plrs-list nil?)
            (extract-players-list (get test-roster-seq 0)))
 (s/conform (s/tuple nil? ::dom/error-string)
