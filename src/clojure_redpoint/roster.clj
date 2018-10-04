@@ -8,7 +8,7 @@
 (defn get-roster-name
   "Return the roster name from a roster sequence"
   [roster-seq]
-  (let [line (extract-roster-info-vector roster-seq)]
+  (let [[line _] (extract-roster-info-vector roster-seq)]
     (first line)))
 (s/fdef get-roster-name
         :args (s/cat :roster-seq ::dom/roster-seq)
@@ -17,7 +17,7 @@
 (defn get-roster-year
   "Return the roster year from a roster sequence"
   [roster-seq]
-  (let [line (extract-roster-info-vector roster-seq)]
+  (let [[line _] (extract-roster-info-vector roster-seq)]
     (read-string (last line))))
 (s/fdef get-roster-year
         :args (s/cat :roster-seq ::dom/roster-seq)

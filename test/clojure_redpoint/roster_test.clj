@@ -202,12 +202,12 @@
 
 
 ;; End of roster-utility tests
-;
-;
-;(deftest get-roster-name-test
-;  (is (= "The Beatles"
-;         (get-roster-name test-roster-seq))))
-;
+
+
+(deftest get-roster-name-test
+  (is (= "The Beatles"
+         (get-roster-name (get test-roster-seq 0)))))
+
 ;(deftest get-roster-year-test
 ;  (is (= 2014
 ;         (get-roster-year test-roster-seq))))
