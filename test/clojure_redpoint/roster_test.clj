@@ -47,11 +47,11 @@
   (is (= [nil "Received an invalid roster string"] (make-roster-seq roster-string-bad-info7)))
   (is (= [nil "Received an invalid roster string"] (make-roster-seq roster-string-bad-info8))))
 
-;(s/conform ::dom/roster-seq
-;           (make-roster-seq roster-string))
-;(s/conform nil?
-;           (make-roster-seq ""))
-;
+(s/conform (s/tuple ::dom/roster-seq nil?)
+           (make-roster-seq roster-string))
+(s/conform (s/tuple nil? ::dom/error-string)
+           (make-roster-seq ""))
+
 ;(deftest extract-roster-info-vector-test
 ;  (is (nil? (extract-roster-info-vector (lazy-seq '()))))
 ;  (is (nil? (extract-roster-info-vector nil)))
