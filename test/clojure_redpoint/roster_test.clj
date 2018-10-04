@@ -52,15 +52,15 @@
 (s/conform (s/tuple nil? ::dom/error-string)
            (make-roster-seq ""))
 
-;(deftest extract-roster-info-vector-test
-;  (is (nil? (extract-roster-info-vector (lazy-seq '()))))
-;  (is (nil? (extract-roster-info-vector nil)))
-;  (is (= ["The Beatles" "2014"]
-;         (extract-roster-info-vector test-roster-seq))))
-;(s/conform ::dom/roster-line
-;           (extract-roster-info-vector test-roster-seq))
-;(s/conform nil?
-;           (extract-roster-info-vector (lazy-seq '())))
+(deftest extract-roster-info-vector-test
+  (is (= [nil "The roster-sequence is invalid"] (extract-roster-info-vector (lazy-seq '()))))
+  (is (= [nil "The roster-sequence is invalid"] (extract-roster-info-vector nil)))
+  (is (= [["The Beatles" "2014"] nil]
+         (extract-roster-info-vector (get test-roster-seq 0)))))
+(s/conform (s/tuple ::dom/roster-line nil?)
+           (extract-roster-info-vector (get test-roster-seq 0)))
+(s/conform (s/tuple nil? ::dom/error-string)
+           (extract-roster-info-vector (lazy-seq '())))
 ;
 ;(deftest extract-players-list-test
 ;  (is (= '()

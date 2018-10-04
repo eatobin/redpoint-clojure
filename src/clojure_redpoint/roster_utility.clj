@@ -195,22 +195,18 @@
         :ret (s/or :value (s/tuple ::dom/roster-seq nil?)
                    :error (s/tuple nil? ::dom/error-string)))
 
-
-;; Stopped here!!
-
-
 (defn extract-roster-info-vector
   "Given a roster-sequence, returns a vector containing the roster name and year"
   [roster-sequence]
   (let [res (first roster-sequence)]
     (if (nil? res)
-      nil
-      res)))
+      [nil "The roster-sequence is invalid"]
+      [res nil])))
 (s/fdef extract-roster-info-vector
         :args (s/or :not-nil (s/cat :roster-sequence ::dom/roster-seq)
                     :nil (s/cat :roster-sequence nil?))
-        :ret (s/or :line ::dom/roster-line
-                   :nil nil?))
+        :ret (s/or :value (s/tuple ::dom/roster-line nil?)
+                   :error (s/tuple nil? ::dom/error-string)))
 
 (defn extract-players-list
   "Returns a list of vectors - each vector a player symbol, player name, first
