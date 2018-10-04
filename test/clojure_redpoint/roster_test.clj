@@ -61,19 +61,19 @@
            (extract-roster-info-vector (get test-roster-seq 0)))
 (s/conform (s/tuple nil? ::dom/error-string)
            (extract-roster-info-vector (lazy-seq '())))
-;
-;(deftest extract-players-list-test
-;  (is (= '()
-;         (extract-players-list (lazy-seq '()))))
-;  (is (= '()
-;         (extract-players-list nil)))
-;  (is (= players-list
-;         (extract-players-list test-roster-seq))))
-;(s/conform ::dom/plrs-list
-;           (extract-players-list test-roster-seq))
-;(s/conform ::dom/plrs-list
-;           (extract-players-list (lazy-seq '())))
-;
+
+(deftest extract-players-list-test
+  (is (= '()
+         (extract-players-list (lazy-seq '()))))
+  (is (= '()
+         (extract-players-list nil)))
+  (is (= players-list
+         (extract-players-list (get test-roster-seq 0)))))
+(s/conform ::dom/plrs-list
+           (extract-players-list (get test-roster-seq 0)))
+(s/conform ::dom/plrs-list
+           (extract-players-list (lazy-seq '())))
+
 ;(deftest make-gift-pair-test
 ;  (is (= {:givee :PauMcc, :giver :GeoHar}
 ;         (make-gift-pair "PauMcc" "GeoHar"))))
