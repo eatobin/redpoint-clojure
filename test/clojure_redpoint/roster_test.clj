@@ -22,17 +22,20 @@
                                    ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
                                    ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]))
                       nil])
+
 (def players-map {:PauMcc {:name         "Paul McCartney",
                            :gift-history [{:giver :JohLen, :givee :GeoHar}]},
                   :GeoHar {:name         "George Harrison",
                            :gift-history [{:giver :PauMcc, :givee :RinSta}]},
                   :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
                   :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
+
 (def players-list ['(["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]
                       ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
                       ["JohLen" "John Lennon" "PauMcc" "RinSta"]
                       ["RinSta" "Ringo Starr" "JohLen" "GeoHar"])
                    nil])
+
 (deftest make-roster-seq-test
   (is (= test-roster-seq
          (make-roster-seq roster-string)))
