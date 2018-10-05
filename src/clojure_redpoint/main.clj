@@ -25,8 +25,8 @@
   (when (not= 0 (count gr-hat))
     (rand-nth gr-hat)))
 
-(defn read-file-into-string [file-path]
-  (slurp file-path))
+;1(defn read-file-into-string [file-path]
+;  (slurp file-path))
 
 ;(defn start-new-year []
 ;  (swap! a-g-year inc)
@@ -98,7 +98,7 @@
   "test"
   [file-path]
   (let [[scrubbed err] (scrubbed-roster-string
-                         (read-file-into-string file-path))]
+                         (slurp file-path))]
     (if (nil? err)
       scrubbed
       (do
