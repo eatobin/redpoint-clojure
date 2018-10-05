@@ -4,7 +4,9 @@
             [clojure-redpoint.roster :refer :all]
             [clojure-redpoint.hats :refer :all]
             [clojure-redpoint.rules :refer :all]
-            [clojure-redpoint.roster-string-check :refer :all])
+            [clojure-redpoint.roster-string-check :refer :all]
+            [clojure.string :as str]
+            [clojure-csv.core :as csv])
   (:gen-class))
 
 (def a-g-year (atom 0))
@@ -103,6 +105,60 @@
         (println err)
         (println "Bye..")
         (System/exit 0)))))
+
+
+;(defn get-roster-name
+;  "Return the roster name from a roster sequence"
+;  [roster-seq]
+;  (let [[line _] (extract-roster-info-vector roster-seq)]
+;    (first line)))
+;(s/fdef get-roster-name
+;        :args (s/cat :roster-seq ::dom/roster-seq)
+;        :ret string?)
+
+(defn get-roster-name
+  "test"
+  [scrubbed]
+  (->
+    scrubbed
+    (str/split-lines)
+    (get 0)
+    (str/split #",")
+    (first)))
+
+;(defn get-roster-year
+;  "Return the roster year from a roster sequence"
+;  [roster-seq]
+;  (let [[line _] (extract-roster-info-vector roster-seq)]
+;    (read-string (last line))))
+;(s/fdef get-roster-year
+;        :args (s/cat :roster-seq ::dom/roster-seq)
+;        :ret int?)
+
+(defn get-roster-year
+  "test"
+  [scrubbed]
+  (->
+    scrubbed
+    (str/split-lines)
+    (get 0)
+    (str/split #",")
+    (last)))
+
+(defn get-players
+  "Test"
+  [scrubbed]
+  (->
+    scrubbed
+    (str/split-lines)
+    (vec-remove 0)
+    (->>
+      (map #(csv/parse-csv %))
+      (map first)
+      (into []))))
+
+
+
 
 (defn -main []
   (reset! a-g-year 0)
