@@ -3,25 +3,46 @@
             [clojure-redpoint.roster-utility :refer :all]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as st]
-            [clojure.repl :refer :all]))
+            [clojure.repl :refer :all]
+            [clojure.string :as str]))
+
+;(defn get-roster-name
+;  "Return the roster name from a roster sequence"
+;  [roster-seq]
+;  (let [[line _] (extract-roster-info-vector roster-seq)]
+;    (first line)))
+;(s/fdef get-roster-name
+;        :args (s/cat :roster-seq ::dom/roster-seq)
+;        :ret string?)
 
 (defn get-roster-name
-  "Return the roster name from a roster sequence"
-  [roster-seq]
-  (let [[line _] (extract-roster-info-vector roster-seq)]
-    (first line)))
-(s/fdef get-roster-name
-        :args (s/cat :roster-seq ::dom/roster-seq)
-        :ret string?)
+  "test"
+  [scrubbed]
+  (->
+    scrubbed
+    (str/split-lines)
+    (get 0)
+    (str/split #",")
+    (first)))
+
+;(defn get-roster-year
+;  "Return the roster year from a roster sequence"
+;  [roster-seq]
+;  (let [[line _] (extract-roster-info-vector roster-seq)]
+;    (read-string (last line))))
+;(s/fdef get-roster-year
+;        :args (s/cat :roster-seq ::dom/roster-seq)
+;        :ret int?)
 
 (defn get-roster-year
-  "Return the roster year from a roster sequence"
-  [roster-seq]
-  (let [[line _] (extract-roster-info-vector roster-seq)]
-    (read-string (last line))))
-(s/fdef get-roster-year
-        :args (s/cat :roster-seq ::dom/roster-seq)
-        :ret int?)
+  "test"
+  [scrubbed]
+  (->
+    scrubbed
+    (str/split-lines)
+    (get 0)
+    (str/split #",")
+    (last)))
 
 (st/instrument)
 
