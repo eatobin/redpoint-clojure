@@ -6,7 +6,8 @@
             [clojure-redpoint.rules :refer :all]
             [clojure-redpoint.roster-string-check :refer :all]
             [clojure.string :as str]
-            [clojure-csv.core :as csv])
+            [clojure-csv.core :as csv]
+            [clojure.java.io :as io])
   (:gen-class))
 
 (def a-g-year (atom 0))
@@ -97,14 +98,18 @@
 (defn scrubbed-or-quit
   "test"
   [file-path]
-  (let [[scrubbed err] (scrubbed-roster-string
-                         (slurp file-path))]
-    (if (nil? err)
-      scrubbed
-      (do
-        (println err)
-        (println "Bye..")
-        (System/exit 0)))))
+  (if (.exists (io/file file-path))
+    (let [[scrubbed err] (scrubbed-roster-string
+                           (slurp file-path))]
+      (if (nil? err)
+        scrubbed
+        (do
+          (println err)
+          (println "Bye..")
+          (System/exit 98))))
+    (do
+      (println "The requested file does not exist..")
+      (System/exit 99))))
 
 
 ;(defn get-roster-name
