@@ -1,40 +1,22 @@
-;(ns clojure-redpoint.roster-test
-;  (:require [clojure.test :refer :all]
-;            [clojure-redpoint.roster-utility :refer :all]
-;            [clojure-redpoint.roster :refer :all]
-;            [clojure.spec.alpha :as s]
-;            [clojure-redpoint.domain :as dom]))
-;
-;(def roster-string "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
-;(def roster-string-bad-length "The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\n")
-;(def roster-string-bad-info1 "The Beatles\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
-;(def roster-string-bad-info2 ",2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
-;(def roster-string-bad-info3 "The Beatles,2096\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
-;(def roster-string-bad-info4 "The Beatles, 1896\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
-;(def roster-string-bad-info5 "The Beatles, 2014P\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
-;(def roster-string-bad-info6 "\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen")
-;(def roster-string-bad-info7 "The Beatles, 2014\nRinStaX, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
-;(def roster-string-bad-info8 "The Beatles, 2014\nRinSta, Ringo Starr, JohLen\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
-;
-;(def test-roster-seq [(lazy-seq '(["The Beatles" "2014"]
-;                                   ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
-;                                   ["JohLen" "John Lennon" "PauMcc" "RinSta"]
-;                                   ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
-;                                   ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]))
-;                      nil])
-;
-;(def players-map {:PauMcc {:name         "Paul McCartney",
-;                           :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-;                  :GeoHar {:name         "George Harrison",
-;                           :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-;                  :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-;                  :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
-;
-;(def players-list ['(["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]
-;                      ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
-;                      ["JohLen" "John Lennon" "PauMcc" "RinSta"]
-;                      ["RinSta" "Ringo Starr" "JohLen" "GeoHar"])
-;                   nil])
+(ns clojure-redpoint.roster-test
+  (:require [clojure.test :refer :all]
+            [clojure-redpoint.roster :refer :all]
+            [clojure.spec.alpha :as s]
+            [clojure-redpoint.domain :as dom]))
+
+(def scrubbed "The Beatles,2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen")
+
+(def players-map {:PauMcc {:name         "Paul McCartney",
+                           :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+                  :GeoHar {:name         "George Harrison",
+                           :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+                  :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                  :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
+
+(def players-vector [["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
+                     ["JohLen" "John Lennon" "PauMcc" "RinSta"]
+                     ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
+                     ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]])
 ;
 ;;(deftest make-roster-seq-test
 ;;  (is (= test-roster-seq

@@ -83,6 +83,7 @@
         :ret ::dom/plr-map)
 
 (def pm (make-players-map (make-players-vector scrubbed)))
+pm
 
 (defn get-player-in-roster
   "Returns a player given a players map and a player symbol"
