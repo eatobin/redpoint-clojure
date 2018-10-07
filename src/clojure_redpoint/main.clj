@@ -153,7 +153,7 @@
     (str/split #",")
     (last)))
 
-(defn get-players
+(defn make-players-vector
   "Test"
   [scrubbed]
   (->

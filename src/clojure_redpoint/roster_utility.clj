@@ -17,45 +17,45 @@
 ;(def roster-string-bad-info8 "The Beatles, 2014\nRinSta, Ringo Starr, JohLen\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n")
 
 
-(defn make-roster-seq
-  "Returns a lazy roster-seq"
-  [raw-string]
-  (let [[scrubbed err] (scrubbed-roster-string raw-string)]
-    (if (nil? err)
-      (conj [] (csv/parse-csv scrubbed) nil)
-      [nil "Received an invalid roster string"])))
-(s/fdef make-roster-seq
-        :args (s/or :not-nil (s/cat :raw-string ::dom/roster-string)
-                    :nil (s/cat :raw-string nil?))
-        :ret (s/or :value (s/tuple ::dom/roster-seq nil?)
-                   :error (s/tuple nil? ::dom/error-string)))
+;(defn make-roster-seq
+;  "Returns a lazy roster-seq"
+;  [raw-string]
+;  (let [[scrubbed err] (scrubbed-roster-string raw-string)]
+;    (if (nil? err)
+;      (conj [] (csv/parse-csv scrubbed) nil)
+;      [nil "Received an invalid roster string"])))
+;(s/fdef make-roster-seq
+;        :args (s/or :not-nil (s/cat :raw-string ::dom/roster-string)
+;                    :nil (s/cat :raw-string nil?))
+;        :ret (s/or :value (s/tuple ::dom/roster-seq nil?)
+;                   :error (s/tuple nil? ::dom/error-string)))
 
-(defn extract-roster-info-vector
-  "Given a roster-sequence, returns a vector containing the roster name and year"
-  [roster-sequence]
-  (let [res (first roster-sequence)]
-    (if (nil? res)
-      [nil "The roster-sequence is invalid"]
-      [res nil])))
-(s/fdef extract-roster-info-vector
-        :args (s/or :not-nil (s/cat :roster-sequence ::dom/roster-seq)
-                    :nil (s/cat :roster-sequence nil?))
-        :ret (s/or :value (s/tuple ::dom/roster-line nil?)
-                   :error (s/tuple nil? ::dom/error-string)))
+;(defn extract-roster-info-vector
+;  "Given a roster-sequence, returns a vector containing the roster name and year"
+;  [roster-sequence]
+;  (let [res (first roster-sequence)]
+;    (if (nil? res)
+;      [nil "The roster-sequence is invalid"]
+;      [res nil])))
+;(s/fdef extract-roster-info-vector
+;        :args (s/or :not-nil (s/cat :roster-sequence ::dom/roster-seq)
+;                    :nil (s/cat :roster-sequence nil?))
+;        :ret (s/or :value (s/tuple ::dom/roster-line nil?)
+;                   :error (s/tuple nil? ::dom/error-string)))
 
-(defn extract-players-list
-  "Returns a list of vectors - each vector a player symbol, player name, first
-  givee and first giver"
-  [roster-sequence]
-  (let [res (rest roster-sequence)]
-    (if (= res '())
-      [nil "The roster-sequence is invalid"]
-      [(into () (rest roster-sequence)) nil])))
-(s/fdef extract-players-list
-        :args (s/or :not-nil (s/cat :roster-sequence ::dom/roster-seq)
-                    :nil (s/cat :roster-seq nil?))
-        :ret (s/or :value (s/tuple ::dom/plrs-list nil?)
-                   :error (s/tuple nil? ::dom/error-string)))
+;(defn extract-players-list
+;  "Returns a list of vectors - each vector a player symbol, player name, first
+;  givee and first giver"
+;  [roster-sequence]
+;  (let [res (rest roster-sequence)]
+;    (if (= res '())
+;      [nil "The roster-sequence is invalid"]
+;      [(into () (rest roster-sequence)) nil])))
+;(s/fdef extract-players-list
+;        :args (s/or :not-nil (s/cat :roster-sequence ::dom/roster-seq)
+;                    :nil (s/cat :roster-seq nil?))
+;        :ret (s/or :value (s/tuple ::dom/plrs-list nil?)
+;                   :error (s/tuple nil? ::dom/error-string)))
 
 (defn make-gift-pair
   "Returns a gift pair hash map given givee and giver as strings"
@@ -91,11 +91,11 @@
         :ret ::dom/plr-map)
 
 (defn make-players-map
-  "Returns a hash map of multiple players given a roster string"
-  [players-list]
-  (into {} (map make-player-map players-list)))
+  "Returns a hash map of multiple players given a players-vector"
+  [players-vector]
+  (into {} (map make-player-map players-vector)))
 (s/fdef make-players-map
-        :args (s/cat :players-list ::dom/plrs-list)
+        :args (s/cat :players-vector ::dom/plrs-vector)
         :ret ::dom/plr-map)
 
 (defn get-player-in-roster

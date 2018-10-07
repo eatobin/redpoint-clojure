@@ -5,7 +5,7 @@
 (s/def ::roster-string string?)
 (s/def ::roster-line (s/coll-of string? :kind vector?))
 (s/def ::roster-seq (s/coll-of ::roster-line :kind seq?))
-(s/def ::plrs-list (s/coll-of ::roster-line :kind list?))
+(s/def ::plrs-vector (s/coll-of ::roster-line :kind vector?))
 (s/def ::givee keyword?)
 (s/def ::giver keyword?)
 (s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
