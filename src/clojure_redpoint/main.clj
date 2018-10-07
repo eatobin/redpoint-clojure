@@ -95,6 +95,9 @@
 ;    (flush)
 ;    (read-line)))
 
+(defn exit-now! []
+  (System/exit 99))
+
 (defn scrubbed-or-quit
   "test"
   [file-path]
@@ -106,10 +109,10 @@
         (do
           (println err)
           (println "Bye..")
-          (System/exit 98))))
+          (exit-now!))))
     (do
       (println "The requested file does not exist..")
-      (System/exit 99))))
+      (exit-now!))))
 
 
 ;(defn get-roster-name

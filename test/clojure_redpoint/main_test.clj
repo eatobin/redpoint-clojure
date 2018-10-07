@@ -6,6 +6,13 @@
             [clojure-redpoint.hats :refer :all]
             [clojure-redpoint.rules :refer :all]))
 
+
+(with-redefs [exit-now! (constantly "we exit here")]
+  (is (= "we exit here" (code that calls exit))))
+
+
+
+
 (deftest start-new-year-test
   (reset! a-g-year 0)
   (reset! a-giver :none)
