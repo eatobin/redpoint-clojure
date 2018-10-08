@@ -18,6 +18,11 @@
                      ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
                      ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]])
 
+(def players-map-ge {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
+                     :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                     :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :GeoHar}]},
+                     :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
+
 (deftest get-roster-name-test
   (is (= "The Beatles"
          (get-roster-name scrubbed))))
@@ -155,72 +160,50 @@
 (s/conform ::dom/plr-map
            (add-year-in-roster players-map))
 
+(deftest get-player-name-in-roster-test
+  (is (= "Ringo Starr"
+         (get-player-name-in-roster players-map :RinSta))))
 
-;;; End of roster-utility tests
-;
-;
-;;(deftest get-roster-name-test
-;;  (is (= "The Beatles"
-;;         (get-roster-name (get test-roster-seq 0)))))
-;
-;;(deftest get-roster-year-test
-;;  (is (= 2014
-;;         (get-roster-year test-roster-seq))))
-;;(s/conform int?
-;;           (get-roster-year test-roster-seq))
-;
-;;(deftest get-roster-year-test
-;;  (is (= 2014
-;;         (get-roster-year test-roster-list))))
-;;
-;;(deftest make-players-map-test
-;;  (is (= test-players-map
-;;         (make-players-map test-roster-list))))
-;;
-;;(deftest get-player-in-roster-test
-;;  (is (= test-player
-;;         (get-player-in-roster test-players-map :RinSta))))
-;;
-;;(deftest get-player-name-in-roster-test
-;;  (is (= "Ringo Starr"
-;;         (get-player-name-in-roster test-players-map :RinSta))))
-;;
-;;(deftest get-givee-in-roster-test
-;;  (is (= :GeoHar
-;;         (get-givee-in-roster test-players-map :PauMcc 0))))
-;;
-;;(deftest set-givee-in-roster-pass-test
-;;  (is (= test-players-map-ge
-;;         (set-givee-in-roster test-players-map :GeoHar 0 :GeoHar))))
-;;
-;;(deftest set-givee-in-roster-fail-plr-test
-;;  (is (= test-players-map
-;;         (set-givee-in-roster test-players-map :GeoHarX 0 :GeoHar))))
+(deftest get-givee-in-roster-test
+  (is (= :GeoHar
+         (get-givee-in-roster players-map :PauMcc 0))))
+
+(deftest get-giver-in-roster-test
+  (is (= :JohLen
+         (get-giver-in-roster players-map :PauMcc 0))))
+
+(deftest set-givee-in-roster-pass-test
+  (is (= players-map-ge
+         (set-givee-in-roster players-map :GeoHar 0 :GeoHar))))
+
+(deftest set-givee-in-roster-fail-plr-test
+  (is (= players-map
+         (set-givee-in-roster players-map :GeoHarX 0 :GeoHar))))
 ;;
 ;;(deftest set-givee-in-roster-fail-yr-test
-;;  (is (= test-players-map
-;;         (set-givee-in-roster test-players-map :GeoHar 9 :GeoHar))))
+;;  (is (= players-map
+;;         (set-givee-in-roster players-map :GeoHar 9 :GeoHar))))
 ;;
 ;;(deftest set-givee-in-roster-fail-ge-test
-;;  (is (= test-players-map
-;;         (set-givee-in-roster test-players-map :GeoHar 0 :GeoHarX))))
+;;  (is (= players-map
+;;         (set-givee-in-roster players-map :GeoHar 0 :GeoHarX))))
 ;;
 ;;(deftest set-giver-in-roster-pass-test
-;;  (is (= test-players-map-gr
-;;         (set-giver-in-roster test-players-map :GeoHar 0 :GeoHar))))
+;;  (is (= players-map-gr
+;;         (set-giver-in-roster players-map :GeoHar 0 :GeoHar))))
 ;;
 ;;(deftest set-giver-in-roster-fail-plr-test
-;;  (is (= test-players-map
-;;         (set-giver-in-roster test-players-map :GeoHarX 0 :GeoHar))))
+;;  (is (= players-map
+;;         (set-giver-in-roster players-map :GeoHarX 0 :GeoHar))))
 ;;
 ;;(deftest set-giver-in-roster-fail-yr-test
-;;  (is (= test-players-map
-;;         (set-giver-in-roster test-players-map :GeoHar 9 :GeoHar))))
+;;  (is (= players-map
+;;         (set-giver-in-roster players-map :GeoHar 9 :GeoHar))))
 ;;
 ;;(deftest set-giver-in-roster-fail-ge-test
-;;  (is (= test-players-map
-;;         (set-giver-in-roster test-players-map :GeoHar 0 :GeoHarX))))
+;;  (is (= players-map
+;;         (set-giver-in-roster players-map :GeoHar 0 :GeoHarX))))
 ;;
 ;;(deftest add-year-in-roster-test
-;;  (is (= test-players-map-add
-;;         (add-year-in-roster test-players-map))))
+;;  (is (= players-map-add
+;;         (add-year-in-roster players-map))))
