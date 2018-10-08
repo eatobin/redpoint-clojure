@@ -7,7 +7,7 @@
             [clojure-csv.core :as csv]
             [clojure-redpoint.roster-string-check :refer [vec-remove]]))
 
-(def scrubbed "The Beatles,2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen")
+; (def scrubbed "The Beatles,2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen")
 
 (defn get-roster-name
   "test"
@@ -82,8 +82,8 @@
         :args (s/cat :players-vector ::dom/plrs-vector)
         :ret ::dom/plr-map)
 
-(def pm (make-players-map (make-players-vector scrubbed)))
-pm
+;(def pm (make-players-map (make-players-vector scrubbed)))
+;pm
 
 (defn get-player-in-roster
   "Returns a player given a players map and a player symbol"
