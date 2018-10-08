@@ -23,6 +23,26 @@
                      :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :GeoHar}]},
                      :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
 
+(def players-map-gr {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
+                     :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                     :GeoHar {:name "George Harrison", :gift-history [{:giver :GeoHar, :givee :RinSta}]},
+                     :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
+
+(def players-map-add {:RinSta {:name         "Ringo Starr",
+                               :gift-history [{:giver :GeoHar, :givee :JohLen}
+                                              {:giver :none, :givee :none}]},
+                      :JohLen {:name         "John Lennon",
+                               :gift-history [{:giver :RinSta, :givee :PauMcc}
+                                              {:giver :none, :givee :none}]},
+                      :GeoHar {:name         "George Harrison",
+                               :gift-history [{:giver :PauMcc, :givee :RinSta}
+                                              {:giver :none, :givee :none}]},
+                      :PauMcc {:name         "Paul McCartney",
+                               :gift-history [{:giver :JohLen, :givee :GeoHar}
+                                              {:giver :none, :givee :none}]}})
+
+(def player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]})
+
 (deftest get-roster-name-test
   (is (= "The Beatles"
          (get-roster-name scrubbed))))
