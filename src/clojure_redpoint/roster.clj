@@ -261,10 +261,6 @@
   (let [plr (get-player-in-roster plrs-map plr-sym)]
     (get plr :name)))
 
-
-
-
-
 (defn get-givee-in-roster [plrs-map plr-sym g-year]
   (let [gp (get-gift-pair-in-roster plrs-map plr-sym g-year)]
     (get-givee-in-gift-pair gp)))
