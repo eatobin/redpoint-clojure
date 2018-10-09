@@ -125,14 +125,14 @@
 (s/conform ::dom/giver
            (get-giver-in-gift-pair {:giver :JohLen :givee :GeoHar}))
 
-;(deftest set-gift-history-in-player-test
-;  (is (= {:name "John Lennon", :gift-history [{:giver :RinStaX, :givee :PauMccX}]}
-;         (set-gift-history-in-player [{:giver :RinStaX, :givee :PauMccX}]
-;                                     {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]}))))
-;(s/conform :unq/player
-;           (set-gift-history-in-player [{:giver :RinStaX, :givee :PauMccX}]
-;                                       {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]}))
-;
+(deftest set-gift-history-in-player-test
+  (is (= {:name "John Lennon", :gift-history [{:giver :RinStaX, :givee :PauMccX}]}
+         (set-gift-history-in-player [{:giver :RinStaX, :givee :PauMccX}]
+                                     {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]}))))
+(s/conform :unq/player
+           (set-gift-history-in-player [{:giver :RinStaX, :givee :PauMccX}]
+                                       {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]}))
+
 ;(deftest set-gift-pair-in-gift-history-test
 ;  (is (= [{:giver :me, :givee :you}]
 ;         (set-gift-pair-in-gift-history [{:giver :RinStaX, :givee :PauMccX}]
