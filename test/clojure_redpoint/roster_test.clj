@@ -198,7 +198,7 @@
 
 (deftest set-givee-in-roster-fail-plr-test
   (is (= players-map
-         (set-givee-in-roster players-map :GeoHarX 0 :GeoHar))))
+         (set-givee-in-roster players-map :GeoHaX 0 :GeoHar))))
 ;;
 ;;(deftest set-givee-in-roster-fail-yr-test
 ;;  (is (= players-map
