@@ -263,38 +263,3 @@
     (set-gift-pair-in-roster plrs-map plr-sym g-year gp)))
 
 (st/instrument)
-;
-;
-;;(s/conform vector?
-;;           (extract-roster-info-vector rs))
-;;(s/conform nil?
-;;           (extract-roster-info-vector ""))
-;;(s/conform :unq/gift-pair
-;;           (make-gift-pair "one" "two"))
-;;(s/conform ::plrs-list
-;;           (extract-players-list rs))
-;;(s/conform ::plrs-list
-;;           (extract-players-list ""))
-;;(def x (make-gift-pair "joe" "bob"))
-;;(def y (make-gift-pair "joey" "bobby"))
-;;(def h [x y])
-;;(s/conform :unq/gift-history h)
-;;(s/conform :unq/player
-;;           (make-player "eric" h))
-;;(s/conform ::plr-map (make-player-map ["s" "n" "ge" "gr"]))
-;;(def pm (make-players-map rs))
-;;(s/conform (s/or :found :unq/player
-;;                 :not-found nil?)
-;;           (get-player-in-roster pm :GeoHar))
-;;; =>
-;;; [:found
-;;;  {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]}]
-;;(s/conform (s/or :found :unq/player
-;;                 :not-found nil?)
-;;           (get-player-in-roster pm :GeoHarX))
-;;; => [:not-found nil]
-;;(s/conform ::givee
-;;           (get-givee-in-gift-pair {:giver :PauMcc, :givee :RinSta}))
-;;(s/conform :unq/player
-;;           (set-gift-history-in-player [{:giver :RinSta, :givee :PauMcc}] {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))
-;;(stest/check `set-gift-pair-in-gift-history)
