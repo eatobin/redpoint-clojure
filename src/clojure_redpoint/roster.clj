@@ -60,7 +60,7 @@
         :ret string?)
 
 (defn get-roster-year
-  "test"
+  "Given a scrubbed return the roster year"
   [scrubbed]
   (->
     scrubbed
@@ -73,7 +73,7 @@
         :ret string?)
 
 (defn make-players-vector
-  "Test"
+  "Given a scrubbed return the player-vector"
   [scrubbed]
   (->
     scrubbed
@@ -128,9 +128,6 @@
 (s/fdef make-players-map
         :args (s/cat :players-vector ::dom/plrs-vector)
         :ret ::dom/plr-map)
-
-;(def pm (make-players-map (make-players-vector scrubbed)))
-;pm
 
 (defn get-player-in-roster
   "Returns a player given a players map and a player symbol"
