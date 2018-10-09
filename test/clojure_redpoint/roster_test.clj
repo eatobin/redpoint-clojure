@@ -92,39 +92,39 @@
                                   :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
                                   :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}}
                                  :PauMcc))
-;
-;(deftest get-gift-history-in-player-test
-;  (is (= [{:giver :JohLen, :givee :GeoHar}]
-;         (get-gift-history-in-player {:name         "Paul McCartney",
-;                                      :gift-history [{:giver :JohLen, :givee :GeoHar}]}))))
-;(s/conform :unq/gift-history
-;           (get-gift-history-in-player {:name         "Paul McCartney",
-;                                        :gift-history [{:giver :JohLen, :givee :GeoHar}]}))
-;
-;(deftest get-gift-pair-in-gift-history-test
-;  (is (= {:giver :JohLen, :givee :GeoHar}
-;         (get-gift-pair-in-gift-history [{:giver :JohLen, :givee :GeoHar}] 0))))
-;(s/conform :unq/gift-pair
-;           (get-gift-pair-in-gift-history [{:giver :GeoHar, :givee :JohLen}] 0))
-;
-;(deftest get-gift-pair-in-roster-test
-;  (is (= {:giver :JohLen :givee :GeoHar}
-;         (get-gift-pair-in-roster players-map :PauMcc 0))))
-;(s/conform :unq/gift-pair
-;           (get-gift-pair-in-roster players-map :PauMcc 0))
-;
-;(deftest get-givee-in-gift-pair-test
-;  (is (= :GeoHar
-;         (get-givee-in-gift-pair {:giver :JohLen :givee :GeoHar}))))
-;(s/conform ::dom/givee
-;           (get-givee-in-gift-pair {:giver :JohLen :givee :GeoHar}))
-;
-;(deftest get-giver-in-gift-pair-test
-;  (is (= :JohLen
-;         (get-giver-in-gift-pair {:giver :JohLen :givee :GeoHar}))))
-;(s/conform ::dom/giver
-;           (get-giver-in-gift-pair {:giver :JohLen :givee :GeoHar}))
-;
+
+(deftest get-gift-history-in-player-test
+  (is (= [{:giver :JohLen, :givee :GeoHar}]
+         (get-gift-history-in-player {:name         "Paul McCartney",
+                                      :gift-history [{:giver :JohLen, :givee :GeoHar}]}))))
+(s/conform :unq/gift-history
+           (get-gift-history-in-player {:name         "Paul McCartney",
+                                        :gift-history [{:giver :JohLen, :givee :GeoHar}]}))
+
+(deftest get-gift-pair-in-gift-history-test
+  (is (= {:giver :JohLen, :givee :GeoHar}
+         (get-gift-pair-in-gift-history [{:giver :JohLen, :givee :GeoHar}] 0))))
+(s/conform :unq/gift-pair
+           (get-gift-pair-in-gift-history [{:giver :GeoHar, :givee :JohLen}] 0))
+
+(deftest get-gift-pair-in-roster-test
+  (is (= {:giver :JohLen :givee :GeoHar}
+         (get-gift-pair-in-roster players-map :PauMcc 0))))
+(s/conform :unq/gift-pair
+           (get-gift-pair-in-roster players-map :PauMcc 0))
+
+(deftest get-givee-in-gift-pair-test
+  (is (= :GeoHar
+         (get-givee-in-gift-pair {:giver :JohLen :givee :GeoHar}))))
+(s/conform ::dom/givee
+           (get-givee-in-gift-pair {:giver :JohLen :givee :GeoHar}))
+
+(deftest get-giver-in-gift-pair-test
+  (is (= :JohLen
+         (get-giver-in-gift-pair {:giver :JohLen :givee :GeoHar}))))
+(s/conform ::dom/giver
+           (get-giver-in-gift-pair {:giver :JohLen :givee :GeoHar}))
+
 ;(deftest set-gift-history-in-player-test
 ;  (is (= {:name "John Lennon", :gift-history [{:giver :RinStaX, :givee :PauMccX}]}
 ;         (set-gift-history-in-player [{:giver :RinStaX, :givee :PauMccX}]
