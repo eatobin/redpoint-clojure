@@ -153,11 +153,6 @@
 (s/conform ::dom/plr-map
           (set-gift-pair-in-roster players-map :GeoHar 0 {:giver :me, :givee :you}))
 
-;;(deftest check-give-test
-;;  (is (true? (check-give players-map :GeoHar 0 :PauMcc)))
-;;  (is (false? (check-give players-map :GeoHar 1 :PauMcc)))
-;;  (is (false? (check-give players-map :GeoHar 0 :PauMccX))))
-
 (deftest add-year-in-player-test
  (is (= {:name         "Ringo Starr",
          :gift-history [{:giver :GeoHar, :givee :JohLen} {:giver :none, :givee :none}]}
@@ -191,38 +186,13 @@
         (get-givee-in-roster players-map :PauMcc 0))))
 
 (deftest get-giver-in-roster-test
- (is (= :JohLen
-        (get-giver-in-roster players-map :PauMcc 0))))
+  (is (= :JohLen
+         (get-giver-in-roster players-map :PauMcc 0))))
 
-;(deftest set-givee-in-roster-test
-;  (is (= players-map-ge
-;         (set-givee-in-roster players-map :GeoHar 0 :GeoHar))))
+(deftest set-givee-in-roster-test
+  (is (= players-map-ge
+         (set-givee-in-roster players-map :GeoHar 0 :GeoHar))))
 
-;;
-;;(deftest set-givee-in-roster-fail-yr-test
-;;  (is (= players-map
-;;         (set-givee-in-roster players-map :GeoHar 9 :GeoHar))))
-;;
-;;(deftest set-givee-in-roster-fail-ge-test
-;;  (is (= players-map
-;;         (set-givee-in-roster players-map :GeoHar 0 :GeoHarX))))
-;;
-;;(deftest set-giver-in-roster-pass-test
-;;  (is (= players-map-gr
-;;         (set-giver-in-roster players-map :GeoHar 0 :GeoHar))))
-;;
-;;(deftest set-giver-in-roster-fail-plr-test
-;;  (is (= players-map
-;;         (set-giver-in-roster players-map :GeoHarX 0 :GeoHar))))
-;;
-;;(deftest set-giver-in-roster-fail-yr-test
-;;  (is (= players-map
-;;         (set-giver-in-roster players-map :GeoHar 9 :GeoHar))))
-;;
-;;(deftest set-giver-in-roster-fail-ge-test
-;;  (is (= players-map
-;;         (set-giver-in-roster players-map :GeoHar 0 :GeoHarX))))
-;;
-;;(deftest add-year-in-roster-test
-;;  (is (= players-map-add
-;;         (add-year-in-roster players-map))))
+(deftest set-giver-in-roster-test
+ (is (= players-map-gr
+        (set-giver-in-roster players-map :GeoHar 0 :GeoHar))))
