@@ -7,10 +7,47 @@
             [clojure-csv.core :as csv]
             [clojure-redpoint.roster-string-check :refer [vec-remove]]))
 
-; (def scrubbed "The Beatles,2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen")
+;(def scrubbed "The Beatles,2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen")
+;
+;(def players-map {:PauMcc {:name         "Paul McCartney",
+;                           :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+;                  :GeoHar {:name         "George Harrison",
+;                           :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+;                  :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+;                  :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
+;
+;(def players-vector [["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
+;                     ["JohLen" "John Lennon" "PauMcc" "RinSta"]
+;                     ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
+;                     ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]])
+;
+;(def players-map-ge {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
+;                     :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+;                     :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :GeoHar}]},
+;                     :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
+;
+;(def players-map-gr {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
+;                     :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+;                     :GeoHar {:name "George Harrison", :gift-history [{:giver :GeoHar, :givee :RinSta}]},
+;                     :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
+;
+;(def players-map-add {:RinSta {:name         "Ringo Starr",
+;                               :gift-history [{:giver :GeoHar, :givee :JohLen}
+;                                              {:giver :none, :givee :none}]},
+;                      :JohLen {:name         "John Lennon",
+;                               :gift-history [{:giver :RinSta, :givee :PauMcc}
+;                                              {:giver :none, :givee :none}]},
+;                      :GeoHar {:name         "George Harrison",
+;                               :gift-history [{:giver :PauMcc, :givee :RinSta}
+;                                              {:giver :none, :givee :none}]},
+;                      :PauMcc {:name         "Paul McCartney",
+;                               :gift-history [{:giver :JohLen, :givee :GeoHar}
+;                                              {:giver :none, :givee :none}]}})
+;
+;(def player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]})
 
 (defn get-roster-name
-  "test"
+  "Given a scrubbed return the roster name"
   [scrubbed]
   (->
     scrubbed
@@ -18,6 +55,9 @@
     (get 0)
     (str/split #",")
     (first)))
+(s/fdef get-roster-name
+        :args (s/cat :scrubbed ::dom/scrubbed)
+        :ret string?)
 
 (defn get-roster-year
   "test"
@@ -28,6 +68,9 @@
     (get 0)
     (str/split #",")
     (last)))
+(s/fdef get-roster-year
+        :args (s/cat :scrubbed ::dom/scrubbed)
+        :ret string?)
 
 (defn make-players-vector
   "Test"
@@ -40,6 +83,9 @@
       (map #(csv/parse-csv %))
       (map first)
       (into []))))
+(s/fdef make-players-vector
+        :args (s/cat :scrubbed ::dom/scrubbed)
+        :ret ::dom/plrs-vector)
 
 (defn make-gift-pair
   "Returns a gift pair hash map given givee and giver as strings or keywords"
@@ -177,22 +223,22 @@
                      :g-pair :unq/gift-pair)
         :ret ::dom/plr-map)
 
-(defn check-give
-  "Returns true if a players map contains a valid giver,
-  givee and year"
-  [plrs-map giver g-year givee]
-  (let [plr (get-player-in-roster plrs-map giver)
-        gh (get-gift-history-in-player plr)
-        h-len (count gh)]
-    (and (contains? plrs-map giver)
-         (contains? plrs-map givee)
-         (<= (+ g-year 1) h-len))))
-(s/fdef check-give
-        :args (s/cat :plrs-map ::dom/plr-map
-                     :giver keyword?
-                     :g-year (s/and int? #(> % -1))
-                     :givee keyword?)
-        :ret boolean?)
+;(defn check-give
+;  "Returns true if a players map contains a valid giver,
+;  givee and year"
+;  [plrs-map giver g-year givee]
+;  (let [plr (get-player-in-roster plrs-map giver)
+;        gh (get-gift-history-in-player plr)
+;        h-len (count gh)]
+;    (and (contains? plrs-map giver)
+;         (contains? plrs-map givee)
+;         (<= (+ g-year 1) h-len))))
+;(s/fdef check-give
+;        :args (s/cat :plrs-map ::dom/plr-map
+;                     :giver keyword?
+;                     :g-year (s/and int? #(> % -1))
+;                     :givee keyword?)
+;        :ret boolean?)
 
 (defn add-year-in-player
   "Adds a new placeholder year to the end of a player's gift history"
@@ -230,12 +276,17 @@
   (let [gp (get-gift-pair-in-roster plrs-map plr-sym g-year)]
     (get-giver-in-gift-pair gp)))
 
+;(defn set-givee-in-roster [plrs-map plr-sym g-year ge]
+;  (if (check-give plrs-map plr-sym g-year ge)
+;    (let [gr (get-giver-in-roster plrs-map plr-sym g-year)
+;          gp (make-gift-pair ge gr)]
+;      (set-gift-pair-in-roster plrs-map plr-sym g-year gp))
+;    plrs-map))
+
 (defn set-givee-in-roster [plrs-map plr-sym g-year ge]
-  (if (check-give plrs-map plr-sym g-year ge)
-    (let [gr (get-giver-in-roster plrs-map plr-sym g-year)
-          gp (make-gift-pair ge gr)]
-      (set-gift-pair-in-roster plrs-map plr-sym g-year gp))
-    plrs-map))
+  (let [gr (get-giver-in-roster plrs-map plr-sym g-year)
+        gp (make-gift-pair ge gr)]
+    (set-gift-pair-in-roster plrs-map plr-sym g-year gp)))
 
 ;;(defn set-giver-in-roster [plrs-map plr-sym g-year gr]
 ;;  (if (check-give plrs-map plr-sym g-year gr)

@@ -1,6 +1,8 @@
 (ns clojure-redpoint.domain
-  (:require [clojure.spec.alpha :as s]))
+  (:require [clojure.spec.alpha :as s]
+            [clojure.string :as str]))
 
+(s/def ::scrubbed (s/and string? #(not (str/ends-with? % "\n")) #(not (str/includes? % ", "))))
 (s/def ::error-string string?)
 (s/def ::roster-string string?)
 (s/def ::roster-line (s/coll-of string? :kind vector?))
