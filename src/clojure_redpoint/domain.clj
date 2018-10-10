@@ -15,3 +15,4 @@
 (s/def ::plr-map-vec (s/tuple string? string? string? string?))
 (s/def ::plr-map (s/map-of keyword? :unq/player))
 (s/def ::g-year (s/and int? #(> % -1)))
+(s/def ::hat (s/coll-of keyword? :kind vector?))
