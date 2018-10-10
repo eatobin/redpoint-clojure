@@ -5,8 +5,6 @@
             [clojure-redpoint.domain :as dom]))
 
 (def scrubbed "The Beatles,2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen")
-(def not-scrubbed1 "The Beatles, 2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen")
-(def not-scrubbed2 "The Beatles,2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen\n")
 
 (def players-map {:PauMcc {:name         "Paul McCartney",
                            :gift-history [{:giver :JohLen, :givee :GeoHar}]},
@@ -66,7 +64,7 @@
            (make-gift-pair "me" "you"))
 
 (deftest make-player-test
-  (is (= {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}
+  (is (= player
          (make-player "Ringo Starr" [{:giver :GeoHar, :givee :JohLen}]))))
 (s/conform :unq/player
            (make-player "us" [{:giver :me, :givee :meToo} {:givee :you :giver :youToo}]))
@@ -161,18 +159,7 @@
            (add-year-in-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))
 
 (deftest add-year-in-roster-test
-  (is (= {:PauMcc {:name         "Paul McCartney",
-                   :gift-history [{:giver :JohLen, :givee :GeoHar}
-                                  {:giver :none, :givee :none}]},
-          :GeoHar {:name         "George Harrison",
-                   :gift-history [{:giver :PauMcc, :givee :RinSta}
-                                  {:giver :none, :givee :none}]},
-          :JohLen {:name         "John Lennon",
-                   :gift-history [{:giver :RinSta, :givee :PauMcc}
-                                  {:giver :none, :givee :none}]},
-          :RinSta {:name         "Ringo Starr",
-                   :gift-history [{:giver :GeoHar, :givee :JohLen}
-                                  {:giver :none, :givee :none}]}}
+  (is (= players-map-add
          (add-year-in-roster players-map))))
 (s/conform ::dom/plr-map
            (add-year-in-roster players-map))
