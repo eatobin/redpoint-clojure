@@ -134,68 +134,74 @@
                                        {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]}))
 
 (deftest set-gift-pair-in-gift-history-test
- (is (= [{:giver :me, :givee :you}]
-        (set-gift-pair-in-gift-history [{:giver :RinStaX, :givee :PauMccX}]
-                                       0
-                                       {:giver :me, :givee :you}))))
+  (is (= [{:giver :me, :givee :you}]
+         (set-gift-pair-in-gift-history [{:giver :RinStaX, :givee :PauMccX}]
+                                        0
+                                        {:giver :me, :givee :you}))))
 (s/conform :unq/gift-history
-          (set-gift-pair-in-gift-history [{:giver :RinStaX, :givee :PauMccX}]
-                                         0
-                                         {:giver :me, :givee :you}))
+           (set-gift-pair-in-gift-history [{:giver :RinStaX, :givee :PauMccX}]
+                                          0
+                                          {:giver :me, :givee :you}))
 
 (deftest set-gift-pair-in-roster-test
- (is (= {:PauMcc {:name         "Paul McCartney",
-                  :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-         :GeoHar {:name "George Harrison", :gift-history [{:giver :me, :givee :you}]},
-         :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-         :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
-        (set-gift-pair-in-roster players-map :GeoHar 0 {:giver :me, :givee :you}))))
+  (is (= {:PauMcc {:name         "Paul McCartney",
+                   :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+          :GeoHar {:name "George Harrison", :gift-history [{:giver :me, :givee :you}]},
+          :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+          :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
+         (set-gift-pair-in-roster players-map :GeoHar 0 {:giver :me, :givee :you}))))
 (s/conform ::dom/plr-map
-          (set-gift-pair-in-roster players-map :GeoHar 0 {:giver :me, :givee :you}))
+           (set-gift-pair-in-roster players-map :GeoHar 0 {:giver :me, :givee :you}))
 
 (deftest add-year-in-player-test
- (is (= {:name         "Ringo Starr",
-         :gift-history [{:giver :GeoHar, :givee :JohLen} {:giver :none, :givee :none}]}
-        (add-year-in-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))))
+  (is (= {:name         "Ringo Starr",
+          :gift-history [{:giver :GeoHar, :givee :JohLen} {:giver :none, :givee :none}]}
+         (add-year-in-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))))
 (s/conform :unq/player
-          (add-year-in-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))
+           (add-year-in-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))
 
 (deftest add-year-in-roster-test
- (is (= {:PauMcc {:name         "Paul McCartney",
-                  :gift-history [{:giver :JohLen, :givee :GeoHar}
-                                 {:giver :none, :givee :none}]},
-         :GeoHar {:name         "George Harrison",
-                  :gift-history [{:giver :PauMcc, :givee :RinSta}
-                                 {:giver :none, :givee :none}]},
-         :JohLen {:name         "John Lennon",
-                  :gift-history [{:giver :RinSta, :givee :PauMcc}
-                                 {:giver :none, :givee :none}]},
-         :RinSta {:name         "Ringo Starr",
-                  :gift-history [{:giver :GeoHar, :givee :JohLen}
-                                 {:giver :none, :givee :none}]}}
-        (add-year-in-roster players-map))))
+  (is (= {:PauMcc {:name         "Paul McCartney",
+                   :gift-history [{:giver :JohLen, :givee :GeoHar}
+                                  {:giver :none, :givee :none}]},
+          :GeoHar {:name         "George Harrison",
+                   :gift-history [{:giver :PauMcc, :givee :RinSta}
+                                  {:giver :none, :givee :none}]},
+          :JohLen {:name         "John Lennon",
+                   :gift-history [{:giver :RinSta, :givee :PauMcc}
+                                  {:giver :none, :givee :none}]},
+          :RinSta {:name         "Ringo Starr",
+                   :gift-history [{:giver :GeoHar, :givee :JohLen}
+                                  {:giver :none, :givee :none}]}}
+         (add-year-in-roster players-map))))
 (s/conform ::dom/plr-map
-          (add-year-in-roster players-map))
+           (add-year-in-roster players-map))
 
 (deftest get-player-name-in-roster-test
- (is (= "Ringo Starr"
-        (get-player-name-in-roster players-map :RinSta))))
+  (is (= "Ringo Starr"
+         (get-player-name-in-roster players-map :RinSta))))
 
 (deftest get-givee-in-roster-test
- (is (= :GeoHar
-        (get-givee-in-roster players-map :PauMcc 0))))
+  (is (= :GeoHar
+         (get-givee-in-roster players-map :PauMcc 0))))
+(s/conform ::dom/givee
+           (get-givee-in-roster players-map :RinSta 0))
 
 (deftest get-giver-in-roster-test
   (is (= :JohLen
          (get-giver-in-roster players-map :PauMcc 0))))
+(s/conform ::dom/giver
+           (get-giver-in-roster players-map :RinSta 0))
+(s/conform ::dom/plr-map
+           (set-giver-in-roster players-map :RinSta 0 :RinSta))
 
 (deftest set-givee-in-roster-test
   (is (= players-map-ge
          (set-givee-in-roster players-map :GeoHar 0 :GeoHar))))
 
 (deftest set-giver-in-roster-test
- (is (= players-map-gr
-        (set-giver-in-roster players-map :GeoHar 0 :GeoHar))))
+  (is (= players-map-gr
+         (set-giver-in-roster players-map :GeoHar 0 :GeoHar))))
 
 
 ;;(s/conform vector?

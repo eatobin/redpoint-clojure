@@ -14,3 +14,4 @@
 (s/def :unq/player (s/keys :req-un [::name :unq/gift-history]))
 (s/def ::plr-map-vec (s/tuple string? string? string? string?))
 (s/def ::plr-map (s/map-of keyword? :unq/player))
+(s/def ::g-year (s/and int? #(> % -1)))
