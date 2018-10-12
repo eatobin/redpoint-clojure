@@ -35,20 +35,20 @@
   (is (= false
          (givee-not-recip? :RinSta :KarLav 0 beatles-plus-pm))))
 
-;(deftest givee-not-repeat-test
-;  (is (= false
-;         (givee-not-repeat? :RinSta :JohLen 2 beatles-plus-4)))
-;  (is (= false
-;         (givee-not-repeat? :RinSta :GeoHar 2 beatles-plus-4)))
-;  (is (= true
-;         (givee-not-repeat? :RinSta :KarLav 2 beatles-plus-4)))
-;  (is (= true
-;         (givee-not-repeat? :RinSta :JohLen 5 beatles-plus-4)))
-;  (is (= true
-;         (givee-not-repeat? :RinSta :GeoHar 5 beatles-plus-4)))
-;  (is (= false
-;         (givee-not-repeat? :RinSta :PauMcc 5 beatles-plus-4)))
-;  (is (= false
-;         (givee-not-repeat? :RinSta :EriTob 5 beatles-plus-4)))
-;  (is (= false
-;         (givee-not-repeat? :RinSta :KarLav 5 beatles-plus-4))))
+(deftest givee-not-repeat-test
+  (is (= false
+         (givee-not-repeat? :RinSta :JohLen 2 beatles-plus-4)))
+  (is (= false
+         (givee-not-repeat? :RinSta :GeoHar 2 beatles-plus-4)))
+  (is (= true
+         (givee-not-repeat? :RinSta :KarLav 2 beatles-plus-4)))
+  (is (= true
+         (givee-not-repeat? :RinSta :JohLen 5 beatles-plus-4)))
+  (is (= true
+         (givee-not-repeat? :RinSta :GeoHar 5 beatles-plus-4)))
+  (is (= false
+         (givee-not-repeat? :RinSta :PauMcc 5 beatles-plus-4)))
+  (is (= false
+         (givee-not-repeat? :RinSta :EriTob 5 beatles-plus-4)))
+  (is (= false
+         (givee-not-repeat? :RinSta :KarLav 5 beatles-plus-4))))
