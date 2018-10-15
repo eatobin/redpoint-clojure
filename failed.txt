@@ -1,0 +1,42 @@
+Continue? ('q' to quit): r
+
+Blackhawks - Year 2012 Gifts:
+
+Adam Burish is buying for Patrick Kane
+Andrew Ladd is buying for Antti Niemi
+Antti Niemi is buying for Tomas Kopecky
+Brent Seabrook is buying for Joel Quenneville
+Brian Campbell is buying for Dave Bolland
+Exception in thread "main" clojure.lang.ExceptionInfo: Call to #'clojure-redpoint.roster/get-player-in-roster did not conform to spec:
+val: nil fails spec: :unq/player at: [:ret] predicate: map?
+ {:clojure.spec.alpha/problems [{:path [:ret], :pred map?, :val nil, :via [:unq/player], :in []}], :clojure.spec.alpha/spec #object[clojure.spec.alpha$map_spec_impl$reify__1931 0x1cf2fed4 "clojure.spec.alpha$map_spec_impl$reify__1931@1cf2fed4"], :clojure.spec.alpha/value nil, :clojure.spec.alpha/ret nil, :clojure.spec.alpha/failure :instrument, :orchestra.spec.test/caller {:file "roster.clj", :line 205, :var-scope clojure-redpoint.roster/get-player-name-in-roster}}
+	at clojure.core$ex_info.invokeStatic(core.clj:4739)
+	at clojure.core$ex_info.invoke(core.clj:4739)
+	at orchestra.spec.test$spec_checking_fn$conform_BANG___257.invoke(test.clj:113)
+	at orchestra.spec.test$spec_checking_fn$fn__263.doInvoke(test.clj:125)
+	at clojure.lang.RestFn.invoke(RestFn.java:421)
+	at clojure_redpoint.roster$get_player_name_in_roster.invokeStatic(roster.clj:205)
+	at clojure_redpoint.roster$get_player_name_in_roster.invoke(roster.clj:204)
+	at clojure.lang.AFn.applyToHelper(AFn.java:156)
+	at clojure.lang.AFn.applyTo(AFn.java:144)
+	at orchestra.spec.test$spec_checking_fn$fn__263.doInvoke(test.clj:123)
+	at clojure.lang.RestFn.invoke(RestFn.java:421)
+	at clojure_redpoint.main$print_string_giving_roster.invokeStatic(main.clj:77)
+	at clojure_redpoint.main$print_string_giving_roster.invoke(main.clj:70)
+	at clojure_redpoint.main$print_and_ask.invokeStatic(main.clj:102)
+	at clojure_redpoint.main$print_and_ask.invoke(main.clj:101)
+	at clojure_redpoint.main$_main.invokeStatic(main.clj:121)
+	at clojure_redpoint.main$_main.invoke(main.clj:109)
+	at clojure.lang.AFn.applyToHelper(AFn.java:152)
+	at clojure.lang.AFn.applyTo(AFn.java:144)
+	at clojure.lang.Var.applyTo(Var.java:702)
+	at clojure.core$apply.invokeStatic(core.clj:657)
+	at clojure.main$main_opt.invokeStatic(main.clj:317)
+	at clojure.main$main_opt.invoke(main.clj:313)
+	at clojure.main$main.invokeStatic(main.clj:424)
+	at clojure.main$main.doInvoke(main.clj:387)
+	at clojure.lang.RestFn.applyTo(RestFn.java:137)
+	at clojure.lang.Var.applyTo(Var.java:702)
+	at clojure.main.main(main.java:37)
+
+Process finished with exit code 1
