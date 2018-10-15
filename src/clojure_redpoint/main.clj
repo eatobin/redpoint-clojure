@@ -62,11 +62,11 @@
   (swap! a-ge-hat remove-puck (deref a-givee))
   (reset! a-givee nil))
 
-;(defn givee-is-failure []
-;  (swap! a-ge-hat remove-puck-givee (deref a-givee))
-;  (swap! a-discards discard-puck-givee (deref a-givee))
-;  (reset! a-givee (draw-puck-givee (deref a-ge-hat))))
-;
+(defn givee-is-failure []
+  (swap! a-ge-hat remove-puck (deref a-givee))
+  (swap! a-discards discard-puck-givee (deref a-givee))
+  (reset! a-givee (draw-puck (deref a-ge-hat))))
+
 ;(defn print-string-giving-roster [r-name r-year]
 ;  (println)
 ;  (println r-name "- Year" (+ r-year (deref a-g-year)) "Gifts:")
