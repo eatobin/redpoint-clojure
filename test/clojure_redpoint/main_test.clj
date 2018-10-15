@@ -51,23 +51,23 @@
            (first (deref a-plrs-map))))
     (is (empty? (deref a-discards)))))
 
-;(deftest select-new-giver-test
-;  (reset! a-g-year 0)
-;  (reset! a-giver :none)
-;  (reset! a-givee :none)
-;  (let [roster-list (make-roster-seq
-;                      (read-file-into-string "blackhawks2010.txt"))]
-;    (reset! a-plrs-map (make-players-map roster-list))
-;    (start-new-year)
-;    (swap! a-discards discard-puck-givee :AdaBur)
-;    (is (= 1
-;           (count (deref a-discards))))
-;    (select-new-giver)
-;    (is (= 17
-;           (count (deref a-gr-hat))))
-;    (is (= 0
-;           (count (deref a-discards))))))
-;
+(deftest select-new-giver-test
+  (reset! a-g-year 0)
+  (reset! a-giver :none)
+  (reset! a-givee :none)
+  (let [players-vector (make-players-vector
+                         (scrubbed-or-quit "blackhawks2010.txt"))]
+    (reset! a-plrs-map (make-players-map players-vector))
+    (start-new-year)
+    (swap! a-discards discard-puck-givee :AdaBur)
+    (is (= 1
+           (count (deref a-discards))))
+    (select-new-giver)
+    (is (= 17
+           (count (deref a-gr-hat))))
+    (is (= 0
+           (count (deref a-discards))))))
+
 ;(deftest givee-is-success-test
 ;  (reset! a-g-year 0)
 ;  (reset! a-giver :none)
