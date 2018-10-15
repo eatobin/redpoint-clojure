@@ -56,12 +56,12 @@
   (reset! a-giver (draw-puck (deref a-gr-hat)))
   (reset! a-givee (draw-puck (deref a-ge-hat))))
 
-;(defn givee-is-success []
-;  (swap! a-plrs-map set-givee-in-roster (deref a-giver) (deref a-g-year) (deref a-givee))
-;  (swap! a-plrs-map set-giver-in-roster (deref a-givee) (deref a-g-year) (deref a-giver))
-;  (swap! a-ge-hat remove-puck-givee (deref a-givee))
-;  (reset! a-givee nil))
-;
+(defn givee-is-success []
+  (swap! a-plrs-map set-givee-in-roster (deref a-giver) (deref a-g-year) (deref a-givee))
+  (swap! a-plrs-map set-giver-in-roster (deref a-givee) (deref a-g-year) (deref a-giver))
+  (swap! a-ge-hat remove-puck (deref a-givee))
+  (reset! a-givee nil))
+
 ;(defn givee-is-failure []
 ;  (swap! a-ge-hat remove-puck-givee (deref a-givee))
 ;  (swap! a-discards discard-puck-givee (deref a-givee))

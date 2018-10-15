@@ -68,23 +68,23 @@
     (is (= 0
            (count (deref a-discards))))))
 
-;(deftest givee-is-success-test
-;  (reset! a-g-year 0)
-;  (reset! a-giver :none)
-;  (reset! a-givee :none)
-;  (let [roster-list (make-roster-seq
-;                      (read-file-into-string "blackhawks2010.txt"))]
-;    (reset! a-plrs-map (make-players-map roster-list))
-;    (start-new-year)
-;    (let [temp-ge (deref a-givee)]
-;      (givee-is-success)
-;      (is (= temp-ge
-;             (get-givee-in-roster (deref a-plrs-map) (deref a-giver) (deref a-g-year))))
-;      (is (= (deref a-giver)
-;             (get-giver-in-roster (deref a-plrs-map) temp-ge (deref a-g-year))))
-;      (is (= nil
-;             (some #{temp-ge} (deref a-ge-hat)))))))
-;
+(deftest givee-is-success-test
+  (reset! a-g-year 0)
+  (reset! a-giver :none)
+  (reset! a-givee :none)
+  (let [players-vector (make-players-vector
+                         (scrubbed-or-quit "blackhawks2010.txt"))]
+    (reset! a-plrs-map (make-players-map players-vector))
+    (start-new-year)
+    (let [temp-ge (deref a-givee)]
+      (givee-is-success)
+      (is (= temp-ge
+             (get-givee-in-roster (deref a-plrs-map) (deref a-giver) (deref a-g-year))))
+      (is (= (deref a-giver)
+             (get-giver-in-roster (deref a-plrs-map) temp-ge (deref a-g-year))))
+      (is (= nil
+             (some #{temp-ge} (deref a-ge-hat)))))))
+
 ;(deftest givee-is-failure-test
 ;  (reset! a-g-year 0)
 ;  (reset! a-giver :none)
