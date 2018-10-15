@@ -1,6 +1,5 @@
 (ns clojure-redpoint.main
   (:require [clojure.string :as cs]
-            [clojure-redpoint.roster-utility :refer :all]
             [clojure-redpoint.roster :refer :all]
             [clojure-redpoint.hats :refer :all]
             [clojure-redpoint.rules :refer :all]
@@ -10,23 +9,23 @@
             [clojure.java.io :as io])
   (:gen-class))
 
-(def a-g-year (atom 0))
-(def a-giver (atom :none))
-(def a-givee (atom :none))
-(def a-plrs-map (atom {}))
-(def a-gr-hat (atom []))
-(def a-ge-hat (atom []))
-(def a-discards (atom []))
+;(def a-g-year (atom 0))
+;(def a-giver (atom :none))
+;(def a-givee (atom :none))
+;(def a-plrs-map (atom {}))
+;(def a-gr-hat (atom []))
+;(def a-ge-hat (atom []))
+;(def a-discards (atom []))
 
-(defn draw-puck-givee [ge-hat]
-  (when (not= 0 (count ge-hat))
-    (rand-nth ge-hat)))
+;(defn draw-puck-givee [ge-hat]
+;  (when (not= 0 (count ge-hat))
+;    (rand-nth ge-hat)))
+;
+;(defn draw-puck-giver [gr-hat]
+;  (when (not= 0 (count gr-hat))
+;    (rand-nth gr-hat)))
 
-(defn draw-puck-giver [gr-hat]
-  (when (not= 0 (count gr-hat))
-    (rand-nth gr-hat)))
-
-;1(defn read-file-into-string [file-path]
+;(defn read-file-into-string [file-path]
 ;  (slurp file-path))
 
 ;(defn start-new-year []
@@ -120,31 +119,31 @@
 
 
 
-(defn -main []
-  (reset! a-g-year 0)
-  (reset! a-giver :none)
-  (reset! a-givee :none)
-  (let [roster-list (make-roster-seq
-                      (read-file-into-string "blackhawks2010.txt"))
-        r-name (get-roster-name roster-list)
-        r-year (get-roster-year roster-list)]
-    (reset! a-plrs-map (make-players-map roster-list))
-    (reset! a-gr-hat [])
-    (reset! a-ge-hat [])
-    (reset! a-discards [])
-    (while (not= (cs/lower-case (print-and-ask r-name r-year)) "q")
-      (start-new-year)
-      (while (some? (deref a-giver))
-        (while (some? (deref a-givee))
-          (if (and
-                (givee-not-self? (deref a-giver) (deref a-givee))
-                (givee-not-recip? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map))
-                (givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map)))
-            (givee-is-success)
-            (givee-is-failure)))
-        (select-new-giver)))
-    (println)
-    (println "This was fun!")
-    (println "Talk about a position with Redpoint?")
-    (println "Please call: Eric Tobin 773-325-1516")
-    (println)))
+;(defn -main []
+;  (reset! a-g-year 0)
+;  (reset! a-giver :none)
+;  (reset! a-givee :none)
+;  (let [roster-list (make-roster-seq
+;                      (read-file-into-string "blackhawks2010.txt"))
+;        r-name (get-roster-name roster-list)
+;        r-year (get-roster-year roster-list)]
+;    (reset! a-plrs-map (make-players-map roster-list))
+;    (reset! a-gr-hat [])
+;    (reset! a-ge-hat [])
+;    (reset! a-discards [])
+;    (while (not= (cs/lower-case (print-and-ask r-name r-year)) "q")
+;      (start-new-year)
+;      (while (some? (deref a-giver))
+;        (while (some? (deref a-givee))
+;          (if (and
+;                (givee-not-self? (deref a-giver) (deref a-givee))
+;                (givee-not-recip? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map))
+;                (givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map)))
+;            (givee-is-success)
+;            (givee-is-failure)))
+;        (select-new-giver)))
+;    (println)
+;    (println "This was fun!")
+;    (println "Talk about a position with Redpoint?")
+;    (println "Please call: Eric Tobin 773-325-1516")
+;    (println)))
