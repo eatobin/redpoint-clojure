@@ -31,30 +31,26 @@
   (with-redefs [exit-now! (constantly "we exit here")]
     (is (= "we exit here" (scrubbed-or-quit "year-too-small.txt")))))
 
+(deftest start-new-year-test
+  (reset! a-g-year 0)
+  (reset! a-giver :none)
+  (reset! a-givee :none)
+  (let [players-vector (make-players-vector
+                         (scrubbed-or-quit "blackhawks2010.txt"))]
+    (reset! a-plrs-map (make-players-map players-vector))
+    (start-new-year)
+    (is (= 1
+           (deref a-g-year)))
+    (is (not= :none
+              (deref a-giver)))
+    (is (not= :none
+              (deref a-givee)))
+    (is (= [:AndLad {:name         "Andrew Ladd",
+                     :gift-history [{:giver :KriVer, :givee :JoeQue}
+                                    {:giver :none, :givee :none}]}]
+           (first (deref a-plrs-map))))
+    (is (empty? (deref a-discards)))))
 
-
-
-
-
-;(deftest start-new-year-test
-;  (reset! a-g-year 0)
-;  (reset! a-giver :none)
-;  (reset! a-givee :none)
-;  (let [roster-list (make-roster-seq
-;                      (read-file-into-string "blackhawks2010.txt"))]
-;    (reset! a-plrs-map (make-players-map roster-list))
-;    (start-new-year)
-;    (is (= 1
-;           (deref a-g-year)))
-;    (is (not= :none
-;              (deref a-giver)))
-;    (is (not= :none
-;              (deref a-givee)))
-;    (is (= [:AndLad {:name         "Andrew Ladd",
-;                     :gift-history [{:giver :KriVer, :givee :JoeQue}
-;                                    {:giver :none, :givee :none}]}]
-;           (first (deref a-plrs-map))))))
-;
 ;(deftest select-new-giver-test
 ;  (reset! a-g-year 0)
 ;  (reset! a-giver :none)

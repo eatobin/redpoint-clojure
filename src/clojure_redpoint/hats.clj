@@ -28,13 +28,13 @@
         :args (s/cat :ge-hat ::dom/hat :discards ::dom/hat)
         :ret ::dom/hat)
 
-(defn empty-discards []
+(defn empty-discards [_]
   [])
 (s/fdef empty-discards
-        :args empty?
-        :ret empty?)
+        :args (s/cat :unused-value any?)
+        :ret ::dom/hat)
 
-(s/conform empty?
-           (empty-discards))
+(s/conform ::dom/hat
+           (empty-discards []))
 
 (st/instrument)

@@ -9,34 +9,46 @@
             [clojure.java.io :as io])
   (:gen-class))
 
-;(def a-g-year (atom 0))
-;(def a-giver (atom :none))
-;(def a-givee (atom :none))
-;(def a-plrs-map (atom {}))
-;(def a-gr-hat (atom []))
-;(def a-ge-hat (atom []))
-;(def a-discards (atom []))
+(def a-g-year (atom 0))
+(def a-giver (atom :none))
+(def a-givee (atom :none))
+(def a-plrs-map (atom {}))
+(def a-gr-hat (atom []))
+(def a-ge-hat (atom []))
+(def a-discards (atom []))
 
-;(defn draw-puck-givee [ge-hat]
-;  (when (not= 0 (count ge-hat))
-;    (rand-nth ge-hat)))
-;
-;(defn draw-puck-giver [gr-hat]
-;  (when (not= 0 (count gr-hat))
-;    (rand-nth gr-hat)))
+(defn exit-now! []
+  (System/exit 99))
 
-;(defn read-file-into-string [file-path]
-;  (slurp file-path))
+(defn scrubbed-or-quit
+  "test"
+  [file-path]
+  (if (.exists (io/file file-path))
+    (let [[scrubbed err] (scrubbed-roster-string
+                           (slurp file-path))]
+      (if (nil? err)
+        scrubbed
+        (do
+          (println err)
+          (println "Bye..")
+          (exit-now!))))
+    (do
+      (println "The requested file does not exist..")
+      (exit-now!))))
 
-;(defn start-new-year []
-;  (swap! a-g-year inc)
-;  (swap! a-plrs-map add-year-in-roster)
-;  (reset! a-gr-hat (make-hat (deref a-plrs-map)))
-;  (reset! a-ge-hat (make-hat (deref a-plrs-map)))
-;  (reset! a-giver (draw-puck-giver (deref a-gr-hat)))
-;  (reset! a-givee (draw-puck-givee (deref a-ge-hat)))
-;  (swap! a-discards empty-discards))
-;
+(defn draw-puck [hat]
+  (when (not= 0 (count hat))
+    (rand-nth hat)))
+
+(defn start-new-year []
+  (swap! a-g-year inc)
+  (swap! a-plrs-map add-year-in-roster)
+  (reset! a-gr-hat (make-hat (deref a-plrs-map)))
+  (reset! a-ge-hat (make-hat (deref a-plrs-map)))
+  (reset! a-giver (draw-puck (deref a-gr-hat)))
+  (reset! a-givee (draw-puck (deref a-ge-hat)))
+  (swap! a-discards empty-discards))
+
 ;(defn select-new-giver []
 ;  (swap! a-gr-hat remove-puck-giver (deref a-giver))
 ;  (swap! a-ge-hat return-discards (deref a-discards))
@@ -94,24 +106,7 @@
 ;    (flush)
 ;    (read-line)))
 
-(defn exit-now! []
-  (System/exit 99))
 
-(defn scrubbed-or-quit
-  "test"
-  [file-path]
-  (if (.exists (io/file file-path))
-    (let [[scrubbed err] (scrubbed-roster-string
-                           (slurp file-path))]
-      (if (nil? err)
-        scrubbed
-        (do
-          (println err)
-          (println "Bye..")
-          (exit-now!))))
-    (do
-      (println "The requested file does not exist..")
-      (exit-now!))))
 
 
 
