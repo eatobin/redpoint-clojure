@@ -67,36 +67,44 @@
   (swap! a-discards discard-puck-givee (deref a-givee))
   (reset! a-givee (draw-puck (deref a-ge-hat))))
 
+(defn errors? [players-map g-year]
+  (seq (for [plr-sym (keys (into (sorted-map) players-map))
+             :let [giver-code (get-giver-in-roster players-map plr-sym g-year)
+                   givee-code (get-givee-in-roster players-map plr-sym g-year)]
+             :when (or (= plr-sym giver-code) (= plr-sym givee-code))]
+         [plr-sym])))
+
+(defn print-results [players-map g-year]
+  (doseq [plr-sym (keys (into (sorted-map) players-map))
+          :let [player-name (get-player-name-in-roster players-map plr-sym)
+                givee-code (get-givee-in-roster players-map plr-sym g-year)
+                givee-name (get-player-name-in-roster players-map givee-code)
+                giver-code (get-giver-in-roster players-map plr-sym g-year)]]
+    (cond
+      (= plr-sym giver-code) (println player-name "is receiving from no one - ERROR")
+      (= plr-sym givee-code) (println player-name "is buying for no one - ERROR")
+      :else (println player-name "is buying for" givee-name))))
+
 (defn print-string-giving-roster [r-name r-year]
   (println)
   (println r-name "- Year" (+ r-year (deref a-g-year)) "Gifts:")
   (println)
-  (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
-          :let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
-                givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
-                givee-name (get-player-name-in-roster (deref a-plrs-map) givee-code)]
-          :when (not= givee-code :none)]
-    (println player-name "is buying for" givee-name))
-  (let [errors? (seq (for [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
-                           :let [givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
-                           :when (= givee-code :none)]
-                       [plr-sym]))]
-    (when errors?
-      (println)
-      (println "There is a logic error in this year's pairings.")
-      (println "Do you see it?")
-      (println "If not... call me and I'll explain!")
-      (println)
-      (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
-              :let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
-                    givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
-              :when (= givee-code :none)]
-        (println player-name "is buying for no one."))
-      (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
-              :let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
-                    giver-code (get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
-              :when (= giver-code :none)]
-        (println player-name "is receiving from no one.")))))
+  (when (errors? (deref a-plrs-map) (deref a-g-year))
+    (println)
+    (println "There is a logic error in this year's pairings.")
+    (println "Do you see it?")
+    (println "If not... call me and I'll explain!")
+    (println))
+  (print-results (deref a-plrs-map) (deref a-g-year)))
+
+
+
+
+
+
+
+
+
 
 (defn print-and-ask [r-name r-year]
   (print-string-giving-roster r-name r-year)
