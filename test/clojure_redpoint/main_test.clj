@@ -33,28 +33,28 @@
 
 (deftest start-new-year-test
   (reset! a-g-year 0)
-  (reset! a-giver :none)
-  (reset! a-givee :none)
+  (reset! a-giver nil)
+  (reset! a-givee nil)
   (let [players-vector (make-players-vector
                          (scrubbed-or-quit "blackhawks2010.txt"))]
     (reset! a-plrs-map (make-players-map players-vector))
     (start-new-year)
     (is (= 1
            (deref a-g-year)))
-    (is (not= :none
+    (is (not= nil
               (deref a-giver)))
-    (is (not= :none
+    (is (not= nil
               (deref a-givee)))
     (is (= [:AndLad {:name         "Andrew Ladd",
                      :gift-history [{:giver :KriVer, :givee :JoeQue}
-                                    {:giver :none, :givee :none}]}]
+                                    {:giver :AndLad, :givee :AndLad}]}]
            (first (deref a-plrs-map))))
     (is (empty? (deref a-discards)))))
 
 (deftest select-new-giver-test
   (reset! a-g-year 0)
-  (reset! a-giver :none)
-  (reset! a-givee :none)
+  (reset! a-giver nil)
+  (reset! a-givee nil)
   (let [players-vector (make-players-vector
                          (scrubbed-or-quit "blackhawks2010.txt"))]
     (reset! a-plrs-map (make-players-map players-vector))
@@ -70,8 +70,8 @@
 
 (deftest givee-is-success-test
   (reset! a-g-year 0)
-  (reset! a-giver :none)
-  (reset! a-givee :none)
+  (reset! a-giver nil)
+  (reset! a-givee nil)
   (let [players-vector (make-players-vector
                          (scrubbed-or-quit "blackhawks2010.txt"))]
     (reset! a-plrs-map (make-players-map players-vector))
@@ -87,8 +87,8 @@
 
 (deftest givee-is-failure-test
   (reset! a-g-year 0)
-  (reset! a-giver :none)
-  (reset! a-givee :none)
+  (reset! a-giver nil)
+  (reset! a-givee nil)
   (let [players-vector (make-players-vector
                          (scrubbed-or-quit "blackhawks2010.txt"))]
     (reset! a-plrs-map (make-players-map players-vector))
