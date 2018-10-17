@@ -4,14 +4,12 @@
             [clojure-redpoint.hats :refer :all]
             [clojure-redpoint.rules :refer :all]
             [clojure-redpoint.roster-string-check :refer [scrubbed-roster-string]]
-            [clojure.string :as str]
-            [clojure-csv.core :as csv]
             [clojure.java.io :as io])
   (:gen-class))
 
 (def a-g-year (atom 0))
-(def a-giver (atom :none))
-(def a-givee (atom :none))
+(def a-giver (atom nil))
+(def a-givee (atom nil))
 (def a-plrs-map (atom {}))
 (def a-gr-hat (atom []))
 (def a-ge-hat (atom []))
@@ -67,19 +65,19 @@
   (swap! a-discards discard-puck-givee (deref a-givee))
   (reset! a-givee (draw-puck (deref a-ge-hat))))
 
-(defn errors? [players-map g-year]
-  (seq (for [plr-sym (keys (into (sorted-map) players-map))
-             :let [giver-code (get-giver-in-roster players-map plr-sym g-year)
-                   givee-code (get-givee-in-roster players-map plr-sym g-year)]
+(defn errors? []
+  (seq (for [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
+             :let [giver-code (get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
+                   givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
              :when (or (= plr-sym giver-code) (= plr-sym givee-code))]
          [plr-sym])))
 
-(defn print-results [players-map g-year]
-  (doseq [plr-sym (keys (into (sorted-map) players-map))
-          :let [player-name (get-player-name-in-roster players-map plr-sym)
-                givee-code (get-givee-in-roster players-map plr-sym g-year)
-                givee-name (get-player-name-in-roster players-map givee-code)
-                giver-code (get-giver-in-roster players-map plr-sym g-year)]]
+(defn print-results []
+  (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
+          :let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
+                givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
+                givee-name (get-player-name-in-roster (deref a-plrs-map) givee-code)
+                giver-code (get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]]
     (cond
       (= plr-sym giver-code) (println player-name "is receiving from no one - ERROR")
       (= plr-sym givee-code) (println player-name "is buying for no one - ERROR")
@@ -89,22 +87,13 @@
   (println)
   (println r-name "- Year" (+ r-year (deref a-g-year)) "Gifts:")
   (println)
-  (when (errors? (deref a-plrs-map) (deref a-g-year))
+  (when (errors?)
     (println)
     (println "There is a logic error in this year's pairings.")
     (println "Do you see it?")
     (println "If not... call me and I'll explain!")
     (println))
-  (print-results (deref a-plrs-map) (deref a-g-year)))
-
-
-
-
-
-
-
-
-
+  (print-results))
 
 (defn print-and-ask [r-name r-year]
   (print-string-giving-roster r-name r-year)

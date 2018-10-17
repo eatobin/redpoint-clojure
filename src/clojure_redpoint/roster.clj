@@ -183,12 +183,12 @@
 
 (defn add-year-in-player
   "Adds a new placeholder year to the end of a player's gift history"
-  [plr]
+  [plr plr-sym]
   (let [gh (get-gift-history-in-player plr)
-        ngh (conj gh {:giver :none, :givee :none})]
+        ngh (conj gh {:giver plr-sym, :givee plr-sym})]
     (set-gift-history-in-player ngh plr)))
 (s/fdef add-year-in-player
-        :args (s/cat :plr :unq/player)
+        :args (s/cat :plr :unq/player :plr-sym keyword?)
         :ret :unq/player)
 
 (defn add-year-in-roster
@@ -196,7 +196,7 @@
   [plrs-map]
   (into {}
         (for [[k v] plrs-map]
-          [k (add-year-in-player v)])))
+          [k (add-year-in-player v k)])))
 (s/fdef add-year-in-roster
         :args (s/cat :plrs-map ::dom/plr-map)
         :ret ::dom/plr-map)

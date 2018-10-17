@@ -30,16 +30,16 @@
 
 (def players-map-add {:RinSta {:name         "Ringo Starr",
                                :gift-history [{:giver :GeoHar, :givee :JohLen}
-                                              {:giver :none, :givee :none}]},
+                                              {:giver :RinSta, :givee :RinSta}]},
                       :JohLen {:name         "John Lennon",
                                :gift-history [{:giver :RinSta, :givee :PauMcc}
-                                              {:giver :none, :givee :none}]},
+                                              {:giver :JohLen, :givee :JohLen}]},
                       :GeoHar {:name         "George Harrison",
                                :gift-history [{:giver :PauMcc, :givee :RinSta}
-                                              {:giver :none, :givee :none}]},
+                                              {:giver :GeoHar, :givee :GeoHar}]},
                       :PauMcc {:name         "Paul McCartney",
                                :gift-history [{:giver :JohLen, :givee :GeoHar}
-                                              {:giver :none, :givee :none}]}})
+                                              {:giver :PauMcc, :givee :PauMcc}]}})
 
 (def player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]})
 
@@ -153,10 +153,10 @@
 
 (deftest add-year-in-player-test
   (is (= {:name         "Ringo Starr",
-          :gift-history [{:giver :GeoHar, :givee :JohLen} {:giver :none, :givee :none}]}
-         (add-year-in-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))))
+          :gift-history [{:giver :GeoHar, :givee :JohLen} {:giver :RinSta, :givee :RinSta}]}
+         (add-year-in-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]} :RinSta))))
 (s/conform :unq/player
-           (add-year-in-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))
+           (add-year-in-player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]} :RinSta))
 
 (deftest add-year-in-roster-test
   (is (= players-map-add
