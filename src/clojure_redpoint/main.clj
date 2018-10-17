@@ -79,8 +79,9 @@
                 givee-name (get-player-name-in-roster (deref a-plrs-map) givee-code)
                 giver-code (get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]]
     (cond
-      (= plr-sym giver-code) (println player-name "is receiving from no one - ERROR")
-      (= plr-sym givee-code) (println player-name "is buying for no one - ERROR")
+      (and (= plr-sym givee-code) (= plr-sym giver-code)) (println player-name "is **buying** for nor **receiving** from anyone - **ERROR**")
+      (= plr-sym giver-code) (println player-name "is **receiving** from no one - **ERROR**")
+      (= plr-sym givee-code) (println player-name "is **buying** for no one - **ERROR**")
       :else (println player-name "is buying for" givee-name))))
 
 (defn print-string-giving-roster [r-name r-year]
@@ -92,6 +93,7 @@
     (println "There is a logic error in this year's pairings.")
     (println "Do you see it?")
     (println "If not... call me and I'll explain!")
+    (println)
     (println))
   (print-results))
 
@@ -105,8 +107,8 @@
 
 (defn -main []
   (reset! a-g-year 0)
-  (reset! a-giver :none)
-  (reset! a-givee :none)
+  (reset! a-giver nil)
+  (reset! a-givee nil)
   (let [players-vector (make-players-vector
                          (scrubbed-or-quit "blackhawks2010.txt"))
         r-name (get-roster-name (scrubbed-or-quit "blackhawks2010.txt"))
@@ -129,5 +131,5 @@
     (println)
     (println "This was fun!")
     (println "Talk about a position with Redpoint?")
-    (println "Please call: Eric Tobin 773-325-1516")
+    (println "Please call: Eric Tobin 773-679-6617")
     (println)))
