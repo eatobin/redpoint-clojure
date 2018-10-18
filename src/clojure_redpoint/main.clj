@@ -19,7 +19,8 @@
   (System/exit 99))
 
 (defn scrubbed-or-quit
-  "test"
+  "Return a scrubbed string or quit the program if the file does not exist
+  or if the string cannot be scrubbed"
   [file-path]
   (if (.exists (io/file file-path))
     (let [[scrubbed err] (scrubbed-roster-string
