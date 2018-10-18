@@ -14,6 +14,7 @@
 (def a-gr-hat (atom []))
 (def a-ge-hat (atom []))
 (def a-discards (atom []))
+(def file-path "blackhawks2010.txt")
 
 (defn exit-now! []
   (System/exit 99))
@@ -111,9 +112,9 @@
   (reset! a-giver nil)
   (reset! a-givee nil)
   (let [players-vector (make-players-vector
-                         (scrubbed-or-quit "blackhawks2010.txt"))
-        r-name (get-roster-name (scrubbed-or-quit "blackhawks2010.txt"))
-        r-year (Integer/parseInt (get-roster-year (scrubbed-or-quit "blackhawks2010.txt")))]
+                         (scrubbed-or-quit file-path))
+        r-name (get-roster-name (scrubbed-or-quit file-path))
+        r-year (Integer/parseInt (get-roster-year (scrubbed-or-quit file-path)))]
     (reset! a-plrs-map (make-players-map players-vector))
     (reset! a-gr-hat [])
     (reset! a-ge-hat [])
