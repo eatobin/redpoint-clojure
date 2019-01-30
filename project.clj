@@ -6,5 +6,5 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [clojure-csv/clojure-csv "2.0.2"]
                  [orchestra "2017.11.12-1"]]
-  :profiles {:dev {:dependencies [[org.clojure/test.check "0.9.0"]]}})
-;:main clojure-redpoint.main)
+  :profiles {:dev {:dependencies [[org.clojure/test.check "0.9.0"]]}}
+  :main clojure-redpoint.main)
