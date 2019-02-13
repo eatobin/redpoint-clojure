@@ -1,7 +1,7 @@
 (ns clojure-redpoint.rules
   (:require [clojure-redpoint.domain :as dom]
             [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as st]
+            [orchestra.spec.test :as ostest]
             [clojure.repl :refer :all]
             [clojure-redpoint.roster :refer :all]
             [clojure-redpoint.hats :refer :all]))
@@ -34,4 +34,4 @@
                      :g-year ::dom/g-year :plrs-map ::dom/plr-map)
         :ret boolean?)
 
-(st/instrument)
+(ostest/instrument)

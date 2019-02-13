@@ -1,7 +1,7 @@
 (ns clojure-redpoint.hats
   (:require [clojure-redpoint.domain :as dom]
             [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as st]
+            [orchestra.spec.test :as ostest]
             [clojure.repl :refer :all]))
 
 (defn make-hat [plrs-map]
@@ -37,4 +37,4 @@
 (s/conform ::dom/hat
            (empty-discards []))
 
-(st/instrument)
+(ostest/instrument)

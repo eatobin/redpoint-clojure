@@ -1,7 +1,7 @@
 (ns clojure-redpoint.roster
   (:require [clojure-redpoint.domain :as dom]
             [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as st]
+            [orchestra.spec.test :as ostest]
             [clojure.repl :refer :all]
             [clojure.string :as str]
             [clojure-csv.core :as csv]
@@ -240,4 +240,4 @@
                      :g-year ::dom/g-year :gr ::dom/giver)
         :ret ::dom/plr-map)
 
-(st/instrument)
+(ostest/instrument)
