@@ -48,6 +48,17 @@
         :args (s/cat :scrubbed ::dom/scrubbed)
         :ret ::dom/plrs-vector)
 
+;(defn make-gift-pair
+;  "Returns a gift pair hash map given givee and giver as strings or keywords"
+;  [givee giver]
+;  (hash-map
+;    :givee (keyword givee)
+;    :giver (keyword giver)))
+;(s/fdef make-gift-pair
+;        :args (s/or :strings (s/cat :givee string? :giver string?)
+;                    :keywords (s/cat :givee keyword? :giver keyword?))
+;        :ret :unq/gift-pair)
+
 (defn make-gift-pair
   "Returns a gift pair hash map given givee and giver as strings or keywords"
   [givee giver]
@@ -55,8 +66,7 @@
     :givee (keyword givee)
     :giver (keyword giver)))
 (s/fdef make-gift-pair
-        :args (s/or :strings (s/cat :givee string? :giver string?)
-                    :keywords (s/cat :givee keyword? :giver keyword?))
+        :args (s/cat :givee string? :giver string?)
         :ret :unq/gift-pair)
 
 (defn make-player

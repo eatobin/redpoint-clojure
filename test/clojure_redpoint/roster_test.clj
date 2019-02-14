@@ -2,7 +2,8 @@
   (:require [clojure.test :refer :all]
             [clojure-redpoint.roster :refer :all]
             [clojure.spec.alpha :as s]
-            [clojure-redpoint.domain :as dom]))
+            [clojure-redpoint.domain :as dom]
+            [clojure.spec.test.alpha :as stest]))
 
 (def scrubbed "The Beatles,2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen")
 
@@ -179,8 +180,8 @@
          (get-giver-in-roster players-map :PauMcc 0))))
 (s/conform ::dom/giver
            (get-giver-in-roster players-map :RinSta 0))
-(s/conform ::dom/plr-map
-           (set-giver-in-roster players-map :RinSta 0 :RinSta))
+;(s/conform ::dom/plr-map
+;           (set-giver-in-roster players-map :RinSta 0 :RinSta))
 
 (deftest set-givee-in-roster-test
   (is (= players-map-ge
@@ -224,3 +225,4 @@
 ;;(s/conform :unq/player
 ;;           (set-gift-history-in-player [{:giver :RinSta, :givee :PauMcc}] {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))
 ;;(stest/check `set-gift-pair-in-gift-history)
+(stest/check `make-gift-pair)
