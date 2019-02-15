@@ -36,9 +36,14 @@
   (if (str/blank? raw-string)
     [nil "The roster string was nil, empty or only spaces"]
     [(scrub raw-string) nil]))
+(s/fdef non-blank-string
+        :args (s/or :not-nil (s/cat :raw-string string?)
+                    :nil (s/cat :raw-string nil?))
+        :ret (s/or :error (s/tuple nil? string?)
+                   :no-error (s/tuple ::dom/scrubbed nil?)))
 
 (defn valid-length-string
-  "A string of newlines >= 4?"
+  "A string of newlines > 4?"
   [scrubbed]
   (if (<= 4 (count (filter #(= % \newline) scrubbed)))
     [scrubbed nil]
