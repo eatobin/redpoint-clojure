@@ -1,5 +1,8 @@
 (ns clojure-redpoint.roster-string-check
-  (:require [clojure.string :as str]))
+  (:require [clojure-redpoint.domain :as dom]
+            [clojure.string :as str]
+            [clojure.spec.alpha :as s]
+            [orchestra.spec.test :as ostest]))
 
 (defn apply-or-error [f [val err]]
   (if (nil? err)
@@ -13,6 +16,9 @@
     raw-string
     (str/replace #", " ",")
     (str/trim-newline)))
+(s/fdef scrub
+        :args (s/cat :raw-string string?)
+        :ret ::dom/scrubbed)
 
 (defn lines
   "Split string into lines"
@@ -165,3 +171,5 @@
         result (apply-or-error year-in-range result)
         result (apply-or-error players-valid result)]
     result))
+
+(ostest/instrument)
