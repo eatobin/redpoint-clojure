@@ -15,3 +15,5 @@
 (stest/check `rs/scrub)
 (s/exercise-fn `rs/scrub)
 (s/explain ::dom/scrubbed "jj")
+(s/conform ::dom/scrubbed
+           (rs/scrub "j, j\n"))
