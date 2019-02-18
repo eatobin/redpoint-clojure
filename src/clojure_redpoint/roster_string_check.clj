@@ -39,8 +39,8 @@
 (s/fdef non-blank-string
         :args (s/or :not-nil (s/cat :raw-string string?)
                     :nil (s/cat :raw-string nil?))
-        :ret (s/or :error (s/tuple nil? string?)
-                   :no-error (s/tuple ::dom/scrubbed nil?)))
+        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+                   :error (s/tuple nil? string?)))
 
 (defn valid-length-string
   "A string of newlines > 4?"
@@ -48,6 +48,10 @@
   (if (<= 4 (count (filter #(= % \newline) scrubbed)))
     [scrubbed nil]
     [nil "Roster string is not long enough"]))
+(s/fdef valid-length-string
+        :args (s/cat :scrubbed ::dom/scrubbed)
+        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+                   :error (s/tuple nil? string?)))
 
 (defn roster-info-line-present
   "test"
@@ -61,6 +65,10 @@
         nil?)
     [scrubbed nil]
     [nil "The roster info line is blank"]))
+(s/fdef roster-info-line-present
+        :args (s/cat :scrubbed ::dom/scrubbed)
+        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+                   :error (s/tuple nil? string?)))
 
 (defn name-present
   "Return the raw-string if a name value is present"
@@ -78,6 +86,10 @@
           (nil?))
       [scrubbed nil]
       [nil "The name value is missing"])))
+(s/fdef name-present
+        :args (s/cat :scrubbed ::dom/scrubbed)
+        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+                   :error (s/tuple nil? string?)))
 
 (defn year-present
   "Return the info-string if a year value is present"
@@ -90,6 +102,10 @@
     (if (= 2 (count info-vector))
       [scrubbed nil]
       [nil "The year value is missing"])))
+(s/fdef year-present
+        :args (s/cat :scrubbed ::dom/scrubbed)
+        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+                   :error (s/tuple nil? string?)))
 
 (defn year-text-all-digits
   "Return the raw-info-string if the year text all digits"
@@ -107,6 +123,10 @@
           (not))
       [scrubbed nil]
       [nil "The year value is not all digits"])))
+(s/fdef year-text-all-digits
+        :args (s/cat :scrubbed ::dom/scrubbed)
+        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+                   :error (s/tuple nil? string?)))
 
 (defn year-in-range
   "Return the info-string if 1956 <= year <= 2056"
@@ -123,6 +143,10 @@
           (#(<= 1956 % 2056)))
       [scrubbed nil]
       [nil "Not 1956 <= year <= 2056"])))
+(s/fdef year-in-range
+        :args (s/cat :scrubbed ::dom/scrubbed)
+        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+                   :error (s/tuple nil? string?)))
 
 (defn make-player-vectors
   "Given a valid raw-string, return a vector of player vectors"
@@ -163,6 +187,10 @@
         (all-vectors-all-six?))
     [scrubbed nil]
     [nil "The players sub-string is invalid"]))
+(s/fdef players-valid
+        :args (s/cat :scrubbed ::dom/scrubbed)
+        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+                   :error (s/tuple nil? string?)))
 
 (defn scrubbed-roster-string
   "Ensure that raw-string is scrubbed and fully valid"
@@ -176,5 +204,9 @@
         result (apply-or-error year-in-range result)
         result (apply-or-error players-valid result)]
     result))
+(s/fdef scrubbed-roster-string
+        :args (s/cat :raw-string string?)
+        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+                   :error (s/tuple nil? string?)))
 
 (ostest/instrument)
