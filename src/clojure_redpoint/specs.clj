@@ -3,7 +3,7 @@
             [clojure-redpoint.roster-string-check :as rs]
             [clojure-redpoint.roster :as r]
             [clojure.spec.alpha :as s]
-    ;[clojure.spec.test.alpha :as stest]
+            [clojure.spec.test.alpha :as stest]
             [clojure.spec.gen.alpha :as sgen]
             [clojure.test.check.generators :as gen]))
 
@@ -16,9 +16,9 @@
 (gen/sample (gen/list gen/boolean))
 (gen/sample (gen/tuple gen/nat gen/boolean gen/ratio))
 
-;(stest/check `rs/scrub)
+(stest/check `rs/scrub)
 (s/exercise-fn `rs/scrub)
-(s/explain ::dom/scrubbed raw-string)
+(s/explain ::dom/scrubbed (rs/scrub raw-string))
 (s/conform ::dom/scrubbed
            (rs/scrub raw-string))
 (s/conform (s/or :no-error (s/tuple ::dom/scrubbed nil?)
