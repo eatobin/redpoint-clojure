@@ -19,7 +19,7 @@
  }
 
 ;For CIDER:
-;clj -A:test:check:cider-clj
+;clj -A:test:cider-clj
 
 ;Run tests:
 ;clj -A:test:runner
