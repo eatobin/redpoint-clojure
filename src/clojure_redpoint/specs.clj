@@ -3,7 +3,7 @@
             [clojure-redpoint.roster-string-check :as rs]
             [clojure-redpoint.roster :as r]
             [clojure.spec.alpha :as s]
-            [clojure.spec.test.alpha :as stest]
+    ;[clojure.spec.test.alpha :as stest]
             [clojure.spec.gen.alpha :as sgen]
             [clojure.test.check.generators :as gen]))
 
@@ -16,7 +16,7 @@
 (gen/sample (gen/list gen/boolean))
 (gen/sample (gen/tuple gen/nat gen/boolean gen/ratio))
 
-(stest/check `rs/scrub)
+;(stest/check `rs/scrub)
 (s/exercise-fn `rs/scrub)
 (s/explain ::dom/scrubbed raw-string)
 (s/conform ::dom/scrubbed
@@ -65,4 +65,4 @@
            (r/get-givee-in-gift-pair {:giver :PauMcc, :givee :RinSta}))
 (s/conform :unq/player
            (r/set-gift-history-in-player [{:giver :RinSta, :givee :PauMcc}] {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}))
-(stest/check `r/set-gift-pair-in-gift-history)
+;(stest/check `r/set-gift-pair-in-gift-history)
