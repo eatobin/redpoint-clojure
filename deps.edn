@@ -2,14 +2,13 @@
  :paths ["resources" "src"]
 
  :deps  {
-         org.clojure/clojure     {:mvn/version "RELEASE"}
          clojure-csv/clojure-csv {:mvn/version "2.0.2"}
          orchestra               {:mvn/version "2019.02.06-1"}
          }
 
  :aliases
         {:test {:extra-paths ["test"]
-                :extra-deps  {org.clojure/test.check {:mvn/version "RELEASE"}}}
+                :extra-deps  {org.clojure/test.check {:mvn/version "0.9.0"}}}
          :runner
                {:extra-deps {com.cognitect/test-runner
                              {:git/url "https://github.com/cognitect-labs/test-runner"
@@ -17,10 +16,6 @@
                 :main-opts  ["-m" "cognitect.test-runner"
                              "-d" "test"]}}
  }
-
-;For CIDER:
-;clj -A:test:cider-clj
-;clj -A:test:cider-clj -Spath
 
 ;Run tests:
 ;clj -A:test:runner
