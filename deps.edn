@@ -20,3 +20,12 @@
 ;Run tests:
 ;clj -A:test:runner
 ;clj -A:test:runner -Spath
+
+;Run main:
+;clj -A:mainer
+
+;Make new:
+;https://github.com/seancorfield/clj-new
+
+;k-repl:
+;clojure -A:k-repl
