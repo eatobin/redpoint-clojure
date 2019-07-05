@@ -2,7 +2,6 @@
   (:require [clojure.spec.alpha :as s]
             [clojure.string :as str]))
 
-(s/def ::scrubbed (s/and string? #(not (str/ends-with? % "\n")) #(not (str/includes? % ", "))))
 (s/def ::roster-line (s/coll-of string? :kind vector?))
 (s/def ::roster-seq (s/coll-of ::roster-line :kind seq?))
 (s/def ::plrs-vector (s/coll-of ::roster-line :kind vector?))

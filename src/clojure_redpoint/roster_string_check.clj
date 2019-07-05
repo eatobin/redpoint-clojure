@@ -1,8 +1,9 @@
 (ns clojure-redpoint.roster-string-check
-  (:require [clojure-redpoint.domain :as dom]
-            [clojure.string :as str]
+  (:require [clojure.string :as str]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
+
+(s/def ::scrubbed (s/and string? #(not (str/ends-with? % "\n")) #(not (str/includes? % ", "))))
 
 (defn apply-or-error [f [val err]]
   (if (nil? err)
@@ -18,7 +19,7 @@
    (str/trim-newline)))
 (s/fdef scrub
   :args (s/cat :raw-string string?)
-  :ret ::dom/scrubbed)
+  :ret ::scrubbed)
 
 (defn lines
   "Split string into lines"
@@ -39,7 +40,7 @@
 (s/fdef non-blank-string
   :args (s/or :not-nil (s/cat :raw-string string?)
               :nil (s/cat :raw-string nil?))
-  :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
              :error (s/tuple nil? string?)))
 
 (defn valid-length-string
@@ -49,8 +50,8 @@
     [scrubbed nil]
     [nil "Roster string is not long enough"]))
 (s/fdef valid-length-string
-  :args (s/cat :scrubbed ::dom/scrubbed)
-  :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
              :error (s/tuple nil? string?)))
 
 (defn roster-info-line-present
@@ -66,8 +67,8 @@
     [scrubbed nil]
     [nil "The roster info line is blank"]))
 (s/fdef roster-info-line-present
-  :args (s/cat :scrubbed ::dom/scrubbed)
-  :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
              :error (s/tuple nil? string?)))
 
 (defn name-present
@@ -87,8 +88,8 @@
       [scrubbed nil]
       [nil "The name value is missing"])))
 (s/fdef name-present
-  :args (s/cat :scrubbed ::dom/scrubbed)
-  :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
              :error (s/tuple nil? string?)))
 
 (defn year-present
@@ -103,8 +104,8 @@
       [scrubbed nil]
       [nil "The year value is missing"])))
 (s/fdef year-present
-  :args (s/cat :scrubbed ::dom/scrubbed)
-  :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
              :error (s/tuple nil? string?)))
 
 (defn year-text-all-digits
@@ -124,8 +125,8 @@
       [scrubbed nil]
       [nil "The year value is not all digits"])))
 (s/fdef year-text-all-digits
-  :args (s/cat :scrubbed ::dom/scrubbed)
-  :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
              :error (s/tuple nil? string?)))
 
 (defn year-in-range
@@ -144,8 +145,8 @@
       [scrubbed nil]
       [nil "Not 1956 <= year <= 2056"])))
 (s/fdef year-in-range
-  :args (s/cat :scrubbed ::dom/scrubbed)
-  :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
              :error (s/tuple nil? string?)))
 
 (defn make-player-vectors
@@ -188,8 +189,8 @@
     [scrubbed nil]
     [nil "The players sub-string is invalid"]))
 (s/fdef players-valid
-  :args (s/cat :scrubbed ::dom/scrubbed)
-  :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
              :error (s/tuple nil? string?)))
 
 (defn scrubbed-roster-string
@@ -206,7 +207,7 @@
     result))
 (s/fdef scrubbed-roster-string
   :args (s/cat :raw-string string?)
-  :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
              :error (s/tuple nil? string?)))
 
 (ostest/instrument)
