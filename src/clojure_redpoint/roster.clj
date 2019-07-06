@@ -1,11 +1,10 @@
 (ns clojure-redpoint.roster
-  (:require [clojure-redpoint.domain :as dom]
-            [clojure.spec.alpha :as s]
+  (:require [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]
             [clojure.repl :refer :all]
             [clojure.string :as str]
             [clojure-csv.core :as csv]
-            [clojure-redpoint.roster-string-check :refer [vec-remove]]))
+            [clojure-redpoint.roster-string-check :as rsc]))
 
 (defn get-roster-name
   "Given a scrubbed return the roster name"
@@ -17,7 +16,7 @@
     (str/split #",")
     (first)))
 (s/fdef get-roster-name
-        :args (s/cat :scrubbed ::dom/scrubbed)
+        :args (s/cat :scrubbed ::rsc/scrubbed)
         :ret string?)
 
 (defn get-roster-year
@@ -30,7 +29,7 @@
     (str/split #",")
     (last)))
 (s/fdef get-roster-year
-        :args (s/cat :scrubbed ::dom/scrubbed)
+        :args (s/cat :scrubbed ::rsc/scrubbed)
         :ret string?)
 
 (defn make-players-vector
@@ -39,13 +38,13 @@
   (->
     scrubbed
     (str/split-lines)
-    (vec-remove 0)
+    (rsc/vec-remove 0)
     (->>
       (map #(csv/parse-csv %))
       (map first)
       (into []))))
 (s/fdef make-players-vector
-        :args (s/cat :scrubbed ::dom/scrubbed)
+        :args (s/cat :scrubbed ::rsc/scrubbed)
         :ret ::dom/plrs-vector)
 
 ;(defn make-gift-pair
