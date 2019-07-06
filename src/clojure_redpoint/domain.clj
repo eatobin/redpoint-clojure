@@ -2,9 +2,6 @@
   (:require [clojure.spec.alpha :as s]
             [clojure.string :as str]))
 
-(s/def ::roster-line (s/coll-of string? :kind vector?))
-(s/def ::roster-seq (s/coll-of ::roster-line :kind seq?))
-(s/def ::plrs-vector (s/coll-of ::roster-line :kind vector?))
 (s/def ::givee keyword?)
 (s/def ::giver keyword?)
 (s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))

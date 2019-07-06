@@ -1,10 +1,15 @@
 (ns clojure-redpoint.roster
-  (:require [clojure.spec.alpha :as s]
+  (:require [clojure-redpoint.domain :as dom]
+            [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]
             [clojure.repl :refer :all]
             [clojure.string :as str]
             [clojure-csv.core :as csv]
             [clojure-redpoint.roster-string-check :as rsc]))
+
+(s/def ::roster-line (s/coll-of string? :kind vector?))
+(s/def ::roster-seq (s/coll-of ::roster-line :kind seq?))
+(s/def ::plrs-vector (s/coll-of ::roster-line :kind vector?))
 
 (defn get-roster-name
   "Given a scrubbed return the roster name"
@@ -45,7 +50,7 @@
       (into []))))
 (s/fdef make-players-vector
         :args (s/cat :scrubbed ::rsc/scrubbed)
-        :ret ::dom/plrs-vector)
+        :ret ::plrs-vector)
 
 ;(defn make-gift-pair
 ;  "Returns a gift pair hash map given givee and giver as strings or keywords"
@@ -96,7 +101,7 @@
   [players-vector]
   (into {} (map make-player-map players-vector)))
 (s/fdef make-players-map
-        :args (s/cat :players-vector ::dom/plrs-vector)
+        :args (s/cat :players-vector ::plrs-vector)
         :ret ::dom/plr-map)
 
 (defn get-player-in-roster

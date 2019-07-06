@@ -55,7 +55,7 @@
 (deftest make-players-vector-test
   (is (= players-vector
          (make-players-vector scrubbed))))
-(s/conform ::dom/plrs-vector
+(s/conform :clojure-redpoint.roster/plrs-vector
            (make-players-vector scrubbed))
 
 (deftest make-gift-pair-test
