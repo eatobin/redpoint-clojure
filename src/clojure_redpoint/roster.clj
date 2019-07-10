@@ -1,6 +1,5 @@
 (ns clojure-redpoint.roster
-  (:require [clojure-redpoint.domain :as dom]
-            [clojure.spec.alpha :as s]
+  (:require [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]
             [clojure.repl :refer :all]
             [clojure.string :as str]
