@@ -73,13 +73,13 @@
 (deftest make-player-map-test
   (is (= {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
          (ros/make-player-map ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]))))
-(s/conform ::dom/plr-map
+(s/conform ::ros/plr-map
            (ros/make-player-map ["s" "n" "ge" "gr"]))
 
 (deftest make-players-map-test
   (is (= players-map
          (ros/make-players-map players-vector))))
-(s/conform ::dom/plr-map
+(s/conform ::ros/plr-map
            (ros/make-players-map players-vector))
 
 (deftest get-player-in-roster-test
@@ -87,18 +87,18 @@
          (ros/get-player-in-roster players-map :GeoHar))))
 (s/conform :unq/player
            (ros/get-player-in-roster {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
-                                  :JohLen     {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-                                  :GeoHar     {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-                                  :PauMcc     {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}}
+                                      :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                                      :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+                                      :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}}
                                      :PauMcc))
 
 (deftest get-gift-history-in-player-test
   (is (= [{:giver :JohLen, :givee :GeoHar}]
-         (ros/get-gift-history-in-player {:name     "Paul McCartney",
-                                      :gift-history [{:giver :JohLen, :givee :GeoHar}]}))))
+         (ros/get-gift-history-in-player {:name         "Paul McCartney",
+                                          :gift-history [{:giver :JohLen, :givee :GeoHar}]}))))
 (s/conform :unq/gift-history
-           (ros/get-gift-history-in-player {:name     "Paul McCartney",
-                                        :gift-history [{:giver :JohLen, :givee :GeoHar}]}))
+           (ros/get-gift-history-in-player {:name         "Paul McCartney",
+                                            :gift-history [{:giver :JohLen, :givee :GeoHar}]}))
 
 (deftest get-gift-pair-in-gift-history-test
   (is (= {:giver :JohLen, :givee :GeoHar}
@@ -115,13 +115,13 @@
 (deftest get-givee-in-gift-pair-test
   (is (= :GeoHar
          (ros/get-givee-in-gift-pair {:giver :JohLen :givee :GeoHar}))))
-(s/conform ::dom/givee
+(s/conform ::ros/givee
            (ros/get-givee-in-gift-pair {:giver :JohLen :givee :GeoHar}))
 
 (deftest get-giver-in-gift-pair-test
   (is (= :JohLen
          (ros/get-giver-in-gift-pair {:giver :JohLen :givee :GeoHar}))))
-(s/conform ::dom/giver
+(s/conform ::ros/giver
            (ros/get-giver-in-gift-pair {:giver :JohLen :givee :GeoHar}))
 
 (deftest set-gift-history-in-player-test
@@ -149,7 +149,7 @@
           :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
           :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
          (ros/set-gift-pair-in-roster players-map :GeoHar 0 {:giver :me, :givee :you}))))
-(s/conform ::dom/plr-map
+(s/conform ::ros/plr-map
            (ros/set-gift-pair-in-roster players-map :GeoHar 0 {:giver :me, :givee :you}))
 
 (deftest add-year-in-player-test
@@ -162,7 +162,7 @@
 (deftest add-year-in-roster-test
   (is (= players-map-add
          (ros/add-year-in-roster players-map))))
-(s/conform ::dom/plr-map
+(s/conform ::ros/plr-map
            (ros/add-year-in-roster players-map))
 
 (deftest get-player-name-in-roster-test
@@ -172,15 +172,15 @@
 (deftest get-givee-in-roster-test
   (is (= :GeoHar
          (ros/get-givee-in-roster players-map :PauMcc 0))))
-(s/conform ::dom/givee
+(s/conform ::ros/givee
            (ros/get-givee-in-roster players-map :RinSta 0))
 
 (deftest get-giver-in-roster-test
   (is (= :JohLen
          (ros/get-giver-in-roster players-map :PauMcc 0))))
-(s/conform ::dom/giver
+(s/conform ::ros/giver
            (ros/get-giver-in-roster players-map :RinSta 0))
-;(s/conform ::dom/plr-map
+;(s/conform ::ros/plr-map
 ;           (set-giver-in-roster players-map :RinSta 0 :RinSta))
 
 (deftest set-givee-in-roster-test
