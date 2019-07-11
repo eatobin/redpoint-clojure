@@ -38,7 +38,7 @@
     [nil "The roster string was nil, empty or only spaces"]
     [(scrub raw-string) nil]))
 (s/fdef non-blank-string
-:args (s/or :not-nil (s/cat :raw-string string?)
+        :args (s/or :not-nil (s/cat :raw-string string?)
                     :nil (s/cat :raw-string nil?))
         :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
                    :error (s/tuple nil? string?)))
@@ -50,7 +50,7 @@
     [scrubbed nil]
     [nil "Roster string is not long enough"]))
 (s/fdef valid-length-string
-:args (s/cat :scrubbed ::dom/scrubbed)
+        :args (s/cat :scrubbed ::dom/scrubbed)
         :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
                    :error (s/tuple nil? string?)))
 
@@ -67,7 +67,7 @@
     [scrubbed nil]
     [nil "The roster info line is blank"]))
 (s/fdef roster-info-line-present
-:args (s/cat :scrubbed ::dom/scrubbed)
+        :args (s/cat :scrubbed ::dom/scrubbed)
         :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
                    :error (s/tuple nil? string?)))
 
@@ -88,7 +88,7 @@
       [scrubbed nil]
       [nil "The name value is missing"])))
 (s/fdef name-present
-:args (s/cat :scrubbed ::dom/scrubbed)
+        :args (s/cat :scrubbed ::dom/scrubbed)
         :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
                    :error (s/tuple nil? string?)))
 
@@ -104,7 +104,7 @@
       [scrubbed nil]
       [nil "The year value is missing"])))
 (s/fdef year-present
-:args (s/cat :scrubbed ::dom/scrubbed)
+        :args (s/cat :scrubbed ::dom/scrubbed)
         :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
                    :error (s/tuple nil? string?)))
 
@@ -125,7 +125,7 @@
       [scrubbed nil]
       [nil "The year value is not all digits"])))
 (s/fdef year-text-all-digits
-:args (s/cat :scrubbed ::dom/scrubbed)
+        :args (s/cat :scrubbed ::dom/scrubbed)
         :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
                    :error (s/tuple nil? string?)))
 
@@ -145,7 +145,7 @@
       [scrubbed nil]
       [nil "Not 1956 <= year <= 2056"])))
 (s/fdef year-in-range
-:args (s/cat :scrubbed ::dom/scrubbed)
+        :args (s/cat :scrubbed ::dom/scrubbed)
         :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
                    :error (s/tuple nil? string?)))
 
@@ -189,7 +189,7 @@
     [scrubbed nil]
     [nil "The players sub-string is invalid"]))
 (s/fdef players-valid
-:args (s/cat :scrubbed ::dom/scrubbed)
+        :args (s/cat :scrubbed ::dom/scrubbed)
         :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
                    :error (s/tuple nil? string?)))
 
@@ -206,7 +206,7 @@
         result (apply-or-error players-valid result)]
     result))
 (s/fdef scrubbed-roster-string
-:args (s/cat :raw-string string?)
+        :args (s/cat :raw-string string?)
         :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
                    :error (s/tuple nil? string?)))
 
