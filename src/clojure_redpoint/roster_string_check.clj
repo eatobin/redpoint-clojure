@@ -1,9 +1,8 @@
 (ns clojure-redpoint.roster-string-check
-  (:require [clojure.string :as str]
+  (:require [clojure-redpoint.domain :as dom]
+            [clojure.string :as str]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
-
-(s/def ::scrubbed (s/and string? #(not (str/ends-with? % "\n")) #(not (str/includes? % ", "))))
 
 (defn apply-or-error [f [val err]]
   (if (nil? err)
