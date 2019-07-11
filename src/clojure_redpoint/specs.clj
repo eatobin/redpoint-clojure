@@ -1,6 +1,5 @@
 (ns clojure-redpoint.specs
-  (:require [clojure-redpoint.domain :as dom]
-            [clojure-redpoint.roster-string-check :as rs]
+  (:require [clojure-redpoint.roster-string-check :as rs]
             [clojure-redpoint.roster :as r]
             [clojure.spec.alpha :as s]
             [clojure.spec.test.alpha :as stest]
@@ -18,25 +17,24 @@
 
 (stest/check `rs/scrub)
 (s/exercise-fn `rs/scrub)
-(s/explain ::dom/scrubbed (rs/scrub raw-string))
-(s/conform ::dom/scrubbed
+(s/explain ::rs/scrubbed (rs/scrub raw-string))
+(s/conform ::rs/scrubbed
            (rs/scrub raw-string))
-(s/conform (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+(s/conform (s/or :no-error (s/tuple ::rs/scrubbed nil?)
                  :error (s/tuple nil? string?))
            (rs/valid-length-string (rs/scrub raw-string)))
-(s/explain (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+(s/explain (s/or :no-error (s/tuple ::rs/scrubbed nil?)
                  :error (s/tuple nil? string?))
            (rs/valid-length-string (rs/scrub raw-string)))
-(s/conform (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+(s/conform (s/or :no-error (s/tuple ::rs/scrubbed nil?)
                  :error (s/tuple nil? string?))
            (rs/valid-length-string (rs/scrub short-raw-string)))
-(s/conform (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+(s/conform (s/or :no-error (s/tuple ::rs/scrubbed nil?)
                  :error (s/tuple nil? string?))
            (rs/scrubbed-roster-string (rs/scrub short-raw-string)))
-(s/conform (s/or :no-error (s/tuple ::dom/scrubbed nil?)
+(s/conform (s/or :no-error (s/tuple ::rs/scrubbed nil?)
                  :error (s/tuple nil? string?))
            (rs/scrubbed-roster-string (rs/scrub raw-string)))
-
 
 (s/conform vector?
            (rs/make-player-vectors (rs/scrub raw-string)))
