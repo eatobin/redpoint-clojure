@@ -41,6 +41,3 @@
 ;Run tests:
 ;clj -A:runner
 ;clj -A:runner -Spath
-
-;Run main:
-;clj -A:mainer
