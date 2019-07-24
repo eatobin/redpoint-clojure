@@ -1,8 +1,9 @@
 (ns clojure-redpoint.roster-string-check
-  (:require [clojure-redpoint.domain :as dom]
-            [clojure.string :as str]
+  (:require [clojure.string :as str]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
+
+(s/def ::scrubbed (s/and string? #(not (str/ends-with? % "\n")) #(not (str/includes? % ", "))))
 
 (defn apply-or-error [f [val err]]
   (if (nil? err)
@@ -13,12 +14,12 @@
   "Remove the spaces between CSVs and any final \n"
   [raw-string]
   (->
-    raw-string
-    (str/replace #", " ",")
-    (str/trim-newline)))
+   raw-string
+   (str/replace #", " ",")
+   (str/trim-newline)))
 (s/fdef scrub
-        :args (s/cat :raw-string string?)
-        :ret ::dom/scrubbed)
+  :args (s/cat :raw-string string?)
+  :ret ::scrubbed)
 
 (defn lines
   "Split string into lines"
@@ -37,10 +38,10 @@
     [nil "The roster string was nil, empty or only spaces"]
     [(scrub raw-string) nil]))
 (s/fdef non-blank-string
-        :args (s/or :not-nil (s/cat :raw-string string?)
-                    :nil (s/cat :raw-string nil?))
-        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
-                   :error (s/tuple nil? string?)))
+  :args (s/or :not-nil (s/cat :raw-string string?)
+              :nil (s/cat :raw-string nil?))
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
+             :error (s/tuple nil? string?)))
 
 (defn valid-length-string
   "A string of newlines > 4?"
@@ -49,112 +50,112 @@
     [scrubbed nil]
     [nil "Roster string is not long enough"]))
 (s/fdef valid-length-string
-        :args (s/cat :scrubbed ::dom/scrubbed)
-        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
-                   :error (s/tuple nil? string?)))
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
+             :error (s/tuple nil? string?)))
 
 (defn roster-info-line-present
   "test"
   [scrubbed]
   (if (->
-        scrubbed
-        lines
-        (get 0)
-        non-blank-string
-        (get 1)
-        nil?)
+       scrubbed
+       lines
+       (get 0)
+       non-blank-string
+       (get 1)
+       nil?)
     [scrubbed nil]
     [nil "The roster info line is blank"]))
 (s/fdef roster-info-line-present
-        :args (s/cat :scrubbed ::dom/scrubbed)
-        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
-                   :error (s/tuple nil? string?)))
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
+             :error (s/tuple nil? string?)))
 
 (defn name-present
   "Return the raw-string if a name value is present"
   [scrubbed]
   (let [info-vector (->
-                      scrubbed
-                      lines
-                      (get 0)
-                      (str/split #","))]
+                     scrubbed
+                     lines
+                     (get 0)
+                     (str/split #","))]
     (if (->
-          info-vector
-          (get 0)
-          (non-blank-string)
-          (get 1)
-          (nil?))
+         info-vector
+         (get 0)
+         (non-blank-string)
+         (get 1)
+         (nil?))
       [scrubbed nil]
       [nil "The name value is missing"])))
 (s/fdef name-present
-        :args (s/cat :scrubbed ::dom/scrubbed)
-        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
-                   :error (s/tuple nil? string?)))
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
+             :error (s/tuple nil? string?)))
 
 (defn year-present
   "Return the info-string if a year value is present"
   [scrubbed]
   (let [info-vector (->
-                      scrubbed
-                      lines
-                      (get 0)
-                      (str/split #","))]
+                     scrubbed
+                     lines
+                     (get 0)
+                     (str/split #","))]
     (if (= 2 (count info-vector))
       [scrubbed nil]
       [nil "The year value is missing"])))
 (s/fdef year-present
-        :args (s/cat :scrubbed ::dom/scrubbed)
-        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
-                   :error (s/tuple nil? string?)))
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
+             :error (s/tuple nil? string?)))
 
 (defn year-text-all-digits
   "Return the raw-info-string if the year text all digits"
   [scrubbed]
   (let [info-vector (->
-                      scrubbed
-                      lines
-                      (get 0)
-                      (str/split #","))]
+                     scrubbed
+                     lines
+                     (get 0)
+                     (str/split #","))]
     (if (->
-          info-vector
-          (get 1)
-          (#(re-seq #"^[0-9]*$" %))
-          (nil?)
-          (not))
+         info-vector
+         (get 1)
+         (#(re-seq #"^[0-9]*$" %))
+         (nil?)
+         (not))
       [scrubbed nil]
       [nil "The year value is not all digits"])))
 (s/fdef year-text-all-digits
-        :args (s/cat :scrubbed ::dom/scrubbed)
-        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
-                   :error (s/tuple nil? string?)))
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
+             :error (s/tuple nil? string?)))
 
 (defn year-in-range
   "Return the info-string if 1956 <= year <= 2056"
   [scrubbed]
   (let [info-vector (->
-                      scrubbed
-                      lines
-                      (get 0)
-                      (str/split #","))]
+                     scrubbed
+                     lines
+                     (get 0)
+                     (str/split #","))]
     (if (->
-          info-vector
-          (get 1)
-          (Integer/parseInt)
-          (#(<= 1956 % 2056)))
+         info-vector
+         (get 1)
+         (Integer/parseInt)
+         (#(<= 1956 % 2056)))
       [scrubbed nil]
       [nil "Not 1956 <= year <= 2056"])))
 (s/fdef year-in-range
-        :args (s/cat :scrubbed ::dom/scrubbed)
-        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
-                   :error (s/tuple nil? string?)))
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
+             :error (s/tuple nil? string?)))
 
 (defn make-player-vectors
   "Given a valid raw-string, return a vector of player vectors"
   [scrubbed]
   (vec-remove (->>
-                (str/split-lines scrubbed)
-                (map #(str/split % #","))
-                (into []))
+               (str/split-lines scrubbed)
+               (map #(str/split % #","))
+               (into []))
               0))
 
 (defn remove-name
@@ -182,15 +183,15 @@
   "Test"
   [scrubbed]
   (if (->
-        (make-player-vectors scrubbed)
-        (make-only-symbols)
-        (all-vectors-all-six?))
+       (make-player-vectors scrubbed)
+       (make-only-symbols)
+       (all-vectors-all-six?))
     [scrubbed nil]
     [nil "The players sub-string is invalid"]))
 (s/fdef players-valid
-        :args (s/cat :scrubbed ::dom/scrubbed)
-        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
-                   :error (s/tuple nil? string?)))
+  :args (s/cat :scrubbed ::scrubbed)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
+             :error (s/tuple nil? string?)))
 
 (defn scrubbed-roster-string
   "Ensure that raw-string is scrubbed and fully valid"
@@ -205,8 +206,8 @@
         result (apply-or-error players-valid result)]
     result))
 (s/fdef scrubbed-roster-string
-        :args (s/cat :raw-string string?)
-        :ret (s/or :no-error (s/tuple ::dom/scrubbed nil?)
-                   :error (s/tuple nil? string?)))
+  :args (s/cat :raw-string string?)
+  :ret (s/or :no-error (s/tuple ::scrubbed nil?)
+             :error (s/tuple nil? string?)))
 
 (ostest/instrument)
