@@ -1,9 +1,9 @@
 (ns clojure-redpoint.main
   (:require [clojure.string :as cs]
-            [clojure-redpoint.roster :refer :all]
-            [clojure-redpoint.hats :refer :all]
-            [clojure-redpoint.rules :refer :all]
-            [clojure-redpoint.roster-string-check :refer [scrubbed-roster-string]]
+            [clojure-redpoint.roster :as ros]
+            [clojure-redpoint.hats :as hat]
+            [clojure-redpoint.rules :as rule]
+            [clojure-redpoint.roster-string-check :as rsc]
             [clojure.java.io :as io])
   (:gen-class))
 
@@ -24,8 +24,8 @@
   or if the string cannot be scrubbed"
   [file-path]
   (if (.exists (io/file file-path))
-    (let [[scrubbed err] (scrubbed-roster-string
-                           (slurp file-path))]
+    (let [[scrubbed err] (rsc/scrubbed-roster-string
+                          (slurp file-path))]
       (if (nil? err)
         scrubbed
         (do
@@ -42,44 +42,44 @@
 
 (defn start-new-year []
   (swap! a-g-year inc)
-  (swap! a-plrs-map add-year-in-roster)
-  (reset! a-gr-hat (make-hat (deref a-plrs-map)))
-  (reset! a-ge-hat (make-hat (deref a-plrs-map)))
+  (swap! a-plrs-map ros/add-year-in-roster)
+  (reset! a-gr-hat (hat/make-hat (deref a-plrs-map)))
+  (reset! a-ge-hat (hat/make-hat (deref a-plrs-map)))
   (reset! a-giver (draw-puck (deref a-gr-hat)))
   (reset! a-givee (draw-puck (deref a-ge-hat)))
-  (swap! a-discards empty-discards))
+  (swap! a-discards hat/empty-discards))
 
 (defn select-new-giver []
-  (swap! a-gr-hat remove-puck (deref a-giver))
-  (swap! a-ge-hat return-discards (deref a-discards))
-  (swap! a-discards empty-discards)
+  (swap! a-gr-hat hat/remove-puck (deref a-giver))
+  (swap! a-ge-hat hat/return-discards (deref a-discards))
+  (swap! a-discards hat/empty-discards)
   (reset! a-giver (draw-puck (deref a-gr-hat)))
   (reset! a-givee (draw-puck (deref a-ge-hat))))
 
 (defn givee-is-success []
-  (swap! a-plrs-map set-givee-in-roster (deref a-giver) (deref a-g-year) (deref a-givee))
-  (swap! a-plrs-map set-giver-in-roster (deref a-givee) (deref a-g-year) (deref a-giver))
-  (swap! a-ge-hat remove-puck (deref a-givee))
+  (swap! a-plrs-map ros/set-givee-in-roster (deref a-giver) (deref a-g-year) (deref a-givee))
+  (swap! a-plrs-map ros/set-giver-in-roster (deref a-givee) (deref a-g-year) (deref a-giver))
+  (swap! a-ge-hat hat/remove-puck (deref a-givee))
   (reset! a-givee nil))
 
 (defn givee-is-failure []
-  (swap! a-ge-hat remove-puck (deref a-givee))
-  (swap! a-discards discard-puck-givee (deref a-givee))
+  (swap! a-ge-hat hat/remove-puck (deref a-givee))
+  (swap! a-discards hat/discard-puck-givee (deref a-givee))
   (reset! a-givee (draw-puck (deref a-ge-hat))))
 
 (defn errors? []
   (seq (for [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
-             :let [giver-code (get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
-                   givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
+             :let [giver-code (ros/get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
+                   givee-code (ros/get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
              :when (or (= plr-sym giver-code) (= plr-sym givee-code))]
          [plr-sym])))
 
 (defn print-results []
   (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
-          :let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
-                givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
-                givee-name (get-player-name-in-roster (deref a-plrs-map) givee-code)
-                giver-code (get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]]
+          :let [player-name (ros/get-player-name-in-roster (deref a-plrs-map) plr-sym)
+                givee-code (ros/get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
+                givee-name (ros/get-player-name-in-roster (deref a-plrs-map) givee-code)
+                giver-code (ros/get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]]
     (cond
       (and (= plr-sym givee-code) (= plr-sym giver-code)) (println player-name "is **buying** for nor **receiving** from anyone - **ERROR**")
       (= plr-sym giver-code) (println player-name "is **receiving** from no one - **ERROR**")
@@ -111,11 +111,11 @@
   (reset! a-g-year 0)
   (reset! a-giver nil)
   (reset! a-givee nil)
-  (let [players-vector (make-players-vector
-                         (scrubbed-or-quit file-path))
-        r-name (get-roster-name (scrubbed-or-quit file-path))
-        r-year (Integer/parseInt (get-roster-year (scrubbed-or-quit file-path)))]
-    (reset! a-plrs-map (make-players-map players-vector))
+  (let [players-vector (ros/make-players-vector
+                        (scrubbed-or-quit file-path))
+        r-name (ros/get-roster-name (scrubbed-or-quit file-path))
+        r-year (Integer/parseInt (ros/get-roster-year (scrubbed-or-quit file-path)))]
+    (reset! a-plrs-map (ros/make-players-map players-vector))
     (reset! a-gr-hat [])
     (reset! a-ge-hat [])
     (reset! a-discards [])
@@ -124,9 +124,9 @@
       (while (some? (deref a-giver))
         (while (some? (deref a-givee))
           (if (and
-                (givee-not-self? (deref a-giver) (deref a-givee))
-                (givee-not-recip? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map))
-                (givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map)))
+               (rule/givee-not-self? (deref a-giver) (deref a-givee))
+               (rule/givee-not-recip? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map))
+               (rule/givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map)))
             (givee-is-success)
             (givee-is-failure)))
         (select-new-giver)))

@@ -1,11 +1,22 @@
 (ns clojure-redpoint.roster
-  (:require [clojure-redpoint.domain :as dom]
-            [clojure.spec.alpha :as s]
+  (:require [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]
-            [clojure.repl :refer :all]
             [clojure.string :as str]
             [clojure-csv.core :as csv]
-            [clojure-redpoint.roster-string-check :refer [vec-remove]]))
+            [clojure-redpoint.roster-string-check :as rsc]))
+
+(s/def ::roster-line (s/coll-of string? :kind vector?))
+(s/def ::roster-seq (s/coll-of ::roster-line :kind seq?))
+(s/def ::plrs-vector (s/coll-of ::roster-line :kind vector?))
+(s/def ::givee keyword?)
+(s/def ::giver keyword?)
+(s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
+(s/def ::name string?)
+(s/def :unq/gift-history (s/coll-of :unq/gift-pair :kind vector?))
+(s/def :unq/player (s/keys :req-un [::name :unq/gift-history]))
+(s/def ::plr-map-vec (s/tuple string? string? string? string?))
+(s/def ::plr-map (s/map-of keyword? :unq/player))
+(s/def ::g-year (s/and int? #(> % -1)))
 
 (defn get-roster-name
   "Given a scrubbed return the roster name"
@@ -17,7 +28,7 @@
     (str/split #",")
     (first)))
 (s/fdef get-roster-name
-        :args (s/cat :scrubbed ::dom/scrubbed)
+        :args (s/cat :scrubbed ::rsc/scrubbed)
         :ret string?)
 
 (defn get-roster-year
@@ -30,7 +41,7 @@
     (str/split #",")
     (last)))
 (s/fdef get-roster-year
-        :args (s/cat :scrubbed ::dom/scrubbed)
+        :args (s/cat :scrubbed ::rsc/scrubbed)
         :ret string?)
 
 (defn make-players-vector
@@ -39,14 +50,14 @@
   (->
     scrubbed
     (str/split-lines)
-    (vec-remove 0)
+    (rsc/vec-remove 0)
     (->>
       (map #(csv/parse-csv %))
       (map first)
       (into []))))
 (s/fdef make-players-vector
-        :args (s/cat :scrubbed ::dom/scrubbed)
-        :ret ::dom/plrs-vector)
+        :args (s/cat :scrubbed ::rsc/scrubbed)
+        :ret ::plrs-vector)
 
 ;(defn make-gift-pair
 ;  "Returns a gift pair hash map given givee and giver as strings or keywords"
@@ -77,7 +88,7 @@
     :name p-name
     :gift-history g-hist))
 (s/fdef make-player
-        :args (s/cat :p-name ::dom/name :g-hist :unq/gift-history)
+        :args (s/cat :p-name ::name :g-hist :unq/gift-history)
         :ret :unq/player)
 
 (defn make-player-map
@@ -89,23 +100,23 @@
     (hash-map
       (keyword s) plr)))
 (s/fdef make-player-map
-        :args (s/cat :arg1 ::dom/plr-map-vec)
-        :ret ::dom/plr-map)
+        :args (s/cat :arg1 ::plr-map-vec)
+        :ret ::plr-map)
 
 (defn make-players-map
   "Returns a hash map of multiple players given a players-vector"
   [players-vector]
   (into {} (map make-player-map players-vector)))
 (s/fdef make-players-map
-        :args (s/cat :players-vector ::dom/plrs-vector)
-        :ret ::dom/plr-map)
+        :args (s/cat :players-vector ::plrs-vector)
+        :ret ::plr-map)
 
 (defn get-player-in-roster
   "Returns a player given a players map and a player symbol"
   [plrs-map plr-sym]
   (get plrs-map plr-sym))
 (s/fdef get-player-in-roster
-        :args (s/cat :plrs-map ::dom/plr-map :plr-sym keyword?)
+        :args (s/cat :plrs-map ::plr-map :plr-sym keyword?)
         :ret (s/or :found :unq/player
                    :not-found nil?))
 
@@ -137,9 +148,9 @@
         gh (get-gift-history-in-player plr)]
     (get-gift-pair-in-gift-history gh g-year)))
 (s/fdef get-gift-pair-in-roster
-        :args (s/cat :plrs-map ::dom/plr-map
+        :args (s/cat :plrs-map ::plr-map
                      :plr-sym keyword?
-                     :g-year ::dom/g-year)
+                     :g-year ::g-year)
         :ret (s/or :found :unq/gift-pair
                    :not-found nil?))
 
@@ -149,7 +160,7 @@
   (get g-pair :givee))
 (s/fdef get-givee-in-gift-pair
         :args (s/cat :g-pair :unq/gift-pair)
-        :ret (s/or :found ::dom/givee
+        :ret (s/or :found ::givee
                    :not-found nil?))
 
 (defn get-giver-in-gift-pair
@@ -158,7 +169,7 @@
   (get g-pair :giver))
 (s/fdef get-giver-in-gift-pair
         :args (s/cat :g-pair :unq/gift-pair)
-        :ret (s/or :found ::dom/giver
+        :ret (s/or :found ::giver
                    :not-found nil?))
 
 (defn set-gift-history-in-player
@@ -177,7 +188,7 @@
 (s/fdef set-gift-pair-in-gift-history
         :args (s/and
                 (s/cat :g-hist :unq/gift-history
-                       :g-year ::dom/g-year
+                       :g-year ::g-year
                        :g-pair :unq/gift-pair)
                 #(<= (:g-year %) (count (:g-hist %))))
         :ret :unq/gift-history)
@@ -191,11 +202,11 @@
         nplr (set-gift-history-in-player ngh plr)]
     (assoc plrs-map plr-sym nplr)))
 (s/fdef set-gift-pair-in-roster
-        :args (s/cat :plrs-map ::dom/plr-map
+        :args (s/cat :plrs-map ::plr-map
                      :plr-sym keyword?
-                     :g-year ::dom/g-year
+                     :g-year ::g-year
                      :g-pair :unq/gift-pair)
-        :ret ::dom/plr-map)
+        :ret ::plr-map)
 
 (defn add-year-in-player
   "Adds a new placeholder year to the end of a player's gift history"
@@ -214,46 +225,46 @@
         (for [[k v] plrs-map]
           [k (add-year-in-player v k)])))
 (s/fdef add-year-in-roster
-        :args (s/cat :plrs-map ::dom/plr-map)
-        :ret ::dom/plr-map)
+        :args (s/cat :plrs-map ::plr-map)
+        :ret ::plr-map)
 
 (defn get-player-name-in-roster [plrs-map plr-sym]
   (let [plr (get-player-in-roster plrs-map plr-sym)]
     (get plr :name)))
 (s/fdef get-player-name-in-roster
-        :args (s/cat :plrs-map ::dom/plr-map :plr-sym keyword?)
-        :ret ::dom/name)
+        :args (s/cat :plrs-map ::plr-map :plr-sym keyword?)
+        :ret ::name)
 
 (defn get-givee-in-roster [plrs-map plr-sym g-year]
   (let [gp (get-gift-pair-in-roster plrs-map plr-sym g-year)]
     (get-givee-in-gift-pair gp)))
 (s/fdef get-givee-in-roster
-        :args (s/cat :plrs-map ::dom/plr-map :plr-sym keyword? :g-year ::dom/g-year)
-        :ret ::dom/givee)
+        :args (s/cat :plrs-map ::plr-map :plr-sym keyword? :g-year ::g-year)
+        :ret ::givee)
 
 (defn get-giver-in-roster [plrs-map plr-sym g-year]
   (let [gp (get-gift-pair-in-roster plrs-map plr-sym g-year)]
     (get-giver-in-gift-pair gp)))
 (s/fdef get-giver-in-roster
-        :args (s/cat :plrs-map ::dom/plr-map :plr-sym keyword? :g-year ::dom/g-year)
-        :ret ::dom/giver)
+        :args (s/cat :plrs-map ::plr-map :plr-sym keyword? :g-year ::g-year)
+        :ret ::giver)
 
 (defn set-givee-in-roster [plrs-map plr-sym g-year ge]
   (let [gr (get-giver-in-roster plrs-map plr-sym g-year)
         gp (make-gift-pair (name ge) (name gr))]
     (set-gift-pair-in-roster plrs-map plr-sym g-year gp)))
 (s/fdef set-givee-in-roster
-        :args (s/cat :plrs-map ::dom/plr-map :plr-sym keyword?
-                     :g-year ::dom/g-year :ge ::dom/givee)
-        :ret ::dom/plr-map)
+        :args (s/cat :plrs-map ::plr-map :plr-sym keyword?
+                     :g-year ::g-year :ge ::givee)
+        :ret ::plr-map)
 
 (defn set-giver-in-roster [plrs-map plr-sym g-year gr]
   (let [ge (get-givee-in-roster plrs-map plr-sym g-year)
         gp (make-gift-pair (name ge) (name gr))]
     (set-gift-pair-in-roster plrs-map plr-sym g-year gp)))
 (s/fdef set-giver-in-roster
-        :args (s/cat :plrs-map ::dom/plr-map :plr-sym keyword?
-                     :g-year ::dom/g-year :gr ::dom/giver)
-        :ret ::dom/plr-map)
+        :args (s/cat :plrs-map ::plr-map :plr-sym keyword?
+                     :g-year ::g-year :gr ::giver)
+        :ret ::plr-map)
 
 (ostest/instrument)
