@@ -35,7 +35,7 @@
   (reset! main/a-giver nil)
   (reset! main/a-givee nil)
   (let [players-vector (ros/make-players-vector
-                         (main/scrubbed-or-quit "blackhawks2010.txt"))]
+                        (main/scrubbed-or-quit "blackhawks2010.txt"))]
     (reset! main/a-plrs-map (ros/make-players-map players-vector))
     (main/start-new-year)
     (is (= 1
@@ -55,7 +55,7 @@
   (reset! main/a-giver nil)
   (reset! main/a-givee nil)
   (let [players-vector (ros/make-players-vector
-                         (main/scrubbed-or-quit "blackhawks2010.txt"))]
+                        (main/scrubbed-or-quit "blackhawks2010.txt"))]
     (reset! main/a-plrs-map (ros/make-players-map players-vector))
     (main/start-new-year)
     (swap! main/a-discards hat/discard-puck-givee :AdaBur)
@@ -72,7 +72,7 @@
   (reset! main/a-giver nil)
   (reset! main/a-givee nil)
   (let [players-vector (ros/make-players-vector
-                         (main/scrubbed-or-quit "blackhawks2010.txt"))]
+                        (main/scrubbed-or-quit "blackhawks2010.txt"))]
     (reset! main/a-plrs-map (ros/make-players-map players-vector))
     (main/start-new-year)
     (let [temp-ge (deref main/a-givee)]
@@ -89,7 +89,7 @@
   (reset! main/a-giver nil)
   (reset! main/a-givee nil)
   (let [players-vector (ros/make-players-vector
-                         (main/scrubbed-or-quit "blackhawks2010.txt"))]
+                        (main/scrubbed-or-quit "blackhawks2010.txt"))]
     (reset! main/a-plrs-map (ros/make-players-map players-vector))
     (main/start-new-year)
     (let [temp-ge (deref main/a-givee)]

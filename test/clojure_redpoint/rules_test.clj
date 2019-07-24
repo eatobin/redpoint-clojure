@@ -17,11 +17,11 @@
                      ros/add-year-in-roster
                      ros/add-year-in-roster
                      ros/add-year-in-roster)
-                beatles-plus-pm))
+               beatles-plus-pm))
 (def beatles-plus-4 (ros/set-givee-in-roster
+                     (ros/set-givee-in-roster
                       (ros/set-givee-in-roster
-                        (ros/set-givee-in-roster
-                          (ros/set-givee-in-roster extended :RinSta 1 :GeoHar) :RinSta 2 :PauMcc) :RinSta 3 :EriTob) :RinSta 4 :KarLav))
+                       (ros/set-givee-in-roster extended :RinSta 1 :GeoHar) :RinSta 2 :PauMcc) :RinSta 3 :EriTob) :RinSta 4 :KarLav))
 
 (deftest givee-not-self-test
   (is (= true

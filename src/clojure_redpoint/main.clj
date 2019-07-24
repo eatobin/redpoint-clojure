@@ -25,7 +25,7 @@
   [file-path]
   (if (.exists (io/file file-path))
     (let [[scrubbed err] (rsc/scrubbed-roster-string
-                           (slurp file-path))]
+                          (slurp file-path))]
       (if (nil? err)
         scrubbed
         (do
@@ -112,7 +112,7 @@
   (reset! a-giver nil)
   (reset! a-givee nil)
   (let [players-vector (ros/make-players-vector
-                         (scrubbed-or-quit file-path))
+                        (scrubbed-or-quit file-path))
         r-name (ros/get-roster-name (scrubbed-or-quit file-path))
         r-year (Integer/parseInt (ros/get-roster-year (scrubbed-or-quit file-path)))]
     (reset! a-plrs-map (ros/make-players-map players-vector))
@@ -124,9 +124,9 @@
       (while (some? (deref a-giver))
         (while (some? (deref a-givee))
           (if (and
-                (rule/givee-not-self? (deref a-giver) (deref a-givee))
-                (rule/givee-not-recip? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map))
-                (rule/givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map)))
+               (rule/givee-not-self? (deref a-giver) (deref a-givee))
+               (rule/givee-not-recip? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map))
+               (rule/givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map)))
             (givee-is-success)
             (givee-is-failure)))
         (select-new-giver)))

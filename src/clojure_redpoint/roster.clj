@@ -1,7 +1,6 @@
 (ns clojure-redpoint.roster
   (:require [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]
-            [clojure.repl :refer :all]
             [clojure.string :as str]
             [clojure-csv.core :as csv]
             [clojure-redpoint.roster-string-check :as rsc]))
