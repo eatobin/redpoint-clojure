@@ -1,4 +1,4 @@
-(ns clojure-redpoint.main
+(ns clojure-redpoint.core
   (:require [clojure.string :as cs]
             [clojure-redpoint.roster :as ros]
             [clojure-redpoint.hats :as hat]
