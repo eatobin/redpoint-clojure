@@ -5,3 +5,5 @@
 (s/def ::givee keyword?)
 (s/def ::giver keyword?)
 (s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
+
+(ostest/instrument)
