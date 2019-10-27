@@ -47,33 +47,35 @@
 ;  :aliases {
 ;    :new {
 ;      :extra-deps {
-;        seancorfield/clj-new {:mvn/version "0.5.5"}
+;        seancorfield/clj-new {:mvn/version "0.5.x"}
 ;      }
 ;      :main-opts ["-m" "clj-new.create"]
 ;    }
 ;    :k-repl {
 ;      :extra-deps {
-;        viebel/klipse-repl {:mvn/version "0.2.3"}
+;        viebel/klipse-repl {:mvn/version "0.2.x"}
 ;      }
 ;      :main-opts ["-m" "klipse-repl.main --no-easy-defs"]
 ;    }
 ;    :outdated {
 ;      :extra-deps {
-;        olical/depot {:mvn/version "1.8.4"}
+;        olical/depot {:mvn/version "1.8.x"}
 ;      }
 ;      :main-opts ["-m" "depot.outdated.main"]
 ;    }
 ;  }
 ;}
 
-;Make new:
+;For make new project:
 ;https://github.com/seancorfield/clj-new
 
 ;For k-repl:
+;https://github.com/viebel/klipse-repl
 ;clojure -A:k-repl
 ;clojure -A:k-repl -Spath
 
 ;Check for outdated deps:
+;https://github.com/Olical/depot
 ;clojure -A:outdated -a outdated
 
 ; In this project:

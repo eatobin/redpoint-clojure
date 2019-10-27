@@ -1,22 +1,13 @@
 (ns clojure-redpoint.roster
   (:require [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
-            ;[clojure.string :as str]
-            ;[clojure-csv.core :as csv]
-            ;[clojure-redpoint.roster-string-check :as rsc]))
 
-;(s/def ::roster-line (s/coll-of string? :kind vector?))
-;(s/def ::roster-seq (s/coll-of ::roster-line :kind seq?))
-;(s/def ::plrs-vector (s/coll-of ::roster-line :kind vector?))
-;(s/def ::givee keyword?)
-;(s/def ::giver keyword?)
-;(s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
-;(s/def ::name string?)
-;(s/def :unq/gift-history (s/coll-of :unq/gift-pair :kind vector?))
-;(s/def :unq/player (s/keys :req-un [::name :unq/gift-history]))
-(s/def ::plr-map-vec (s/tuple string? string? string? string?))
-(s/def ::plr-map (s/map-of keyword? :unq/player))
-(s/def ::g-year (s/and int? #(> % -1)))
+(s/def ::roster-name string?)
+(s/def ::roster-year int?)
+(s/def ::player-key symbol?)
+(s/def :unq/players (s/map-of ::player-key :unq/player))
+(s/def :unq/roster (s/keys :req-un [::roster-name ::roster-year :unq/players]))
+
 
 ;(defn get-roster-name
 ;  "Given a scrubbed return the roster name"
