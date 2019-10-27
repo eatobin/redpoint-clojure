@@ -1,8 +1,7 @@
 (ns clojure-redpoint.gift-pair-test
   (:require [clojure.test :refer :all]
             [clojure-redpoint.gift-pair :as gp]
-            [clojure.spec.alpha :as s]
-            [clojure.spec.test.alpha :as stest]))
+            [clojure.spec.alpha :as s]))
 
 (def gift-pair {:giver :JohLen, :givee :GeoHar})
 
