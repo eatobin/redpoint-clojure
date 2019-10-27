@@ -8,12 +8,12 @@
 
 (deftest get-givee-test
   (is (= :GeoHar
-         (gp/get-givee-in-gift-pair gift-pair))))
+         (gp/get-givee gift-pair))))
 (s/conform ::gp/givee
-           (gp/get-givee-in-gift-pair gift-pair))
+           (gp/get-givee gift-pair))
 
 (deftest get-giver-test
   (is (= :JohLen
-         (gp/get-giver-in-gift-pair gift-pair))))
+         (gp/get-giver gift-pair))))
 (s/conform ::gp/giver
-           (gp/get-giver-in-gift-pair gift-pair))
+           (gp/get-giver gift-pair))
