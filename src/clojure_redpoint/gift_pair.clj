@@ -24,4 +24,14 @@
         :ret (s/or :found ::giver
                    :not-found nil?))
 
+(defn set-givee
+  "Returns a gift pair with updated givee"
+  [g-pair n-givee]
+  (assoc g-pair :givee n-givee))
+(s/fdef set-givee
+        :args (s/cat :g-pair :unq/gift-pair
+                     :givee ::givee
+                     :n-givee ::givee)
+        :ret :unq/gift-history)
+
 (ostest/instrument)
