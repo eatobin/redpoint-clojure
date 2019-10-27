@@ -1,6 +1,5 @@
 (ns clojure-redpoint.player
-  (:require [clojure-redpoint.gift-pair :as gp]
-            [clojure.spec.alpha :as s]
+  (:require [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
 (s/def ::player-name string?)
@@ -17,12 +16,12 @@
         :args (s/cat :player :unq/player)
         :ret ::player-name)
 
-;(defn get-gift-history-in-player
-;  "Return a gift-history given a player"
-;  [player]
-;  (player :unq/gift-history))
-;(s/fdef get-player-name-in-player
-;        :args (s/cat :player :unq/player)
-;        :ret :unq/gift-history)
+(defn get-gift-history-in-player
+  "Return a gift-history given a player"
+  [player]
+  (player :gift-history))
+(s/fdef get-gift-history-in-player
+        :args (s/cat :player :unq/player)
+        :ret :unq/gift-history)
 
 (ostest/instrument)
