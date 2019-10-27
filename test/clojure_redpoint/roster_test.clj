@@ -1,18 +1,27 @@
-;(ns clojure-redpoint.roster-test
-;  (:require [clojure.test :refer :all]
-;            [clojure-redpoint.roster :as ros]
-;            [clojure.spec.alpha :as s]
-;            [clojure.spec.test.alpha :as stest]))
-;
+(ns clojure-redpoint.roster-test
+  (:require [clojure.test :refer :all]
+            [clojure-redpoint.roster :as ros]
+            [clojure.spec.alpha :as s]
+            [clojure.spec.test.alpha :as stest]))
+
 ;(def scrubbed "The Beatles,2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen")
-;
+
+(def roster {::ros/roster-name "The Beatles",
+             ::ros/roster-year 2014,
+             :unq/players      {:PauMcc {:name         "Paul McCartney",
+                                         :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+                                :GeoHar {:name         "George Harrison",
+                                         :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+                                :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                                :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}})
+
 ;(def players-map {:PauMcc {:name         "Paul McCartney",
 ;                           :gift-history [{:giver :JohLen, :givee :GeoHar}]},
 ;                  :GeoHar {:name         "George Harrison",
 ;                           :gift-history [{:giver :PauMcc, :givee :RinSta}]},
 ;                  :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
 ;                  :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
-;
+
 ;(def players-vector [["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
 ;                     ["JohLen" "John Lennon" "PauMcc" "RinSta"]
 ;                     ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
@@ -42,11 +51,11 @@
 ;                                              {:giver :PauMcc, :givee :PauMcc}]}})
 ;
 ;(def player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]})
-;
-;(deftest get-roster-name-test
-;  (is (= "The Beatles"
-;         (ros/get-roster-name scrubbed))))
-;
+
+(deftest get-roster-name-test
+  (is (= "The BeatlesX"
+         (ros/get-roster-name roster))))
+
 ;(deftest get-roster-year-test
 ;  (is (= "2014"
 ;         (ros/get-roster-year scrubbed))))

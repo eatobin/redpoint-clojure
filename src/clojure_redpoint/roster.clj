@@ -1,5 +1,6 @@
 (ns clojure-redpoint.roster
-  (:require [clojure.spec.alpha :as s]
+  (:require [clojure-redpoint.player :as plr]
+            [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
 (s/def ::roster-name string?)
@@ -9,19 +10,14 @@
 (s/def :unq/roster (s/keys :req-un [::roster-name ::roster-year :unq/players]))
 
 
-;(defn get-roster-name
-;  "Given a scrubbed return the roster name"
-;  [scrubbed]
-;  (->
-;    scrubbed
-;    (str/split-lines)
-;    (get 0)
-;    (str/split #",")
-;    (first)))
-;(s/fdef get-roster-name
-;        :args (s/cat :scrubbed ::rsc/scrubbed)
-;        :ret string?)
-;
+(defn get-roster-name
+  "Given a roster return the roster name"
+  [roster]
+  roster ::roster-name)
+(s/fdef get-roster-name
+        :args (s/cat :roster :unq/roster)
+        :ret string?)
+
 ;(defn get-roster-year
 ;  "Given a scrubbed return the roster year"
 ;  [scrubbed]
@@ -145,24 +141,7 @@
 ;        :ret (s/or :found :unq/gift-pair
 ;                   :not-found nil?))
 ;
-;(defn get-givee-in-gift-pair
-;  "Returns a givee given a gift pair"
-;  [g-pair]
-;  (get g-pair :givee))
-;(s/fdef get-givee-in-gift-pair
-;        :args (s/cat :g-pair :unq/gift-pair)
-;        :ret (s/or :found ::givee
-;                   :not-found nil?))
-;
-;(defn get-giver-in-gift-pair
-;  "Returns a giver given a gift pair"
-;  [g-pair]
-;  (get g-pair :giver))
-;(s/fdef get-giver-in-gift-pair
-;        :args (s/cat :g-pair :unq/gift-pair)
-;        :ret (s/or :found ::giver
-;                   :not-found nil?))
-;
+
 ;(defn set-gift-history-in-player
 ;  "Sets a gift history into the provided player"
 ;  [g-hist plr]
