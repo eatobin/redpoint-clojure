@@ -12,8 +12,7 @@
   (g-pair :givee))
 (s/fdef get-givee
         :args (s/cat :g-pair :unq/gift-pair)
-        :ret (s/or :found ::givee
-                   :not-found nil?))
+        :ret ::givee)
 
 (defn get-giver
   "Returns a giver given a gift pair"
@@ -21,8 +20,7 @@
   (g-pair :giver))
 (s/fdef get-giver
         :args (s/cat :g-pair :unq/gift-pair)
-        :ret (s/or :found ::giver
-                   :not-found nil?))
+        :ret ::giver)
 
 (defn set-givee
   "Returns a gift pair with updated givee"
@@ -31,6 +29,15 @@
 (s/fdef set-givee
         :args (s/cat :g-pair :unq/gift-pair
                      :n-givee ::givee)
-        :ret :unq/gift-history)
+        :ret :unq/gift-pair)
+
+(defn set-giver
+  "Returns a gift pair with updated giver"
+  [g-pair n-giver]
+  (assoc g-pair :giver n-giver))
+(s/fdef set-giver
+        :args (s/cat :g-pair :unq/gift-pair
+                     :n-giver ::giver)
+        :ret :unq/gift-pair)
 
 (ostest/instrument)

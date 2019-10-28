@@ -16,3 +16,15 @@
          (gp/get-giver gift-pair))))
 (s/conform ::gp/giver
            (gp/get-giver gift-pair))
+
+(deftest set-givee-test
+  (is (= {:giver :JohLen, :givee :NewBee}
+         (gp/set-givee gift-pair :NewBee))))
+(s/conform :unq/gift-pair
+           (gp/set-givee gift-pair :NewBee))
+
+(deftest set-giver-test
+  (is (= {:givee :GeoHar, :giver :NewBee}
+         (gp/set-giver gift-pair :NewBee))))
+(s/conform :unq/gift-pair
+           (gp/set-giver gift-pair :NewBee))
