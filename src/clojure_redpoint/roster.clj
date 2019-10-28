@@ -13,24 +13,19 @@
 (defn get-roster-name
   "Given a roster return the roster name"
   [roster]
-  roster ::roster-name)
+  roster :roster-name)
 (s/fdef get-roster-name
         :args (s/cat :roster :unq/roster)
-        :ret string?)
+        :ret ::roster-name)
 
-;(defn get-roster-year
-;  "Given a scrubbed return the roster year"
-;  [scrubbed]
-;  (->
-;    scrubbed
-;    (str/split-lines)
-;    (get 0)
-;    (str/split #",")
-;    (last)))
-;(s/fdef get-roster-year
-;        :args (s/cat :scrubbed ::rsc/scrubbed)
-;        :ret string?)
-;
+(defn get-roster-year
+  "Given a roster return the roster year"
+  [roster]
+  roster ::roster-year)
+(s/fdef get-roster-year
+        :args (s/cat :roster :unq/roster)
+        :ret ::roster-year)
+
 ;(defn make-players-vector
 ;  "Given a scrubbed return the player-vector"
 ;  [scrubbed]
