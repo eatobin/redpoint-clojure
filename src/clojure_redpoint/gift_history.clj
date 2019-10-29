@@ -4,6 +4,7 @@
             [orchestra.spec.test :as ostest]))
 
 (s/def :unq/gift-history (s/coll-of :unq/gift-pair :kind vector?))
+(s/def ::player-key keyword?)
 (s/def ::gift-year (s/and int? #(> % -1)))
 
 (defn add-year
@@ -12,7 +13,7 @@
   (conj g-hist {:givee plr-key, :giver plr-key}))
 (s/fdef add-year
         :args (s/cat :g-hist :unq/gift-history
-                     :plr-key keyword?)
+                     :plr-key ::player-key)
         :ret :unq/gift-history)
 
 (defn get-gift-pair
