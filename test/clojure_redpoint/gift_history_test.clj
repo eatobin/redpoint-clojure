@@ -16,3 +16,9 @@
          (gh/get-gift-pair gift-history 0))))
 (s/conform :unq/gift-pair
            (gh/get-gift-pair gift-history 0))
+
+(deftest set-gift-pair-test
+  (is (= [{:givee :me, :giver :you}]
+         (gh/set-gift-pair gift-history 0 {:givee :me, :giver :you}))))
+(s/conform :unq/gift-history
+           (gh/set-gift-pair gift-history 0 {:givee :me, :giver :you}))
