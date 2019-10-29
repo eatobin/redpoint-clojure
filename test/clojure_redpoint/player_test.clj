@@ -8,13 +8,13 @@
 
 (deftest get-player-name-in-player-test
   (is (= "Paul McCartney"
-         (plr/get-player-name-in-player player))))
+         (plr/get-player-name player))))
 (s/conform ::plr/player-name
-           (plr/get-player-name-in-player player))
+           (plr/get-player-name player))
 
 (deftest get-gift-history-in-player-test
   (is (= [{:givee :GeoHar
            :giver :JohLen}]
-         (plr/get-gift-history-in-player player))))
+         (plr/get-gift-history player))))
 (s/conform :unq/gift-history
-           (plr/get-gift-history-in-player player))
+           (plr/get-gift-history player))
