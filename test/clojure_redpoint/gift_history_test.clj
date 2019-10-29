@@ -10,3 +10,9 @@
          (gh/add-year gift-history :NewBee))))
 (s/conform :unq/gift-history
            (gh/add-year gift-history :NewBee))
+
+(deftest get-gift-pair-test
+  (is (= {:giver :JohLen, :givee :GeoHar}
+         (gh/get-gift-pair gift-history 0))))
+(s/conform :unq/gift-pair
+           (gh/get-gift-pair gift-history 0))

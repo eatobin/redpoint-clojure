@@ -7,11 +7,22 @@
 
 (defn add-year
   "Adds a new placeholder year to the end of a player's gift history"
-  [gh plr-key]
-  (conj gh {:givee plr-key, :giver plr-key}))
+  [g-hist plr-key]
+  (conj g-hist {:givee plr-key, :giver plr-key}))
 (s/fdef add-year
-        :args (s/cat :gh :unq/gift-history
+        :args (s/cat :g-hist :unq/gift-history
                      :plr-key keyword?)
         :ret :unq/gift-history)
+
+(defn get-gift-pair
+  "Returns a gift pair given a gift history and a gift year"
+  [g-hist g-year]
+  (g-hist g-year))
+(s/fdef get-gift-pair
+        :args (s/and
+                (s/cat :g-hist :unq/gift-history
+                       :g-year (s/and int? #(> % -1)))
+                #(< (:g-year %) (count (:g-hist %))))
+        :ret :unq/gift-pair)
 
 (ostest/instrument)
