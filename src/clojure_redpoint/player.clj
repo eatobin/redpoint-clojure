@@ -3,7 +3,7 @@
             [orchestra.spec.test :as ostest]))
 
 (s/def ::player-name string?)
-(s/def :unq/gift-history (s/coll-of :unq/gift-pair :kind vector?))
+;(s/def :unq/gift-history (s/coll-of :unq/gift-pair :kind vector?))
 (s/def :unq/player (s/keys :req-un [::player-name :unq/gift-history]))
 
 (s/def ::gift-year (s/and int? #(> % -1)))
