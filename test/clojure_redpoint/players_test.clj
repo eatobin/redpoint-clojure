@@ -39,3 +39,7 @@
          (plrs/set-player
            players
            :RinSta {:player-name "New Bee", :gift-history [{:giver :NewBee, :givee :NewBee}]}))))
+(s/conform :unq/players
+           (plrs/set-player
+             players
+             :RinSta {:player-name "New Bee", :gift-history [{:giver :NewBee, :givee :NewBee}]}))
