@@ -5,8 +5,6 @@
 
 (s/def ::roster-name string?)
 (s/def ::roster-year int?)
-(s/def ::player-key symbol?)
-(s/def :unq/players (s/map-of ::player-key :unq/player))
 (s/def :unq/roster (s/keys :req-un [::roster-name ::roster-year :unq/players]))
 
 
