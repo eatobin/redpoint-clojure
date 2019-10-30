@@ -11,11 +11,19 @@
   [players plr-key]
   (players plr-key))
 (s/fdef get-player
-        :args (s/cat :players :unq/players :plr-key ::gh/player-key)
+        :args (s/cat :players :unq/players
+                     :plr-key ::gh/player-key)
         :ret (s/or :found :unq/player
                    :not-found nil?))
 
-
-
+(defn set-player
+  "Sets a player given players, a player-key and a new player"
+  [players plr-key player]
+  (assoc players plr-key player))
+(s/fdef set-player
+        :args (s/cat :players :unq/players
+                     :plr-key ::gh/player-key
+                     :player :unq/player)
+        :ret :unq/players)
 
 (ostest/instrument)
