@@ -25,3 +25,10 @@
          (plr/set-gift-history player [{:givee :nope :giver :yup}]))))
 (s/conform :unq/player
            (plr/set-gift-history player [{:givee :nope :giver :yup}]))
+
+(deftest add-year-player-test
+  (is (= {:player-name  "Paul McCartney",
+          :gift-history [{:giver :JohLen, :givee :GeoHar} {:givee :mee, :giver :mee}]}
+         (plr/add-year-player player :mee))))
+(s/conform :unq/player
+           (plr/add-year-player player :mee))

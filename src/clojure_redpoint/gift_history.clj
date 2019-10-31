@@ -8,7 +8,7 @@
 (s/def ::gift-year (s/and int? #(> % -1)))
 
 (defn add-year
-  "Adds a new placeholder year to the end of a player's gift history"
+  "Adds a new placeholder year to the end of a gift history"
   [g-hist plr-key]
   (conj g-hist {:givee plr-key, :giver plr-key}))
 (s/fdef add-year

@@ -1,6 +1,6 @@
 (ns clojure-redpoint.players
   (:require [clojure-redpoint.gift-history :as gh]
-            [clojure-redpoint.player]
+            [clojure-redpoint.player :as plr]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
@@ -25,5 +25,25 @@
                      :plr-key ::gh/player-key
                      :player :unq/player)
         :ret :unq/players)
+
+;(defn add-year-in-roster
+;  "Add a year for each player in roster"
+;  [plrs-map]
+;  (into {}
+;        (for [[k v] plrs-map]
+;          [k (add-year-in-player v k)])))
+;(s/fdef add-year-in-roster
+;        :args (s/cat :plrs-map ::plr-map)
+;        :ret ::plr-map)
+
+;(defn add-year-in-roster
+;  "Add a year for each player in roster"
+;  [players]
+;  (into {}
+;        (for [[plr-key player] players]
+;          [plr-key (add-year-in-player player plr-key)])))
+;(s/fdef add-year-in-roster
+;        :args (s/cat :plrs-map ::plr-map)
+;        :ret ::plr-map)
 
 (ostest/instrument)
