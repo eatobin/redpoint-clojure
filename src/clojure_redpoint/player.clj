@@ -32,12 +32,25 @@
                      :g-hist :unq/gift-history)
         :ret :unq/player)
 
+;(defn add-year-player
+;  "Adds a new placeholder year to the end of a player's gift history"
+;  [player plr-key]
+;  (let [gh (get-gift-history player)
+;        ngh (gh/add-year gh plr-key)]
+;    (set-gift-history player ngh)))
+;(s/fdef add-year-player
+;        :args (s/cat :player :unq/player :plr-key ::gh/player-key)
+;        :ret :unq/player)
+
 (defn add-year-player
   "Adds a new placeholder year to the end of a player's gift history"
   [player plr-key]
-  (let [gh (get-gift-history player)
-        ngh (gh/add-year gh plr-key)]
-    (set-gift-history player ngh)))
+  (->
+    player
+    (get-gift-history)
+    (gh/add-year plr-key)
+    ->>
+    (set-gift-history player)))
 (s/fdef add-year-player
         :args (s/cat :player :unq/player :plr-key ::gh/player-key)
         :ret :unq/player)
