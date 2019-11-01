@@ -25,11 +25,11 @@
 
 (defn set-gift-history
   "Sets a gift history into the provided player"
-  [player g-hist]
+  [g-hist player]
   (assoc player :gift-history g-hist))
 (s/fdef set-gift-history
-        :args (s/cat :player :unq/player
-                     :g-hist :unq/gift-history)
+        :args (s/cat :g-hist :unq/gift-history
+                     :player :unq/player)
         :ret :unq/player)
 
 ;(defn add-year-player

@@ -19,16 +19,16 @@
 (s/conform :unq/gift-history
            (plr/get-gift-history player))
 
-(deftest get-gift-history-test
+(deftest set-gift-history-test
   (is (= {:player-name  "Paul McCartney",
           :gift-history [{:givee :nope :giver :yup}]}
-         (plr/set-gift-history player [{:givee :nope :giver :yup}]))))
+         (plr/set-gift-history [{:givee :nope :giver :yup}] player))))
 (s/conform :unq/player
-           (plr/set-gift-history player [{:givee :nope :giver :yup}]))
+           (plr/set-gift-history [{:givee :nope :giver :yup}] player))
 
-(deftest add-year-player-test
-  (is (= {:player-name  "Paul McCartney",
-          :gift-history [{:giver :JohLen, :givee :GeoHar} {:givee :mee, :giver :mee}]}
-         (plr/add-year-player player :mee))))
-(s/conform :unq/player
-           (plr/add-year-player player :mee))
+;(deftest add-year-player-test
+;  (is (= {:player-name  "Paul McCartney",
+;          :gift-history [{:giver :JohLen, :givee :GeoHar} {:givee :mee, :giver :mee}]}
+;         (plr/add-year-player player :mee))))
+;(s/conform :unq/player
+;           (plr/add-year-player player :mee))
