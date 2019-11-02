@@ -20,6 +20,6 @@ ros/set-givee-in-roster
 ros/set-giver-in-roster
 ros/get-giver-in-roster
 ros/get-givee-in-roster
-ros/get-player-name-in-roster
-ros/get-roster-name
-ros/get-roster-year
+ros/get-player-name-in-roster -> get-player-name-players - done
+ros/get-roster-name - done
+ros/get-roster-year - done

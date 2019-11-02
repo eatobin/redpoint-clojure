@@ -1,6 +1,5 @@
 (ns clojure-redpoint.roster
-  (:require [clojure-redpoint.player :as plr]
-            [clojure.spec.alpha :as s]
+  (:require [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
 (s/def ::roster-name string?)

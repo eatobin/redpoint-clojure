@@ -1,5 +1,6 @@
 (ns clojure-redpoint.players-test
   (:require [clojure.test :refer :all]
+            [clojure-redpoint.player :as plr]
             [clojure-redpoint.players :as plrs]
             [clojure.spec.alpha :as s]))
 
@@ -56,3 +57,9 @@
          (plrs/add-year-players players))))
 (s/conform :unq/players
            (plrs/add-year-players players))
+
+(deftest get-player-name-players-test
+  (is (= "George Harrison"
+         (plrs/get-player-name-players players :GeoHar))))
+(s/conform ::plr/player-name
+           (plrs/get-player-name-players players :GeoHar))
