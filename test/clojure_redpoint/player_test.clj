@@ -22,9 +22,9 @@
 (deftest set-gift-history-test
   (is (= {:player-name  "Paul McCartney",
           :gift-history [{:givee :nope :giver :yup}]}
-         (plr/set-gift-history [{:givee :nope :giver :yup}] player))))
+         (plr/set-gift-history player [{:givee :nope :giver :yup}]))))
 (s/conform :unq/player
-           (plr/set-gift-history [{:givee :nope :giver :yup}] player))
+           (plr/set-gift-history player [{:givee :nope :giver :yup}]))
 
 (deftest add-year-player-test
   (is (= {:player-name  "Paul McCartney",
