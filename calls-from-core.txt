@@ -1,0 +1,25 @@
+;  (swap! a-plrs-map ros/add-year-in-roster)
+
+;  (swap! a-plrs-map ros/set-givee-in-roster (deref a-giver) (deref a-g-year) (deref a-givee))
+;  (swap! a-plrs-map ros/set-giver-in-roster (deref a-givee) (deref a-g-year) (deref a-giver))
+
+;             :let [giver-code (ros/get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
+;                   givee-code (ros/get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
+
+;          :let [player-name (ros/get-player-name-in-roster (deref a-plrs-map) plr-sym)
+;                givee-code (ros/get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
+;                givee-name (ros/get-player-name-in-roster (deref a-plrs-map) givee-code)
+;                giver-code (ros/get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]]
+
+;        r-name (ros/get-roster-name (scrubbed-or-quit file-path))
+;        r-year (Integer/parseInt (ros/get-roster-year (scrubbed-or-quit file-path)))]
+
+
+ros/add-year-in-roster
+ros/set-givee-in-roster
+ros/set-giver-in-roster
+ros/get-giver-in-roster
+ros/get-givee-in-roster
+ros/get-player-name-in-roster
+ros/get-roster-name
+ros/get-roster-year
