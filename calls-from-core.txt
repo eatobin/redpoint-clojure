@@ -15,7 +15,7 @@
 ;        r-year (Integer/parseInt (ros/get-roster-year (scrubbed-or-quit file-path)))]
 
 
-ros/add-year-in-roster
+ros/add-year-in-roster -> add-year-players - done
 ros/set-givee-in-roster
 ros/set-giver-in-roster
 ros/get-giver-in-roster

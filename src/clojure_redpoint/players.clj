@@ -36,4 +36,13 @@
         :args (s/cat :players :unq/players)
         :ret :unq/players)
 
+;TODO
+;(defn set-givee-players [players plr-key g-year givee])
+;(defn set-giver-players [players plr-key g-year giver])
+;(defn get-givee-players [players plr-key g-year])
+;(defn get-givee-players [players plr-key g-year])
+;(defn get-name-players [players plr-key])
+;(defn get-roster-name [roster])
+;(defn get-roster-year [roster])
+
 (ostest/instrument)
