@@ -37,7 +37,8 @@
         :args (s/cat :players :unq/players)
         :ret :unq/players)
 
-(defn get-player-name-players [players plr-key]
+(defn get-player-name-players
+  [players plr-key]
   (->
     players
     (get-player plr-key)
@@ -47,7 +48,8 @@
                      :plr-key ::gh/player-key)
         :ret ::plr/player-name)
 
-(defn get-givee-players [players plr-key g-year]
+(defn get-givee-players
+  [players plr-key g-year]
   (->
     players
     (get-player plr-key)
@@ -60,7 +62,8 @@
                      :g-year ::gh/gift-year)
         :ret ::gp/givee)
 
-(defn get-giver-players [players plr-key g-year]
+(defn get-giver-players
+  [players plr-key g-year]
   (->
     players
     (get-player plr-key)
@@ -73,9 +76,19 @@
                      :g-year ::gh/gift-year)
         :ret ::gp/giver)
 
+(defn set-givee-players
+  [players plr-key g-year givee]
+  (let [plr (get-player players plr-key)
+        gh (plr :gift-history)
+        gp (gh g-year)
+        ngp (gp/set-givee gp givee)
+        ngh (gh/set-gift-pair gh g-year ngp)
+        nplr (plr/set-gift-history plr ngh)]
+    (set-player players plr-key nplr)))
+
 
 ;TODO
-;(defn set-givee-players [players plr-key g-year givee])
+
 ;(defn set-giver-players [players plr-key g-year giver])
 
 (ostest/instrument)
