@@ -1,8 +1,6 @@
 (ns clojure-redpoint.roster-test
   (:require [clojure.test :refer :all]
-            [clojure-redpoint.roster :as ros]
-            [clojure.spec.alpha :as s]
-            [clojure.spec.test.alpha :as stest]))
+            [clojure-redpoint.roster :as ros]))
 
 ;(def scrubbed "The Beatles,2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen")
 
