@@ -1,5 +1,6 @@
 (ns clojure-redpoint.players
-  (:require [clojure-redpoint.gift-history :as gh]
+  (:require [clojure-redpoint.gift-pair :as gp]
+            [clojure-redpoint.gift-history :as gh]
             [clojure-redpoint.player :as plr]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
@@ -46,11 +47,35 @@
                      :plr-key ::gh/player-key)
         :ret ::plr/player-name)
 
+(defn get-givee-players [players plr-key g-year]
+  (->
+    players
+    (get-player plr-key)
+    :gift-history
+    (get g-year)
+    :givee))
+(s/fdef get-givee-players
+        :args (s/cat :players :unq/players
+                     :plr-key ::gh/player-key
+                     :g-year ::gh/gift-year)
+        :ret ::gp/givee)
+
+(defn get-giver-players [players plr-key g-year]
+  (->
+    players
+    (get-player plr-key)
+    :gift-history
+    (get g-year)
+    :giver))
+(s/fdef get-giver-players
+        :args (s/cat :players :unq/players
+                     :plr-key ::gh/player-key
+                     :g-year ::gh/gift-year)
+        :ret ::gp/giver)
+
 
 ;TODO
 ;(defn set-givee-players [players plr-key g-year givee])
 ;(defn set-giver-players [players plr-key g-year giver])
-;(defn get-givee-players [players plr-key g-year])
-;(defn get-givee-players [players plr-key g-year])
 
 (ostest/instrument)

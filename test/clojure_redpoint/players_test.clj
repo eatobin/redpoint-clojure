@@ -1,5 +1,6 @@
 (ns clojure-redpoint.players-test
   (:require [clojure.test :refer :all]
+            [clojure-redpoint.gift-pair :as gp]
             [clojure-redpoint.player :as plr]
             [clojure-redpoint.players :as plrs]
             [clojure.spec.alpha :as s]))
@@ -63,3 +64,15 @@
          (plrs/get-player-name-players players :GeoHar))))
 (s/conform ::plr/player-name
            (plrs/get-player-name-players players :GeoHar))
+
+(deftest get-givee-players-test
+  (is (= :RinSta
+         (plrs/get-givee-players players :GeoHar 0))))
+(s/conform ::gp/givee
+           (plrs/get-givee-players players :GeoHar 0))
+
+(deftest get-giver-players-test
+  (is (= :PauMcc
+         (plrs/get-giver-players players :GeoHar 0))))
+(s/conform ::gp/giver
+           (plrs/get-giver-players players :GeoHar 0))
