@@ -92,8 +92,20 @@
                      :givee ::gp/givee)
         :ret :unq/players)
 
-;TODO
-
-;(defn set-giver-players [players plr-key g-year giver])
+(defn set-giver-players
+  [players plr-key g-year giver]
+  (let [plr (get-player players plr-key)
+        gh (plr :gift-history)
+        gp (gh g-year)
+        ngp (gp/set-giver gp giver)
+        ngh (gh/set-gift-pair gh g-year ngp)
+        nplr (plr/set-gift-history plr ngh)]
+    (set-player players plr-key nplr)))
+(s/fdef set-givee-players
+        :args (s/cat :players :unq/players
+                     :plr-key ::gh/player-key
+                     :g-year ::gh/gift-year
+                     :giver ::gp/giver)
+        :ret :unq/players)
 
 (ostest/instrument)
