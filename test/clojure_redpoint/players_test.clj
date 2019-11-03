@@ -76,3 +76,12 @@
          (plrs/get-giver-players players :GeoHar 0))))
 (s/conform ::gp/giver
            (plrs/get-giver-players players :GeoHar 0))
+
+(deftest set-givee-players-test
+  (is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+          :GeoHar {:player-name "George Harrison", :gift-history [{:giver :PauMcc, :givee :you}]},
+          :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+          :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
+         (plrs/set-givee-players players :GeoHar 0 :you))))
+(s/conform :unq/players
+           (plrs/set-givee-players players :GeoHar 0 :you))

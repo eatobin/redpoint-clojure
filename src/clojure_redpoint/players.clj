@@ -85,7 +85,12 @@
         ngh (gh/set-gift-pair gh g-year ngp)
         nplr (plr/set-gift-history plr ngh)]
     (set-player players plr-key nplr)))
-
+(s/fdef set-givee-players
+        :args (s/cat :players :unq/players
+                     :plr-key ::gh/player-key
+                     :g-year ::gh/gift-year
+                     :givee ::gp/givee)
+        :ret :unq/players)
 
 ;TODO
 
