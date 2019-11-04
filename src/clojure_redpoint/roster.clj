@@ -15,12 +15,12 @@
         :args (s/cat :roster :unq/roster)
         :ret ::roster-name)
 
-;(defn get-roster-year
-;  "Given a roster return the roster year"
-;  [roster]
-;  roster ::roster-year)
-;(s/fdef get-roster-year
-;        :args (s/cat :roster :unq/roster)
-;        :ret ::roster-year)
+(defn get-roster-year
+  "Given a roster return the roster year"
+  [roster]
+  (roster :roster-year))
+(s/fdef get-roster-year
+        :args (s/cat :roster :unq/roster)
+        :ret ::roster-year)
 
 (ostest/instrument)

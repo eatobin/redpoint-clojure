@@ -15,10 +15,10 @@
   (is (= "The Beatles"
          (ros/get-roster-name roster))))
 
-;(deftest get-roster-year-test
-;  (is (= "2014"
-;         (ros/get-roster-year scrubbed))))
-;
+(deftest get-roster-year-test
+  (is (= 2014
+         (ros/get-roster-year roster))))
+
 ;(deftest make-players-vector-test
 ;  (is (= players-vector
 ;         (ros/make-players-vector scrubbed))))
