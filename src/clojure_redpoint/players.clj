@@ -76,36 +76,21 @@
                      :g-year ::gh/gift-year)
         :ret ::gp/giver)
 
-(defn set-givee-players
-  [players plr-key g-year givee]
+(defn set-giv-ee-er-players
+  [players plr-key g-year giv ee-er]
   (let [plr (get-player players plr-key)
         gh (plr :gift-history)
         gp (gh g-year)
-        ngp (gp/set-givee gp givee)
+        ngp (gp/set-giv-ee-er gp giv ee-er)
         ngh (gh/set-gift-pair gh g-year ngp)
         nplr (plr/set-gift-history plr ngh)]
     (set-player players plr-key nplr)))
-(s/fdef set-givee-players
+(s/fdef set-giv-ee-er-players
         :args (s/cat :players :unq/players
                      :plr-key ::gh/player-key
                      :g-year ::gh/gift-year
-                     :givee ::gp/givee)
-        :ret :unq/players)
-
-(defn set-giver-players
-  [players plr-key g-year giver]
-  (let [plr (get-player players plr-key)
-        gh (plr :gift-history)
-        gp (gh g-year)
-        ngp (gp/set-giver gp giver)
-        ngh (gh/set-gift-pair gh g-year ngp)
-        nplr (plr/set-gift-history plr ngh)]
-    (set-player players plr-key nplr)))
-(s/fdef set-givee-players
-        :args (s/cat :players :unq/players
-                     :plr-key ::gh/player-key
-                     :g-year ::gh/gift-year
-                     :giver ::gp/giver)
+                     :giv ::gp/giv
+                     :ee-er ::gp/ee-er)
         :ret :unq/players)
 
 (ostest/instrument)

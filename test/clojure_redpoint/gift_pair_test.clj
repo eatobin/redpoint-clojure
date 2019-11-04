@@ -17,14 +17,12 @@
 (s/conform ::gp/giver
            (gp/get-giver gift-pair))
 
-(deftest set-givee-test
+(deftest set-giv-ee-er-test
   (is (= {:giver :JohLen, :givee :NewBee}
-         (gp/set-givee gift-pair :NewBee))))
-(s/conform :unq/gift-pair
-           (gp/set-givee gift-pair :NewBee))
-
-(deftest set-giver-test
+         (gp/set-giv-ee-er gift-pair :NewBee :ee)))
   (is (= {:givee :GeoHar, :giver :NewBee}
-         (gp/set-giver gift-pair :NewBee))))
+         (gp/set-giv-ee-er gift-pair :NewBee :er))))
 (s/conform :unq/gift-pair
-           (gp/set-giver gift-pair :NewBee))
+           (gp/set-giv-ee-er gift-pair :NewBee :ee))
+(s/conform :unq/gift-pair
+           (gp/set-giv-ee-er gift-pair :NewBee :er))
