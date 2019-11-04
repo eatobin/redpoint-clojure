@@ -1,5 +1,6 @@
 (ns clojure-redpoint.roster
-  (:require [clojure.spec.alpha :as s]
+  (:require [clojure-redpoint.players]
+            [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
 (s/def ::roster-name string?)
@@ -22,5 +23,13 @@
 (s/fdef get-roster-year
         :args (s/cat :roster :unq/roster)
         :ret ::roster-year)
+
+(defn get-roster-players
+  "Given a roster return the roster players"
+  [roster]
+  (roster :players))
+(s/fdef get-roster-players
+        :args (s/cat :roster :unq/roster)
+        :ret :unq/players)
 
 (ostest/instrument)
