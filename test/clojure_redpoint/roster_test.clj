@@ -2,56 +2,17 @@
   (:require [clojure.test :refer :all]
             [clojure-redpoint.roster :as ros]))
 
-;(def scrubbed "The Beatles,2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen")
-
-(def roster {::ros/roster-name "The Beatles",
-             ::ros/roster-year 2014,
-             :unq/players      {:PauMcc {:name         "Paul McCartney",
-                                         :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-                                :GeoHar {:name         "George Harrison",
-                                         :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-                                :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-                                :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}})
-
-;(def players-map {:PauMcc {:name         "Paul McCartney",
-;                           :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-;                  :GeoHar {:name         "George Harrison",
-;                           :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-;                  :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-;                  :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
-
-;(def players-vector [["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
-;                     ["JohLen" "John Lennon" "PauMcc" "RinSta"]
-;                     ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
-;                     ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]])
-;
-;(def players-map-ge {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
-;                     :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-;                     :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :GeoHar}]},
-;                     :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
-;
-;(def players-map-gr {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
-;                     :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-;                     :GeoHar {:name "George Harrison", :gift-history [{:giver :GeoHar, :givee :RinSta}]},
-;                     :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}})
-;
-;(def players-map-add {:RinSta {:name         "Ringo Starr",
-;                               :gift-history [{:giver :GeoHar, :givee :JohLen}
-;                                              {:giver :RinSta, :givee :RinSta}]},
-;                      :JohLen {:name         "John Lennon",
-;                               :gift-history [{:giver :RinSta, :givee :PauMcc}
-;                                              {:giver :JohLen, :givee :JohLen}]},
-;                      :GeoHar {:name         "George Harrison",
-;                               :gift-history [{:giver :PauMcc, :givee :RinSta}
-;                                              {:giver :GeoHar, :givee :GeoHar}]},
-;                      :PauMcc {:name         "Paul McCartney",
-;                               :gift-history [{:giver :JohLen, :givee :GeoHar}
-;                                              {:giver :PauMcc, :givee :PauMcc}]}})
-;
-;(def player {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]})
+(def roster {:roster-name "The Beatles",
+             :roster-year 2014,
+             :players     {:PauMcc {:name         "Paul McCartney",
+                                    :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+                           :GeoHar {:name         "George Harrison",
+                                    :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+                           :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                           :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}})
 
 (deftest get-roster-name-test
-  (is (= "The BeatlesX"
+  (is (= "The Beatles"
          (ros/get-roster-name roster))))
 
 ;(deftest get-roster-year-test
