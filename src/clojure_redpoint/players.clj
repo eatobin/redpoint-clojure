@@ -48,33 +48,20 @@
                      :plr-key ::gh/player-key)
         :ret ::plr/player-name)
 
-(defn get-givee-players
-  [players plr-key g-year]
-  (->
-    players
-    (get-player plr-key)
-    :gift-history
-    (get g-year)
-    :givee))
-(s/fdef get-givee-players
+(defn get-giv-ee-er-players
+  [players plr-key g-year ee-er]
+  (let [plr (get-player players plr-key)
+        gh (plr :gift-history)
+        gp (gh g-year)]
+    (if (= ee-er :ee)
+      (gp :givee)
+      (gp :giver))))
+(s/fdef get-giv-ee-er-players
         :args (s/cat :players :unq/players
                      :plr-key ::gh/player-key
-                     :g-year ::gh/gift-year)
-        :ret ::gp/givee)
-
-(defn get-giver-players
-  [players plr-key g-year]
-  (->
-    players
-    (get-player plr-key)
-    :gift-history
-    (get g-year)
-    :giver))
-(s/fdef get-giver-players
-        :args (s/cat :players :unq/players
-                     :plr-key ::gh/player-key
-                     :g-year ::gh/gift-year)
-        :ret ::gp/giver)
+                     :g-year ::gh/gift-year
+                     :ee-er ::gp/ee-er)
+        :ret ::gp/giv)
 
 (defn set-giv-ee-er-players
   [players plr-key g-year giv ee-er]
