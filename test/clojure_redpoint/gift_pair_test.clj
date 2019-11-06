@@ -5,17 +5,15 @@
 
 (def gift-pair {:giver :JohLen, :givee :GeoHar})
 
-(deftest get-givee-test
+(deftest get-giv-ee-er-test
   (is (= :GeoHar
-         (gp/get-givee gift-pair))))
-(s/conform ::gp/givee
-           (gp/get-givee gift-pair))
-
-(deftest get-giver-test
+         (gp/get-giv-ee-er gift-pair :ee)))
   (is (= :JohLen
-         (gp/get-giver gift-pair))))
-(s/conform ::gp/giver
-           (gp/get-giver gift-pair))
+         (gp/get-giv-ee-er gift-pair :er))))
+(s/conform ::gp/giv
+           (gp/get-giv-ee-er gift-pair :ee))
+(s/conform ::gp/giv
+           (gp/get-giv-ee-er gift-pair :er))
 
 (deftest set-giv-ee-er-test
   (is (= {:giver :JohLen, :givee :NewBee}
