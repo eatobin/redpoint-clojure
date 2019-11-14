@@ -67,13 +67,13 @@
 
 (deftest get-giv-ee-er-players-test
   (is (= :RinSta
-         (plrs/get-giv-ee-er-players players :GeoHar 0 :ee)))
+         (plrs/get-giv-ee-er-players players :GeoHar :ee 0)))
   (is (= :PauMcc
-         (plrs/get-giv-ee-er-players players :GeoHar 0 :er))))
+         (plrs/get-giv-ee-er-players players :GeoHar :er 0))))
 (s/conform ::gp/giv
-           (plrs/get-giv-ee-er-players players :GeoHar 0 :ee))
+           (plrs/get-giv-ee-er-players players :GeoHar :ee 0))
 (s/conform ::gp/giv
-           (plrs/get-giv-ee-er-players players :GeoHar 0 :er))
+           (plrs/get-giv-ee-er-players players :GeoHar :ee 0))
 
 (deftest set-giv-ee-er-players-test
   (is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},

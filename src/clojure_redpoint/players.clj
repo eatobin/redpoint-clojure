@@ -49,7 +49,7 @@
         :ret ::plr/player-name)
 
 (defn get-giv-ee-er-players
-  [players plr-key g-year ee-er]
+  [players plr-key ee-er g-year]
   (let [plr (get-player players plr-key)
         gh (plr :gift-history)
         gp (gh g-year)]
@@ -59,8 +59,8 @@
 (s/fdef get-giv-ee-er-players
         :args (s/cat :players :unq/players
                      :plr-key ::gh/player-key
-                     :g-year ::gh/gift-year
-                     :ee-er ::gp/ee-er)
+                     :ee-er ::gp/ee-er
+                     :g-year ::gh/gift-year)
         :ret ::gp/giv)
 
 (defn set-giv-ee-er-players
