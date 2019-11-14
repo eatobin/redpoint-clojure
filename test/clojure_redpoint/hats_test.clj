@@ -1,19 +1,19 @@
-;(ns clojure-redpoint.hats-test
-;  (:require [clojure.test :refer :all]
-;            [clojure-redpoint.hats :as hat]))
-;
-;(def test-hat [:PauMcc :GeoHar :JohLen :RinSta])
-;(def players-map {:PauMcc {:name         "Paul McCartney",
-;                           :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-;                  :GeoHar {:name         "George Harrison",
-;                           :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-;                  :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-;                  :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
-;
-;(deftest make-hats-test
-;  (is (= test-hat
-;         (hat/make-hat players-map))))
-;
+(ns clojure-redpoint.hats-test
+  (:require [clojure.test :refer :all]
+            [clojure-redpoint.hats :as hat]))
+
+(def test-hat [:PauMcc :GeoHar :JohLen :RinSta])
+(def players {:PauMcc {:name         "Paul McCartney",
+                       :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+              :GeoHar {:name         "George Harrison",
+                       :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+              :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+              :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
+
+(deftest make-hats-test
+  (is (= test-hat
+         (hat/make-hat players))))
+
 ;(deftest remove-puck-test
 ;  (is (= [:PauMcc :GeoHar :JohLen]
 ;         (hat/remove-puck test-hat :RinSta))))
