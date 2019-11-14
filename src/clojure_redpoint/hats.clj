@@ -38,5 +38,5 @@
 ;
 ;(s/conform ::hat
 ;           (empty-discards []))
-;
-;(ostest/instrument)
+
+(ostest/instrument)

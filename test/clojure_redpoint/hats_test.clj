@@ -3,12 +3,12 @@
             [clojure-redpoint.hats :as hat]))
 
 (def test-hat [:PauMcc :GeoHar :JohLen :RinSta])
-(def players {:PauMcc {:name         "Paul McCartney",
+(def players {:PauMcc {:player-name  "Paul McCartney",
                        :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-              :GeoHar {:name         "George Harrison",
+              :GeoHar {:player-name  "George Harrison",
                        :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-              :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-              :RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
+              :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+              :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
 
 (deftest make-hats-test
   (is (= test-hat
