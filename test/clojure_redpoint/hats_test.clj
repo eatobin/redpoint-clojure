@@ -29,6 +29,6 @@
 (s/conform ::hat/hat
            (hat/discard-puck-givee [:PauMcc] :JohLen))
 
-;(deftest return-discards-test
-;  (is (= [:PauMcc :JohLen :GeoHar]
-;         (hat/return-discards [:PauMcc :JohLen] [:GeoHar]))))
+(deftest return-discards-test
+  (is (= [:PauMcc :JohLen :GeoHar]
+         (hat/return-discards [:PauMcc :JohLen] [:GeoHar]))))

@@ -24,19 +24,19 @@
         :args (s/cat :discards ::hat :givee ::gp/givee)
         :ret ::hat)
 
-;(defn return-discards [ge-hat discards]
-;  (into ge-hat discards))
-;(s/fdef return-discards
-;  :args (s/cat :ge-hat ::hat :discards ::hat)
-;  :ret ::hat)
-;
-;(defn empty-discards [_]
-;  [])
-;(s/fdef empty-discards
-;  :args (s/cat :unused-value any?)
-;  :ret ::hat)
-;
-;(s/conform ::hat
-;           (empty-discards []))
+(defn return-discards [ge-hat discards]
+  (into ge-hat discards))
+(s/fdef return-discards
+        :args (s/cat :ge-hat ::hat :discards ::hat)
+        :ret ::hat)
+
+(defn empty-discards [_]
+  [])
+(s/fdef empty-discards
+        :args (s/cat :unused-value any?)
+        :ret ::hat)
+
+(s/conform ::hat
+           (empty-discards []))
 
 (ostest/instrument)
