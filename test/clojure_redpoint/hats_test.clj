@@ -1,6 +1,7 @@
 (ns clojure-redpoint.hats-test
   (:require [clojure.test :refer :all]
-            [clojure-redpoint.hats :as hat]))
+            [clojure-redpoint.hats :as hat]
+            [clojure.spec.alpha :as s]))
 
 (def test-hat [:PauMcc :GeoHar :JohLen :RinSta])
 (def players {:PauMcc {:player-name  "Paul McCartney",
@@ -18,14 +19,16 @@
   (is (= [:PauMcc :GeoHar :JohLen]
          (hat/remove-puck test-hat :RinSta))))
 
-;(deftest remove-puck-empty-test
-;  (is (= []
-;         (hat/remove-puck [] :RinSta))))
-;
-;(deftest discard-puck-givee-test
-;  (is (= [:PauMcc :JohLen]
-;         (hat/discard-puck-givee [:PauMcc] :JohLen))))
-;
+(deftest remove-puck-empty-test
+  (is (= []
+         (hat/remove-puck [] :RinSta))))
+
+(deftest discard-puck-givee-test
+  (is (= [:PauMcc :JohLen]
+         (hat/discard-puck-givee [:PauMcc] :JohLen))))
+(s/conform ::hat/hat
+           (hat/discard-puck-givee [:PauMcc] :JohLen))
+
 ;(deftest return-discards-test
 ;  (is (= [:PauMcc :JohLen :GeoHar]
 ;         (hat/return-discards [:PauMcc :JohLen] [:GeoHar]))))

@@ -18,12 +18,12 @@
         :args (s/cat :hat ::hat :plr-key ::gh/player-key)
         :ret ::hat)
 
-;(defn discard-puck-givee [discards givee]
-;  (conj discards givee))
-;(s/fdef discard-puck-givee
-;  :args (s/cat :discards ::hat :givee ::ros/givee)
-;  :ret ::hat)
-;
+(defn discard-puck-givee [discards givee]
+  (conj discards givee))
+(s/fdef discard-puck-givee
+        :args (s/cat :discards ::hat :givee ::gp/givee)
+        :ret ::hat)
+
 ;(defn return-discards [ge-hat discards]
 ;  (into ge-hat discards))
 ;(s/fdef return-discards
