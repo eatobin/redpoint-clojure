@@ -1,6 +1,6 @@
 (ns clojure-redpoint.hats
   (:require [clojure-redpoint.gift-pair :as gp]
-            [clojure-redpoint.players :as plrs]
+            [clojure-redpoint.gift-history :as gh]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
@@ -12,12 +12,12 @@
         :args (s/cat :players :unq/players)
         :ret ::hat)
 
-;(defn remove-puck [hat plr-sym]
-;  (into [] (filter #(not= % plr-sym) hat)))
-;(s/fdef remove-puck
-;  :args (s/cat :hat ::hat :plr-sym keyword?)
-;  :ret ::hat)
-;
+(defn remove-puck [hat plr-key]
+  (into [] (filter #(not= % plr-key) hat)))
+(s/fdef remove-puck
+        :args (s/cat :hat ::hat :plr-key ::gh/player-key)
+        :ret ::hat)
+
 ;(defn discard-puck-givee [discards givee]
 ;  (conj discards givee))
 ;(s/fdef discard-puck-givee

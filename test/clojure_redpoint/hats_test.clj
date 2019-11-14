@@ -14,10 +14,10 @@
   (is (= test-hat
          (hat/make-hat players))))
 
-;(deftest remove-puck-test
-;  (is (= [:PauMcc :GeoHar :JohLen]
-;         (hat/remove-puck test-hat :RinSta))))
-;
+(deftest remove-puck-test
+  (is (= [:PauMcc :GeoHar :JohLen]
+         (hat/remove-puck test-hat :RinSta))))
+
 ;(deftest remove-puck-empty-test
 ;  (is (= []
 ;         (hat/remove-puck [] :RinSta))))
