@@ -6,10 +6,10 @@
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
-(s/def ::hat (s/coll-of ::gp/giv :kind vector?))
+(s/def ::hat (s/coll-of ::gh/player-key :kind set?))
 
 (defn make-hat [players]
-  (into [] (keys players)))
+  (into #{} (keys players)))
 (s/fdef make-hat
         :args (s/cat :players :unq/players)
         :ret ::hat)
