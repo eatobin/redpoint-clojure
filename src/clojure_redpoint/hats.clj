@@ -1,3 +1,5 @@
+;; TODO
+;; use a Set and use Scala packages
 (ns clojure-redpoint.hats
   (:require [clojure-redpoint.gift-pair :as gp]
             [clojure-redpoint.gift-history :as gh]
