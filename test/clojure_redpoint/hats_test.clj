@@ -4,7 +4,7 @@
             [clojure-redpoint.players]
             [clojure.spec.alpha :as s]))
 
-(def test-hat [:PauMcc :GeoHar :JohLen :RinSta])
+(def test-hat #{:PauMcc :GeoHar :JohLen :RinSta})
 (def players {:PauMcc {:player-name  "Paul McCartney",
                        :gift-history [{:giver :JohLen, :givee :GeoHar}]},
               :GeoHar {:player-name  "George Harrison",
@@ -17,19 +17,19 @@
          (hat/make-hat players))))
 
 (deftest remove-puck-test
-  (is (= [:PauMcc :GeoHar :JohLen]
+  (is (= #{:PauMcc :GeoHar :JohLen}
          (hat/remove-puck test-hat :RinSta))))
 
 (deftest remove-puck-empty-test
-  (is (= []
-         (hat/remove-puck [] :RinSta))))
+  (is (= #{}
+         (hat/remove-puck #{} :RinSta))))
 
 (deftest discard-puck-givee-test
-  (is (= [:PauMcc :JohLen]
-         (hat/discard-puck-givee [:PauMcc] :JohLen))))
-(s/conform ::hat/hat
-           (hat/discard-puck-givee [:PauMcc] :JohLen))
+  (is (= #{:PauMcc :JohLen}
+         (hat/discard-givee #{:PauMcc} :JohLen))))
+(s/conform ::hat/discards
+           (hat/discard-givee #{:PauMcc} :JohLen))
 
 (deftest return-discards-test
-  (is (= [:PauMcc :JohLen :GeoHar]
-         (hat/return-discards [:PauMcc :JohLen] [:GeoHar]))))
+  (is (= #{:PauMcc :JohLen :GeoHar}
+         (hat/return-discards #{:PauMcc :JohLen} #{:GeoHar}))))

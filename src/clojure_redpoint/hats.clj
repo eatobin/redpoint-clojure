@@ -1,5 +1,3 @@
-;; TODO
-;; use a Set and use Scala packages
 (ns clojure-redpoint.hats
   (:require [clojure-redpoint.gift-pair :as gp]
             [clojure-redpoint.gift-history :as gh]
@@ -7,6 +5,7 @@
             [orchestra.spec.test :as ostest]))
 
 (s/def ::hat (s/coll-of ::gh/player-key :kind set?))
+(s/def ::discards (s/coll-of ::gh/player-key :kind set?))
 
 (defn make-hat [players]
   (into #{} (keys players)))
@@ -15,30 +14,32 @@
         :ret ::hat)
 
 (defn remove-puck [hat plr-key]
-  (into [] (filter #(not= % plr-key) hat)))
+  (into #{} (filter #(not= % plr-key) hat)))
 (s/fdef remove-puck
-        :args (s/cat :hat ::hat :plr-key ::gh/player-key)
+        :args (s/cat :hat ::hat
+                     :plr-key ::gh/player-key)
         :ret ::hat)
 
-(defn discard-puck-givee [discards givee]
+(defn discard-givee [discards givee]
   (conj discards givee))
-(s/fdef discard-puck-givee
-        :args (s/cat :discards ::hat :givee ::gp/givee)
-        :ret ::hat)
+(s/fdef discard-givee
+        :args (s/cat :discards ::discards :givee ::gp/givee)
+        :ret ::discards)
 
 (defn return-discards [ge-hat discards]
   (into ge-hat discards))
 (s/fdef return-discards
-        :args (s/cat :ge-hat ::hat :discards ::hat)
+        :args (s/cat :ge-hat ::hat
+                     :discards ::discards)
         :ret ::hat)
 
-(defn empty-discards [_]
+(defn empty-discards
   [])
 (s/fdef empty-discards
-        :args (s/cat :unused-value any?)
-        :ret ::hat)
+        :args (s/cat)
+        :ret ::discards)
 
-(s/conform ::hat
-           (empty-discards []))
+(s/conform ::discards
+           (empty-discards))
 
 (ostest/instrument)
