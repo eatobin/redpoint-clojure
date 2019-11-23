@@ -1,41 +1,43 @@
-;(ns clojure-redpoint.core
-;  (:require [clojure.string :as cs]
-;            [clojure-redpoint.roster :as ros]
-;            [clojure-redpoint.hats :as hat]
-;            [clojure-redpoint.rules :as rule]
-;            [clojure-redpoint.roster-string-check :as rsc]
-;            [clojure.java.io :as io])
-;  (:gen-class))
-;
-;(def a-g-year (atom 0))
-;(def a-giver (atom nil))
-;(def a-givee (atom nil))
-;(def a-plrs-map (atom {}))
-;(def a-gr-hat (atom []))
-;(def a-ge-hat (atom []))
-;(def a-discards (atom []))
-;(def file-path "blackhawks2010.txt")
-;
-;(defn exit-now! []
-;  (System/exit 99))
-;
-;(defn scrubbed-or-quit
-;  "Return a scrubbed string or quit the program if the file does not exist
-;  or if the string cannot be scrubbed"
-;  [file-path]
-;  (if (.exists (io/file file-path))
-;    (let [[scrubbed err] (rsc/scrubbed-roster-string
-;                          (slurp file-path))]
-;      (if (nil? err)
-;        scrubbed
-;        (do
-;          (println err)
-;          (println "Bye..")
-;          (exit-now!))))
-;    (do
-;      (println "The requested file does not exist..")
-;      (exit-now!))))
-;
+(ns clojure-redpoint.core
+  (:require [clojure.string :as cs]
+            [clojure.data.json :as json]
+            [clojure-redpoint.roster :as ros]
+            [clojure-redpoint.hats :as hat]
+            [clojure-redpoint.rules :as rule]
+            [clojure.java.io :as io])
+  (:gen-class))
+
+(def a-g-year (atom 0))
+(def a-giver (atom nil))
+(def a-givee (atom nil))
+(def a-plrs-map (atom {}))
+(def a-gr-hat (atom []))
+(def a-ge-hat (atom []))
+(def a-discards (atom []))
+(def file-path "blackhawks2010.txt")
+
+(defn exit-now! []
+  (System/exit 99))
+
+(defn roster-or-quit
+  "Return a roster or quit the program if the file does not exist
+  or if the string cannot be scrubbed"
+  [file-path]
+  (if (.exists (io/file file-path))
+    (let [[roster err] [(json/read-str
+                          (slurp file-path)
+                          :key-fn keyword)
+                        nil]]
+      (if (nil? err)
+        roster
+        (do
+          (println err)
+          (println "Bye..")
+          (exit-now!))))
+    (do
+      (println "The requested file does not exist..")
+      (exit-now!))))
+
 ;(defn draw-puck [hat]
 ;  (when (not= 0 (count hat))
 ;    (rand-nth hat)))
