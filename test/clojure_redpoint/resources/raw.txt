@@ -1,0 +1,128 @@
+8/31/16
+slurped:
+(slurp "beatles2014.txt")
+=>
+"The Beatles, 2014
+ RinSta, Ringo Starr, JohLen, GeoHar
+ JohLen, John Lennon, PauMcc, RinSta
+ GeoHar, George Harrison, RinSta, PauMcc
+ PauMcc, Paul McCartney, GeoHar, JohLen
+ "
+
+"The Beatles, 2014\nRinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen\n"
+ "RinSta, Ringo Starr, JohLen, GeoHar\nJohLen, John Lennon, PauMcc, RinSta\nGeoHar, George Harrison, RinSta, PauMcc\nPauMcc, Paul McCartney, GeoHar, JohLen"
+de-spaced:
+(clojure.string/replace (slurp "beatles2014.txt") #", " ",")
+=>
+"The Beatles,2014
+ RinSta,Ringo Starr,JohLen,GeoHar
+ JohLen,John Lennon,PauMcc,RinSta
+ GeoHar,George Harrison,RinSta,PauMcc
+ PauMcc,Paul McCartney,GeoHar,JohLen
+ "
+
+parsed:
+(csv/parse-csv (clojure.string/replace (slurp "beatles2014.txt") #", " ","))
+=>
+(["The Beatles" "2014"]
+ ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
+ ["JohLen" "John Lennon" "PauMcc" "RinSta"]
+ ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
+ ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"])
+
+[["The Beatles" "2014"]
+ ["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
+ ["JohLen" "John Lennon" "PauMcc" "RinSta"]
+ ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
+ ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]]
+
+[["RinSta" "Ringo Starr" "JohLen" "GeoHar"]
+ ["JohLen" "John Lennon" "PauMcc" "RinSta"]
+ ["GeoHar" "George Harrison" "RinSta" "PauMcc"]
+ ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"]]
+
+ {:RinSta {:name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]},
+  :JohLen {:name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+  :GeoHar {:name "George Harrison", :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+  :PauMcc {:name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]}}
+
+((get-in beatles [:GeoHar :gift-history]) 0)
+=> {:giver :PauMcc, :givee :RinSta}
+
+(get-in ((get-in beatles [:GeoHar :gift-history]) 0) [:giver])
+=> :PauMcc
+
+(get-in beatles [:JohLen :gift-history 0 :givee])
+=> :PauMcc
+
+(make-map ["PauMcc" "Paul McCartney" "GeoHar" "JohLen"])
+=>
+{:PauMcc {:name "Paul McCartney",
+          :gift-history [{:giver :JohLen, :givee :GeoHar}]}}
+
+fromList [("GeoHar",Player {name = "George Harrison", giftHist = [GiftPair {giver = "PauMcc", givee = "RinSta"}]}),("JohLen",Player {name = "John Lennon", giftHist = [GiftPair {giver = "RinSta", givee = "PauMcc"}]}),("PauMcc",Player {name = "Paul McCartney", giftHist = [GiftPair {giver = "JohLen", givee = "GeoHar"}]}),("RinSta",Player {name = "Ringo Starr", giftHist = [GiftPair {giver = "GeoHar", givee = "JohLen"}]})]
+
+"RinSta, Ringo Starr, JohLen, GeoHar"
+
+[["RinSta","Ringo Starr","JohLen","GeoHar"],["JohLen","John Lennon","PauMcc","RinSta"],["GeoHar","George Harrison","RinSta","PauMcc"],["PauMcc","Paul McCartney","GeoHar","JohLen"]]
+
+fromList [("PauMcc",Player {name = "Paul McCartney", giftHist = [GiftPair {givee = "GeoHar", giver = "JohLen"}]})]
+fromList [("RinSta",Player {name = "Ringo Starr", giftHist = [GiftPair {givee = "JohLen", giver = "GeoHar"}]})]
+
+(defn foo [m f]
+  (into {} (for [[k v] m] [k (f v)])))
+
+(defn print-string-giving-roster1 [r-name r-year]
+  (println)
+  (println r-name "- Year" (+ r-year (deref a-g-year)) "Gifts:")
+  (println)
+  (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
+          :let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
+                givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
+                givee-name (get-player-name-in-roster (deref a-plrs-map) givee-code)]
+          :when (not= givee-code :none)]
+    (println player-name "is buying for" givee-name))
+  (let [errors? (seq (for [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
+                           :let [givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
+                           :when (= givee-code :none)]
+                       [plr-sym]))]
+    (when errors?
+      (println)
+      (println "There is a logic error in this year's pairings.")
+      (println "Do you see it?")
+      (println "If not... call me and I'll explain!")
+      (println)
+      (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
+              :let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
+                    givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
+              :when (= givee-code :none)]
+        (println player-name "is buying for no one."))
+      (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
+              :let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
+                    giver-code (get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
+              :when (= giver-code :none)]
+        (println player-name "is receiving from no one.")))))
+
+(defn print-string-giving-roster [r-name r-year]
+  (let [no-givee (atom [])
+        no-giver (atom [])
+        roster-string (atom [])]
+    (swap! roster-string conj "\n" r-name " - Year " (+ r-year (deref a-g-year)) " Gifts:\n\n")
+    (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))]
+      (let [player-name (get-player-name-in-roster (deref a-plrs-map) plr-sym)
+            givee-code (get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
+            giver-code (get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
+        (if (= givee-code :none)
+          (swap! no-givee conj plr-sym)
+          (swap! roster-string conj player-name " is buying for " (get-player-name-in-roster (deref a-plrs-map) givee-code) "\n"))
+        (if (= giver-code :none)
+          (swap! no-giver conj plr-sym))))
+    (when (and (seq (deref no-givee))
+               (seq (deref no-giver)))
+      (do
+        (swap! roster-string conj "\nThere is a logic error in this year's pairings.\nDo you see it?\nIf not... call me and I'll explain!\n\n")
+        (doseq [plr-sym (deref no-givee)]
+          (swap! roster-string conj (get-player-name-in-roster (deref a-plrs-map) plr-sym) " is buying for no one.\n"))
+        (doseq [plr-sym (deref no-giver)]
+          (swap! roster-string conj (get-player-name-in-roster (deref a-plrs-map) plr-sym) " is receiving from no one.\n"))))
+    (apply str (deref roster-string))))
