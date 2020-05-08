@@ -1,9 +1,11 @@
-;(ns clojure-redpoint.core-test
-;  (:require [clojure.test :refer :all]
-;            [clojure-redpoint.core :as core]
-;            [clojure-redpoint.roster :as ros]
-;            [clojure-redpoint.hats :as hat]))
-;
+(ns clojure-redpoint.core-test
+  (:require [clojure.test :refer :all]
+            [clojure-redpoint.core :as core]
+            [clojure-redpoint.roster :as ros]
+            [clojure-redpoint.hats :as hat]))
+
+(core/roster-or-quit "resources/beatles.json")
+
 ;(def scrubbed "The Beatles,2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen")
 ;
 ;(deftest scrubbed-or-quit-test
