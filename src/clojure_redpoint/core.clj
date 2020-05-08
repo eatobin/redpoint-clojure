@@ -24,9 +24,8 @@
   or if the string cannot be scrubbed"
   [file-path]
   (if (.exists (io/file file-path))
-    (json/read-str
-      (slurp file-path)
-      :key-fn keyword)
+    (json/read (io/reader file-path)
+               :key-fn keyword)
     (do
       (println "The requested file does not exist..")
       (exit-now!))))
