@@ -24,16 +24,9 @@
   or if the string cannot be scrubbed"
   [file-path]
   (if (.exists (io/file file-path))
-    (let [[roster err] [(json/read-str
-                          (slurp file-path)
-                          :key-fn keyword)
-                        nil]]
-      (if (nil? err)
-        roster
-        (do
-          (println err)
-          (println "Bye..")
-          (exit-now!))))
+    (json/read-str
+      (slurp file-path)
+      :key-fn keyword)
     (do
       (println "The requested file does not exist..")
       (exit-now!))))
