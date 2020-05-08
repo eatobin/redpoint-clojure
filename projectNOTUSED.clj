@@ -5,7 +5,7 @@
             :url  "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [org.clojure/test.check "1.0.0"]
-                 [clojure-csv "2.0.2"]
+                 [org.clojure/data.json "1.0.0"]
                  [orchestra "2019.02.06-1"]]
   :main ^:skip-aot clojure-redpoint.core
   :target-path "target/%s"
