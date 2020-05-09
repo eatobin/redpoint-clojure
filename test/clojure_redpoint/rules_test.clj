@@ -1,7 +1,8 @@
 (ns clojure-redpoint.rules-test
   (:require [clojure.test :refer :all]
             [clojure-redpoint.rules :as rule]
-            [clojure-redpoint.players :as plrs]))
+            [clojure-redpoint.players :as plrs]
+            [clojure.spec.alpha :as s]))
 
 (def beatles-plus-pm {:RinSta {:player-name "Ringo Starr", :gift-history [{:giver :KarLav, :givee :JohLen}]},
                       :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :GeoHar}]},
@@ -29,12 +30,16 @@
          (rule/givee-not-self? :RinSta :GeoHar)))
   (is (= false
          (rule/givee-not-self? :RinSta :RinSta))))
+(s/conform boolean?
+           (rule/givee-not-self? :RinSta :GeoHar))
 
 (deftest givee-not-recip-test
   (is (= true
          (rule/givee-not-recip? :RinSta :JohLen 0 beatles-plus-pm)))
   (is (= false
          (rule/givee-not-recip? :RinSta :KarLav 0 beatles-plus-pm))))
+(s/conform boolean?
+           (rule/givee-not-recip? :RinSta :JohLen 0 beatles-plus-pm))
 
 (deftest givee-not-repeat-test
   (is (= false
@@ -53,3 +58,5 @@
          (rule/givee-not-repeat? :RinSta :EriTob 5 beatles-plus-4)))
   (is (= false
          (rule/givee-not-repeat? :RinSta :KarLav 5 beatles-plus-4))))
+(s/conform boolean?
+           (rule/givee-not-repeat? :RinSta :JohLen 2 beatles-plus-4))

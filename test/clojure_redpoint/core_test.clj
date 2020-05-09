@@ -2,36 +2,28 @@
   (:require [clojure.test :refer :all]
             [clojure-redpoint.core :as core]
             [clojure-redpoint.roster :as ros]
-            [clojure-redpoint.hats :as hat]))
+            [clojure-redpoint.gift-pair :as gp]
+            [clojure-redpoint.hats :as hat]
+            [clojure.spec.alpha :as s]))
 
-(core/roster-or-quit "resources/beatles.json")
+(deftest roster-or-quit-test
+  (is (= "The Beatles"
+         ((core/roster-or-quit "resources/beatles.json") :roster-name))))
+(s/conform ::ros/roster-name
+           ((core/roster-or-quit "resources/beatles.json") :roster-name))
 
-;(def scrubbed "The Beatles,2014\nRinSta,Ringo Starr,JohLen,GeoHar\nJohLen,John Lennon,PauMcc,RinSta\nGeoHar,George Harrison,RinSta,PauMcc\nPauMcc,Paul McCartney,GeoHar,JohLen")
-;
-;(deftest scrubbed-or-quit-test
-;  (is (= scrubbed
-;         (core/scrubbed-or-quit "beatles2014.txt")))
-;  (with-redefs [core/exit-now! (constantly "we exit here")]
-;    (is (= "we exit here" (core/scrubbed-or-quit "no-file.txt"))))
-;  (with-redefs [core/exit-now! (constantly "we exit here")]
-;    (is (= "we exit here" (core/scrubbed-or-quit "bad-length.txt"))))
-;  (with-redefs [core/exit-now! (constantly "we exit here")]
-;    (is (= "we exit here" (core/scrubbed-or-quit "bad-symbol.txt"))))
-;  (with-redefs [core/exit-now! (constantly "we exit here")]
-;    (is (= "we exit here" (core/scrubbed-or-quit "empty-first-line.txt"))))
-;  (with-redefs [core/exit-now! (constantly "we exit here")]
-;    (is (= "we exit here" (core/scrubbed-or-quit "missing-symbol.txt"))))
-;  (with-redefs [core/exit-now! (constantly "we exit here")]
-;    (is (= "we exit here" (core/scrubbed-or-quit "no-name.txt"))))
-;  (with-redefs [core/exit-now! (constantly "we exit here")]
-;    (is (= "we exit here" (core/scrubbed-or-quit "no-year.txt"))))
-;  (with-redefs [core/exit-now! (constantly "we exit here")]
-;    (is (= "we exit here" (core/scrubbed-or-quit "year-has-letter.txt"))))
-;  (with-redefs [core/exit-now! (constantly "we exit here")]
-;    (is (= "we exit here" (core/scrubbed-or-quit "year-too-big.txt"))))
-;  (with-redefs [core/exit-now! (constantly "we exit here")]
-;    (is (= "we exit here" (core/scrubbed-or-quit "year-too-small.txt")))))
-;
+(def test-hat #{:PauMcc :GeoHar :JohLen :RinSta})
+
+(deftest draw-puck-test
+  (is (true?
+        (nil? (core/draw-puck #{}))))
+  (is (true?
+        (some? (core/draw-puck test-hat)))))
+(s/conform ::gp/giv
+           (core/draw-puck test-hat))
+(s/conform nil?
+           (core/draw-puck #{}))
+
 ;(deftest start-new-year-test
 ;  (reset! core/a-g-year 0)
 ;  (reset! core/a-giver nil)

@@ -30,10 +30,10 @@
       (println "The requested file does not exist..")
       (exit-now!))))
 
-;(defn draw-puck [hat]
-;  (when (not= 0 (count hat))
-;    (rand-nth hat)))
-;
+(defn draw-puck [hat]
+  (when (not= 0 (count hat))
+    ((shuffle hat) 0)))
+
 ;(defn start-new-year []
 ;  (swap! a-g-year inc)
 ;  (swap! a-plrs-map ros/add-year-in-roster)
