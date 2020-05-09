@@ -37,3 +37,5 @@
 (deftest empty-discards-test
   (is (= #{}
          (hat/empty-discards))))
+(s/conform ::hat/discards
+           (hat/empty-discards))

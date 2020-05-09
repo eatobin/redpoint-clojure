@@ -40,7 +40,4 @@
         :args (s/cat)
         :ret ::discards)
 
-(s/conform ::discards
-           (empty-discards))
-
 (ostest/instrument)
