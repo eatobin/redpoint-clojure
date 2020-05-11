@@ -1,5 +1,5 @@
 (ns clojure-redpoint.core
-  (:require [clojure.string :as cs]
+  (:require [clojure-redpoint.players :as plrs]
             [clojure.data.json :as json]
             [clojure-redpoint.roster :as ros]
             [clojure-redpoint.hats :as hat]
@@ -36,7 +36,7 @@
 
 ;(defn start-new-year []
 ;  (swap! a-g-year inc)
-;  (swap! a-plrs-map ros/add-year-in-roster)
+;  (swap! a-plrs-map plrs/add-year-players)
 ;  (reset! a-gr-hat (hat/make-hat (deref a-plrs-map)))
 ;  (reset! a-ge-hat (hat/make-hat (deref a-plrs-map)))
 ;  (reset! a-giver (draw-puck (deref a-gr-hat)))
@@ -49,7 +49,7 @@
 ;  (swap! a-discards hat/empty-discards)
 ;  (reset! a-giver (draw-puck (deref a-gr-hat)))
 ;  (reset! a-givee (draw-puck (deref a-ge-hat))))
-;
+
 ;(defn givee-is-success []
 ;  (swap! a-plrs-map ros/set-givee-in-roster (deref a-giver) (deref a-g-year) (deref a-givee))
 ;  (swap! a-plrs-map ros/set-giver-in-roster (deref a-givee) (deref a-g-year) (deref a-giver))
