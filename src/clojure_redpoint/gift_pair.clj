@@ -4,31 +4,40 @@
 
 (s/def ::givee keyword?)
 (s/def ::giver keyword?)
-(s/def ::giv keyword?)
-(s/def ::ee-er keyword?)
 (s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
 
-(defn get-giv-ee-er
-  "Returns a givEeEr given a gift pair and ee-er"
-  [g-pair ee-er]
-  (if (= ee-er :ee)
-    (g-pair :givee)
-    (g-pair :giver)))
-(s/fdef get-giv-ee-er
-        :args (s/cat :g-pair :unq/gift-pair
-                     :ee-er ::ee-er)
-        :ret ::giv)
+(defn get-givee
+  "Returns a givee given a gift pair"
+  [g-pair]
+  (g-pair :givee))
+(s/fdef get-givee
+        :args (s/cat :g-pair :unq/gift-pair)
+        :ret ::givee)
 
-(defn set-giv-ee-er
-  "Returns a gift pair with updated givEeEr"
-  [g-pair giv ee-er]
-  (if (= ee-er :ee)
-    (assoc g-pair :givee giv)
-    (assoc g-pair :giver giv)))
-(s/fdef set-giv-ee-er
+(defn get-giver
+  "Returns a giver given a gift pair"
+  [g-pair]
+  (g-pair :giver))
+(s/fdef get-giver
+        :args (s/cat :g-pair :unq/gift-pair)
+        :ret ::giver)
+
+(defn set-givee
+  "Returns a gift pair with updated givee"
+  [g-pair givee]
+  (assoc g-pair :givee givee))
+(s/fdef set-givee
         :args (s/cat :g-pair :unq/gift-pair
-                     :giv ::giv
-                     :ee-er ::ee-er)
+                     :givee ::givee)
+        :ret :unq/gift-pair)
+
+(defn set-giver
+  "Returns a gift pair with updated giver"
+  [g-pair giver]
+  (assoc g-pair :giver giver))
+(s/fdef set-givee
+        :args (s/cat :g-pair :unq/gift-pair
+                     :giver ::giver)
         :ret :unq/gift-pair)
 
 (ostest/instrument)

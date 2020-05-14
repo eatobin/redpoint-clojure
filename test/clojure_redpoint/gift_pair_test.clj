@@ -7,20 +7,20 @@
 
 (deftest get-giv-ee-er-test
   (is (= :GeoHar
-         (gp/get-giv-ee-er gift-pair :ee)))
+         (gp/get-givee gift-pair)))
   (is (= :JohLen
-         (gp/get-giv-ee-er gift-pair :er))))
-(s/conform ::gp/giv
-           (gp/get-giv-ee-er gift-pair :ee))
-(s/conform ::gp/giv
-           (gp/get-giv-ee-er gift-pair :er))
+         (gp/get-giver gift-pair))))
+(s/conform ::gp/givee
+           (gp/get-givee gift-pair))
+(s/conform ::gp/giver
+           (gp/get-giver gift-pair))
 
 (deftest set-giv-ee-er-test
   (is (= {:giver :JohLen, :givee :NewBee}
-         (gp/set-giv-ee-er gift-pair :NewBee :ee)))
+         (gp/set-givee gift-pair :NewBee)))
   (is (= {:givee :GeoHar, :giver :NewBee}
-         (gp/set-giv-ee-er gift-pair :NewBee :er))))
+         (gp/set-giver gift-pair :NewBee))))
 (s/conform :unq/gift-pair
-           (gp/set-giv-ee-er gift-pair :NewBee :ee))
+           (gp/set-givee gift-pair :NewBee))
 (s/conform :unq/gift-pair
-           (gp/set-giv-ee-er gift-pair :NewBee :er))
+           (gp/set-giver gift-pair :NewBee))
