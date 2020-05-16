@@ -17,12 +17,12 @@
 ;                      :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
 ;                      :RinSta {:player-name "New Bee", :gift-history [{:giver :NewBee, :givee :NewBee}]}})
 ;
-;(def extended-players {:PauMcc {:player-name  "Paul McCartney",
-;                                :gift-history [{:giver :JohLen, :givee :GeoHar} {:givee :PauMcc, :giver :PauMcc}]},
-;                       :GeoHar {:player-name  "George Harrison",
-;                                :gift-history [{:giver :PauMcc, :givee :RinSta} {:givee :GeoHar, :giver :GeoHar}]},
-;                       :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc} {:givee :JohLen, :giver :JohLen}]},
-;                       :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen} {:givee :RinSta, :giver :RinSta}]}})
+(def extended-players {:PauMcc {:player-name  "Paul McCartney",
+                                :gift-history [{:giver :JohLen, :givee :GeoHar} {:givee :PauMcc, :giver :PauMcc}]},
+                       :GeoHar {:player-name  "George Harrison",
+                                :gift-history [{:giver :PauMcc, :givee :RinSta} {:givee :GeoHar, :giver :GeoHar}]},
+                       :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc} {:givee :JohLen, :giver :JohLen}]},
+                       :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen} {:givee :RinSta, :giver :RinSta}]}})
 
 (s/conform :unq/players
            players)
@@ -66,11 +66,11 @@
 ;             players
 ;             :RinSta {:player-name "New Bee", :gift-history [{:giver :NewBee, :givee :NewBee}]}))
 ;
-;(deftest add-year-players-test
-;  (is (= extended-players
-;         (plrs/add-year-players players))))
-;(s/conform :unq/players
-;           (plrs/add-year-players players))
+(deftest add-year-test
+  (is (= extended-players
+         (plrs/add-year players))))
+(s/conform :unq/players
+           (plrs/add-year players))
 ;
 ;
 ;

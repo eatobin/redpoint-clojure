@@ -21,17 +21,17 @@
         :ret (s/or :found ::player-name
                    :not-found nil?))
 
-;(defn add-year
-;  "Adds a new placeholder year to the end of a gift history"
-;  [g-hist plr-key]
-;  (conj g-hist {:givee plr-key, :giver plr-key}))
-;(s/fdef add-year
-;        :args (s/cat :g-hist :unq/gift-history
-;                     :plr-key ::player-key)
-;        :ret :unq/gift-history)
-;
-;
-;
+(defn add-year
+  "Add a year for each player in roster"
+  [players]
+  (into {} (for [[plr-key player] players]
+             (let [{:keys [player-name gift-history]} player]
+               [plr-key {:player-name  player-name,
+                         :gift-history (conj gift-history {:givee plr-key, :giver plr-key})}]))))
+(s/fdef add-year
+        :args (s/cat :players :unq/players)
+        :ret :unq/players)
+
 ;(defn get-player
 ;  "Returns a player given players and a player-key"
 ;  [players plr-key]
@@ -52,15 +52,7 @@
 ;                     :player :unq/player)
 ;        :ret :unq/players)
 ;
-;(defn add-year-players
-;  "Add a year for each player in roster"
-;  [players]
-;  (into {}
-;        (for [[plr-key player] players]
-;          [plr-key (plr/add-year-player player plr-key)])))
-;(s/fdef add-year-players
-;        :args (s/cat :players :unq/players)
-;        :ret :unq/players)
+
 ;
 ;
 ;
