@@ -55,48 +55,18 @@
 (s/conform ::plrs/giver
            (plrs/get-giver players :GeoHar 0))
 
-;(deftest get-player-pass-test
-;  (is (= {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]}
-;         (plrs/get-player players :JohLen))))
-;(s/conform (s/or :found :unq/player
-;                 :not-found nil?)
-;           (plrs/get-player players :JohLen))
-;
-;(deftest get-player-fail-test
-;  (is (= nil
-;         (plrs/get-player players :JohLenX))))
-;(s/conform (s/or :found :unq/player
-;                 :not-found nil?)
-;           (plrs/get-player players :JohLenX))
-;
-;(deftest set-player-test
-;  (is (= new-bee-players
-;         (plrs/set-player
-;           players
-;           :RinSta {:player-name "New Bee", :gift-history [{:giver :NewBee, :givee :NewBee}]}))))
-;(s/conform :unq/players
-;           (plrs/set-player
-;             players
-;             :RinSta {:player-name "New Bee", :gift-history [{:giver :NewBee, :givee :NewBee}]}))
-;
-
-;
-;
-;
-
-;
-;(deftest set-giv-ee-er-players-test
-;  (is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-;          :GeoHar {:player-name "George Harrison", :gift-history [{:giver :PauMcc, :givee :you}]},
-;          :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-;          :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
-;         (plrs/set-giv-ee-er-players players :GeoHar 0 :you :ee)))
-;  (is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-;          :GeoHar {:player-name "George Harrison", :gift-history [{:giver :you, :givee :RinSta}]},
-;          :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-;          :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
-;         (plrs/set-giv-ee-er-players players :GeoHar 0 :you :er))))
-;(s/conform :unq/players
-;           (plrs/set-giv-ee-er-players players :GeoHar 0 :you :ee))
-;(s/conform :unq/players
-;           (plrs/set-giv-ee-er-players players :GeoHar 0 :you :er))
+(deftest set-givee-giver-test
+  (is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+          :GeoHar {:player-name "George Harrison", :gift-history [{:giver :PauMcc, :givee :you}]},
+          :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+          :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
+         (plrs/set-givee players :GeoHar 0 :you)))
+  (is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+          :GeoHar {:player-name "George Harrison", :gift-history [{:giver :you, :givee :RinSta}]},
+          :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+          :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
+         (plrs/set-giver players :GeoHar 0 :you))))
+(s/conform :unq/players
+           (plrs/set-givee players :GeoHar 0 :you))
+(s/conform :unq/players
+           (plrs/set-giver players :GeoHar 0 :you))

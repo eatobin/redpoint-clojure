@@ -50,47 +50,24 @@
                      :g-year ::gift-year)
         :ret ::giver)
 
-;(defn get-player
-;  "Returns a player given players and a player-key"
-;  [players plr-key]
-;  (players plr-key))
-;(s/fdef get-player
-;        :args (s/cat :players :unq/players
-;                     :plr-key ::gh/player-key)
-;        :ret (s/or :found :unq/player
-;                   :not-found nil?))
-;
-;(defn set-player
-;  "Sets a player given players, a player-key and a new player"
-;  [players plr-key player]
-;  (assoc players plr-key player))
-;(s/fdef set-player
-;        :args (s/cat :players :unq/players
-;                     :plr-key ::gh/player-key
-;                     :player :unq/player)
-;        :ret :unq/players)
-;
+(defn set-givee
+  [players plr-key g-year givee]
+  (assoc-in players [plr-key :gift-history g-year :givee] givee))
+(s/fdef set-givee
+        :args (s/cat :players :unq/players
+                     :plr-key ::player-key
+                     :g-year ::gift-year
+                     :givee ::givee)
+        :ret :unq/players)
 
-;
-;
-;
-
-;
-;(defn set-giv-ee-er-players
-;  [players plr-key g-year giv ee-er]
-;  (let [plr (get-player players plr-key)
-;        gh (plr :gift-history)
-;        gp (gh g-year)
-;        ngp (gp/set-giv-ee-er gp giv ee-er)
-;        ngh (gh/set-gift-pair gh g-year ngp)
-;        nplr (plr/set-gift-history plr ngh)]
-;    (set-player players plr-key nplr)))
-;(s/fdef set-giv-ee-er-players
-;        :args (s/cat :players :unq/players
-;                     :plr-key ::gh/player-key
-;                     :g-year ::gh/gift-year
-;                     :giv ::gp/giv
-;                     :ee-er ::gp/ee-er)
-;        :ret :unq/players)
+(defn set-giver
+  [players plr-key g-year giver]
+  (assoc-in players [plr-key :gift-history g-year :giver] giver))
+(s/fdef set-givee
+        :args (s/cat :players :unq/players
+                     :plr-key ::player-key
+                     :g-year ::gift-year
+                     :giver ::giver)
+        :ret :unq/players)
 
 (ostest/instrument)
