@@ -32,6 +32,22 @@
         :args (s/cat :players :unq/players)
         :ret :unq/players)
 
+;FIXME
+(defn get-giv-ee-er-players
+  [players plr-key ee-er g-year]
+  (let [plr (get-player players plr-key)
+        gh (plr :gift-history)
+        gp (gh g-year)]
+    (if (= ee-er :ee)
+      (gp :givee)
+      (gp :giver))))
+(s/fdef get-giv-ee-er-players
+        :args (s/cat :players :unq/players
+                     :plr-key ::gh/player-key
+                     :ee-er ::gp/ee-er
+                     :g-year ::gh/gift-year)
+        :ret ::gp/giv)
+
 ;(defn get-player
 ;  "Returns a player given players and a player-key"
 ;  [players plr-key]
@@ -56,20 +72,7 @@
 ;
 ;
 ;
-;(defn get-giv-ee-er-players
-;  [players plr-key ee-er g-year]
-;  (let [plr (get-player players plr-key)
-;        gh (plr :gift-history)
-;        gp (gh g-year)]
-;    (if (= ee-er :ee)
-;      (gp :givee)
-;      (gp :giver))))
-;(s/fdef get-giv-ee-er-players
-;        :args (s/cat :players :unq/players
-;                     :plr-key ::gh/player-key
-;                     :ee-er ::gp/ee-er
-;                     :g-year ::gh/gift-year)
-;        :ret ::gp/giv)
+
 ;
 ;(defn set-giv-ee-er-players
 ;  [players plr-key g-year giv ee-er]
