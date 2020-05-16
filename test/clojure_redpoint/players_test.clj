@@ -27,20 +27,33 @@
 (s/conform :unq/players
            players)
 
-(deftest get-player-name-pass-test
+(deftest get-player-name-test
   (is (= "George Harrison"
-         (plrs/get-player-name players :GeoHar))))
-(s/conform (s/or :found ::plrs/player-name
-                 :not-found nil?)
-           (plrs/get-player-name players :GeoHar))
-
-(deftest get-player-name-fail-test
+         (plrs/get-player-name players :GeoHar)))
   (is (nil?
         (plrs/get-player-name players :GeoHarX))))
 (s/conform (s/or :found ::plrs/player-name
                  :not-found nil?)
+           (plrs/get-player-name players :GeoHar))
+(s/conform (s/or :found ::plrs/player-name
+                 :not-found nil?)
            (plrs/get-player-name players :GeoHarX))
 
+(deftest add-year-test
+  (is (= extended-players
+         (plrs/add-year players))))
+(s/conform :unq/players
+           (plrs/add-year players))
+
+(deftest get-givee-giver-test
+  (is (= :RinSta
+         (plrs/get-givee players :GeoHar 0))))
+;#_(is (= :PauMcc
+;         (plrs/get-giv-ee-er-players players :GeoHar :er 0))))
+(s/conform ::plrs/givee
+           (plrs/get-givee players :GeoHar 0))
+;#_(s/conform ::gp/giv
+;             (plrs/get-giv-ee-er-players players :GeoHar :ee 0))
 
 ;(deftest get-player-pass-test
 ;  (is (= {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]}
@@ -66,23 +79,11 @@
 ;             players
 ;             :RinSta {:player-name "New Bee", :gift-history [{:giver :NewBee, :givee :NewBee}]}))
 ;
-(deftest add-year-test
-  (is (= extended-players
-         (plrs/add-year players))))
-(s/conform :unq/players
-           (plrs/add-year players))
+
 ;
 ;
 ;
-;(deftest get-giv-ee-er-players-test
-;  (is (= :RinSta
-;         (plrs/get-giv-ee-er-players players :GeoHar :ee 0)))
-;  (is (= :PauMcc
-;         (plrs/get-giv-ee-er-players players :GeoHar :er 0))))
-;(s/conform ::gp/giv
-;           (plrs/get-giv-ee-er-players players :GeoHar :ee 0))
-;(s/conform ::gp/giv
-;           (plrs/get-giv-ee-er-players players :GeoHar :ee 0))
+
 ;
 ;(deftest set-giv-ee-er-players-test
 ;  (is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
