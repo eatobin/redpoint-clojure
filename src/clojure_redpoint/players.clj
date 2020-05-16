@@ -41,6 +41,15 @@
                      :g-year ::gift-year)
         :ret ::givee)
 
+(defn get-giver
+  [players plr-key g-year]
+  (get-in players [plr-key :gift-history g-year :giver]))
+(s/fdef get-givee
+        :args (s/cat :players :unq/players
+                     :plr-key ::player-key
+                     :g-year ::gift-year)
+        :ret ::giver)
+
 ;(defn get-player
 ;  "Returns a player given players and a player-key"
 ;  [players plr-key]

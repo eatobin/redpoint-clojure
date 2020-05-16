@@ -48,8 +48,8 @@
 (deftest get-givee-giver-test
   (is (= :RinSta
          (plrs/get-givee players :GeoHar 0))))
-;#_(is (= :PauMcc
-;         (plrs/get-giv-ee-er-players players :GeoHar :er 0))))
+(is (= :PauMcc
+        (plrs/get-giv-ee-er-players players :GeoHar :er 0))))
 (s/conform ::plrs/givee
            (plrs/get-givee players :GeoHar 0))
 ;#_(s/conform ::gp/giv
