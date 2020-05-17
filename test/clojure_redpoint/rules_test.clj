@@ -1,7 +1,7 @@
 (ns clojure-redpoint.rules-test
   (:require [clojure.test :refer :all]
             [clojure-redpoint.rules :as rule]
-            [clojure-redpoint.players :as plrs]
+            [clojure-redpoint.roster :as plrs]
             [clojure.spec.alpha :as s]))
 
 (def beatles-plus-pm {:RinSta {:player-name "Ringo Starr", :gift-history [{:giver :KarLav, :givee :JohLen}]},

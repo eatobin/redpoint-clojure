@@ -1,7 +1,7 @@
 (ns clojure-redpoint.rules
   (:require [clojure-redpoint.gift-pair :as gp]
             [clojure-redpoint.gift-history :as gh]
-            [clojure-redpoint.players :as plrs]
+            [clojure-redpoint.roster :as plrs]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 

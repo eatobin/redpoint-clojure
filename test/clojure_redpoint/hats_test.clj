@@ -1,7 +1,7 @@
 (ns clojure-redpoint.hats-test
   (:require [clojure.test :refer :all]
             [clojure-redpoint.hats :as hat]
-            [clojure-redpoint.players]
+            [clojure-redpoint.roster]
             [clojure.spec.alpha :as s]))
 
 (def test-hat #{:PauMcc :GeoHar :JohLen :RinSta})
