@@ -26,14 +26,16 @@
 
 (defn add-year
   "Add a year for each player in roster"
-  [players]
-  (into {} (for [[plr-key player] players]
-             (let [{:keys [player-name gift-history]} player]
-               [plr-key {:player-name  player-name,
-                         :gift-history (conj gift-history {:givee plr-key, :giver plr-key})}]))))
+  [roster]
+  {:roster-name (roster :roster-name)
+   :roster-year (roster :roster-year)
+   :players     (into {} (for [[plr-key player] (roster :players)]
+                           (let [{:keys [player-name gift-history]} player]
+                             [plr-key {:player-name  player-name,
+                                       :gift-history (conj gift-history {:givee plr-key, :giver plr-key})}])))})
 (s/fdef add-year
-        :args (s/cat :players :unq/players)
-        :ret :unq/players)
+        :args (s/cat :roster :unq/roster)
+        :ret :unq/roster)
 
 (defn get-givee
   [players plr-key g-year]

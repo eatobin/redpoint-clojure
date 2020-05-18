@@ -51,10 +51,10 @@
            (ros/get-player-name roster :GeoHarX))
 
 (deftest add-year-test
-  (is (= extended-players
-         (ros/add-year players))))
-(s/conform :unq/players
-           (ros/add-year players))
+  (is (= extended-roster
+         (ros/add-year roster))))
+(s/conform :unq/roster
+           (ros/add-year roster))
 
 (deftest get-givee-giver-test
   (is (= :RinSta
