@@ -16,10 +16,10 @@
 (s/def :unq/roster (s/keys :req-un [::roster-name ::roster-year :unq/players]))
 
 (defn get-player-name
-  [players plr-key]
-  (get-in players [plr-key :player-name]))
+  [roster plr-key]
+  (get-in roster [:players plr-key :player-name]))
 (s/fdef get-player-name
-        :args (s/cat :players :unq/players
+        :args (s/cat :players :unq/roster
                      :plr-key ::player-key)
         :ret (s/or :found ::player-name
                    :not-found nil?))

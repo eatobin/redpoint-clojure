@@ -26,20 +26,29 @@
                            :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
                            :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}})
 
-(s/conform :unq/players
-           players)
+(def extended-roster {:roster-name "The Beatles",
+                      :roster-year 2014,
+                      :players     {:PauMcc {:player-name  "Paul McCartney",
+                                             :gift-history [{:giver :JohLen, :givee :GeoHar} {:givee :PauMcc, :giver :PauMcc}]},
+                                    :GeoHar {:player-name  "George Harrison",
+                                             :gift-history [{:giver :PauMcc, :givee :RinSta} {:givee :GeoHar, :giver :GeoHar}]},
+                                    :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc} {:givee :JohLen, :giver :JohLen}]},
+                                    :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen} {:givee :RinSta, :giver :RinSta}]}}})
+
+(s/conform :unq/roster
+           roster)
 
 (deftest get-player-name-test
   (is (= "George Harrison"
-         (ros/get-player-name players :GeoHar)))
+         (ros/get-player-name roster :GeoHar)))
   (is (nil?
-        (ros/get-player-name players :GeoHarX))))
+        (ros/get-player-name roster :GeoHarX))))
 (s/conform (s/or :found ::ros/player-name
                  :not-found nil?)
-           (ros/get-player-name players :GeoHar))
+           (ros/get-player-name roster :GeoHar))
 (s/conform (s/or :found ::ros/player-name
                  :not-found nil?)
-           (ros/get-player-name players :GeoHarX))
+           (ros/get-player-name roster :GeoHarX))
 
 (deftest add-year-test
   (is (= extended-players
