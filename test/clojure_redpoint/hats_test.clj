@@ -5,16 +5,21 @@
             [clojure.spec.alpha :as s]))
 
 (def test-hat #{:PauMcc :GeoHar :JohLen :RinSta})
-(def players {:PauMcc {:player-name  "Paul McCartney",
-                       :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-              :GeoHar {:player-name  "George Harrison",
-                       :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-              :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-              :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
+
+(def roster {:roster-name "The Beatles",
+             :roster-year 2014,
+             :players     {:PauMcc {:player-name  "Paul McCartney",
+                                    :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+                           :GeoHar {:player-name  "George Harrison",
+                                    :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+                           :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                           :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}})
 
 (deftest make-hats-test
   (is (= test-hat
-         (hat/make-hat players))))
+         (hat/make-hat roster))))
+(s/conform ::hat/hat
+           (hat/make-hat roster))
 
 (deftest remove-puck-test
   (is (= #{:PauMcc :GeoHar :JohLen}
