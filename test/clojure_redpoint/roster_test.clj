@@ -67,17 +67,21 @@
            (ros/get-giver roster :GeoHar 0))
 
 (deftest set-givee-giver-test
-  (is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-          :GeoHar {:player-name "George Harrison", :gift-history [{:giver :PauMcc, :givee :you}]},
-          :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-          :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
-         (ros/set-givee players :GeoHar 0 :you)))
-  (is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-          :GeoHar {:player-name "George Harrison", :gift-history [{:giver :you, :givee :RinSta}]},
-          :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-          :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
-         (ros/set-giver players :GeoHar 0 :you))))
-(s/conform :unq/players
-           (ros/set-givee players :GeoHar 0 :you))
-(s/conform :unq/players
-           (ros/set-giver players :GeoHar 0 :you))
+  (is (= {:roster-name "The Beatles",
+          :roster-year 2014,
+          :players     {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+                        :GeoHar {:player-name "George Harrison", :gift-history [{:giver :PauMcc, :givee :you}]},
+                        :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                        :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}}
+         (ros/set-givee roster :GeoHar 0 :you)))
+  (is (= {:roster-name "The Beatles",
+          :roster-year 2014,
+          :players     {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+                        :GeoHar {:player-name "George Harrison", :gift-history [{:giver :you, :givee :RinSta}]},
+                        :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                        :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}}
+         (ros/set-giver roster :GeoHar 0 :you))))
+(s/conform :unq/roster
+           (ros/set-givee roster :GeoHar 0 :you))
+(s/conform :unq/roster
+           (ros/set-giver roster :GeoHar 0 :you))

@@ -56,23 +56,23 @@
         :ret ::giver)
 
 (defn set-givee
-  [players plr-key g-year givee]
-  (assoc-in players [plr-key :gift-history g-year :givee] givee))
+  [roster plr-key g-year givee]
+  (assoc-in roster [:players plr-key :gift-history g-year :givee] givee))
 (s/fdef set-givee
-        :args (s/cat :players :unq/players
+        :args (s/cat :roster :unq/roster
                      :plr-key ::player-key
                      :g-year ::gift-year
                      :givee ::givee)
-        :ret :unq/players)
+        :ret :unq/roster)
 
 (defn set-giver
-  [players plr-key g-year giver]
-  (assoc-in players [plr-key :gift-history g-year :giver] giver))
-(s/fdef set-givee
-        :args (s/cat :players :unq/players
+  [roster plr-key g-year giver]
+  (assoc-in roster [:players plr-key :gift-history g-year :giver] giver))
+(s/fdef set-giver
+        :args (s/cat :roster :unq/roster
                      :plr-key ::player-key
                      :g-year ::gift-year
                      :giver ::giver)
-        :ret :unq/players)
+        :ret :unq/roster)
 
 (ostest/instrument)
