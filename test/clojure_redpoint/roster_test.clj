@@ -3,20 +3,6 @@
             [clojure-redpoint.roster :as ros]
             [clojure.spec.alpha :as s]))
 
-(def players {:PauMcc {:player-name  "Paul McCartney",
-                       :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-              :GeoHar {:player-name  "George Harrison",
-                       :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-              :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-              :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
-
-(def extended-players {:PauMcc {:player-name  "Paul McCartney",
-                                :gift-history [{:giver :JohLen, :givee :GeoHar} {:givee :PauMcc, :giver :PauMcc}]},
-                       :GeoHar {:player-name  "George Harrison",
-                                :gift-history [{:giver :PauMcc, :givee :RinSta} {:givee :GeoHar, :giver :GeoHar}]},
-                       :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc} {:givee :JohLen, :giver :JohLen}]},
-                       :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen} {:givee :RinSta, :giver :RinSta}]}})
-
 (def roster {:roster-name "The Beatles",
              :roster-year 2014,
              :players     {:PauMcc {:player-name  "Paul McCartney",
