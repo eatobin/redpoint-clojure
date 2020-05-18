@@ -58,13 +58,13 @@
 
 (deftest get-givee-giver-test
   (is (= :RinSta
-         (ros/get-givee players :GeoHar 0)))
+         (ros/get-givee roster :GeoHar 0)))
   (is (= :PauMcc
-         (ros/get-giver players :GeoHar 0))))
+         (ros/get-giver roster :GeoHar 0))))
 (s/conform ::ros/givee
-           (ros/get-givee players :GeoHar 0))
+           (ros/get-givee roster :GeoHar 0))
 (s/conform ::ros/giver
-           (ros/get-giver players :GeoHar 0))
+           (ros/get-giver roster :GeoHar 0))
 
 (deftest set-givee-giver-test
   (is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},

@@ -38,19 +38,19 @@
         :ret :unq/roster)
 
 (defn get-givee
-  [players plr-key g-year]
-  (get-in players [plr-key :gift-history g-year :givee]))
+  [roster plr-key g-year]
+  (get-in roster [:players plr-key :gift-history g-year :givee]))
 (s/fdef get-givee
-        :args (s/cat :players :unq/players
+        :args (s/cat :roster :unq/roster
                      :plr-key ::player-key
                      :g-year ::gift-year)
         :ret ::givee)
 
 (defn get-giver
-  [players plr-key g-year]
-  (get-in players [plr-key :gift-history g-year :giver]))
-(s/fdef get-givee
-        :args (s/cat :players :unq/players
+  [roster plr-key g-year]
+  (get-in roster [:players plr-key :gift-history g-year :giver]))
+(s/fdef get-giver
+        :args (s/cat :roster :unq/roster
                      :plr-key ::player-key
                      :g-year ::gift-year)
         :ret ::giver)
