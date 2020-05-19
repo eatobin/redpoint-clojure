@@ -2,9 +2,10 @@
   (:require [clojure.test :refer :all]
             [clojure-redpoint.core :as core]
             [clojure-redpoint.roster :as ros]
-            [clojure-redpoint.gift-pair :as gp]
             [clojure-redpoint.hats :as hat]
             [clojure.spec.alpha :as s]))
+
+(def test-hat #{:PauMcc :GeoHar :JohLen :RinSta})
 
 (deftest roster-or-quit-test
   (is (= "The Beatles"
@@ -12,14 +13,12 @@
 (s/conform ::ros/roster-name
            ((core/roster-or-quit "resources/beatles.json") :roster-name))
 
-(def test-hat #{:PauMcc :GeoHar :JohLen :RinSta})
-
 (deftest draw-puck-test
   (is (true?
         (nil? (core/draw-puck #{}))))
   (is (true?
         (some? (core/draw-puck test-hat)))))
-(s/conform ::gp/giv
+(s/conform ::ros/givee
            (core/draw-puck test-hat))
 (s/conform nil?
            (core/draw-puck #{}))

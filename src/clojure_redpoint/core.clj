@@ -1,6 +1,5 @@
 (ns clojure-redpoint.core
-  (:require [clojure-redpoint.roster :as plrs]
-            [clojure.data.json :as json]
+  (:require [clojure.data.json :as json]
             [clojure-redpoint.roster :as ros]
             [clojure-redpoint.hats :as hat]
             [clojure-redpoint.rules :as rule]
