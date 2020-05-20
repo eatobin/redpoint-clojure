@@ -9,10 +9,10 @@
 (def a-g-year (atom 0))
 (def a-giver (atom nil))
 (def a-givee (atom nil))
-(def a-plrs-map (atom {}))
-(def a-gr-hat (atom []))
-(def a-ge-hat (atom []))
-(def a-discards (atom []))
+(def a-roster-map (atom {}))
+(def a-gr-hat (atom #{}))
+(def a-ge-hat (atom #{}))
+(def a-discards (atom #{}))
 (def file-path "blackhawks2010.txt")
 
 (defn exit-now! []
@@ -33,15 +33,15 @@
   (when (not= 0 (count hat))
     ((shuffle hat) 0)))
 
-;(defn start-new-year []
-;  (swap! a-g-year inc)
-;  (swap! a-plrs-map plrs/add-year-players)
-;  (reset! a-gr-hat (hat/make-hat (deref a-plrs-map)))
-;  (reset! a-ge-hat (hat/make-hat (deref a-plrs-map)))
-;  (reset! a-giver (draw-puck (deref a-gr-hat)))
-;  (reset! a-givee (draw-puck (deref a-ge-hat)))
-;  (swap! a-discards hat/empty-discards))
-;
+(defn start-new-year []
+ (swap! a-g-year inc)
+ (swap! a-plrs-map plrs/add-year-players)
+ (reset! a-gr-hat (hat/make-hat (deref a-plrs-map)))
+ (reset! a-ge-hat (hat/make-hat (deref a-plrs-map)))
+ (reset! a-giver (draw-puck (deref a-gr-hat)))
+ (reset! a-givee (draw-puck (deref a-ge-hat)))
+ (swap! a-discards hat/empty-discards))
+
 ;(defn select-new-giver []
 ;  (swap! a-gr-hat hat/remove-puck (deref a-giver))
 ;  (swap! a-ge-hat hat/return-discards (deref a-discards))
