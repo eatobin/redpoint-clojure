@@ -13,10 +13,16 @@
 (def a-gr-hat (atom #{}))
 (def a-ge-hat (atom #{}))
 (def a-discards (atom #{}))
-(def file-path "blackhawks2010.txt")
+(def file-path "resources/beatles.json")
 
 (defn exit-now! []
   (System/exit 99))
+
+(defn my-value-reader [key value]
+  (if (or (= key :givee)
+          (= key :giver))
+    (keyword value)
+    value))
 
 (defn roster-or-quit
   "Return a roster or quit the program if the file does not exist
@@ -24,6 +30,7 @@
   [file-path]
   (if (.exists (io/file file-path))
     (json/read (io/reader file-path)
+               :value-fn my-value-reader
                :key-fn keyword)
     (do
       (println "The requested file does not exist..")
@@ -34,13 +41,13 @@
     ((shuffle hat) 0)))
 
 (defn start-new-year []
- (swap! a-g-year inc)
- (swap! a-plrs-map plrs/add-year-players)
- (reset! a-gr-hat (hat/make-hat (deref a-plrs-map)))
- (reset! a-ge-hat (hat/make-hat (deref a-plrs-map)))
- (reset! a-giver (draw-puck (deref a-gr-hat)))
- (reset! a-givee (draw-puck (deref a-ge-hat)))
- (swap! a-discards hat/empty-discards))
+  (swap! a-g-year inc)
+  (swap! a-roster-map ros/add-year)
+  (reset! a-gr-hat (hat/make-hat (deref a-roster-map)))
+  (reset! a-ge-hat (hat/make-hat (deref a-roster-map)))
+  (reset! a-giver (draw-puck (deref a-gr-hat)))
+  (reset! a-givee (draw-puck (deref a-ge-hat)))
+  (reset! a-discards #{}))
 
 ;(defn select-new-giver []
 ;  (swap! a-gr-hat hat/remove-puck (deref a-giver))
