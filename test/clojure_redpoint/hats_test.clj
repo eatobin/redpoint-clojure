@@ -38,9 +38,3 @@
 (deftest return-discards-test
   (is (= #{:PauMcc :JohLen :GeoHar}
          (hat/return-discards #{:PauMcc :JohLen} #{:GeoHar}))))
-
-(deftest empty-discards-test
-  (is (= #{}
-         (hat/empty-discards))))
-(s/conform ::hat/discards
-           (hat/empty-discards))

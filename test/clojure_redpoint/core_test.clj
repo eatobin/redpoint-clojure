@@ -42,23 +42,22 @@
            (get-in (deref core/a-roster-map) [:players :RinSta])))
     (is (empty? (deref core/a-discards)))))
 
-;(deftest select-new-giver-test
-;  (reset! core/a-g-year 0)
-;  (reset! core/a-giver nil)
-;  (reset! core/a-givee nil)
-;  (let [players-vector (ros/make-players-vector
-;                         (core/scrubbed-or-quit "blackhawks2010.txt"))]
-;    (reset! core/a-plrs-map (ros/make-players-map players-vector))
-;    (core/start-new-year)
-;    (swap! core/a-discards hat/discard-puck-givee :AdaBur)
-;    (is (= 1
-;           (count (deref core/a-discards))))
-;    (core/select-new-giver)
-;    (is (= 17
-;           (count (deref core/a-gr-hat))))
-;    (is (= 0
-;           (count (deref core/a-discards))))))
-;
+(deftest select-new-giver-test
+  (reset! core/a-g-year 0)
+  (reset! core/a-giver nil)
+  (reset! core/a-givee nil)
+  (let [roster (core/roster-or-quit core/file-path)]
+    (reset! core/a-roster-map roster)
+    (core/start-new-year)
+    (swap! core/a-discards hat/discard-givee :GeoHar)
+    (is (= 1
+           (count (deref core/a-discards))))
+    (core/select-new-giver)
+    (is (= 3
+           (count (deref core/a-gr-hat))))
+    (is (= 0
+           (count (deref core/a-discards))))))
+
 ;(deftest givee-is-success-test
 ;  (reset! core/a-g-year 0)
 ;  (reset! core/a-giver nil)

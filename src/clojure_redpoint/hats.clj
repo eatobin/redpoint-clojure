@@ -32,11 +32,4 @@
                      :discards ::discards)
         :ret ::hat)
 
-(defn empty-discards
-  []
-  #{})
-(s/fdef empty-discards
-        :args (s/cat)
-        :ret ::discards)
-
 (ostest/instrument)
