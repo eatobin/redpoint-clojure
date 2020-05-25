@@ -37,7 +37,7 @@
       (exit-now!))))
 
 (defn draw-puck [hat]
-  (when (not= 0 (count hat))
+  (when (not (empty? hat))
     ((shuffle hat) 0)))
 
 (defn start-new-year []
