@@ -2,6 +2,10 @@
  :paths   ["resources" "src" "test"]
 
  :deps    {
+           org.clojure/clojure    {:mvn/version "1.10.1"}
+           org.clojure/test.check {:mvn/version "1.0.0"}
+           orchestra              {:mvn/version "2019.02.06-1"}
+           org.clojure/data.json  {:mvn/version "1.0.0"}
            org.clojure/clojure     {:mvn/version "1.10.1"}
            org.clojure/test.check  {:mvn/version "1.0.0"}
            clojure-csv/clojure-csv {:mvn/version "2.0.2"}
@@ -21,21 +25,61 @@
            }
  }
 
-;Aliases from /usr/local/lib/clojure/deps.edn:
+;From /usr/local/lib/clojure/deps.edn:
 
-;:deps {:extra-deps {org.clojure/tools.deps.alpha {:mvn/version "0.6.496"}}}
-;:test {:extra-paths ["test"]}
+;{
+;  :paths ["src"]
+;
+;  :deps {
+;    org.clojure/clojure {:mvn/version "1.10.x"}
+;  }
+;
+;  :aliases {
+;    :deps {:extra-deps {org.clojure/tools.deps.alpha {:mvn/version "0.8.xxx"}}}
+;    :test {:extra-paths ["test"]}
+;  }
+;
+;  :mvn/repos {
+;    "central" {:url "https://repo1.maven.org/maven2/"}
+;    "clojars" {:url "https://repo.clojars.org/"}
+;  }
+;}
 
-;Aliases from ~/.clojure/deps.edn:
+;From ~/.clojure/deps.edn:
 
-;Make new:
+;{
+;  :aliases {
+;    :new {
+;      :extra-deps {
+;        seancorfield/clj-new {:mvn/version "0.5.x"}
+;      }
+;      :main-opts ["-m" "clj-new.create"]
+;    }
+;    :k-repl {
+;      :extra-deps {
+;        viebel/klipse-repl {:mvn/version "0.2.x"}
+;      }
+;      :main-opts ["-m" "klipse-repl.main --no-easy-defs"]
+;    }
+;    :outdated {
+;      :extra-deps {
+;        olical/depot {:mvn/version "1.8.x"}
+;      }
+;      :main-opts ["-m" "depot.outdated.main"]
+;    }
+;  }
+;}
+
+;For make new project:
 ;https://github.com/seancorfield/clj-new
 
 ;For k-repl:
+;https://github.com/viebel/klipse-repl
 ;clojure -A:k-repl
 ;clojure -A:k-repl -Spath
 
 ;Check for outdated deps:
+;https://github.com/Olical/depot
 ;clojure -A:outdated -a outdated
 
 ; In this project:
