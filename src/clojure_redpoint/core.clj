@@ -2,7 +2,7 @@
   (:require [clojure.data.json :as json]
             [clojure-redpoint.roster :as ros]
             [clojure-redpoint.hats :as hat]
-            [clojure-redpoint.rules :as rule]
+    #_[clojure-redpoint.rules :as rule]
             [clojure.java.io :as io])
   (:gen-class))
 

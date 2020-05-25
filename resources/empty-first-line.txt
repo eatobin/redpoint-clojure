@@ -1,5 +1,0 @@
-
-RinSta, Ringo Starr, JohLen, GeoHar
-JohLen, John Lennon, PauMcc, RinSta
-GeoHar, George Harrison, RinSta, PauMcc
-PauMcc, Paul McCartney, GeoHar, JohLen
