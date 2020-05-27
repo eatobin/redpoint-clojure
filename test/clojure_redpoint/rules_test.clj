@@ -22,10 +22,10 @@
                      ros/add-year)
                beatles-plus-pm))
 
-(def beatles-plus-4 (ros/set-givee
-                      (ros/set-givee
-                        (ros/set-givee
-                          (ros/set-givee extended :RinSta 1 :GeoHar) :RinSta 2 :PauMcc) :RinSta 3 :EriTob) :RinSta 4 :KarLav))
+(def beatles-plus-4 (ros/update-givee
+                      (ros/update-givee
+                        (ros/update-givee
+                          (ros/update-givee extended :RinSta 1 :GeoHar) :RinSta 2 :PauMcc) :RinSta 3 :EriTob) :RinSta 4 :KarLav))
 
 (deftest givee-not-self-test
   (is (= true

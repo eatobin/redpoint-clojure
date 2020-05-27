@@ -55,20 +55,20 @@
                      :g-year ::gift-year)
         :ret ::giver)
 
-(defn set-givee
+(defn update-givee
   [roster plr-key g-year givee]
   (assoc-in roster [:players plr-key :gift-history g-year :givee] givee))
-(s/fdef set-givee
+(s/fdef update-givee
         :args (s/cat :roster :unq/roster
                      :plr-key ::player-key
                      :g-year ::gift-year
                      :givee ::givee)
         :ret :unq/roster)
 
-(defn set-giver
+(defn update-giver
   [roster plr-key g-year giver]
   (assoc-in roster [:players plr-key :gift-history g-year :giver] giver))
-(s/fdef set-giver
+(s/fdef update-giver
         :args (s/cat :roster :unq/roster
                      :plr-key ::player-key
                      :g-year ::gift-year
