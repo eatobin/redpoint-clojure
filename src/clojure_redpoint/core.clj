@@ -68,11 +68,12 @@
   (swap! a-ge-hat hat/remove-puck (deref a-givee))
   (reset! a-givee nil))
 
-; (defn givee-is-failure []
-;  (swap! a-ge-hat hat/remove-puck (deref a-givee))
-;  (swap! a-discards hat/discard-puck-givee (deref a-givee))
-;  (reset! a-givee (draw-puck (deref a-ge-hat))))
-;
+(defn givee-is-failure
+  []
+  (swap! a-ge-hat hat/remove-puck (deref a-givee))
+  (swap! a-discards hat/discard-givee (deref a-givee))
+  (reset! a-givee (draw-puck (deref a-ge-hat))))
+
 ;(defn errors? []
 ;  (seq (for [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
 ;             :let [giver-code (ros/get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))

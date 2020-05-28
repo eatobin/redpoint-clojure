@@ -73,18 +73,17 @@
              (ros/get-giver (deref core/a-roster-map) temp-ge (deref core/a-g-year))))
       (is (= nil
              (some #{temp-ge} (deref core/a-ge-hat)))))))
-;
-;(deftest givee-is-failure-test
-;  (reset! core/a-g-year 0)
-;  (reset! core/a-giver nil)
-;  (reset! core/a-givee nil)
-;  (let [players-vector (ros/make-players-vector
-;                         (core/scrubbed-or-quit "blackhawks2010.txt"))]
-;    (reset! core/a-plrs-map (ros/make-players-map players-vector))
-;    (core/start-new-year)
-;    (let [temp-ge (deref core/a-givee)]
-;      (core/givee-is-failure)
-;      (is (= temp-ge
-;             (some #{temp-ge} (deref core/a-discards))))
-;      (is (= nil
-;             (some #{temp-ge} (deref core/a-ge-hat)))))))
+
+(deftest givee-is-failure-test
+  (reset! core/a-g-year 0)
+  (reset! core/a-giver nil)
+  (reset! core/a-givee nil)
+  (let [roster (core/roster-or-quit core/file-path)]
+    (reset! core/a-roster-map roster)
+    (core/start-new-year)
+    (let [temp-ge (deref core/a-givee)]
+      (core/givee-is-failure)
+      (is (= temp-ge
+             (some #{temp-ge} (deref core/a-discards))))
+      (is (= nil
+             (some #{temp-ge} (deref core/a-ge-hat)))))))
