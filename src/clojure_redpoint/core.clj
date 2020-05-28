@@ -15,10 +15,12 @@
 (def a-discards (atom #{}))
 (def file-path "resources/beatles.json")
 
-(defn exit-now! []
+(defn exit-now!
+  []
   (System/exit 99))
 
-(defn my-value-reader [key value]
+(defn my-value-reader
+  [key value]
   (if (or (= key :givee)
           (= key :giver))
     (keyword value)
@@ -36,11 +38,13 @@
       (println "The requested file does not exist..")
       (exit-now!))))
 
-(defn draw-puck [hat]
+(defn draw-puck
+  [hat]
   (when (not (empty? hat))
     ((shuffle hat) 0)))
 
-(defn start-new-year []
+(defn start-new-year
+  []
   (swap! a-g-year inc)
   (swap! a-roster-map ros/add-year)
   (reset! a-gr-hat (hat/make-hat (deref a-roster-map)))
@@ -49,14 +53,16 @@
   (reset! a-givee (draw-puck (deref a-ge-hat)))
   (reset! a-discards #{}))
 
-(defn select-new-giver []
+(defn select-new-giver
+  []
   (swap! a-gr-hat hat/remove-puck (deref a-giver))
   (swap! a-ge-hat hat/return-discards (deref a-discards))
   (reset! a-discards #{})
   (reset! a-giver (draw-puck (deref a-gr-hat)))
   (reset! a-givee (draw-puck (deref a-ge-hat))))
 
-(defn givee-is-success []
+(defn givee-is-success
+  []
   (swap! a-roster-map ros/update-givee (deref a-giver) (deref a-g-year) (deref a-givee))
   (swap! a-roster-map ros/update-giver (deref a-givee) (deref a-g-year) (deref a-giver))
   (swap! a-ge-hat hat/remove-puck (deref a-givee))
