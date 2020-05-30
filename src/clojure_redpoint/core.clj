@@ -74,13 +74,13 @@
   (swap! a-discards hat/discard-givee (deref a-givee))
   (reset! a-givee (draw-puck (deref a-ge-hat))))
 
-;(defn errors? []
-;  (seq (for [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
-;             :let [giver-code (ros/get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
-;                   givee-code (ros/get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]
-;             :when (or (= plr-sym giver-code) (= plr-sym givee-code))]
-;         [plr-sym])))
-;
+(defn errors? []
+  (seq (for [plr-sym (keys (into (sorted-map) ((deref a-roster-map) :players)))
+             :let [giver-code (ros/get-giver ((deref a-roster-map) :players) plr-sym (deref a-g-year))
+                   givee-code (ros/get-givee ((deref a-roster-map) :players) plr-sym (deref a-g-year))]
+             :when (or (= plr-sym giver-code) (= plr-sym givee-code))]
+         [plr-sym])))
+
 ;(defn print-results []
 ;  (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
 ;          :let [player-name (ros/get-player-name-in-roster (deref a-plrs-map) plr-sym)

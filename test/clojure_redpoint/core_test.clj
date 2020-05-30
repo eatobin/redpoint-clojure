@@ -87,3 +87,11 @@
              (some #{temp-ge} (deref core/a-discards))))
       (is (= nil
              (some #{temp-ge} (deref core/a-ge-hat)))))))
+
+(deftest errors?-test
+  (reset! core/a-g-year 0)
+  (reset! core/a-giver nil)
+  (reset! core/a-givee nil)
+  (let [roster (core/roster-or-quit core/file-path)]
+    (reset! core/a-roster-map roster)
+    (core/start-new-year)))
