@@ -12,12 +12,7 @@
                            :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
                            :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}})
 
-(def players {:PauMcc {:player-name  "Paul McCartney",
-                       :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-              :GeoHar {:player-name  "George Harrison",
-                       :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-              :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-              :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
+(def players (roster :players))
 
 (def extended-players {:PauMcc {:player-name  "Paul McCartney",
                                 :gift-history [{:giver :JohLen, :givee :GeoHar} {:givee :PauMcc, :giver :PauMcc}]},
@@ -30,11 +25,11 @@
            players)
 
 (deftest roster-name-test
-  (is (= "The BeatlesX"
+  (is (= "The Beatles"
          (roster :roster-name))))
 
 (deftest roster-year-test
-  (is (= 2015
+  (is (= 2014
          (roster :roster-year))))
 
 (deftest get-player-name-test
@@ -52,7 +47,7 @@
 (deftest add-year-test
   (is (= extended-players
          (ros/add-year players))))
-(s/conform :unq/roster
+(s/conform :unq/players
            (ros/add-year players))
 
 (deftest get-givee-giver-test
