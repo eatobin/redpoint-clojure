@@ -31,9 +31,10 @@
   or if the string cannot be scrubbed"
   [file-path]
   (if (.exists (io/file file-path))
-    (json/read (io/reader file-path)
-               :value-fn my-value-reader
-               :key-fn keyword)
+    (let [roster (json/read (io/reader file-path)
+                            :value-fn my-value-reader
+                            :key-fn keyword)]
+      (reset! a-players (roster :players)))
     (do
       (println "The requested file does not exist..")
       (exit-now!))))
