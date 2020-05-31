@@ -29,6 +29,14 @@
 (s/conform :unq/players
            players)
 
+(deftest roster-name-test
+  (is (= "The BeatlesX"
+         (roster :roster-name))))
+
+(deftest roster-year-test
+  (is (= 2015
+         (roster :roster-year))))
+
 (deftest get-player-name-test
   (is (= "George Harrison"
          (ros/get-player-name players :GeoHar)))

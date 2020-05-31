@@ -67,7 +67,7 @@
   [players plr-key g-year giver]
   (assoc-in players [plr-key :gift-history g-year :giver] giver))
 (s/fdef update-giver
-        :args (s/cat :players :unq/roster
+        :args (s/cat :players :unq/players
                      :plr-key ::player-key
                      :g-year ::gift-year
                      :giver ::giver)
