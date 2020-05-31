@@ -6,10 +6,10 @@
 (s/def ::hat (s/coll-of ::ros/player-key :kind set?))
 (s/def ::discards (s/coll-of ::ros/player-key :kind set?))
 
-(defn make-hat [roster]
-  (into #{} (keys (roster :players))))
+(defn make-hat [players]
+  (into #{} (keys players)))
 (s/fdef make-hat
-        :args (s/cat :roster :unq/roster)
+        :args (s/cat :roster :unq/players)
         :ret ::hat)
 
 (defn remove-puck [hat plr-key]

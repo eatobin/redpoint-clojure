@@ -28,7 +28,7 @@
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
   (let [roster (core/roster-or-quit core/file-path)]
-    (reset! core/a-players roster)
+    (reset! core/a-players (roster :players))
     (core/start-new-year)
     (is (= 1
            (deref core/a-g-year)))
@@ -39,7 +39,7 @@
     (is (= {:player-name  "Ringo Starr",
             :gift-history [{:givee :JohLen, :giver :GeoHar}
                            {:givee :RinSta, :giver :RinSta}]}
-           (get-in (deref core/a-players) [:players :RinSta])))
+           (get-in (deref core/a-players) [:RinSta])))
     (is (empty? (deref core/a-discards)))))
 
 (deftest select-new-giver-test
@@ -47,7 +47,7 @@
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
   (let [roster (core/roster-or-quit core/file-path)]
-    (reset! core/a-players roster)
+    (reset! core/a-players (roster :players))
     (core/start-new-year)
     (swap! core/a-discards hat/discard-givee :GeoHar)
     (is (= 1
@@ -63,7 +63,7 @@
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
   (let [roster (core/roster-or-quit core/file-path)]
-    (reset! core/a-players roster)
+    (reset! core/a-players (roster :players))
     (core/start-new-year)
     (let [temp-ge (deref core/a-givee)]
       (core/givee-is-success)
@@ -79,7 +79,7 @@
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
   (let [roster (core/roster-or-quit core/file-path)]
-    (reset! core/a-players roster)
+    (reset! core/a-players (roster :players))
     (core/start-new-year)
     (let [temp-ge (deref core/a-givee)]
       (core/givee-is-failure)
@@ -93,5 +93,5 @@
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
   (let [roster (core/roster-or-quit core/file-path)]
-    (reset! core/a-players roster)
+    (reset! core/a-players (roster :players))
     (core/start-new-year)))
