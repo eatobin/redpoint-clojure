@@ -28,7 +28,7 @@
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
   (let [roster (core/roster-or-quit core/file-path)]
-    (reset! core/a-roster-map roster)
+    (reset! core/a-players roster)
     (core/start-new-year)
     (is (= 1
            (deref core/a-g-year)))
@@ -39,7 +39,7 @@
     (is (= {:player-name  "Ringo Starr",
             :gift-history [{:givee :JohLen, :giver :GeoHar}
                            {:givee :RinSta, :giver :RinSta}]}
-           (get-in (deref core/a-roster-map) [:players :RinSta])))
+           (get-in (deref core/a-players) [:players :RinSta])))
     (is (empty? (deref core/a-discards)))))
 
 (deftest select-new-giver-test
@@ -47,7 +47,7 @@
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
   (let [roster (core/roster-or-quit core/file-path)]
-    (reset! core/a-roster-map roster)
+    (reset! core/a-players roster)
     (core/start-new-year)
     (swap! core/a-discards hat/discard-givee :GeoHar)
     (is (= 1
@@ -63,14 +63,14 @@
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
   (let [roster (core/roster-or-quit core/file-path)]
-    (reset! core/a-roster-map roster)
+    (reset! core/a-players roster)
     (core/start-new-year)
     (let [temp-ge (deref core/a-givee)]
       (core/givee-is-success)
       (is (= temp-ge
-             (ros/get-givee (deref core/a-roster-map) (deref core/a-giver) (deref core/a-g-year))))
+             (ros/get-givee (deref core/a-players) (deref core/a-giver) (deref core/a-g-year))))
       (is (= (deref core/a-giver)
-             (ros/get-giver (deref core/a-roster-map) temp-ge (deref core/a-g-year))))
+             (ros/get-giver (deref core/a-players) temp-ge (deref core/a-g-year))))
       (is (= nil
              (some #{temp-ge} (deref core/a-ge-hat)))))))
 
@@ -79,7 +79,7 @@
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
   (let [roster (core/roster-or-quit core/file-path)]
-    (reset! core/a-roster-map roster)
+    (reset! core/a-players roster)
     (core/start-new-year)
     (let [temp-ge (deref core/a-givee)]
       (core/givee-is-failure)
@@ -93,5 +93,5 @@
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
   (let [roster (core/roster-or-quit core/file-path)]
-    (reset! core/a-roster-map roster)
+    (reset! core/a-players roster)
     (core/start-new-year)))

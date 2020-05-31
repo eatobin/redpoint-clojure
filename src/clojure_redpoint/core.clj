@@ -9,7 +9,7 @@
 (def a-g-year (atom 0))
 (def a-giver (atom nil))
 (def a-givee (atom nil))
-(def a-roster-map (atom {}))
+(def a-players (atom {}))
 (def a-gr-hat (atom #{}))
 (def a-ge-hat (atom #{}))
 (def a-discards (atom #{}))
@@ -46,9 +46,9 @@
 (defn start-new-year
   []
   (swap! a-g-year inc)
-  (swap! a-roster-map ros/add-year)
-  (reset! a-gr-hat (hat/make-hat (deref a-roster-map)))
-  (reset! a-ge-hat (hat/make-hat (deref a-roster-map)))
+  (swap! a-players ros/add-year)
+  (reset! a-gr-hat (hat/make-hat (deref a-players)))
+  (reset! a-ge-hat (hat/make-hat (deref a-players)))
   (reset! a-giver (draw-puck (deref a-gr-hat)))
   (reset! a-givee (draw-puck (deref a-ge-hat)))
   (reset! a-discards #{}))
@@ -63,8 +63,8 @@
 
 (defn givee-is-success
   []
-  (swap! a-roster-map ros/update-givee (deref a-giver) (deref a-g-year) (deref a-givee))
-  (swap! a-roster-map ros/update-giver (deref a-givee) (deref a-g-year) (deref a-giver))
+  (swap! a-players ros/update-givee (deref a-giver) (deref a-g-year) (deref a-givee))
+  (swap! a-players ros/update-giver (deref a-givee) (deref a-g-year) (deref a-giver))
   (swap! a-ge-hat hat/remove-puck (deref a-givee))
   (reset! a-givee nil))
 
@@ -75,9 +75,9 @@
   (reset! a-givee (draw-puck (deref a-ge-hat))))
 
 (defn errors? []
-  (seq (for [plr-sym (keys (into (sorted-map) ((deref a-roster-map) :players)))
-             :let [giver-code (ros/get-giver ((deref a-roster-map) :players) plr-sym (deref a-g-year))
-                   givee-code (ros/get-givee ((deref a-roster-map) :players) plr-sym (deref a-g-year))]
+  (seq (for [plr-sym (keys (into (sorted-map) ((deref a-players) :players)))
+             :let [giver-code (ros/get-giver ((deref a-players) :players) plr-sym (deref a-g-year))
+                   givee-code (ros/get-givee ((deref a-players) :players) plr-sym (deref a-g-year))]
              :when (or (= plr-sym giver-code) (= plr-sym givee-code))]
          [plr-sym])))
 
