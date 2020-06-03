@@ -76,40 +76,37 @@
   (is (= 0
          (count (deref core/a-discards)))))
 
-;(deftest givee-is-success-test
-;  (reset! core/a-g-year 0)
-;  (reset! core/a-giver nil)
-;  (reset! core/a-givee nil)
-;  (let [roster (core/roster-or-quit core/file-path)]
-;    (reset! core/a-players (roster :players))
-;    (core/start-new-year)
-;    (let [temp-ge (deref core/a-givee)]
-;      (core/givee-is-success)
-;      (is (= temp-ge
-;             (ros/get-givee (deref core/a-players) (deref core/a-giver) (deref core/a-g-year))))
-;      (is (= (deref core/a-giver)
-;             (ros/get-giver (deref core/a-players) temp-ge (deref core/a-g-year))))
-;      (is (= nil
-;             (some #{temp-ge} (deref core/a-ge-hat)))))))
-;
-;(deftest givee-is-failure-test
-;  (reset! core/a-g-year 0)
-;  (reset! core/a-giver nil)
-;  (reset! core/a-givee nil)
-;  (let [roster (core/roster-or-quit core/file-path)]
-;    (reset! core/a-players (roster :players))
-;    (core/start-new-year)
-;    (let [temp-ge (deref core/a-givee)]
-;      (core/givee-is-failure)
-;      (is (= temp-ge
-;             (some #{temp-ge} (deref core/a-discards))))
-;      (is (= nil
-;             (some #{temp-ge} (deref core/a-ge-hat)))))))
-;
-;(deftest errors?-test
-;  (reset! core/a-g-year 0)
-;  (reset! core/a-giver nil)
-;  (reset! core/a-givee nil)
-;  (let [roster (core/roster-or-quit core/file-path)]
-;    (reset! core/a-players (roster :players))
-;    (core/start-new-year)))
+(deftest givee-is-success-test
+  (reset! core/a-g-year 0)
+  (reset! core/a-giver nil)
+  (reset! core/a-givee nil)
+  (core/roster-or-quit "resources/beatles.json")
+  (core/start-new-year)
+  (let [temp-ge (deref core/a-givee)]
+    (core/givee-is-success)
+    (is (= temp-ge
+           (ros/get-givee (deref core/a-players) (deref core/a-giver) (deref core/a-g-year))))
+    (is (= (deref core/a-giver)
+           (ros/get-giver (deref core/a-players) temp-ge (deref core/a-g-year))))
+    (is (= nil
+           (some #{temp-ge} (deref core/a-ge-hat))))))
+
+(deftest givee-is-failure-test
+  (reset! core/a-g-year 0)
+  (reset! core/a-giver nil)
+  (reset! core/a-givee nil)
+  (core/roster-or-quit "resources/beatles.json")
+  (core/start-new-year)
+  (let [temp-ge (deref core/a-givee)]
+    (core/givee-is-failure)
+    (is (= temp-ge
+           (some #{temp-ge} (deref core/a-discards))))
+    (is (= nil
+           (some #{temp-ge} (deref core/a-ge-hat))))))
+
+(deftest errors?-test
+  (reset! core/a-g-year 0)
+  (reset! core/a-giver nil)
+  (reset! core/a-givee nil)
+  (core/roster-or-quit "resources/beatles.json")
+  (core/start-new-year))
