@@ -33,16 +33,16 @@
 (s/conform :unq/players
            (deref core/a-players))
 
-;(deftest draw-puck-test
-;  (is (true?
-;        (nil? (core/draw-puck #{}))))
-;  (is (true?
-;        (some? (core/draw-puck test-hat)))))
-;(s/conform ::ros/givee
-;           (core/draw-puck test-hat))
-;(s/conform nil?
-;           (core/draw-puck #{}))
-;
+(deftest draw-puck-test
+  (is (true?
+        (nil? (core/draw-puck #{}))))
+  (is (true?
+        (some? (core/draw-puck test-hat)))))
+(s/conform ::ros/givee
+           (core/draw-puck test-hat))
+(s/conform nil?
+           (core/draw-puck #{}))
+
 ;(deftest start-new-year-test
 ;  (reset! core/a-g-year 0)
 ;  (reset! core/a-giver nil)
