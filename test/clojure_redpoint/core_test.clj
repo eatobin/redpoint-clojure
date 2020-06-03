@@ -43,25 +43,24 @@
 (s/conform nil?
            (core/draw-puck #{}))
 
-;(deftest start-new-year-test
-;  (reset! core/a-g-year 0)
-;  (reset! core/a-giver nil)
-;  (reset! core/a-givee nil)
-;  (let [roster (core/roster-or-quit core/file-path)]
-;    (reset! core/a-players (roster :players))
-;    (core/start-new-year)
-;    (is (= 1
-;           (deref core/a-g-year)))
-;    (is (some?
-;          (deref core/a-giver)))
-;    (is (some?
-;          (deref core/a-givee)))
-;    (is (= {:player-name  "Ringo Starr",
-;            :gift-history [{:givee :JohLen, :giver :GeoHar}
-;                           {:givee :RinSta, :giver :RinSta}]}
-;           (get-in (deref core/a-players) [:RinSta])))
-;    (is (empty? (deref core/a-discards)))))
-;
+(deftest start-new-year-test
+  (reset! core/a-g-year 0)
+  (reset! core/a-giver nil)
+  (reset! core/a-givee nil)
+  (core/roster-or-quit "resources/beatles.json")
+  (core/start-new-year)
+  (is (= 1
+         (deref core/a-g-year)))
+  (is (some?
+        (deref core/a-giver)))
+  (is (some?
+        (deref core/a-givee)))
+  (is (= {:player-name  "Ringo Starr",
+          :gift-history [{:givee :JohLen, :giver :GeoHar}
+                         {:givee :RinSta, :giver :RinSta}]}
+         (get-in (deref core/a-players) [:RinSta])))
+  (is (empty? (deref core/a-discards))))
+
 ;(deftest select-new-giver-test
 ;  (reset! core/a-g-year 0)
 ;  (reset! core/a-giver nil)
