@@ -13,6 +13,8 @@
 (def a-gr-hat (atom #{}))
 (def a-ge-hat (atom #{}))
 (def a-discards (atom #{}))
+(def a-roster-name (atom ""))
+(def a-roster-year (atom 0))
 (def file-path "resources/beatles.json")
 
 (defn exit-now!
@@ -34,7 +36,10 @@
     (let [roster (json/read (io/reader file-path)
                             :value-fn my-value-reader
                             :key-fn keyword)]
-      (reset! a-players (roster :players)))
+      (do
+        (reset! a-roster-name (roster :roster-name))
+        (reset! a-roster-year (roster :roster-year))
+        (reset! a-players (roster :players))))
     (do
       (println "The requested file does not exist..")
       (exit-now!))))
