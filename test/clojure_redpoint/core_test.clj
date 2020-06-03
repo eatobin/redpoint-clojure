@@ -61,22 +61,21 @@
          (get-in (deref core/a-players) [:RinSta])))
   (is (empty? (deref core/a-discards))))
 
-;(deftest select-new-giver-test
-;  (reset! core/a-g-year 0)
-;  (reset! core/a-giver nil)
-;  (reset! core/a-givee nil)
-;  (let [roster (core/roster-or-quit core/file-path)]
-;    (reset! core/a-players (roster :players))
-;    (core/start-new-year)
-;    (swap! core/a-discards hat/discard-givee :GeoHar)
-;    (is (= 1
-;           (count (deref core/a-discards))))
-;    (core/select-new-giver)
-;    (is (= 3
-;           (count (deref core/a-gr-hat))))
-;    (is (= 0
-;           (count (deref core/a-discards))))))
-;
+(deftest select-new-giver-test
+  (reset! core/a-g-year 0)
+  (reset! core/a-giver nil)
+  (reset! core/a-givee nil)
+  (core/roster-or-quit "resources/beatles.json")
+  (core/start-new-year)
+  (swap! core/a-discards hat/discard-givee :GeoHar)
+  (is (= 1
+         (count (deref core/a-discards))))
+  (core/select-new-giver)
+  (is (= 3
+         (count (deref core/a-gr-hat))))
+  (is (= 0
+         (count (deref core/a-discards)))))
+
 ;(deftest givee-is-success-test
 ;  (reset! core/a-g-year 0)
 ;  (reset! core/a-giver nil)
