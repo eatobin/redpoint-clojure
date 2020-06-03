@@ -10,9 +10,28 @@
 (deftest roster-or-quit-test
   (core/roster-or-quit "resources/beatles.json")
   (is (= "The Beatles"
-         (deref core/a-roster-name))))
+         (deref core/a-roster-name)))
+  (is (= 2014
+         (deref core/a-roster-year)))
+  (is (= {:GeoHar {:gift-history [{:givee :RinSta
+                                   :giver :PauMcc}]
+                   :player-name  "George Harrison"}
+          :JohLen {:gift-history [{:givee :PauMcc
+                                   :giver :RinSta}]
+                   :player-name  "John Lennon"}
+          :PauMcc {:gift-history [{:givee :GeoHar
+                                   :giver :JohLen}]
+                   :player-name  "Paul McCartney"}
+          :RinSta {:gift-history [{:givee :JohLen
+                                   :giver :GeoHar}]
+                   :player-name  "Ringo Starr"}}
+         (deref core/a-players))))
 (s/conform ::ros/roster-name
            (deref core/a-roster-name))
+(s/conform ::ros/roster-year
+           (deref core/a-roster-year))
+(s/conform :unq/players
+           (deref core/a-players))
 
 ;(deftest draw-puck-test
 ;  (is (true?
