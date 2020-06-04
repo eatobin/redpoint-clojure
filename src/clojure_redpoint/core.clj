@@ -81,9 +81,9 @@
   (reset! a-givee (draw-puck (deref a-ge-hat))))
 
 (defn errors? []
-  (seq (for [plr-sym (keys (into (sorted-map) ((deref a-players) :players)))
-             :let [giver-code (ros/get-giver ((deref a-players) :players) plr-sym (deref a-g-year))
-                   givee-code (ros/get-givee ((deref a-players) :players) plr-sym (deref a-g-year))]
+  (seq (for [plr-sym (keys (into (sorted-map) (deref a-players)))
+             :let [giver-code (ros/get-giver (deref a-players) plr-sym (deref a-g-year))
+                   givee-code (ros/get-givee (deref a-players) plr-sym (deref a-g-year))]
              :when (or (= plr-sym giver-code) (= plr-sym givee-code))]
          [plr-sym])))
 
