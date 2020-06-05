@@ -85,7 +85,7 @@
              :let [giver-code (ros/get-giver (deref a-players) plr-sym (deref a-g-year))
                    givee-code (ros/get-givee (deref a-players) plr-sym (deref a-g-year))]
              :when (or (= plr-sym giver-code) (= plr-sym givee-code))]
-         [plr-sym])))
+         plr-sym)))
 
 ;(defn print-results []
 ;  (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
