@@ -2,7 +2,8 @@
   (:require [clojure.data.json :as json]
             [clojure-redpoint.roster :as ros]
             [clojure-redpoint.hats :as hat]
-    #_[clojure-redpoint.rules :as rule]
+            [clojure-redpoint.rules :as rule]
+            [clojure.string :as cs]
             [clojure.java.io :as io])
   (:gen-class))
 
@@ -87,64 +88,62 @@
              :when (or (= plr-sym giver-code) (= plr-sym givee-code))]
          plr-sym)))
 
-;(defn print-results []
-;  (doseq [plr-sym (keys (into (sorted-map) (deref a-plrs-map)))
-;          :let [player-name (ros/get-player-name-in-roster (deref a-plrs-map) plr-sym)
-;                givee-code (ros/get-givee-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))
-;                givee-name (ros/get-player-name-in-roster (deref a-plrs-map) givee-code)
-;                giver-code (ros/get-giver-in-roster (deref a-plrs-map) plr-sym (deref a-g-year))]]
-;    (cond
-;      (and (= plr-sym givee-code) (= plr-sym giver-code)) (println player-name "is **buying** for nor **receiving** from anyone - **ERROR**")
-;      (= plr-sym giver-code) (println player-name "is **receiving** from no one - **ERROR**")
-;      (= plr-sym givee-code) (println player-name "is **buying** for no one - **ERROR**")
-;      :else (println player-name "is buying for" givee-name))))
-;
-;(defn print-string-giving-roster [r-name r-year]
-;  (println)
-;  (println r-name "- Year" (+ r-year (deref a-g-year)) "Gifts:")
-;  (println)
-;  (when (errors?)
-;    (println)
-;    (println "There is a logic error in this year's pairings.")
-;    (println "Do you see it?")
-;    (println "If not... call me and I'll explain!")
-;    (println)
-;    (println))
-;  (print-results))
-;
-;(defn print-and-ask [r-name r-year]
-;  (print-string-giving-roster r-name r-year)
-;  (do
-;    (println)
-;    (print "Continue? ('q' to quit): ")
-;    (flush)
-;    (read-line)))
-;
-;(defn -main []
-;  (reset! a-g-year 0)
-;  (reset! a-giver nil)
-;  (reset! a-givee nil)
-;  (let [players-vector (ros/make-players-vector
-;                        (scrubbed-or-quit file-path))
-;        r-name (ros/get-roster-name (scrubbed-or-quit file-path))
-;        r-year (Integer/parseInt (ros/get-roster-year (scrubbed-or-quit file-path)))]
-;    (reset! a-plrs-map (ros/make-players-map players-vector))
-;    (reset! a-gr-hat [])
-;    (reset! a-ge-hat [])
-;    (reset! a-discards [])
-;    (while (not= (cs/lower-case (print-and-ask r-name r-year)) "q")
-;      (start-new-year)
-;      (while (some? (deref a-giver))
-;        (while (some? (deref a-givee))
-;          (if (and
-;               (rule/givee-not-self? (deref a-giver) (deref a-givee))
-;               (rule/givee-not-recip? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map))
-;               (rule/givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-plrs-map)))
-;            (givee-is-success)
-;            (givee-is-failure)))
-;        (select-new-giver)))
-;    (println)
-;    (println "This was fun!")
-;    (println "Talk about a position with Redpoint?")
-;    (println "Please call: Eric Tobin 773-679-6617")
-;    (println)))
+(defn print-results []
+  (doseq [plr-sym (keys (into (sorted-map) (deref a-players)))
+          :let [player-name (ros/get-player-name (deref a-players) plr-sym)
+                givee-code (ros/get-givee (deref a-players) plr-sym (deref a-g-year))
+                givee-name (ros/get-player-name (deref a-players) givee-code)
+                giver-code (ros/get-giver (deref a-players) plr-sym (deref a-g-year))]]
+    (cond
+      (and (= plr-sym givee-code) (= plr-sym giver-code)) (println player-name "is **buying** for nor **receiving** from anyone - **ERROR**")
+      (= plr-sym giver-code) (println player-name "is **receiving** from no one - **ERROR**")
+      (= plr-sym givee-code) (println player-name "is **buying** for no one - **ERROR**")
+      :else (println player-name "is buying for" givee-name))))
+
+(defn print-string-giving-roster [r-name r-year]
+  (println)
+  (println r-name "- Year" (+ r-year (deref a-g-year)) "Gifts:")
+  (println)
+  (when (errors?)
+    (println)
+    (println "There is a logic error in this year's pairings.")
+    (println "Do you see it?")
+    (println "If not... call me and I'll explain!")
+    (println)
+    (println))
+  (print-results))
+
+(defn print-and-ask [r-name r-year]
+  (print-string-giving-roster r-name r-year)
+  (do
+    (println)
+    (print "Continue? ('q' to quit): ")
+    (flush)
+    (read-line)))
+
+(defn -main []
+  (reset! a-g-year 0)
+  (reset! a-giver nil)
+  (reset! a-givee nil)
+  (reset! a-gr-hat #{})
+  (reset! a-ge-hat #{})
+  (reset! a-discards #{})
+  (roster-or-quit file-path)
+  (let [r-name (deref a-roster-name)
+        r-year (deref a-roster-year)]
+    (while (not= (cs/lower-case (print-and-ask r-name r-year)) "q")
+      (start-new-year)
+      (while (some? (deref a-giver))
+        (while (some? (deref a-givee))
+          (if (and
+                (rule/givee-not-self? (deref a-giver) (deref a-givee))
+                (rule/givee-not-recip? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-players))
+                (rule/givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-players)))
+            (givee-is-success)
+            (givee-is-failure)))
+        (select-new-giver)))
+    (println)
+    (println "This was fun!")
+    (println "Talk about a position with Redpoint?")
+    (println "Please call: Eric Tobin 773-679-6617")
+    (println)))
