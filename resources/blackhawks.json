@@ -1,0 +1,61 @@
+{
+  "roster-name": "Blackhawks",
+  "roster-year": 2010,
+  "players": {
+    "TroBro": {
+      "player-name": "Troy Brouwer",
+      "gift-history": [
+        {
+          "givee": "DavBol",
+          "giver": "JoeQue"
+        }
+      ]
+    },
+    "JohLen": {
+      "player-name": "John Lennon",
+      "gift-history": [
+        {
+          "givee": "PauMcc",
+          "giver": "RinSta"
+        }
+      ]
+    },
+    "GeoHar": {
+      "player-name": "George Harrison",
+      "gift-history": [
+        {
+          "givee": "RinSta",
+          "giver": "PauMcc"
+        }
+      ]
+    },
+    "PauMcc": {
+      "player-name": "Paul McCartney",
+      "gift-history": [
+        {
+          "givee": "GeoHar",
+          "giver": "JohLen"
+        }
+      ]
+    }
+  }
+}
+,
+,,,
+JoeQue, Joel Quenneville, TroBro, AndLad
+AdaBur, Adam Burish, DunKei, JonToe
+AndLad, Andrew Ladd, JoeQue, KriVer
+AntNie, Antti Niemi, JonToe, MarHos
+BreSea, Brent Seabrook, KriVer, NikHja
+BryBic, Bryan Bickell, MarHos, PatKan
+CriHue, Cristobal Huet, PatKan, TomKop
+DavBol, Dave Bolland, PatSha, TroBro
+DunKei, Duncan Keith, TomKop, AdaBur
+JonToe, Jonathan Toews, AdaBur, AntNie
+KriVer, Kris Versteeg, AndLad, BreSea
+MarHos, Marian Hossa, AntNie, BryBic
+NikHja, Niklas Hjalmarsson, BreSea, BriCam
+PatKan, Patrick Kane, BryBic, CriHue
+PatSha, Patrick Sharp, BriCam, DavBol
+TomKop, Tomas Kopecky, CriHue, DunKei
+BriCam, Brian Campbell, NikHja, PatSha
