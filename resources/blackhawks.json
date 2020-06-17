@@ -11,12 +11,12 @@
         }
       ]
     },
-    "JohLen": {
-      "player-name": "John Lennon",
+    "JoeQue": {
+      "player-name": "Joel Quenneville",
       "gift-history": [
         {
-          "givee": "PauMcc",
-          "giver": "RinSta"
+          "givee": "TroBro",
+          "giver": "AndLad"
         }
       ]
     },
@@ -37,12 +37,20 @@
           "giver": "JohLen"
         }
       ]
+    },
+    "PauMcc": {
+      "player-name": "Paul McCartney",
+      "gift-history": [
+        {
+          "givee": "GeoHar",
+          "giver": "JohLen"
+        }
+      ]
     }
   }
 }
 ,
-,,,
-JoeQue, Joel Quenneville, TroBro, AndLad
+,,,,,,
 AdaBur, Adam Burish, DunKei, JonToe
 AndLad, Andrew Ladd, JoeQue, KriVer
 AntNie, Antti Niemi, JonToe, MarHos
