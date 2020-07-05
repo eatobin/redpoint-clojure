@@ -4,19 +4,15 @@
             [clojure-redpoint.roster :as ros]
             [clojure.spec.alpha :as s]))
 
-(def roster {:roster-name "The Beatles",
-             :roster-year 2014,
-             :players     {:RinSta {:player-name "Ringo Starr", :gift-history [{:giver :KarLav, :givee :JohLen}]},
-                           :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :GeoHar}]},
-                           :GeoHar {:player-name  "George Harrison",
-                                    :gift-history [{:giver :JohLen, :givee :PauMcc}]},
-                           :PauMcc {:player-name  "Paul McCartney",
-                                    :gift-history [{:giver :GeoHar, :givee :EriTob}]},
-                           :EriTob {:player-name "Eric Tobin", :gift-history [{:giver :PauMcc, :givee :KarLav}]},
-                           :KarLav {:player-name  "Karen Lavengood",
-                                    :gift-history [{:giver :EriTob, :givee :RinSta}]}}})
-
-(def players (roster :players))
+(def players {:RinSta {:player-name "Ringo Starr", :gift-history [{:giver :KarLav, :givee :JohLen}]},
+              :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :GeoHar}]},
+              :GeoHar {:player-name  "George Harrison",
+                       :gift-history [{:giver :JohLen, :givee :PauMcc}]},
+              :PauMcc {:player-name  "Paul McCartney",
+                       :gift-history [{:giver :GeoHar, :givee :EriTob}]},
+              :EriTob {:player-name "Eric Tobin", :gift-history [{:giver :PauMcc, :givee :KarLav}]},
+              :KarLav {:player-name  "Karen Lavengood",
+                       :gift-history [{:giver :EriTob, :givee :RinSta}]}})
 
 (def extended ((comp ros/add-year
                      ros/add-year
