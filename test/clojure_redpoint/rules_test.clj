@@ -39,11 +39,11 @@
 
 (deftest givee-not-recip-test
   (is (= true
-         (rule/givee-not-recip? :RinSta :JohLen 0 roster)))
+         (rule/givee-not-recip? :RinSta :JohLen 0 players)))
   (is (= false
-         (rule/givee-not-recip? :RinSta :KarLav 0 roster))))
+         (rule/givee-not-recip? :RinSta :KarLav 0 players))))
 (s/conform boolean?
-           (rule/givee-not-recip? :RinSta :JohLen 0 roster))
+           (rule/givee-not-recip? :RinSta :JohLen 0 players))
 
 (deftest givee-not-repeat-test
   (is (= false

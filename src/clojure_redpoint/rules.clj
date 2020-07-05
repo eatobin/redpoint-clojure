@@ -11,29 +11,29 @@
                      :givee ::ros/givee)
         :ret boolean?)
 
-(defn givee-not-recip? [self-key givee g-year roster]
+(defn givee-not-recip? [self-key givee g-year players]
   "Test 2 - not giving to the person who is giving to you"
-  (let [recip (ros/get-givee roster givee g-year)]
+  (let [recip (ros/get-givee players givee g-year)]
     (not= self-key recip)))
 (s/fdef givee-not-recip?
         :args (s/cat :self-key ::ros/player-key
                      :givee ::ros/givee
                      :g-year ::ros/gift-year
-                     :roster :unq/roster)
+                     :players :unq/players)
         :ret boolean?)
 
-(defn givee-not-repeat? [self-key givee g-year roster]
+(defn givee-not-repeat? [self-key givee g-year players]
   "Test 3 - not giving to someone you have given to in the past 3 years"
   (let [past (filter #(>= % 0)
                      (range (- g-year 1) (- g-year 4) -1))
-        ge-y (partial ros/get-givee roster self-key)
+        ge-y (partial ros/get-givee players self-key)
         ge-in-yrs (into [] (map ge-y past))]
     (not-any? #{givee} ge-in-yrs)))
 (s/fdef givee-not-repeat?
         :args (s/cat :self-key ::ros/player-key
                      :givee ::ros/givee
                      :g-year ::ros/gift-year
-                     :roster :unq/roster)
+                     :players :unq/players)
         :ret boolean?)
 
 (ostest/instrument)
