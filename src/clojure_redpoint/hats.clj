@@ -9,7 +9,7 @@
 (defn make-hat [players]
   (into #{} (keys players)))
 (s/fdef make-hat
-        :args (s/cat :roster :unq/players)
+        :args (s/cat :players :unq/players)
         :ret ::hat)
 
 (defn remove-puck [hat plr-key]
