@@ -16,7 +16,7 @@
 (def a-discards (atom #{}))
 (def a-roster-name (atom ""))
 (def a-roster-year (atom 0))
-(def file-path "resources/beatles.json")
+(def file-path "resources/blackhawks.json")
 
 (defn exit-now!
   []
