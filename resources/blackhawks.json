@@ -20,186 +20,149 @@
         }
       ]
     },
-    "GeoHar": {
-      "player-name": "George Harrison",
+    "AdaBur": {
+      "player-name": "Adam Burish",
       "gift-history": [
         {
-          "givee": "RinSta",
-          "giver": "PauMcc"
+          "givee": "DunKei",
+          "giver": "JonToe"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "AndLad": {
+      "player-name": "Andrew Ladd",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "JoeQue",
+          "giver": "KriVer"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "AntNie": {
+      "player-name": "Antti Niemi",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "JonToe",
+          "giver": "MarHos"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "BreSea": {
+      "player-name": "Brent Seabrook",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "KriVer",
+          "giver": "NikHja"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "BryBic": {
+      "player-name": "Bryan Bickell",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "MarHos",
+          "giver": "PatKan"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "CriHue": {
+      "player-name": "Cristobal Huet",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "PatKan",
+          "giver": "TomKop"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "DavBol": {
+      "player-name": "Dave Bolland",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "PatSha",
+          "giver": "TroBro"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "DunKei": {
+      "player-name": "Duncan Keith",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "TomKop",
+          "giver": "AdaBur"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "JonToe": {
+      "player-name": "Jonathan Toews",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "AdaBur",
+          "giver": "AntNie"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "KriVer": {
+      "player-name": "Kris Versteeg",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "AndLad",
+          "giver": "BreSea"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "MarHos": {
+      "player-name": "Marian Hossa",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "AntNie",
+          "giver": "BryBic"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "NikHja": {
+      "player-name": "Niklas Hjalmarsson",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "BreSea",
+          "giver": "BriCam"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "PatKan": {
+      "player-name": "Patrick Kane",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "BryBic",
+          "giver": "CriHue"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "PatSha": {
+      "player-name": "Patrick Sharp",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "BriCam",
+          "giver": "DavBol"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "TomKop": {
+      "player-name": "Tomas Kopecky",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "CriHue",
+          "giver": "DunKei"
         }
       ]
     },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
+    "BriCam": {
+      "player-name": "Brian Campbell",
       "gift-history": [
         {
-          "givee": "GeoHar",
-          "giver": "JohLen"
-        }
-      ]
-    },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
-      "gift-history": [
-        {
-          "givee": "GeoHar",
-          "giver": "JohLen"
-        }
-      ]
-    },
-    "PauMcc": {
-      "player-name": "Paul McCartney",
-      "gift-history": [
-        {
-          "givee": "GeoHar",
-          "giver": "JohLen"
+          "givee": "NikHja",
+          "giver": "PatSha"
         }
       ]
     }
   }
 }
-
-
-
-AdaBur, Adam Burish, DunKei, JonToe
-AndLad, Andrew Ladd, JoeQue, KriVer
-AntNie, Antti Niemi, JonToe, MarHos
-BreSea, Brent Seabrook, KriVer, NikHja
-BryBic, Bryan Bickell, MarHos, PatKan
-CriHue, Cristobal Huet, PatKan, TomKop
-DavBol, Dave Bolland, PatSha, TroBro
-DunKei, Duncan Keith, TomKop, AdaBur
-JonToe, Jonathan Toews, AdaBur, AntNie
-KriVer, Kris Versteeg, AndLad, BreSea
-MarHos, Marian Hossa, AntNie, BryBic
-NikHja, Niklas Hjalmarsson, BreSea, BriCam
-PatKan, Patrick Kane, BryBic, CriHue
-PatSha, Patrick Sharp, BriCam, DavBol
-TomKop, Tomas Kopecky, CriHue, DunKei
-BriCam, Brian Campbell, NikHja, PatSha
