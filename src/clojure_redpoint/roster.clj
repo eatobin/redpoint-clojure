@@ -19,10 +19,10 @@
   [players plr-key]
   (get-in players [plr-key :player-name]))
 (s/fdef get-player-name
-        :args (s/cat :players :unq/players
-                     :plr-key ::player-key)
-        :ret (s/or :found ::player-name
-                   :not-found nil?))
+  :args (s/cat :players :unq/players
+               :plr-key ::player-key)
+  :ret (s/or :found ::player-name
+             :not-found nil?))
 
 (defn add-year
   "Add a year for each player in players"
@@ -32,45 +32,45 @@
                [plr-key {:player-name  player-name,
                          :gift-history (conj gift-history {:givee plr-key, :giver plr-key})}]))))
 (s/fdef add-year
-        :args (s/cat :players :unq/players)
-        :ret :unq/players)
+  :args (s/cat :players :unq/players)
+  :ret :unq/players)
 
 (defn get-givee
   [players plr-key g-year]
   (get-in players [plr-key :gift-history g-year :givee]))
 (s/fdef get-givee
-        :args (s/cat :players :unq/players
-                     :plr-key ::player-key
-                     :g-year ::gift-year)
-        :ret ::givee)
+  :args (s/cat :players :unq/players
+               :plr-key ::player-key
+               :g-year ::gift-year)
+  :ret ::givee)
 
 (defn get-giver
   [players plr-key g-year]
   (get-in players [plr-key :gift-history g-year :giver]))
 (s/fdef get-giver
-        :args (s/cat :players :unq/players
-                     :plr-key ::player-key
-                     :g-year ::gift-year)
-        :ret ::giver)
+  :args (s/cat :players :unq/players
+               :plr-key ::player-key
+               :g-year ::gift-year)
+  :ret ::giver)
 
 (defn update-givee
   [players plr-key g-year givee]
   (assoc-in players [plr-key :gift-history g-year :givee] givee))
 (s/fdef update-givee
-        :args (s/cat :players :unq/players
-                     :plr-key ::player-key
-                     :g-year ::gift-year
-                     :givee ::givee)
-        :ret :unq/players)
+  :args (s/cat :players :unq/players
+               :plr-key ::player-key
+               :g-year ::gift-year
+               :givee ::givee)
+  :ret :unq/players)
 
 (defn update-giver
   [players plr-key g-year giver]
   (assoc-in players [plr-key :gift-history g-year :giver] giver))
 (s/fdef update-giver
-        :args (s/cat :players :unq/players
-                     :plr-key ::player-key
-                     :g-year ::gift-year
-                     :giver ::giver)
-        :ret :unq/players)
+  :args (s/cat :players :unq/players
+               :plr-key ::player-key
+               :g-year ::gift-year
+               :giver ::giver)
+  :ret :unq/players)
 
 (ostest/instrument)
