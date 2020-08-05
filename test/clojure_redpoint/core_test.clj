@@ -1,5 +1,5 @@
 (ns clojure-redpoint.core-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [deftest is]]
             [clojure-redpoint.core :as core]
             [clojure-redpoint.roster :as ros]
             [clojure-redpoint.hats :as hat]
@@ -35,9 +35,9 @@
 
 (deftest draw-puck-test
   (is (true?
-        (nil? (core/draw-puck #{}))))
+       (nil? (core/draw-puck #{}))))
   (is (true?
-        (some? (core/draw-puck test-hat)))))
+       (some? (core/draw-puck test-hat)))))
 (s/conform ::ros/givee
            (core/draw-puck test-hat))
 (s/conform nil?
@@ -52,9 +52,9 @@
   (is (= 1
          (deref core/a-g-year)))
   (is (some?
-        (deref core/a-giver)))
+       (deref core/a-giver)))
   (is (some?
-        (deref core/a-givee)))
+       (deref core/a-givee)))
   (is (= {:player-name  "Ringo Starr",
           :gift-history [{:givee :JohLen, :giver :GeoHar}
                          {:givee :RinSta, :giver :RinSta}]}

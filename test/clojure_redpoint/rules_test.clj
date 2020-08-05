@@ -1,5 +1,5 @@
 (ns clojure-redpoint.rules-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [deftest is]]
             [clojure-redpoint.rules :as rule]
             [clojure-redpoint.roster :as ros]
             [clojure.spec.alpha :as s]))
@@ -21,9 +21,9 @@
                players))
 
 (def beatles-plus-4 (ros/update-givee
+                     (ros/update-givee
                       (ros/update-givee
-                        (ros/update-givee
-                          (ros/update-givee extended :RinSta 1 :GeoHar) :RinSta 2 :PauMcc) :RinSta 3 :EriTob) :RinSta 4 :KarLav))
+                       (ros/update-givee extended :RinSta 1 :GeoHar) :RinSta 2 :PauMcc) :RinSta 3 :EriTob) :RinSta 4 :KarLav))
 
 (deftest givee-not-self-test
   (is (= true

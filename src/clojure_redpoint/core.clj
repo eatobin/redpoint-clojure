@@ -39,17 +39,16 @@
     (let [roster (json/read (io/reader file-path)
                             :value-fn my-value-reader
                             :key-fn keyword)]
-      (do
-        (reset! a-roster-name (roster :roster-name))
-        (reset! a-roster-year (roster :roster-year))
-        (reset! a-players (roster :players))))
+      (reset! a-roster-name (roster :roster-name))
+      (reset! a-roster-year (roster :roster-year))
+      (reset! a-players (roster :players)))
     (do
       (println "The requested file does not exist..")
       (exit-now!))))
 
 (defn draw-puck
   [hat]
-  (when (not (empty? hat))
+  (when (seq hat)
     ((shuffle hat) 0)))
 
 (defn start-new-year
@@ -117,11 +116,10 @@
 
 (defn print-and-ask [r-name r-year]
   (print-string-giving-roster r-name r-year)
-  (do
-    (println)
-    (print "Continue? ('q' to quit): ")
-    (flush)
-    (read-line)))
+  (println)
+  (print "Continue? ('q' to quit): ")
+  (flush)
+  (read-line))
 
 (defn -main []
   (reset! a-g-year 0)
@@ -138,9 +136,9 @@
       (while (some? (deref a-giver))
         (while (some? (deref a-givee))
           (if (and
-                (rule/givee-not-self? (deref a-giver) (deref a-givee))
-                (rule/givee-not-recip? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-players))
-                (rule/givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-players)))
+               (rule/givee-not-self? (deref a-giver) (deref a-givee))
+               (rule/givee-not-recip? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-players))
+               (rule/givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-players)))
             (givee-is-success)
             (givee-is-failure)))
         (select-new-giver)))

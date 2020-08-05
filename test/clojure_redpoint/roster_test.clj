@@ -1,5 +1,5 @@
 (ns clojure-redpoint.roster-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [deftest is]]
             [clojure-redpoint.roster :as ros]
             [clojure.spec.alpha :as s]))
 

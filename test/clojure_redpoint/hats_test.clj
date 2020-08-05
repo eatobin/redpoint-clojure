@@ -1,5 +1,5 @@
 (ns clojure-redpoint.hats-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [deftest is]]
             [clojure-redpoint.hats :as hat]
             [clojure-redpoint.roster]
             [clojure.spec.alpha :as s]))
