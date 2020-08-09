@@ -8,7 +8,7 @@
 (def test-hat #{:PauMcc :GeoHar :JohLen :RinSta})
 
 (deftest roster-or-quit-test
-  (core/roster-or-quit "resources/beatles.json")
+  (core/roster-or-quit "resources-test/beatles.json")
   (is (= "The Beatles"
          (deref core/a-roster-name)))
   (is (= 2014
@@ -47,7 +47,7 @@
   (reset! core/a-g-year 0)
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
-  (core/roster-or-quit "resources/beatles.json")
+  (core/roster-or-quit "resources-test/beatles.json")
   (core/start-new-year)
   (is (= 1
          (deref core/a-g-year)))
@@ -65,7 +65,7 @@
   (reset! core/a-g-year 0)
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
-  (core/roster-or-quit "resources/beatles.json")
+  (core/roster-or-quit "resources-test/beatles.json")
   (core/start-new-year)
   (swap! core/a-discards hat/discard-givee :GeoHar)
   (is (= 1
@@ -80,7 +80,7 @@
   (reset! core/a-g-year 0)
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
-  (core/roster-or-quit "resources/beatles.json")
+  (core/roster-or-quit "resources-test/beatles.json")
   (core/start-new-year)
   (let [temp-ge (deref core/a-givee)]
     (core/givee-is-success)
@@ -95,7 +95,7 @@
   (reset! core/a-g-year 0)
   (reset! core/a-giver nil)
   (reset! core/a-givee nil)
-  (core/roster-or-quit "resources/beatles.json")
+  (core/roster-or-quit "resources-test/beatles.json")
   (core/start-new-year)
   (let [temp-ge (deref core/a-givee)]
     (core/givee-is-failure)
