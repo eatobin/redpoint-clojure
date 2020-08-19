@@ -12,13 +12,18 @@
                      :giver ::giver)
         :ret :unq/gift-pair)
 
-(def gp (Gift-Pair. :me :you))
-(def gp2 (->Gift-Pair :now :then))
+(defn set-givee [gift-pair givee]
+  (assoc gift-pair :givee givee))
+(s/fdef set-givee
+        :args (s/cat :gift-pair :unq/gift-pair
+                     :givee ::givee)
+        :ret :unq/gift-pair)
 
-(s/conform :unq/gift-pair
-           gp)
-
-(s/explain :unq/gift-pair
-           gp2)
+(defn set-giver [gift-pair giver]
+  (assoc gift-pair :giver giver))
+(s/fdef set-giver
+        :args (s/cat :gift-pair :unq/gift-pair
+                     :giver ::giver)
+        :ret :unq/gift-pair)
 
 (ostest/instrument)
