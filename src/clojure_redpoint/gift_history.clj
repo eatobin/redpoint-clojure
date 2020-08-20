@@ -1,5 +1,5 @@
 (ns clojure-redpoint.gift-history
-  (:require [clojure-redpoint.gift-pair]
+  (:require [clojure-redpoint.gift-pair :as gp]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
@@ -10,7 +10,7 @@
 (defn add-year
   "Adds a new placeholder year to the end of a player's gift history"
   [g-hist plr-key]
-  (conj g-hist {:givee plr-key, :giver plr-key}))
+  (conj g-hist (gp/->Gift-Pair plr-key plr-key)))
 (s/fdef add-year
         :args (s/cat :g-hist :unq/gift-history
                      :plr-key ::player-key)
