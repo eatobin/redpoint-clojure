@@ -16,22 +16,11 @@
                      :plr-key ::player-key)
         :ret :unq/gift-history)
 
-(defn get-gift-pair
-  "Returns a gift pair given a gift history and a gift year"
-  [g-hist g-year]
-  (g-hist g-year))
-(s/fdef get-gift-pair
-        :args (s/and
-                (s/cat :g-hist :unq/gift-history
-                       :g-year ::gift-year)
-                #(< (:g-year %) (count (:g-hist %))))
-        :ret :unq/gift-pair)
-
-(defn set-gift-pair
+(defn update-gift-history
   "Returns a gift history with the provided gift pair at the supplied year"
   [g-hist g-year g-pair]
   (assoc g-hist g-year g-pair))
-(s/fdef set-gift-pair
+(s/fdef update-gift-history
         :args (s/and
                 (s/cat :g-hist :unq/gift-history
                        :g-year ::gift-year
