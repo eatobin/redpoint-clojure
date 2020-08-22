@@ -12,22 +12,6 @@
                      :gift-history :unq/gift-history)
         :ret :unq/player)
 
-(defn get-player-name
-  "Return a player-name given a player"
-  [player]
-  (player :player-name))
-(s/fdef get-player-name
-        :args (s/cat :player :unq/player)
-        :ret ::player-name)
-
-(defn get-gift-history
-  "Return a gift-history given a player"
-  [player]
-  (player :gift-history))
-(s/fdef get-gift-history
-        :args (s/cat :player :unq/player)
-        :ret :unq/gift-history)
-
 (defn set-gift-history
   "Sets a gift history into the provided player"
   [player g-hist]
@@ -42,7 +26,7 @@
   [player plr-key]
   (->
     player
-    (get-gift-history)
+    (:gift-history player)
     (gh/add-year plr-key)
     (->>
       (set-gift-history player))))
