@@ -6,6 +6,11 @@
 (s/def ::player-name string?)
 (s/def :unq/player (s/keys :req-un [::player-name :unq/gift-history]))
 
+(defrecord Player [player-name gift-history])
+(s/fdef ->Player
+        :args (s/cat :player-name ::player-name
+                     :gift-history :unq/gift-history)
+        :ret :unq/player)
 
 (defn get-player-name
   "Return a player-name given a player"
