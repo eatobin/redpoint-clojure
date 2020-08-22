@@ -22,4 +22,4 @@
   (is (= [(gp/->Gift-Pair :me :you)]
          (gh/update-gift-history gift-history 0 (gp/->Gift-Pair :me :you)))))
 (s/conform :unq/gift-history
-           (gh/update-gift-history gift-history 0 (gp/->Gift-Pair :me :you)))
+           (gh/update-gift-history gift-history 0 (gp/map->Gift-Pair {:givee :me, :giver :you})))
