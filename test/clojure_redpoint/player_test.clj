@@ -15,20 +15,22 @@
 (deftest get-gift-history-test
   (is (= [{:givee :GeoHar
            :giver :JohLen}]
-         (plr/get-gift-history player))))
+         (:gift-history player))))
 (s/conform :unq/gift-history
-           (plr/get-gift-history player))
+           (:gift-history player))
 
 (deftest set-gift-history-test
-  (is (= {:player-name  "Paul McCartney",
-          :gift-history [{:givee :nope :giver :yup}]}
+  (is (= (plr/map->Player {:player-name  "Paul McCartney",
+                           :gift-history [{:givee :nope :giver :yup}]})
          (plr/set-gift-history player [{:givee :nope :giver :yup}]))))
 (s/conform :unq/player
            (plr/set-gift-history player [{:givee :nope :giver :yup}]))
 
 (deftest add-year-player-test
-  (is (= {:player-name  "Paul McCartney",
-          :gift-history [{:giver :JohLen, :givee :GeoHar} {:givee :mee, :giver :mee}]}
+  (is (= #clojure_redpoint.player.Player{:player-name  "Paul McCartney",
+                                         :gift-history [{:giver :JohLen, :givee :GeoHar}
+                                                        #clojure_redpoint.gift_pair.Gift-Pair{:givee :mee,
+                                                                                              :giver :mee}]}
          (plr/add-year-player player :mee))))
 (s/conform :unq/player
            (plr/add-year-player player :mee))
