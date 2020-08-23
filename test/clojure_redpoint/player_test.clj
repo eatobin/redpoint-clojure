@@ -1,5 +1,5 @@
 (ns clojure-redpoint.player-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [deftest is]]
             [clojure-redpoint.player :as plr]
             [clojure.spec.alpha :as s]))
 
