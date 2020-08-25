@@ -15,11 +15,11 @@
 (deftest get-gift-pair-test
   (is (= (gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar})
          (gift-history 0))))
-(s/conform :unq/gift-pair
+(s/conform ::gp/gift-pair
            (gift-history 0))
 
 (deftest set-gift-pair-test
   (is (= [(gp/->Gift-Pair :me :you)]
          (gh/gift-history-update-gift-history gift-history 0 (gp/->Gift-Pair :me :you)))))
-(s/conform :unq/gift-history
+(s/conform ::gh/gift-history
            (gh/gift-history-update-gift-history gift-history 0 (gp/map->Gift-Pair {:givee :me, :giver :you})))

@@ -3,7 +3,7 @@
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
-(s/def ::gift-history (s/coll-of :unq/gift-pair :kind vector?))
+(s/def ::gift-history (s/coll-of ::gp/gift-pair :kind vector?))
 (s/def ::player-key keyword?)
 (s/def ::gift-year (s/and int? #(> % -1)))
 
