@@ -22,15 +22,15 @@
 
 (deftest get-player-name-test
   (is (= "George Harrison"
-         (plrs/get-player-name players :GeoHar)))
+         (plrs/players-get-player-name players :GeoHar)))
   (is (nil?
-        (plrs/get-player-name players :GeoHarX))))
+        (plrs/players-get-player-name players :GeoHarX))))
 (s/conform (s/or :found ::plrs/player-name
                  :not-found nil?)
-           (plrs/get-player-name players :GeoHar))
+           (plrs/players-get-player-name players :GeoHar))
 (s/conform (s/or :found ::plrs/player-name
                  :not-found nil?)
-           (plrs/get-player-name players :GeoHarX))
+           (plrs/players-get-player-name players :GeoHarX))
 
 (deftest add-year-test
   (is (= extended-players

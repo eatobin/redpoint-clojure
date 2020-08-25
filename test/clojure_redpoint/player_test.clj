@@ -22,9 +22,9 @@
 (deftest set-gift-history-test
   (is (= (plr/map->Player {:player-name  "Paul McCartney",
                            :gift-history [{:givee :nope :giver :yup}]})
-         (plr/set-gift-history player [{:givee :nope :giver :yup}]))))
+         (plr/player-update-gift-history player [{:givee :nope :giver :yup}]))))
 (s/conform :unq/player
-           (plr/set-gift-history player [{:givee :nope :giver :yup}]))
+           (plr/player-update-gift-history player [{:givee :nope :giver :yup}]))
 
 (deftest add-year-player-test
   (is (= #clojure_redpoint.player.Player{:player-name  "Paul McCartney",

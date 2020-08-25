@@ -17,10 +17,10 @@
 
 (deftest set-giv-ee-er-test
   (is (= (gp/->Gift-Pair :NewBee :JohLen)
-         (gp/set-givee gift-pair :NewBee)))
+         (gp/gift-pair-update-givee gift-pair :NewBee)))
   (is (= (gp/->Gift-Pair :GeoHar :NewBee)
-         (gp/set-giver gift-pair :NewBee))))
+         (gp/gift-pair-update-giver gift-pair :NewBee))))
 (s/conform :unq/gift-pair
-           (gp/set-givee gift-pair :NewBee))
+           (gp/gift-pair-update-givee gift-pair :NewBee))
 (s/conform :unq/gift-pair
-           (gp/set-giver gift-pair :NewBee))
+           (gp/gift-pair-update-giver gift-pair :NewBee))

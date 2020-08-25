@@ -12,27 +12,27 @@
                      :gift-history :unq/gift-history)
         :ret :unq/player)
 
-(defn set-gift-history
+(defn player-update-gift-history
   "Sets a gift history into the provided player"
   [player g-hist]
   (assoc player :gift-history g-hist))
-(s/fdef set-gift-history
+(s/fdef player-update-gift-history
         :args (s/cat :player :unq/player
                      :g-hist :unq/gift-history)
         :ret :unq/player)
 
-(defn add-year-player
-  "Adds a new placeholder year to the end of a player's gift history"
-  [player plr-key]
-  (->
-    player
-    (:gift-history player)
-    (gh/add-year plr-key)
-    (->>
-      (set-gift-history player))))
-(s/fdef add-year-player
-        :args (s/cat :player :unq/player
-                     :plr-key ::gh/player-key)
-        :ret :unq/player)
+;(defn add-year-player
+;  "Adds a new placeholder year to the end of a player's gift history"
+;  [player plr-key]
+;  (->
+;    player
+;    (:gift-history player)
+;    (gh/gift-history-add-year plr-key)
+;    (->>
+;      (player-update-gift-history player))))
+;(s/fdef add-year-player
+;        :args (s/cat :player :unq/player
+;                     :plr-key ::gh/player-key)
+;        :ret :unq/player)
 
 (ostest/instrument)

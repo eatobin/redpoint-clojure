@@ -1,13 +1,24 @@
 (ns clojure-redpoint.players
-  (:require [clojure.spec.alpha :as s]
+  (:require [clojure-redpoint.players :as plrs]
+            [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
+(s/def ::player-key keyword?)
 (s/def :unq/players (s/map-of ::player-key :unq/player))
 
-(defn get-player-name
+(defn players-update-player
+  [players plr-key player]
+  (assoc players plr-key player))
+(s/fdef players-update-player
+        :args (s/cat :players :unq/players
+                     :plr-key ::player-key
+                     :player :unq/player)
+        :ret :unq/players)
+
+(defn players-get-player-name
   [players plr-key]
-  (get-in players [plr-key :player-name]))
-(s/fdef get-player-name
+  (:player-name (get players plr-key)))
+(s/fdef players-get-player-name
         :args (s/cat :players :unq/players
                      :plr-key ::player-key)
         :ret (s/or :found ::player-name

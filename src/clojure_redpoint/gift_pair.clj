@@ -12,16 +12,16 @@
                      :giver ::giver)
         :ret :unq/gift-pair)
 
-(defn set-givee [gift-pair givee]
+(defn gift-pair-update-givee [gift-pair givee]
   (assoc gift-pair :givee givee))
-(s/fdef set-givee
+(s/fdef gift-pair-update-givee
         :args (s/cat :gift-pair :unq/gift-pair
                      :givee ::givee)
         :ret :unq/gift-pair)
 
-(defn set-giver [gift-pair giver]
+(defn gift-pair-update-giver [gift-pair giver]
   (assoc gift-pair :giver giver))
-(s/fdef set-giver
+(s/fdef gift-pair-update-giver
         :args (s/cat :gift-pair :unq/gift-pair
                      :giver ::giver)
         :ret :unq/gift-pair)
