@@ -9,7 +9,7 @@
 (deftest add-year-test
   (is (= [(gp/->Gift-Pair :GeoHar :JohLen), (gp/->Gift-Pair :NewBee :NewBee)]
          (gh/gift-history-add-year gift-history :NewBee))))
-(s/conform :unq/gift-history
+(s/conform ::gh/gift-history
            (gh/gift-history-add-year gift-history :NewBee))
 
 (deftest get-gift-pair-test
