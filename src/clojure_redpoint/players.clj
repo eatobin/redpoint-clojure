@@ -72,5 +72,18 @@
                      :g-year ::gift-year
                      :giver ::giver)
         :ret :unq/players)
+;(defn add-year-player
+;  "Adds a new placeholder year to the end of a player's gift history"
+;  [player plr-key]
+;  (->
+;    player
+;    (:gift-history player)
+;    (gh/gift-history-add-year plr-key)
+;    (->>
+;      (player-update-gift-history player))))
+;(s/fdef add-year-player
+;        :args (s/cat :player :unq/player
+;                     :plr-key ::gh/player-key)
+;        :ret :unq/player)
 
 (ostest/instrument)

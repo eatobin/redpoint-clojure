@@ -4,7 +4,7 @@
             [orchestra.spec.test :as ostest]))
 
 (s/def ::player-name string?)
-(s/def ::player (s/keys :req-un [::player-name :unq/gift-history]))
+(s/def ::player (s/keys :req-un [::player-name ::gh/gift-history]))
 
 (defrecord Player [player-name gift-history])
 (s/fdef ->Player
@@ -20,19 +20,5 @@
         :args (s/cat :player ::player
                      :g-hist ::gh/gift-history)
         :ret ::player)
-
-;(defn add-year-player
-;  "Adds a new placeholder year to the end of a player's gift history"
-;  [player plr-key]
-;  (->
-;    player
-;    (:gift-history player)
-;    (gh/gift-history-add-year plr-key)
-;    (->>
-;      (player-update-gift-history player))))
-;(s/fdef add-year-player
-;        :args (s/cat :player :unq/player
-;                     :plr-key ::gh/player-key)
-;        :ret :unq/player)
 
 (ostest/instrument)
