@@ -20,7 +20,7 @@
          (gp/gift-pair-update-givee gift-pair :NewBee)))
   (is (= (gp/->Gift-Pair :GeoHar :NewBee)
          (gp/gift-pair-update-giver gift-pair :NewBee))))
-(s/conform :unq/gift-pair
+(s/conform ::gp/gift-pair
            (gp/gift-pair-update-givee gift-pair :NewBee))
-(s/conform :unq/gift-pair
+(s/conform ::gp/gift-pair
            (gp/gift-pair-update-giver gift-pair :NewBee))
