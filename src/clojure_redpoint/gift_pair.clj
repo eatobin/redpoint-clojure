@@ -4,26 +4,26 @@
 
 (s/def ::givee keyword?)
 (s/def ::giver keyword?)
-(s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
+(s/def ::gift-pair (s/keys :req-un [::givee ::giver]))
 
 (defrecord Gift-Pair [givee giver])
 (s/fdef ->Gift-Pair
         :args (s/cat :givee ::givee
                      :giver ::giver)
-        :ret :unq/gift-pair)
+        :ret ::gift-pair)
 
 (defn gift-pair-update-givee [gift-pair givee]
   (assoc gift-pair :givee givee))
 (s/fdef gift-pair-update-givee
-        :args (s/cat :gift-pair :unq/gift-pair
+        :args (s/cat :gift-pair ::gift-pair
                      :givee ::givee)
-        :ret :unq/gift-pair)
+        :ret ::gift-pair)
 
 (defn gift-pair-update-giver [gift-pair giver]
   (assoc gift-pair :giver giver))
 (s/fdef gift-pair-update-giver
-        :args (s/cat :gift-pair :unq/gift-pair
+        :args (s/cat :gift-pair ::gift-pair
                      :giver ::giver)
-        :ret :unq/gift-pair)
+        :ret ::gift-pair)
 
 (ostest/instrument)
