@@ -13,11 +13,15 @@
               :RinSta (plr/map->Player {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:giver :GeoHar, :givee :JohLen})]})})
 
 (def extended-players {:PauMcc (plr/map->Player {:player-name  "Paul McCartney",
-                                                 :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar}) (gp/map->Gift-Pair {:givee :PauMcc, :giver :PauMcc})]}),
+                                                 :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar})
+                                                                (gp/map->Gift-Pair {:givee :PauMcc, :giver :PauMcc})]}),
                        :GeoHar (plr/map->Player {:player-name  "George Harrison",
-                                                 :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :RinSta}) (gp/map->Gift-Pair {:givee :GeoHar, :giver :GeoHar})]}),
-                       :JohLen (plr/map->Player {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc}) (gp/map->Gift-Pair {:givee :JohLen, :giver :JohLen})]}),
-                       :RinSta (plr/map->Player {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:giver :GeoHar, :givee :JohLen}) (gp/map->Gift-Pair {:givee :RinSta, :giver :RinSta})]})})
+                                                 :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :RinSta})
+                                                                (gp/map->Gift-Pair {:givee :GeoHar, :giver :GeoHar})]}),
+                       :JohLen (plr/map->Player {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc})
+                                                                                            (gp/map->Gift-Pair {:givee :JohLen, :giver :JohLen})]}),
+                       :RinSta (plr/map->Player {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:giver :GeoHar, :givee :JohLen})
+                                                                                            (gp/map->Gift-Pair {:givee :RinSta, :giver :RinSta})]})})
 
 (def new-bee (plr/->Player "New Bee" [(gp/map->Gift-Pair {:giver :NewBee, :givee :NewBee})]))
 
