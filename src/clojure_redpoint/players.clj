@@ -1,7 +1,8 @@
 (ns clojure-redpoint.players
   (:require [clojure-redpoint.player :as plr]
             [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as ostest]))
+            [orchestra.spec.test :as ostest]
+            [clojure-redpoint.gift-pair :as gp]))
 
 (s/def ::player-key keyword?)
 (s/def ::players (s/map-of ::player-key ::plr/player))
@@ -24,17 +25,17 @@
         :ret (s/or :found ::plr/player-name
                    :not-found nil?))
 
-;(defn add-year
-;  "Add a year for each player in roster"
-;  [players]
-;  (into {} (for [[plr-key player] players]
-;             (let [{:keys [player-name gift-history]} player]
-;               [plr-key {:player-name  player-name,
-;                         :gift-history (conj gift-history {:givee plr-key, :giver plr-key})}]))))
-;(s/fdef add-year
-;        :args (s/cat :players :unq/players)
-;        :ret :unq/players)
-;
+(defn players-add-year
+  "Add a year for each player in roster"
+  [players]
+  (into {} (for [[plr-key player] players]
+             (let [{:keys [player-name gift-history]} player]
+               [plr-key (plr/map->Player {:player-name  player-name,
+                                          :gift-history (conj gift-history (gp/map->Gift-Pair {:givee plr-key, :giver plr-key}))})]))))
+(s/fdef players-add-year
+        :args (s/cat :players ::players)
+        :ret ::players)
+
 ;(defn get-givee
 ;  [players plr-key g-year]
 ;  (get-in players [plr-key :gift-history g-year :givee]))

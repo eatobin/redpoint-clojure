@@ -51,12 +51,12 @@
                  :not-found nil?)
            (plrs/players-get-player-name players :GeoHarX))
 
-;(deftest add-year-test
-;  (is (= extended-players
-;         (plrs/add-year players))))
-;(s/conform :unq/players
-;           (plrs/add-year players))
-;
+(deftest players-add-year-test
+  (is (= extended-players
+         (plrs/players-add-year players))))
+(s/conform ::plrs/players
+           (plrs/players-add-year players))
+
 ;(deftest get-givee-giver-test
 ;  (is (= :RinSta
 ;         (plrs/get-givee players :GeoHar 0)))
