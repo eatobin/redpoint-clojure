@@ -15,15 +15,15 @@
                      :player ::plr/player)
         :ret ::players)
 
-;(defn players-get-player-name
-;  [players plr-key]
-;  (:player-name (get players plr-key)))
-;(s/fdef players-get-player-name
-;        :args (s/cat :players :unq/players
-;                     :plr-key ::player-key)
-;        :ret (s/or :found ::player-name
-;                   :not-found nil?))
-;
+(defn players-get-player-name
+  [players plr-key]
+  (:player-name (get players plr-key)))
+(s/fdef players-get-player-name
+        :args (s/cat :players ::players
+                     :plr-key ::player-key)
+        :ret (s/or :found ::plr/player-name
+                   :not-found nil?))
+
 ;(defn add-year
 ;  "Add a year for each player in roster"
 ;  [players]

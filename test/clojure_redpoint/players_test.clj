@@ -39,18 +39,18 @@
   (is (= new-bee-players
          (plrs/players-update-player players :RinSta new-bee))))
 
-;(deftest get-player-name-test
-;  (is (= "George Harrison"
-;         (plrs/players-get-player-name players :GeoHar)))
-;  (is (nil?
-;        (plrs/players-get-player-name players :GeoHarX))))
-;(s/conform (s/or :found ::plrs/player-name
-;                 :not-found nil?)
-;           (plrs/players-get-player-name players :GeoHar))
-;(s/conform (s/or :found ::plrs/player-name
-;                 :not-found nil?)
-;           (plrs/players-get-player-name players :GeoHarX))
-;
+(deftest get-player-name-test
+  (is (= "George Harrison"
+         (plrs/players-get-player-name players :GeoHar)))
+  (is (nil?
+        (plrs/players-get-player-name players :GeoHarX))))
+(s/conform (s/or :found ::plr/player-name
+                 :not-found nil?)
+           (plrs/players-get-player-name players :GeoHar))
+(s/conform (s/or :found ::plr/player-name
+                 :not-found nil?)
+           (plrs/players-get-player-name players :GeoHarX))
+
 ;(deftest add-year-test
 ;  (is (= extended-players
 ;         (plrs/add-year players))))
