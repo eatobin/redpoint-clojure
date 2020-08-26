@@ -57,16 +57,16 @@
 (s/conform ::plrs/players
            (plrs/players-add-year players))
 
-;(deftest get-givee-giver-test
-;  (is (= :RinSta
-;         (plrs/get-givee players :GeoHar 0)))
-;  (is (= :PauMcc
-;         (plrs/get-giver players :GeoHar 0))))
-;(s/conform ::plrs/givee
-;           (plrs/get-givee players :GeoHar 0))
-;(s/conform ::plrs/giver
-;           (plrs/get-giver players :GeoHar 0))
-;
+(deftest players-get-givee-giver-test
+  (is (= :RinSta
+         (plrs/players-get-givee players :GeoHar 0)))
+  (is (= :PauMcc
+         (plrs/players-get-giver players :GeoHar 0))))
+(s/conform ::gp/givee
+           (plrs/players-get-givee players :GeoHar 0))
+(s/conform ::gp/giver
+           (plrs/players-get-giver players :GeoHar 0))
+
 ;(deftest set-givee-giver-test
 ;  (is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
 ;          :GeoHar {:player-name "George Harrison", :gift-history [{:giver :PauMcc, :givee :you}]},

@@ -1,5 +1,6 @@
 (ns clojure-redpoint.players
-  (:require [clojure-redpoint.player :as plr]
+  (:require [clojure-redpoint.gift-history :as gh]
+            [clojure-redpoint.player :as plr]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]
             [clojure-redpoint.gift-pair :as gp]))
@@ -36,24 +37,24 @@
         :args (s/cat :players ::players)
         :ret ::players)
 
-;(defn get-givee
-;  [players plr-key g-year]
-;  (get-in players [plr-key :gift-history g-year :givee]))
-;(s/fdef get-givee
-;        :args (s/cat :players :unq/players
-;                     :plr-key ::player-key
-;                     :g-year ::gift-year)
-;        :ret ::givee)
-;
-;(defn get-giver
-;  [players plr-key g-year]
-;  (get-in players [plr-key :gift-history g-year :giver]))
-;(s/fdef get-givee
-;        :args (s/cat :players :unq/players
-;                     :plr-key ::player-key
-;                     :g-year ::gift-year)
-;        :ret ::giver)
-;
+(defn players-get-givee
+  [players plr-key g-year]
+  (:givee (get (:gift-history (get players plr-key)) g-year)))
+(s/fdef players-get-givee
+        :args (s/cat :players ::players
+                     :plr-key ::player-key
+                     :g-year ::gh/gift-year)
+        :ret ::gp/givee)
+
+(defn players-get-giver
+  [players plr-key g-year]
+  (:giver (get (:gift-history (get players plr-key)) g-year)))
+(s/fdef players-get-giver
+        :args (s/cat :players ::players
+                     :plr-key ::player-key
+                     :g-year ::gh/gift-year)
+        :ret ::gp/giver)
+
 ;(defn set-givee
 ;  [players plr-key g-year givee]
 ;  (assoc-in players [plr-key :gift-history g-year :givee] givee))
