@@ -6,15 +6,15 @@
 (s/def ::player-key keyword?)
 (s/def ::players (s/map-of ::player-key ::plr/player))
 
-;(defn players-update-player
-;  [players plr-key player]
-;  (assoc players plr-key player))
-;(s/fdef players-update-player
-;        :args (s/cat :players :unq/players
-;                     :plr-key ::player-key
-;                     :player :unq/player)
-;        :ret :unq/players)
-;
+(defn players-update-player
+  [players plr-key player]
+  (assoc players plr-key player))
+(s/fdef players-update-player
+        :args (s/cat :players ::players
+                     :plr-key ::player-key
+                     :player ::plr/player)
+        :ret ::players)
+
 ;(defn players-get-player-name
 ;  [players plr-key]
 ;  (:player-name (get players plr-key)))

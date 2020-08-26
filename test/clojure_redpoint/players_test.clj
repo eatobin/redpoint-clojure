@@ -5,22 +5,35 @@
             [clojure.spec.alpha :as s]
             [clojure-redpoint.gift-pair :as gp]))
 
-(def players {:PauMcc {:player-name  "Paul McCartney",
-                       :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar})]},
-              :GeoHar {:player-name  "George Harrison",
-                       :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :RinSta})]},
-              :JohLen {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc})]},
-              :RinSta {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:giver :GeoHar, :givee :JohLen})]}})
+(def players {:PauMcc (plr/map->Player {:player-name  "Paul McCartney",
+                                        :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar})]}),
+              :GeoHar (plr/map->Player {:player-name  "George Harrison",
+                                        :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :RinSta})]}),
+              :JohLen (plr/map->Player {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc})]}),
+              :RinSta (plr/map->Player {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:giver :GeoHar, :givee :JohLen})]})})
 
-(def extended-players {:PauMcc {:player-name  "Paul McCartney",
-                                :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar}) (gp/map->Gift-Pair {:givee :PauMcc, :giver :PauMcc})]},
-                       :GeoHar {:player-name  "George Harrison",
-                                :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :RinSta}) (gp/map->Gift-Pair {:givee :GeoHar, :giver :GeoHar})]},
-                       :JohLen {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc}) (gp/map->Gift-Pair {:givee :JohLen, :giver :JohLen})]},
-                       :RinSta {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:giver :GeoHar, :givee :JohLen}) (gp/map->Gift-Pair {:givee :RinSta, :giver :RinSta})]}})
+(def extended-players {:PauMcc (plr/map->Player {:player-name  "Paul McCartney",
+                                                 :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar}) (gp/map->Gift-Pair {:givee :PauMcc, :giver :PauMcc})]}),
+                       :GeoHar (plr/map->Player {:player-name  "George Harrison",
+                                                 :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :RinSta}) (gp/map->Gift-Pair {:givee :GeoHar, :giver :GeoHar})]}),
+                       :JohLen (plr/map->Player {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc}) (gp/map->Gift-Pair {:givee :JohLen, :giver :JohLen})]}),
+                       :RinSta (plr/map->Player {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:giver :GeoHar, :givee :JohLen}) (gp/map->Gift-Pair {:givee :RinSta, :giver :RinSta})]})})
+
+(def new-bee (plr/->Player "New Bee" [(gp/map->Gift-Pair {:giver :NewBee, :givee :NewBee})]))
+
+(def new-bee-players {:PauMcc (plr/map->Player {:player-name  "Paul McCartney",
+                                                :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar})]}),
+                      :GeoHar (plr/map->Player {:player-name  "George Harrison",
+                                                :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :RinSta})]}),
+                      :JohLen (plr/map->Player {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc})]}),
+                      :RinSta (plr/map->Player {:player-name "New Bee", :gift-history [(gp/map->Gift-Pair {:giver :NewBee, :givee :NewBee})]})})
 
 (s/conform ::plrs/players
            players)
+
+(deftest players-update-player
+  (is (= new-bee-players
+         (plrs/players-update-player players :RinSta new-bee))))
 
 ;(deftest get-player-name-test
 ;  (is (= "George Harrison"
