@@ -67,18 +67,18 @@
 (s/conform ::gp/giver
            (plrs/players-get-giver players :GeoHar 0))
 
-;(deftest set-givee-giver-test
-;  (is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-;          :GeoHar {:player-name "George Harrison", :gift-history [{:giver :PauMcc, :givee :you}]},
-;          :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-;          :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
-;         (plrs/set-givee players :GeoHar 0 :you)))
-;  (is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-;          :GeoHar {:player-name "George Harrison", :gift-history [{:giver :you, :givee :RinSta}]},
-;          :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-;          :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
-;         (plrs/set-giver players :GeoHar 0 :you))))
-;(s/conform :unq/players
-;           (plrs/set-givee players :GeoHar 0 :you))
+(deftest set-givee-giver-test
+  (is (= {:PauMcc (plr/map->Player {:player-name "Paul McCartney", :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar})]}),
+          :GeoHar (plr/map->Player {:player-name "George Harrison", :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :you})]}),
+          :JohLen (plr/map->Player {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc})]}),
+          :RinSta (plr/map->Player {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:giver :GeoHar, :givee :JohLen})]})}
+         (plrs/players-update-givee players :GeoHar 0 :you)))
+  #_(is (= {:PauMcc {:player-name "Paul McCartney", :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+            :GeoHar {:player-name "George Harrison", :gift-history [{:giver :you, :givee :RinSta}]},
+            :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+            :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}
+           (plrs/set-giver players :GeoHar 0 :you))))
+(s/conform ::plrs/players
+           (plrs/players-update-givee players :GeoHar 0 :you))
 ;(s/conform :unq/players
 ;           (plrs/set-giver players :GeoHar 0 :you))

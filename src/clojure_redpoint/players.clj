@@ -55,16 +55,34 @@
                      :g-year ::gh/gift-year)
         :ret ::gp/giver)
 
-;(defn set-givee
-;  [players plr-key g-year givee]
-;  (assoc-in players [plr-key :gift-history g-year :givee] givee))
-;(s/fdef set-givee
-;        :args (s/cat :players :unq/players
-;                     :plr-key ::player-key
-;                     :g-year ::gift-year
-;                     :givee ::givee)
-;        :ret :unq/players)
-;
+(defn set-gift-pair
+  [players plr-key g-year g-pair]
+  (let [plr (plr-key players)
+        ogh (:gift-history plr)
+        ngh (gh/gift-history-update-gift-history ogh g-year g-pair)
+        nplr (plr/player-update-gift-history plr ngh)]
+    (players-update-player players plr-key nplr)))
+(s/fdef set-gift-pair
+        :args (s/cat :players ::players
+                     :plr-key ::player-key
+                     :g-year ::gh/gift-year
+                     :g-pair ::gp/gift-pair)
+        :ret ::players)
+
+(defn players-update-givee
+  [players plr-key g-year givee]
+  (let [plr (plr-key players)
+        ogh (:gift-history plr)
+        ogp (get ogh g-year)
+        ngp (gp/gift-pair-update-givee ogp givee)]
+    (set-gift-pair players plr-key g-year ngp)))
+(s/fdef players-update-givee
+        :args (s/cat :players ::players
+                     :plr-key ::player-key
+                     :g-year ::gh/gift-year
+                     :givee ::gp/givee)
+        :ret ::players)
+
 ;(defn set-giver
 ;  [players plr-key g-year giver]
 ;  (assoc-in players [plr-key :gift-history g-year :giver] giver))
@@ -74,18 +92,5 @@
 ;                     :g-year ::gift-year
 ;                     :giver ::giver)
 ;        :ret :unq/players)
-;(defn add-year-player
-;  "Adds a new placeholder year to the end of a player's gift history"
-;  [player plr-key]
-;  (->
-;    player
-;    (:gift-history player)
-;    (gh/gift-history-add-year plr-key)
-;    (->>
-;      (player-update-gift-history player))))
-;(s/fdef add-year-player
-;        :args (s/cat :player :unq/player
-;                     :plr-key ::gh/player-key)
-;        :ret :unq/player)
 
 (ostest/instrument)
