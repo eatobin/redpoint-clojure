@@ -83,14 +83,18 @@
                      :givee ::gp/givee)
         :ret ::players)
 
-;(defn set-giver
-;  [players plr-key g-year giver]
-;  (assoc-in players [plr-key :gift-history g-year :giver] giver))
-;(s/fdef set-givee
-;        :args (s/cat :players :unq/players
-;                     :plr-key ::player-key
-;                     :g-year ::gift-year
-;                     :giver ::giver)
-;        :ret :unq/players)
+(defn players-update-giver
+  [players plr-key g-year giver]
+  (let [plr (plr-key players)
+        ogh (:gift-history plr)
+        ogp (get ogh g-year)
+        ngp (gp/gift-pair-update-giver ogp giver)]
+    (set-gift-pair players plr-key g-year ngp)))
+(s/fdef players-update-giver
+        :args (s/cat :players ::players
+                     :plr-key ::player-key
+                     :g-year ::gh/gift-year
+                     :givee ::gp/giver)
+        :ret ::players)
 
 (ostest/instrument)
