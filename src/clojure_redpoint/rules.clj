@@ -37,7 +37,7 @@
 (s/fdef givee-not-repeat?
         :args (s/cat :self-key ::plrs/player-key
                      :givee ::gp/givee
-                     :g-year :gh/gift-year
+                     :g-year ::gh/gift-year
                      :players ::plrs/players)
         :ret boolean?)
 

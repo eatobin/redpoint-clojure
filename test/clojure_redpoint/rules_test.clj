@@ -1,29 +1,32 @@
 (ns clojure-redpoint.rules-test
-  (:require [clojure.test :refer [deftest is]]
+  (:require [clojure-redpoint.gift-pair :as gp]
+            [clojure-redpoint.player :as plr]
+            [clojure-redpoint.players :as plrs]
+            [clojure.test :refer [deftest is]]
             [clojure-redpoint.rules :as rule]
-            [clojure-redpoint.roster :as ros]
+            [clojure-redpoint.roster]
             [clojure.spec.alpha :as s]))
 
-(def players {:RinSta {:player-name "Ringo Starr", :gift-history [{:giver :KarLav, :givee :JohLen}]},
-              :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :GeoHar}]},
-              :GeoHar {:player-name  "George Harrison",
-                       :gift-history [{:giver :JohLen, :givee :PauMcc}]},
-              :PauMcc {:player-name  "Paul McCartney",
-                       :gift-history [{:giver :GeoHar, :givee :EriTob}]},
-              :EriTob {:player-name "Eric Tobin", :gift-history [{:giver :PauMcc, :givee :KarLav}]},
-              :KarLav {:player-name  "Karen Lavengood",
-                       :gift-history [{:giver :EriTob, :givee :RinSta}]}})
+(def players {:PauMcc (plr/map->Player {:player-name  "Paul McCartney",
+                                        :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar})]}),
+              :GeoHar (plr/map->Player {:player-name  "George Harrison",
+                                        :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :RinSta})]}),
+              :JohLen (plr/map->Player {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc})]}),
+              :RinSta (plr/map->Player {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:giver :GeoHar, :givee :JohLen})]})
+              :EriTob (plr/map->Player {:player-name "Eric Tobin", :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :KarLav})]}),
+              :KarLav (plr/map->Player {:player-name  "Karen Lavengood",
+                                        :gift-history [(gp/map->Gift-Pair {:giver :EriTob, :givee :RinSta})]})})
 
-(def extended ((comp ros/add-year
-                     ros/add-year
-                     ros/add-year
-                     ros/add-year)
+(def extended ((comp plrs/players-add-year
+                     plrs/players-add-year
+                     plrs/players-add-year
+                     plrs/players-add-year)
                players))
 
-(def beatles-plus-4 (ros/update-givee
-                     (ros/update-givee
-                      (ros/update-givee
-                       (ros/update-givee extended :RinSta 1 :GeoHar) :RinSta 2 :PauMcc) :RinSta 3 :EriTob) :RinSta 4 :KarLav))
+(def beatles-plus-4 (plrs/players-update-givee
+                      (plrs/players-update-givee
+                        (plrs/players-update-givee
+                          (plrs/players-update-givee extended :RinSta 1 :GeoHar) :RinSta 2 :PauMcc) :RinSta 3 :EriTob) :RinSta 4 :KarLav))
 
 (deftest givee-not-self-test
   (is (= true
