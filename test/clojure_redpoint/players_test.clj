@@ -89,3 +89,9 @@
            (plrs/players-update-givee players :GeoHar 0 :you))
 (s/conform ::plrs/players
            (plrs/players-update-giver players :GeoHar 0 :you))
+
+(deftest players-plain-player-upgrade-test
+  (is (= players
+         (plrs/players-plain-player-upgrade plain-players))))
+(s/conform ::plrs/players
+           (plrs/players-plain-player-upgrade plain-players))
