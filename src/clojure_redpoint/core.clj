@@ -2,6 +2,7 @@
 
 (ns clojure-redpoint.core
   (:require [clojure.data.json :as json]
+            [clojure-redpoint.players :as plrs]
             [clojure-redpoint.roster :as ros]
             [clojure-redpoint.hats :as hat]
             [clojure-redpoint.rules :as rule]
@@ -41,7 +42,7 @@
                             :key-fn keyword)]
       (reset! a-roster-name (roster :roster-name))
       (reset! a-roster-year (roster :roster-year))
-      (reset! a-players (roster :players)))
+      (reset! a-players (plrs/players-plain-player-upgrade (roster :players))))
     (do
       (println "The requested file does not exist..")
       (exit-now!))))
@@ -136,9 +137,9 @@
       (while (some? (deref a-giver))
         (while (some? (deref a-givee))
           (if (and
-               (rule/givee-not-self? (deref a-giver) (deref a-givee))
-               (rule/givee-not-recip? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-players))
-               (rule/givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-players)))
+                (rule/givee-not-self? (deref a-giver) (deref a-givee))
+                (rule/givee-not-recip? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-players))
+                (rule/givee-not-repeat? (deref a-giver) (deref a-givee) (deref a-g-year) (deref a-players)))
             (givee-is-success)
             (givee-is-failure)))
         (select-new-giver)))
