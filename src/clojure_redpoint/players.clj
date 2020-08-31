@@ -97,4 +97,9 @@
                      :givee ::gp/giver)
         :ret ::players)
 
+(defn players-plain-player-upgrade
+  [plain-players]
+  (for [[k v] plain-players]
+    {k (plr/player-plain-upgrade v)}))
+
 (ostest/instrument)
