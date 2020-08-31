@@ -99,7 +99,10 @@
 
 (defn players-plain-player-upgrade
   [plain-players]
-  (for [[k v] plain-players]
-    {k (plr/player-plain-upgrade v)}))
+  (into {} (for [[k v] plain-players]
+             {k (plr/player-plain-upgrade v)})))
+(s/fdef players-plain-player-upgrade
+        :args (s/cat :plain-players map?)
+        :ret ::players)
 
 (ostest/instrument)
