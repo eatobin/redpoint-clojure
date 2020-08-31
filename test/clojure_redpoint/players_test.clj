@@ -5,6 +5,13 @@
             [clojure.spec.alpha :as s]
             [clojure-redpoint.gift-pair :as gp]))
 
+(def plain-players {:PauMcc {:player-name  "Paul McCartney",
+                           :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+                  :GeoHar {:player-name  "George Harrison",
+                           :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+                  :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                  :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
+
 (def players {:PauMcc (plr/map->Player {:player-name  "Paul McCartney",
                                         :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar})]}),
               :GeoHar (plr/map->Player {:player-name  "George Harrison",

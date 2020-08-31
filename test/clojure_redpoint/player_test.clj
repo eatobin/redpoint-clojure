@@ -4,6 +4,9 @@
             [clojure.spec.alpha :as s]
             [clojure-redpoint.gift-pair :as gp]))
 
+(def plain-player {:player-name  "Paul McCartney",
+                   :gift-history [{:giver :JohLen, :givee :GeoHar}]})
+
 (def player (plr/map->Player {:player-name  "Paul McCartney",
                               :gift-history [(gp/->Gift-Pair :GeoHar :JohLen)]}))
 
@@ -13,3 +16,9 @@
          (plr/player-update-gift-history player [(gp/->Gift-Pair :nope :yup)]))))
 (s/conform ::plr/player
            (plr/player-update-gift-history player [(gp/->Gift-Pair :nope :yup)]))
+
+(deftest player-plain-upgrade-test
+  (is (= player
+         (plr/player-plain-upgrade plain-player))))
+(s/conform ::plr/player
+           (plr/player-plain-upgrade plain-player))
