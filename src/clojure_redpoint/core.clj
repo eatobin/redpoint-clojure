@@ -55,7 +55,7 @@
 (defn start-new-year
   []
   (swap! a-g-year inc)
-  (swap! a-players ros/add-year)
+  (swap! a-players plrs/players-add-year)
   (reset! a-gr-hat (hat/make-hat (deref a-players)))
   (reset! a-ge-hat (hat/make-hat (deref a-players)))
   (reset! a-giver (draw-puck (deref a-gr-hat)))
@@ -72,8 +72,8 @@
 
 (defn givee-is-success
   []
-  (swap! a-players ros/update-givee (deref a-giver) (deref a-g-year) (deref a-givee))
-  (swap! a-players ros/update-giver (deref a-givee) (deref a-g-year) (deref a-giver))
+  (swap! a-players plrs/players-update-givee (deref a-giver) (deref a-g-year) (deref a-givee))
+  (swap! a-players plrs/players-update-giver (deref a-givee) (deref a-g-year) (deref a-giver))
   (swap! a-ge-hat hat/remove-puck (deref a-givee))
   (reset! a-givee nil))
 
@@ -85,17 +85,17 @@
 
 (defn errors? []
   (seq (for [plr-sym (keys (into (sorted-map) (deref a-players)))
-             :let [giver-code (ros/get-giver (deref a-players) plr-sym (deref a-g-year))
-                   givee-code (ros/get-givee (deref a-players) plr-sym (deref a-g-year))]
+             :let [giver-code (plrs/players-get-giver (deref a-players) plr-sym (deref a-g-year))
+                   givee-code (plrs/players-get-givee (deref a-players) plr-sym (deref a-g-year))]
              :when (or (= plr-sym giver-code) (= plr-sym givee-code))]
          plr-sym)))
 
 (defn print-results []
   (doseq [plr-sym (keys (into (sorted-map) (deref a-players)))
-          :let [player-name (ros/get-player-name (deref a-players) plr-sym)
-                givee-code (ros/get-givee (deref a-players) plr-sym (deref a-g-year))
-                givee-name (ros/get-player-name (deref a-players) givee-code)
-                giver-code (ros/get-giver (deref a-players) plr-sym (deref a-g-year))]]
+          :let [player-name (plrs/players-get-player-name (deref a-players) plr-sym)
+                givee-code (plrs/players-get-givee (deref a-players) plr-sym (deref a-g-year))
+                givee-name (plrs/players-get-player-name (deref a-players) givee-code)
+                giver-code (plrs/players-get-giver (deref a-players) plr-sym (deref a-g-year))]]
     (cond
       (and (= plr-sym givee-code) (= plr-sym giver-code)) (println player-name "is **buying** for nor **receiving** from anyone - **ERROR**")
       (= plr-sym giver-code) (println player-name "is **receiving** from no one - **ERROR**")
