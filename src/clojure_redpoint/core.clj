@@ -3,7 +3,6 @@
 (ns clojure-redpoint.core
   (:require [clojure.data.json :as json]
             [clojure-redpoint.players :as plrs]
-            [clojure-redpoint.roster :as ros]
             [clojure-redpoint.hats :as hat]
             [clojure-redpoint.rules :as rule]
             [clojure.string :as cs]
