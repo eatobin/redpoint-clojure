@@ -1,6 +1,9 @@
 (ns clojure-redpoint.core-test
   (:require [clojure.test :refer [deftest is]]
             [clojure-redpoint.core :as core]
+            [clojure-redpoint.gift-pair :as gp]
+            [clojure-redpoint.player :as plr]
+            [clojure-redpoint.players :as plrs]
             [clojure-redpoint.roster :as ros]
             [clojure-redpoint.hats :as hat]
             [clojure.spec.alpha :as s]))
@@ -13,24 +16,24 @@
          (deref core/a-roster-name)))
   (is (= 2014
          (deref core/a-roster-year)))
-  (is (= {:GeoHar {:gift-history [{:givee :RinSta
-                                   :giver :PauMcc}]
-                   :player-name  "George Harrison"}
-          :JohLen {:gift-history [{:givee :PauMcc
-                                   :giver :RinSta}]
-                   :player-name  "John Lennon"}
-          :PauMcc {:gift-history [{:givee :GeoHar
-                                   :giver :JohLen}]
-                   :player-name  "Paul McCartney"}
-          :RinSta {:gift-history [{:givee :JohLen
-                                   :giver :GeoHar}]
-                   :player-name  "Ringo Starr"}}
+  (is (= {:GeoHar (plr/map->Player {:gift-history [(gp/map->Gift-Pair {:givee :RinSta
+                                                                       :giver :PauMcc})]
+                                    :player-name  "George Harrison"})
+          :JohLen (plr/map->Player {:gift-history [(gp/map->Gift-Pair {:givee :PauMcc
+                                                                       :giver :RinSta})]
+                                    :player-name  "John Lennon"})
+          :PauMcc (plr/map->Player {:gift-history [(gp/map->Gift-Pair {:givee :GeoHar
+                                                                       :giver :JohLen})]
+                                    :player-name  "Paul McCartney"})
+          :RinSta (plr/map->Player {:gift-history [(gp/map->Gift-Pair {:givee :JohLen
+                                                                       :giver :GeoHar})]
+                                    :player-name  "Ringo Starr"})}
          (deref core/a-players))))
 (s/conform ::ros/roster-name
            (deref core/a-roster-name))
 (s/conform ::ros/roster-year
            (deref core/a-roster-year))
-(s/conform :unq/players
+(s/conform ::plrs/players
            (deref core/a-players))
 
 (deftest draw-puck-test
@@ -38,7 +41,7 @@
         (nil? (core/draw-puck #{}))))
   (is (true?
         (some? (core/draw-puck test-hat)))))
-(s/conform ::ros/givee
+(s/conform ::gp/givee
            (core/draw-puck test-hat))
 (s/conform nil?
            (core/draw-puck #{}))
@@ -55,9 +58,9 @@
         (deref core/a-giver)))
   (is (some?
         (deref core/a-givee)))
-  (is (= {:player-name  "Ringo Starr",
-          :gift-history [{:givee :JohLen, :giver :GeoHar}
-                         {:givee :RinSta, :giver :RinSta}]}
+  (is (= (plr/map->Player {:player-name  "Ringo Starr",
+                           :gift-history [(gp/map->Gift-Pair {:givee :JohLen, :giver :GeoHar})
+                                          (gp/map->Gift-Pair {:givee :RinSta, :giver :RinSta})]})
          (get-in (deref core/a-players) [:RinSta])))
   (is (empty? (deref core/a-discards))))
 
@@ -85,9 +88,9 @@
   (let [temp-ge (deref core/a-givee)]
     (core/givee-is-success)
     (is (= temp-ge
-           (ros/get-givee (deref core/a-players) (deref core/a-giver) (deref core/a-g-year))))
+           (plrs/players-get-givee (deref core/a-players) (deref core/a-giver) (deref core/a-g-year))))
     (is (= (deref core/a-giver)
-           (ros/get-giver (deref core/a-players) temp-ge (deref core/a-g-year))))
+           (plrs/players-get-giver (deref core/a-players) temp-ge (deref core/a-g-year))))
     (is (= nil
            (some #{temp-ge} (deref core/a-ge-hat))))))
 
