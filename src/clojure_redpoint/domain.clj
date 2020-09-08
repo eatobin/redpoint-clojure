@@ -13,3 +13,7 @@
 (s/def ::player (s/keys :req-un [::player-name ::gift-history]))
 
 (s/def ::players (s/map-of ::player-key ::player))
+
+(s/def ::roster-name string?)
+(s/def ::roster-year int?)
+(s/def ::roster (s/keys :req-un [::roster-name ::roster-year ::players]))

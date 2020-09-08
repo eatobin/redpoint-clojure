@@ -3,8 +3,11 @@
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
-(s/def ::roster-name string?)
-(s/def ::roster-year int?)
-(s/def ::roster (s/keys :req-un [::roster-name ::roster-year ::dom/players]))
+(defrecord Roster [roster-name roster-year players])
+(s/fdef ->Roster
+        :args (s/cat :roster-name ::dom/roster-name
+                     :roster-year ::dom/roster-year
+                     :players ::dom/players)
+        :ret ::dom/roster)
 
 (ostest/instrument)

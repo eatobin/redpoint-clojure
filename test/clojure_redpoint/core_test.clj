@@ -5,7 +5,6 @@
             [clojure-redpoint.gift-pair :as gp]
             [clojure-redpoint.player :as plr]
             [clojure-redpoint.players :as plrs]
-            [clojure-redpoint.roster :as ros]
             [clojure-redpoint.hats :as hat]
             [clojure.spec.alpha :as s]))
 
@@ -30,9 +29,9 @@
                                                                        :giver :GeoHar})]
                                     :player-name  "Ringo Starr"})}
          (deref core/a-players))))
-(s/conform ::ros/roster-name
+(s/conform ::dom/roster-name
            (deref core/a-roster-name))
-(s/conform ::ros/roster-year
+(s/conform ::dom/roster-year
            (deref core/a-roster-year))
 (s/conform ::dom/players
            (deref core/a-players))
