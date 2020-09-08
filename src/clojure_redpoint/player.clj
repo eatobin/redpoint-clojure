@@ -1,16 +1,16 @@
 (ns clojure-redpoint.player
   (:require [clojure-redpoint.gift-pair :as gp]
-            [clojure-redpoint.gift-history :as gh]
+            [clojure-redpoint.domain :as dom]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
 (s/def ::player-name string?)
-(s/def ::player (s/keys :req-un [::player-name ::gh/gift-history]))
+(s/def ::player (s/keys :req-un [::player-name ::dom/gift-history]))
 
 (defrecord Player [player-name gift-history])
 (s/fdef ->Player
         :args (s/cat :player-name ::player-name
-                     :gift-history ::gh/gift-history)
+                     :gift-history ::dom/gift-history)
         :ret ::player)
 
 (defn player-update-gift-history
@@ -19,7 +19,7 @@
   (assoc player :gift-history g-hist))
 (s/fdef player-update-gift-history
         :args (s/cat :player ::player
-                     :g-hist ::gh/gift-history)
+                     :g-hist ::dom/gift-history)
         :ret ::player)
 
 (defn player-plain-upgrade
