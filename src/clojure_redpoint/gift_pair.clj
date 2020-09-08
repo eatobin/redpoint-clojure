@@ -3,13 +3,12 @@
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
-(s/def ::giver keyword?)
-(s/def ::gift-pair (s/keys :req-un [::dom/givee ::giver]))
+(s/def ::gift-pair (s/keys :req-un [::dom/givee ::dom/giver]))
 
 (defrecord Gift-Pair [givee giver])
 (s/fdef ->Gift-Pair
         :args (s/cat :givee ::dom/givee
-                     :giver ::giver)
+                     :giver ::dom/giver)
         :ret ::gift-pair)
 
 (defn gift-pair-update-givee [gift-pair givee]
@@ -23,7 +22,7 @@
   (assoc gift-pair :giver giver))
 (s/fdef gift-pair-update-giver
         :args (s/cat :gift-pair ::gift-pair
-                     :giver ::giver)
+                     :giver ::dom/giver)
         :ret ::gift-pair)
 
 (ostest/instrument)

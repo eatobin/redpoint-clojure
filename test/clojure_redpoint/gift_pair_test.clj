@@ -13,7 +13,7 @@
          (:giver gift-pair))))
 (s/conform ::dom/givee
            (:givee gift-pair))
-(s/conform ::gp/giver
+(s/conform ::dom/giver
            (:giver gift-pair))
 
 (deftest set-giv-ee-er-test

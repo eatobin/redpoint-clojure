@@ -54,7 +54,7 @@
         :args (s/cat :players ::players
                      :plr-key ::player-key
                      :g-year ::gh/gift-year)
-        :ret ::gp/giver)
+        :ret ::dom/giver)
 
 (defn set-gift-pair
   [players plr-key g-year g-pair]
@@ -95,7 +95,7 @@
         :args (s/cat :players ::players
                      :plr-key ::player-key
                      :g-year ::gh/gift-year
-                     :givee ::gp/giver)
+                     :givee ::dom/giver)
         :ret ::players)
 
 (defn players-plain-player-upgrade

@@ -72,7 +72,7 @@
          (plrs/players-get-giver players :GeoHar 0))))
 (s/conform ::dom/givee
            (plrs/players-get-givee players :GeoHar 0))
-(s/conform ::gp/giver
+(s/conform ::dom/giver
            (plrs/players-get-giver players :GeoHar 0))
 
 (deftest set-givee-giver-test
