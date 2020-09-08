@@ -4,7 +4,6 @@
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
-(s/def ::player-key keyword?)
 (s/def ::gift-year (s/and int? #(> % -1)))
 
 (defn gift-history-add-year
@@ -13,7 +12,7 @@
   (conj g-hist (gp/->Gift-Pair plr-key plr-key)))
 (s/fdef gift-history-add-year
         :args (s/cat :g-hist ::dom/gift-history
-                     :plr-key ::player-key)
+                     :plr-key ::dom/player-key)
         :ret ::dom/gift-history)
 
 (defn gift-history-update-gift-history

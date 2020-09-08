@@ -6,3 +6,5 @@
 (s/def ::gift-pair (s/keys :req-un [::givee ::giver]))
 
 (s/def ::gift-history (s/coll-of ::gift-pair :kind vector?))
+(s/def ::player-key keyword?)
+

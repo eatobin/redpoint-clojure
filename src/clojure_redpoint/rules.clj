@@ -10,7 +10,7 @@
   [self-key givee]
   (not= self-key givee))
 (s/fdef givee-not-self?
-        :args (s/cat :self-key ::plrs/player-key
+        :args (s/cat :self-key ::dom/player-key
                      :givee ::dom/givee)
         :ret boolean?)
 
@@ -20,7 +20,7 @@
   (let [recip (plrs/players-get-givee players givee g-year)]
     (not= self-key recip)))
 (s/fdef givee-not-recip?
-        :args (s/cat :self-key ::plrs/player-key
+        :args (s/cat :self-key ::dom/player-key
                      :givee ::dom/givee
                      :g-year ::gh/gift-year
                      :players ::plrs/players)
@@ -35,7 +35,7 @@
         ge-in-yrs (into [] (map ge-y past))]
     (not-any? #{givee} ge-in-yrs)))
 (s/fdef givee-not-repeat?
-        :args (s/cat :self-key ::plrs/player-key
+        :args (s/cat :self-key ::dom/player-key
                      :givee ::dom/givee
                      :g-year ::gh/gift-year
                      :players ::plrs/players)

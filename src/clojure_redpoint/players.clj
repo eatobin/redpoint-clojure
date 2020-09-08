@@ -6,15 +6,14 @@
             [orchestra.spec.test :as ostest]
             [clojure-redpoint.gift-pair :as gp]))
 
-(s/def ::player-key keyword?)
-(s/def ::players (s/map-of ::player-key ::plr/player))
+(s/def ::players (s/map-of ::dom/player-key ::plr/player))
 
 (defn players-update-player
   [players plr-key player]
   (assoc players plr-key player))
 (s/fdef players-update-player
         :args (s/cat :players ::players
-                     :plr-key ::player-key
+                     :plr-key ::dom/player-key
                      :player ::plr/player)
         :ret ::players)
 
@@ -23,7 +22,7 @@
   (:player-name (get players plr-key)))
 (s/fdef players-get-player-name
         :args (s/cat :players ::players
-                     :plr-key ::player-key)
+                     :plr-key ::dom/player-key)
         :ret (s/or :found ::plr/player-name
                    :not-found nil?))
 
@@ -43,7 +42,7 @@
   (:givee (get (:gift-history (get players plr-key)) g-year)))
 (s/fdef players-get-givee
         :args (s/cat :players ::players
-                     :plr-key ::player-key
+                     :plr-key ::dom/player-key
                      :g-year ::gh/gift-year)
         :ret ::dom/givee)
 
@@ -52,7 +51,7 @@
   (:giver (get (:gift-history (get players plr-key)) g-year)))
 (s/fdef players-get-giver
         :args (s/cat :players ::players
-                     :plr-key ::player-key
+                     :plr-key ::dom/player-key
                      :g-year ::gh/gift-year)
         :ret ::dom/giver)
 
@@ -65,7 +64,7 @@
     (players-update-player players plr-key nplr)))
 (s/fdef set-gift-pair
         :args (s/cat :players ::players
-                     :plr-key ::player-key
+                     :plr-key ::dom/player-key
                      :g-year ::gh/gift-year
                      :g-pair ::dom/gift-pair)
         :ret ::players)
@@ -79,7 +78,7 @@
     (set-gift-pair players plr-key g-year ngp)))
 (s/fdef players-update-givee
         :args (s/cat :players ::players
-                     :plr-key ::player-key
+                     :plr-key ::dom/player-key
                      :g-year ::gh/gift-year
                      :givee ::dom/givee)
         :ret ::players)
@@ -93,7 +92,7 @@
     (set-gift-pair players plr-key g-year ngp)))
 (s/fdef players-update-giver
         :args (s/cat :players ::players
-                     :plr-key ::player-key
+                     :plr-key ::dom/player-key
                      :g-year ::gh/gift-year
                      :givee ::dom/giver)
         :ret ::players)

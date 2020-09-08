@@ -4,8 +4,8 @@
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
-(s/def ::hat (s/coll-of ::plrs/player-key :kind set?))
-(s/def ::discards (s/coll-of ::plrs/player-key :kind set?))
+(s/def ::hat (s/coll-of ::dom/player-key :kind set?))
+(s/def ::discards (s/coll-of ::dom/player-key :kind set?))
 
 (defn make-hat [players]
   (into #{} (keys players)))
@@ -17,7 +17,7 @@
   (into #{} (remove #(= % plr-key) hat)))
 (s/fdef remove-puck
         :args (s/cat :hat ::hat
-                     :plr-key ::plrs/player-key)
+                     :plr-key ::dom/player-key)
         :ret ::hat)
 
 (defn discard-givee [discards givee]
