@@ -1,5 +1,6 @@
 (ns clojure-redpoint.players-test
   (:require [clojure.test :refer [deftest is]]
+            [clojure-redpoint.domain :as dom]
             [clojure-redpoint.player :as plr]
             [clojure-redpoint.players :as plrs]
             [clojure.spec.alpha :as s]
@@ -69,7 +70,7 @@
          (plrs/players-get-givee players :GeoHar 0)))
   (is (= :PauMcc
          (plrs/players-get-giver players :GeoHar 0))))
-(s/conform ::gp/givee
+(s/conform ::dom/givee
            (plrs/players-get-givee players :GeoHar 0))
 (s/conform ::gp/giver
            (plrs/players-get-giver players :GeoHar 0))

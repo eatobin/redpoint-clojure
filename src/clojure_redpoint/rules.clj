@@ -1,5 +1,5 @@
 (ns clojure-redpoint.rules
-  (:require [clojure-redpoint.gift-pair :as gp]
+  (:require [clojure-redpoint.domain :as dom]
             [clojure-redpoint.players :as plrs]
             [clojure-redpoint.gift-history :as gh]
             [clojure.spec.alpha :as s]
@@ -11,7 +11,7 @@
   (not= self-key givee))
 (s/fdef givee-not-self?
         :args (s/cat :self-key ::plrs/player-key
-                     :givee ::gp/givee)
+                     :givee ::dom/givee)
         :ret boolean?)
 
 (defn givee-not-recip?
@@ -21,7 +21,7 @@
     (not= self-key recip)))
 (s/fdef givee-not-recip?
         :args (s/cat :self-key ::plrs/player-key
-                     :givee ::gp/givee
+                     :givee ::dom/givee
                      :g-year ::gh/gift-year
                      :players ::plrs/players)
         :ret boolean?)
@@ -36,7 +36,7 @@
     (not-any? #{givee} ge-in-yrs)))
 (s/fdef givee-not-repeat?
         :args (s/cat :self-key ::plrs/player-key
-                     :givee ::gp/givee
+                     :givee ::dom/givee
                      :g-year ::gh/gift-year
                      :players ::plrs/players)
         :ret boolean?)

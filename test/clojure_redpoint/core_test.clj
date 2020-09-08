@@ -1,6 +1,7 @@
 (ns clojure-redpoint.core-test
   (:require [clojure.test :refer [deftest is]]
             [clojure-redpoint.core :as core]
+            [clojure-redpoint.domain :as dom]
             [clojure-redpoint.gift-pair :as gp]
             [clojure-redpoint.player :as plr]
             [clojure-redpoint.players :as plrs]
@@ -41,7 +42,7 @@
         (nil? (core/draw-puck #{}))))
   (is (true?
         (some? (core/draw-puck test-hat)))))
-(s/conform ::gp/givee
+(s/conform ::dom/givee
            (core/draw-puck test-hat))
 (s/conform nil?
            (core/draw-puck #{}))

@@ -1,5 +1,6 @@
 (ns clojure-redpoint.players
-  (:require [clojure-redpoint.gift-history :as gh]
+  (:require [clojure-redpoint.domain :as dom]
+            [clojure-redpoint.gift-history :as gh]
             [clojure-redpoint.player :as plr]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]
@@ -44,7 +45,7 @@
         :args (s/cat :players ::players
                      :plr-key ::player-key
                      :g-year ::gh/gift-year)
-        :ret ::gp/givee)
+        :ret ::dom/givee)
 
 (defn players-get-giver
   [players plr-key g-year]
@@ -80,7 +81,7 @@
         :args (s/cat :players ::players
                      :plr-key ::player-key
                      :g-year ::gh/gift-year
-                     :givee ::gp/givee)
+                     :givee ::dom/givee)
         :ret ::players)
 
 (defn players-update-giver

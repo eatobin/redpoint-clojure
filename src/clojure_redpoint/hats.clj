@@ -1,5 +1,5 @@
 (ns clojure-redpoint.hats
-  (:require [clojure-redpoint.gift-pair :as gp]
+  (:require [clojure-redpoint.domain :as dom]
             [clojure-redpoint.players :as plrs]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
@@ -24,7 +24,7 @@
   (conj discards givee))
 (s/fdef discard-givee
         :args (s/cat :discards ::discards
-                     :givee ::gp/givee)
+                     :givee ::dom/givee)
         :ret ::discards)
 
 (defn return-discards [ge-hat discards]
