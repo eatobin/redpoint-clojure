@@ -17,3 +17,5 @@
 (s/def ::roster-name string?)
 (s/def ::roster-year int?)
 (s/def ::roster (s/keys :req-un [::roster-name ::roster-year ::players]))
+
+(s/def ::hat (s/coll-of ::player-key :kind set?))

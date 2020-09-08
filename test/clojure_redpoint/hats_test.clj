@@ -1,5 +1,6 @@
 (ns clojure-redpoint.hats-test
-  (:require [clojure-redpoint.gift-pair :as gp]
+  (:require [clojure-redpoint.domain :as dom]
+            [clojure-redpoint.gift-pair :as gp]
             [clojure-redpoint.player :as plr]
             [clojure.test :refer [deftest is]]
             [clojure-redpoint.hats :as hat]
@@ -18,7 +19,7 @@
 (deftest make-hats-test
   (is (= test-hat
          (hat/make-hat players))))
-(s/conform ::hat/hat
+(s/conform ::dom/hat
            (hat/make-hat players))
 
 (deftest remove-puck-test
