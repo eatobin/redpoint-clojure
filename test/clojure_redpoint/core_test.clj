@@ -34,7 +34,7 @@
            (deref core/a-roster-name))
 (s/conform ::ros/roster-year
            (deref core/a-roster-year))
-(s/conform ::plrs/players
+(s/conform ::dom/players
            (deref core/a-players))
 
 (deftest draw-puck-test

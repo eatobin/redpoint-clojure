@@ -22,7 +22,7 @@
         :args (s/cat :self-key ::dom/player-key
                      :givee ::dom/givee
                      :g-year ::dom/gift-year
-                     :players ::plrs/players)
+                     :players ::dom/players)
         :ret boolean?)
 
 (defn givee-not-repeat?
@@ -37,7 +37,7 @@
         :args (s/cat :self-key ::dom/player-key
                      :givee ::dom/givee
                      :g-year ::dom/gift-year
-                     :players ::plrs/players)
+                     :players ::dom/players)
         :ret boolean?)
 
 (ostest/instrument)

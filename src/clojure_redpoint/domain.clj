@@ -11,3 +11,5 @@
 
 (s/def ::player-name string?)
 (s/def ::player (s/keys :req-un [::player-name ::gift-history]))
+
+(s/def ::players (s/map-of ::player-key ::player))

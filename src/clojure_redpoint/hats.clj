@@ -1,6 +1,5 @@
 (ns clojure-redpoint.hats
   (:require [clojure-redpoint.domain :as dom]
-            [clojure-redpoint.players :as plrs]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
@@ -10,7 +9,7 @@
 (defn make-hat [players]
   (into #{} (keys players)))
 (s/fdef make-hat
-        :args (s/cat :players ::plrs/players)
+        :args (s/cat :players ::dom/players)
         :ret ::hat)
 
 (defn remove-puck [hat plr-key]

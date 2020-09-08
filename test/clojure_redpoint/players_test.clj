@@ -40,7 +40,7 @@
                       :JohLen (plr/map->Player {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc})]}),
                       :RinSta (plr/map->Player {:player-name "New Bee", :gift-history [(gp/map->Gift-Pair {:giver :NewBee, :givee :NewBee})]})})
 
-(s/conform ::plrs/players
+(s/conform ::dom/players
            players)
 
 (deftest players-update-player
@@ -62,7 +62,7 @@
 (deftest players-add-year-test
   (is (= extended-players
          (plrs/players-add-year players))))
-(s/conform ::plrs/players
+(s/conform ::dom/players
            (plrs/players-add-year players))
 
 (deftest players-get-givee-giver-test
@@ -86,13 +86,13 @@
           :JohLen (plr/map->Player {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc})]}),
           :RinSta (plr/map->Player {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:giver :GeoHar, :givee :JohLen})]})}
          (plrs/players-update-giver players :GeoHar 0 :you))))
-(s/conform ::plrs/players
+(s/conform ::dom/players
            (plrs/players-update-givee players :GeoHar 0 :you))
-(s/conform ::plrs/players
+(s/conform ::dom/players
            (plrs/players-update-giver players :GeoHar 0 :you))
 
 (deftest players-plain-player-upgrade-test
   (is (= players
          (plrs/players-plain-player-upgrade plain-players))))
-(s/conform ::plrs/players
+(s/conform ::dom/players
            (plrs/players-plain-player-upgrade plain-players))
