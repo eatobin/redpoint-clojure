@@ -43,7 +43,7 @@
 (s/fdef players-get-givee
         :args (s/cat :players ::players
                      :plr-key ::dom/player-key
-                     :g-year ::gh/gift-year)
+                     :g-year ::dom/gift-year)
         :ret ::dom/givee)
 
 (defn players-get-giver
@@ -52,7 +52,7 @@
 (s/fdef players-get-giver
         :args (s/cat :players ::players
                      :plr-key ::dom/player-key
-                     :g-year ::gh/gift-year)
+                     :g-year ::dom/gift-year)
         :ret ::dom/giver)
 
 (defn set-gift-pair
@@ -65,7 +65,7 @@
 (s/fdef set-gift-pair
         :args (s/cat :players ::players
                      :plr-key ::dom/player-key
-                     :g-year ::gh/gift-year
+                     :g-year ::dom/gift-year
                      :g-pair ::dom/gift-pair)
         :ret ::players)
 
@@ -79,7 +79,7 @@
 (s/fdef players-update-givee
         :args (s/cat :players ::players
                      :plr-key ::dom/player-key
-                     :g-year ::gh/gift-year
+                     :g-year ::dom/gift-year
                      :givee ::dom/givee)
         :ret ::players)
 
@@ -93,7 +93,7 @@
 (s/fdef players-update-giver
         :args (s/cat :players ::players
                      :plr-key ::dom/player-key
-                     :g-year ::gh/gift-year
+                     :g-year ::dom/gift-year
                      :givee ::dom/giver)
         :ret ::players)
 

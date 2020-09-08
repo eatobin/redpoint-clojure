@@ -1,7 +1,6 @@
 (ns clojure-redpoint.rules
   (:require [clojure-redpoint.domain :as dom]
             [clojure-redpoint.players :as plrs]
-            [clojure-redpoint.gift-history :as gh]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
@@ -22,7 +21,7 @@
 (s/fdef givee-not-recip?
         :args (s/cat :self-key ::dom/player-key
                      :givee ::dom/givee
-                     :g-year ::gh/gift-year
+                     :g-year ::dom/gift-year
                      :players ::plrs/players)
         :ret boolean?)
 
@@ -37,7 +36,7 @@
 (s/fdef givee-not-repeat?
         :args (s/cat :self-key ::dom/player-key
                      :givee ::dom/givee
-                     :g-year ::gh/gift-year
+                     :g-year ::dom/gift-year
                      :players ::plrs/players)
         :ret boolean?)
 

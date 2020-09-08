@@ -4,8 +4,6 @@
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
-(s/def ::gift-year (s/and int? #(> % -1)))
-
 (defn gift-history-add-year
   "Adds a new placeholder year to the end of a player's gift history"
   [g-hist plr-key]
@@ -22,7 +20,7 @@
 (s/fdef gift-history-update-gift-history
         :args (s/and
                 (s/cat :g-hist ::dom/gift-history
-                       :g-year ::gift-year
+                       :g-year ::dom/gift-year
                        :g-pair ::dom/gift-pair)
                 #(< (:g-year %) (count (:g-hist %))))
         :ret ::dom/gift-history)
