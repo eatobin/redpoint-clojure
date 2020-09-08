@@ -10,3 +10,4 @@
 (s/def ::gift-year (s/and int? #(> % -1)))
 
 (s/def ::player-name string?)
+(s/def ::player (s/keys :req-un [::player-name ::gift-history]))

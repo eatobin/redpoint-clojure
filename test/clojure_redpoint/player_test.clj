@@ -1,5 +1,6 @@
 (ns clojure-redpoint.player-test
   (:require [clojure.test :refer [deftest is]]
+            [clojure-redpoint.domain :as dom]
             [clojure-redpoint.player :as plr]
             [clojure.spec.alpha :as s]
             [clojure-redpoint.gift-pair :as gp]))
@@ -14,11 +15,11 @@
   (is (= (plr/map->Player {:player-name  "Paul McCartney",
                            :gift-history [(gp/->Gift-Pair :nope :yup)]})
          (plr/player-update-gift-history player [(gp/->Gift-Pair :nope :yup)]))))
-(s/conform ::plr/player
+(s/conform ::dom/player
            (plr/player-update-gift-history player [(gp/->Gift-Pair :nope :yup)]))
 
 (deftest player-plain-upgrade-test
   (is (= player
          (plr/player-plain-upgrade plain-player))))
-(s/conform ::plr/player
+(s/conform ::dom/player
            (plr/player-plain-upgrade plain-player))

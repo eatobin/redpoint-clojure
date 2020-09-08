@@ -6,7 +6,7 @@
             [orchestra.spec.test :as ostest]
             [clojure-redpoint.gift-pair :as gp]))
 
-(s/def ::players (s/map-of ::dom/player-key ::plr/player))
+(s/def ::players (s/map-of ::dom/player-key ::dom/player))
 
 (defn players-update-player
   [players plr-key player]
@@ -14,7 +14,7 @@
 (s/fdef players-update-player
         :args (s/cat :players ::players
                      :plr-key ::dom/player-key
-                     :player ::plr/player)
+                     :player ::dom/player)
         :ret ::players)
 
 (defn players-get-player-name
