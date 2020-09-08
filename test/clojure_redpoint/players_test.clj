@@ -52,10 +52,10 @@
          (plrs/players-get-player-name players :GeoHar)))
   (is (nil?
         (plrs/players-get-player-name players :GeoHarX))))
-(s/conform (s/or :found ::plr/player-name
+(s/conform (s/or :found ::dom/player-name
                  :not-found nil?)
            (plrs/players-get-player-name players :GeoHar))
-(s/conform (s/or :found ::plr/player-name
+(s/conform (s/or :found ::dom/player-name
                  :not-found nil?)
            (plrs/players-get-player-name players :GeoHarX))
 

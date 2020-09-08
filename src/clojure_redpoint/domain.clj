@@ -8,3 +8,5 @@
 (s/def ::gift-history (s/coll-of ::gift-pair :kind vector?))
 (s/def ::player-key keyword?)
 (s/def ::gift-year (s/and int? #(> % -1)))
+
+(s/def ::player-name string?)

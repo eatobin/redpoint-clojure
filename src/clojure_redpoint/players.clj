@@ -23,7 +23,7 @@
 (s/fdef players-get-player-name
         :args (s/cat :players ::players
                      :plr-key ::dom/player-key)
-        :ret (s/or :found ::plr/player-name
+        :ret (s/or :found ::dom/player-name
                    :not-found nil?))
 
 (defn players-add-year

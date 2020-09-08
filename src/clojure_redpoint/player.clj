@@ -4,12 +4,11 @@
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
-(s/def ::player-name string?)
-(s/def ::player (s/keys :req-un [::player-name ::dom/gift-history]))
+(s/def ::player (s/keys :req-un [::dom/player-name ::dom/gift-history]))
 
 (defrecord Player [player-name gift-history])
 (s/fdef ->Player
-        :args (s/cat :player-name ::player-name
+        :args (s/cat :player-name ::dom/player-name
                      :gift-history ::dom/gift-history)
         :ret ::player)
 
