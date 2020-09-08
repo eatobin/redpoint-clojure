@@ -67,7 +67,7 @@
         :args (s/cat :players ::players
                      :plr-key ::player-key
                      :g-year ::gh/gift-year
-                     :g-pair ::gp/gift-pair)
+                     :g-pair ::dom/gift-pair)
         :ret ::players)
 
 (defn players-update-givee

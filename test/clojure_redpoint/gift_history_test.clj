@@ -1,5 +1,6 @@
 (ns clojure-redpoint.gift-history-test
   (:require [clojure.test :refer [deftest is]]
+            [clojure-redpoint.domain :as dom]
             [clojure-redpoint.gift-pair :as gp]
             [clojure-redpoint.gift-history :as gh]
             [clojure.spec.alpha :as s]))
@@ -15,7 +16,7 @@
 (deftest get-gift-pair-test
   (is (= (gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar})
          (gift-history 0))))
-(s/conform ::gp/gift-pair
+(s/conform ::dom/gift-pair
            (gift-history 0))
 
 (deftest set-gift-pair-test

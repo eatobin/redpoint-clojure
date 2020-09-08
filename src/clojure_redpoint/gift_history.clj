@@ -1,9 +1,10 @@
 (ns clojure-redpoint.gift-history
-  (:require [clojure-redpoint.gift-pair :as gp]
+  (:require [clojure-redpoint.domain :as dom]
+            [clojure-redpoint.gift-pair :as gp]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
-(s/def ::gift-history (s/coll-of ::gp/gift-pair :kind vector?))
+(s/def ::gift-history (s/coll-of ::dom/gift-pair :kind vector?))
 (s/def ::player-key keyword?)
 (s/def ::gift-year (s/and int? #(> % -1)))
 
@@ -24,7 +25,7 @@
         :args (s/and
                 (s/cat :g-hist ::gift-history
                        :g-year ::gift-year
-                       :g-pair ::gp/gift-pair)
+                       :g-pair ::dom/gift-pair)
                 #(< (:g-year %) (count (:g-hist %))))
         :ret ::gift-history)
 
