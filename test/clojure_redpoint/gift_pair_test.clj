@@ -1,5 +1,6 @@
 (ns clojure-redpoint.gift-pair-test
   (:require [clojure.test :refer [deftest is]]
+            [clojure-redpoint.domain :as dom]
             [clojure-redpoint.gift-pair :as gp]
             [clojure.spec.alpha :as s]))
 
@@ -10,7 +11,7 @@
          (:givee gift-pair)))
   (is (= :JohLen
          (:giver gift-pair))))
-(s/conform ::gp/givee
+(s/conform ::dom/givee
            (:givee gift-pair))
 (s/conform ::gp/giver
            (:giver gift-pair))

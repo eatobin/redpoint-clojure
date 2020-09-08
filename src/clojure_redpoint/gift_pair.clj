@@ -1,14 +1,14 @@
 (ns clojure-redpoint.gift-pair
-  (:require [clojure.spec.alpha :as s]
+  (:require [clojure-redpoint.domain :as dom]
+            [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
-(s/def ::givee keyword?)
 (s/def ::giver keyword?)
-(s/def ::gift-pair (s/keys :req-un [::givee ::giver]))
+(s/def ::gift-pair (s/keys :req-un [::dom/givee ::giver]))
 
 (defrecord Gift-Pair [givee giver])
 (s/fdef ->Gift-Pair
-        :args (s/cat :givee ::givee
+        :args (s/cat :givee ::dom/givee
                      :giver ::giver)
         :ret ::gift-pair)
 
@@ -16,7 +16,7 @@
   (assoc gift-pair :givee givee))
 (s/fdef gift-pair-update-givee
         :args (s/cat :gift-pair ::gift-pair
-                     :givee ::givee)
+                     :givee ::dom/givee)
         :ret ::gift-pair)
 
 (defn gift-pair-update-giver [gift-pair giver]
