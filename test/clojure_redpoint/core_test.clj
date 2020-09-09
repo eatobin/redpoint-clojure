@@ -30,11 +30,17 @@
                                     :player-name  "Ringo Starr"})}
          (deref core/a-players))))
 (s/conform ::dom/roster-name
-           (deref core/a-roster-name))
+           (do
+             (core/roster-or-quit "resources-test/beatles.json")
+             (deref core/a-roster-name)))
 (s/conform ::dom/roster-year
-           (deref core/a-roster-year))
+           (do
+             (core/roster-or-quit "resources-test/beatles.json")
+             (deref core/a-roster-year)))
 (s/conform ::dom/players
-           (deref core/a-players))
+           (do
+             (core/roster-or-quit "resources-test/beatles.json")
+             (deref core/a-players)))
 
 (deftest draw-puck-test
   (is (true?
