@@ -115,9 +115,9 @@
 
 (deftest errors?-test
   (reset! core/a-g-year 0)
-  (reset! core/a-players {:RinSta {:player-name "Ringo Starr", :gift-history [{:givee :JohLen, :giver :GeoHar}]},
-                          :JohLen {:player-name "John Lennon", :gift-history [{:givee :PauMcc, :giver :RinSta}]},
-                          :GeoHar {:player-name "George Harrison", :gift-history [{:givee :GeoHar, :giver :PauMcc}]},
-                          :PauMcc {:player-name "Paul McCartney", :gift-history [{:givee :GeoHar, :giver :PauMcc}]}})
+  (reset! core/a-players {:RinSta (plr/map->Player {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:givee :JohLen, :giver :GeoHar})]}),
+                          :JohLen (plr/map->Player {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:givee :PauMcc, :giver :RinSta})]}),
+                          :GeoHar (plr/map->Player {:player-name "George Harrison", :gift-history [(gp/map->Gift-Pair {:givee :GeoHar, :giver :PauMcc})]}),
+                          :PauMcc (plr/map->Player {:player-name "Paul McCartney", :gift-history [(gp/map->Gift-Pair {:givee :GeoHar, :giver :PauMcc})]})})
   (is (= (seq [:GeoHar :PauMcc])
          (core/errors?))))
