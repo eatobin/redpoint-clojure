@@ -1,4 +1,4 @@
-; [eric@eric-macmini clojure-redpoint](master)$ clj -m clojure-redpoint.coreXXX
+; [eric@eric-macmini clojure-redpoint](master)$ clj -m clojure-redpoint.core
 
 (ns clojure-redpoint.core
   (:require [clojure.data.json :as json]
