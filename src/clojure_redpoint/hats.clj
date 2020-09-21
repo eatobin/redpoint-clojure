@@ -3,8 +3,6 @@
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
-(s/def ::discards (s/coll-of ::dom/player-key :kind set?))
-
 (defn make-hat [players]
   (into #{} (keys players)))
 (s/fdef make-hat
@@ -21,15 +19,15 @@
 (defn discard-givee [discards givee]
   (conj discards givee))
 (s/fdef discard-givee
-        :args (s/cat :discards ::discards
+        :args (s/cat :discards ::dom/discards
                      :givee ::dom/givee)
-        :ret ::discards)
+        :ret ::dom/discards)
 
 (defn return-discards [ge-hat discards]
   (into ge-hat discards))
 (s/fdef return-discards
         :args (s/cat :ge-hat ::dom/hat
-                     :discards ::discards)
+                     :discards ::dom/discards)
         :ret ::dom/hat)
 
 (ostest/instrument)

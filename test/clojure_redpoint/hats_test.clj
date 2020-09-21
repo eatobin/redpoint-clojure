@@ -33,7 +33,7 @@
 (deftest discard-puck-givee-test
   (is (= #{:PauMcc :JohLen}
          (hat/discard-givee #{:PauMcc} :JohLen))))
-(s/conform ::hat/discards
+(s/conform ::dom/discards
            (hat/discard-givee #{:PauMcc} :JohLen))
 
 (deftest return-discards-test

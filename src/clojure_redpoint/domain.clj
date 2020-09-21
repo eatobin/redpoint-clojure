@@ -19,3 +19,4 @@
 (s/def ::roster (s/keys :req-un [::roster-name ::roster-year ::players]))
 
 (s/def ::hat (s/coll-of ::player-key :kind set?))
+(s/def ::discards (s/coll-of ::player-key :kind set?))
