@@ -1,8 +1,8 @@
 ; [eric@eric-macmini clojure-redpoint](master)$ clj -m clojure-redpoint.core
 
 (ns clojure-redpoint.core
-  (:require [clojure.data.json :as json]
-            [clojure-redpoint.players :as plrs]
+  (:require [clojure-redpoint.players :as plrs]
+            [clojure-redpoint.roster :as ros]
             [clojure-redpoint.hats :as hat]
             [clojure-redpoint.rules :as rule]
             [clojure.string :as cs]
@@ -24,27 +24,21 @@
   []
   (System/exit 99))
 
-(defn my-value-reader
-  [key value]
-  (if (or (= key :givee)
-          (= key :giver))
-    (keyword value)
-    value))
+(defn read-file-into-json-string [file-path]
+  (if (.exists (io/file file-path))
+    (slurp file-path)
+    (do
+      (println "The requested file does not exist..")
+      (exit-now!))))
 
 (defn roster-or-quit
   "Return a roster or quit the program if the file does not exist
   or if the string cannot be scrubbed"
   [file-path]
-  (if (.exists (io/file file-path))
-    (let [roster (json/read (io/reader file-path)
-                            :value-fn my-value-reader
-                            :key-fn keyword)]
-      (reset! a-roster-name (roster :roster-name))
-      (reset! a-roster-year (roster :roster-year))
-      (reset! a-players (plrs/players-plain-player-upgrade (roster :players))))
-    (do
-      (println "The requested file does not exist..")
-      (exit-now!))))
+  (let [roster (ros/json-string-to-roster (read-file-into-json-string file-path))]
+    (reset! a-roster-name (:roster-name roster))
+    (reset! a-roster-year (:roster-year roster))
+    (reset! a-players (:players roster))))
 
 (defn draw-puck
   [hat]
