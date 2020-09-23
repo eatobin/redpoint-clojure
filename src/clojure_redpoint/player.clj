@@ -22,8 +22,8 @@
 (defn player-plain-upgrade
   [plain-player]
   (let [gh (:gift-history plain-player)
-        pgp (get gh 0)
-        ngp (gp/map->Gift-Pair pgp)
+        first-gp (get gh 0)
+        ngp (gp/map->Gift-Pair first-gp)
         ngh [ngp]
         nplr (map->Player plain-player)]
     (player-update-gift-history nplr ngh)))
