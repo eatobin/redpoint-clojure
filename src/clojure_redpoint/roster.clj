@@ -26,5 +26,8 @@
     (->Roster (roster :roster-name)
               (roster :roster-year)
               (plrs/players-plain-player-upgrade (roster :players)))))
+(s/fdef json-string-to-roster
+        :args (s/cat :json-string string?)
+        :ret ::dom/roster)
 
 (ostest/instrument)
