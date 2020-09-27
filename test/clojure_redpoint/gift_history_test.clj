@@ -5,6 +5,7 @@
             [clojure-redpoint.gift-history :as gh]
             [clojure.spec.alpha :as s]))
 
+(def json-string-GH "[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]")
 (def gift-history [(gp/->Gift-Pair :GeoHar :JohLen)])
 
 (deftest add-year-test
@@ -24,3 +25,7 @@
          (gh/gift-history-update-gift-history gift-history 0 (gp/->Gift-Pair :me :you)))))
 (s/conform ::dom/gift-history
            (gh/gift-history-update-gift-history gift-history 0 (gp/map->Gift-Pair {:givee :me, :giver :you})))
+
+(deftest gift-history-json-string-to-Gift-History-test
+  (is (= (gh/gift-history-json-string-to-Gift-History json-string-GH)
+         gift-history)))

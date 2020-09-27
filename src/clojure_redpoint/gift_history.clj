@@ -1,5 +1,6 @@
 (ns clojure-redpoint.gift-history
   (:require [clojure-redpoint.domain :as dom]
+            [clojure.data.json :as json]
             [clojure-redpoint.gift-pair :as gp]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
@@ -23,6 +24,24 @@
                        :g-year ::dom/gift-year
                        :g-pair ::dom/gift-pair)
                 #(< (:g-year %) (count (:g-hist %))))
+        :ret ::dom/gift-history)
+
+(defn- my-value-reader
+  [key value]
+  (if (or (= key :givee)
+          (= key :giver))
+    (keyword value)
+    value))
+
+(defn gift-history-json-string-to-Gift-History [gh-string]
+  (let [gift-history (json/read-str gh-string
+                                    :value-fn my-value-reader
+                                    :key-fn keyword)]
+    (vec (map #(gp/->Gift-Pair (:givee %)
+                               (:giver %))
+              gift-history))))
+(s/fdef gift-history-json-string-to-Gift-History
+        :args (s/cat :gh-string string?)
         :ret ::dom/gift-history)
 
 (ostest/instrument)
