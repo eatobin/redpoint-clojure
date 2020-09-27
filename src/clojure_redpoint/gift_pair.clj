@@ -35,10 +35,10 @@
   (let [gift-pair (json/read-str gp-string
                                  :value-fn my-value-reader
                                  :key-fn keyword)]
-    (->Gift-Pair (gift-pair :givee)
-                 (gift-pair :giver))))
+    (->Gift-Pair (:givee gift-pair)
+                 (:giver gift-pair))))
 (s/fdef gift-pair-json-string-to-Gift-Pair
-        :args (s/cat :json-string string?)
+        :args (s/cat :gp-string string?)
         :ret ::dom/gift-pair)
 
 (ostest/instrument)
