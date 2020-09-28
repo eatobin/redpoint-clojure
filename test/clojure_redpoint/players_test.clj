@@ -98,5 +98,5 @@
            (plrs/players-plain-player-upgrade plain-players))
 
 (deftest players-json-string-to-Players-test
-  (is (= (plrs/players-json-string-to-Players json-string-Players)
-         players)))
+                                                                 (is (= (plrs/players-json-string-to-Players json-string-Players)
+                                                                        players)))

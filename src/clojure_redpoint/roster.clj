@@ -19,14 +19,14 @@
     (keyword value)
     value))
 
-(defn json-string-to-roster [json-string]
+(defn roster-json-string-to-Roster [json-string]
   (let [roster (json/read-str json-string
                               :value-fn my-value-reader
                               :key-fn keyword)]
     (->Roster (roster :roster-name)
               (roster :roster-year)
               (plrs/players-plain-player-upgrade (roster :players)))))
-(s/fdef json-string-to-roster
+(s/fdef roster-json-string-to-Roster
         :args (s/cat :json-string string?)
         :ret ::dom/roster)
 
