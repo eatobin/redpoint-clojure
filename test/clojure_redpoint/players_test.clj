@@ -6,13 +6,13 @@
             [clojure.spec.alpha :as s]
             [clojure-redpoint.gift-pair :as gp]))
 
+(def json-string-Players "{\"PauMcc\":{\"player-name\":\"Paul McCartney\",\"gift-history\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"player-name\":\"George Harrison\",\"gift-history\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"player-name\":\"John Lennon\",\"gift-history\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"player-name\":\"Ringo Starr\",\"gift-history\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}}")
 (def plain-players {:PauMcc {:player-name  "Paul McCartney",
                              :gift-history [{:giver :JohLen, :givee :GeoHar}]},
                     :GeoHar {:player-name  "George Harrison",
                              :gift-history [{:giver :PauMcc, :givee :RinSta}]},
                     :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
                     :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
-
 (def players {:PauMcc (plr/map->Player {:player-name  "Paul McCartney",
                                         :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar})]}),
               :GeoHar (plr/map->Player {:player-name  "George Harrison",
@@ -96,3 +96,7 @@
          (plrs/players-plain-player-upgrade plain-players))))
 (s/conform ::dom/players
            (plrs/players-plain-player-upgrade plain-players))
+
+(deftest players-json-string-to-Players-test
+  (is (= (plrs/players-json-string-to-Players json-string-Players)
+         players)))

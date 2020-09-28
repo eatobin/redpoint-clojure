@@ -2,6 +2,7 @@
   (:require [clojure-redpoint.domain :as dom]
             [clojure-redpoint.gift-history :as gh]
             [clojure-redpoint.player :as plr]
+            [clojure.data.json :as json]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]
             [clojure-redpoint.gift-pair :as gp]))
@@ -101,6 +102,22 @@
              {k (plr/player-plain-upgrade v)})))
 (s/fdef players-plain-player-upgrade
         :args (s/cat :plain-players map?)
+        :ret ::dom/players)
+
+(defn- my-value-reader
+  [key value]
+  (if (or (= key :givee)
+          (= key :giver))
+    (keyword value)
+    value))
+
+(defn players-json-string-to-Players [plrs-string]
+  (let [players (json/read-str plrs-string
+                               :value-fn my-value-reader
+                               :key-fn keyword)]
+    (players-plain-player-upgrade players)))
+(s/fdef players-json-string-to-Players
+        :args (s/cat :plrs-string string?)
         :ret ::dom/players)
 
 (ostest/instrument)
