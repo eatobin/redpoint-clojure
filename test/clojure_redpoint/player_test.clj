@@ -5,9 +5,9 @@
             [clojure.spec.alpha :as s]
             [clojure-redpoint.gift-pair :as gp]))
 
+(def json-string-Player "{\"player-name\":\"Paul McCartney\",\"gift-history\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]}")
 (def plain-player {:player-name  "Paul McCartney",
                    :gift-history [{:giver :JohLen, :givee :GeoHar}]})
-
 (def player (plr/map->Player {:player-name  "Paul McCartney",
                               :gift-history [(gp/->Gift-Pair :GeoHar :JohLen)]}))
 
@@ -23,3 +23,7 @@
          (plr/player-plain-upgrade plain-player))))
 (s/conform ::dom/player
            (plr/player-plain-upgrade plain-player))
+
+(deftest player-json-string-to-Player-test
+  (is (= (plr/player-json-string-to-Player json-string-Player)
+         player)))
