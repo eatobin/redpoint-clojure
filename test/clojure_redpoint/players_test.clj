@@ -6,7 +6,7 @@
             [clojure.spec.alpha :as s]
             [clojure-redpoint.gift-pair :as gp]))
 
-(def json-string-Players "{\"PauMcc\":{\"player-name\":\"Paul McCartney\",\"gift-history\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"player-name\":\"George Harrison\",\"gift-history\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"player-name\":\"John Lennon\",\"gift-history\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"player-name\":\"Ringo Starr\",\"gift-history\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}}")
+(def json-string-Players "{\"PauMcc\":{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"playerName\":\"George Harrison\",\"giftHistory\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"playerName\":\"John Lennon\",\"giftHistory\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"playerName\":\"Ringo Starr\",\"giftHistory\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}}")
 (def plain-players {:PauMcc {:player-name  "Paul McCartney",
                              :gift-history [{:giver :JohLen, :givee :GeoHar}]},
                     :GeoHar {:player-name  "George Harrison",
@@ -98,5 +98,5 @@
            (plrs/players-plain-player-upgrade plain-players))
 
 (deftest players-json-string-to-Players-test
-                                                                 (is (= (plrs/players-json-string-to-Players json-string-Players)
-                                                                        players)))
+  (is (= (plrs/players-json-string-to-Players json-string-Players)
+         players)))
