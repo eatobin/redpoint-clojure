@@ -6,7 +6,7 @@
             [clojure-redpoint.roster :as ros]
             [clojure.spec.alpha :as s]))
 
-(def json-string-Roster "{\"roster-name\":\"The Beatles\",\"roster-year\":2014,\"players\":{\"PauMcc\":{\"player-name\":\"Paul McCartney\",\"gift-history\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"player-name\":\"George Harrison\",\"gift-history\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"player-name\":\"John Lennon\",\"gift-history\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"player-name\":\"Ringo Starr\",\"gift-history\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}}}")
+(def json-string-Roster "{\"rosterName\":\"The Beatles\",\"rosterYear\":2014,\"players\":{\"PauMcc\":{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"playerName\":\"George Harrison\",\"giftHistory\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"playerName\":\"John Lennon\",\"giftHistory\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"playerName\":\"Ringo Starr\",\"giftHistory\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}}}")
 (def roster (ros/map->Roster {:roster-name "The Beatles",
                               :roster-year 2014,
                               :players     {:PauMcc (plr/map->Player {:player-name  "Paul McCartney",
@@ -18,6 +18,9 @@
 
 (s/conform ::dom/roster
            roster)
+
+(s/conform ::dom/roster
+           (ros/roster-json-string-to-Roster json-string-Roster))
 
 (deftest roster-name-test
   (is (= "The Beatles"
