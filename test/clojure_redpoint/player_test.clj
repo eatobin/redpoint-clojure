@@ -5,7 +5,7 @@
             [clojure-redpoint.player :as plr]
             [clojure.spec.alpha :as s]))
 
-(def json-string-Player "{\"player-name\":\"Paul McCartney\",\"gift-history\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]}")
+(def json-string-Player "{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]}")
 (def plain-player {:player-name  "Paul McCartney",
                    :gift-history [{:giver :JohLen, :givee :GeoHar}]})
 (def player (plr/map->Player {:player-name  "Paul McCartney",

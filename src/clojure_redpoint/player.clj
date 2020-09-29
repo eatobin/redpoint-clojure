@@ -32,6 +32,13 @@
         :args (s/cat :plain-player map?)
         :ret ::dom/player)
 
+(defn- my-key-reader
+  [key]
+  (cond
+    (= key "playerName") :player-name
+    (= key "giftHistory") :gift-history
+    :else (keyword key)))
+
 (defn- my-value-reader
   [key value]
   (if (or (= key :givee)
@@ -42,7 +49,7 @@
 (defn player-json-string-to-Player [plr-string]
   (let [player (json/read-str plr-string
                               :value-fn my-value-reader
-                              :key-fn keyword)]
+                              :key-fn my-key-reader)]
     (->Player (:player-name player)
               (vec (map #(gp/->Gift-Pair (:givee %)
                                          (:giver %))
