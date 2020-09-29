@@ -7,7 +7,7 @@
          orchestra/orchestra    {:mvn/version "2020.09.18-1"}
          org.clojure/data.json  {:mvn/version "1.0.0"}
          }
- }
+  }
 
 ;From /usr/local/lib/clojure/deps.edn:
 
@@ -32,31 +32,36 @@
 ;From ~/.clojure/deps.edn:
 
 ;{
-;:deps    {
-;          ;org.clojure/clojure {:mvn/version "1.10.x"}
-;          org.slf4j/slf4j-simple {:mvn/version "1.7.30"}
-;          }
-;  :aliases {
-;    :new {
-;      :extra-deps {
-;        seancorfield/clj-new {:mvn/version "0.5.x"}
-;      }
-;      :main-opts ["-m" "clj-new.create"]
-;    }
-;    :k-repl {
-;      :extra-deps {
-;        viebel/klipse-repl {:mvn/version "0.2.x"}
-;      }
-;      :main-opts ["-m" "klipse-repl.main --no-easy-defs"]
-;    }
-;    :outdated {
-;      :extra-deps {
-;        olical/depot {:mvn/version "2.0.1"}
-;      }
-;      :main-opts ["-m" "depot.outdated.main"]
-;    }
-;  }
-;}
+; :deps    {
+;           org.slf4j/slf4j-simple {:mvn/version "1.7.30"}
+;           }
+;
+; :aliases {
+;           :new      {
+;                      :extra-deps {
+;                                   seancorfield/clj-new {:mvn/version "1.0.199"}
+;                                   }
+;                      :main-opts  ["-m" "clj-new.create"]
+;                      }
+;           :k-repl   {
+;                      :extra-deps {
+;                                   viebel/klipse-repl {:mvn/version "0.2.3"}
+;                                   }
+;                      :main-opts  ["-m" "klipse-repl.main --no-easy-defs"]
+;                      }
+;           :outdated {
+;                      :extra-deps {
+;                                   olical/depot {:mvn/version "2.0.1"}
+;                                   }
+;                      :main-opts  ["-m" "depot.outdated.main"]
+;                      }
+;           :test     {
+;                      :extra-paths ["test" "resources-test"]
+;                      :extra-deps  {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
+;                                                               :sha     "209b64504cb3bd3b99ecfec7937b358a879f55c1"}}
+;                      :main-opts   ["-m" "cognitect.test-runner"]}
+;           }
+; }
 
 ;For make new project:
 ;https://github.com/seancorfield/clj-new
@@ -69,8 +74,6 @@
 ;Check for outdated deps:
 ;https://github.com/Olical/depot
 ;clojure -A:outdated -a outdated
-
-; In this project:
 
 ;Run tests:
 ;clj -A:test
