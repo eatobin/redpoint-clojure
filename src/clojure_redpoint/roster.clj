@@ -12,6 +12,15 @@
                      :players ::dom/players)
         :ret ::dom/roster)
 
+(defn- my-key-reader
+  [key]
+  (cond
+    (= key "playerName") :player-name
+    (= key "giftHistory") :gift-history
+    (= key "rosterName") :roster-name
+    (= key "rosterYear") :roster-year
+    :else (keyword key)))
+
 (defn- my-value-reader
   [key value]
   (if (or (= key :givee)
@@ -22,7 +31,7 @@
 (defn roster-json-string-to-Roster [json-string]
   (let [roster (json/read-str json-string
                               :value-fn my-value-reader
-                              :key-fn keyword)]
+                              :key-fn my-key-reader)]
     (->Roster (roster :roster-name)
               (roster :roster-year)
               (plrs/players-plain-player-upgrade (roster :players)))))

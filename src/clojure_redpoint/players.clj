@@ -104,6 +104,13 @@
         :args (s/cat :plain-players map?)
         :ret ::dom/players)
 
+(defn- my-key-reader
+  [key]
+  (cond
+    (= key "playerName") :player-name
+    (= key "giftHistory") :gift-history
+    :else (keyword key)))
+
 (defn- my-value-reader
   [key value]
   (if (or (= key :givee)
@@ -114,7 +121,7 @@
 (defn players-json-string-to-Players [plrs-string]
   (let [players (json/read-str plrs-string
                                :value-fn my-value-reader
-                               :key-fn keyword)]
+                               :key-fn my-key-reader)]
     (players-plain-player-upgrade players)))
 (s/fdef players-json-string-to-Players
         :args (s/cat :plrs-string string?)
