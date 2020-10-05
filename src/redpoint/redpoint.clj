@@ -1,6 +1,6 @@
 ; [eric@eric-macmini redpoint](master)$ clojure -M -m redpoint.core
 
-(ns redpoint.core
+(ns redpoint.redpoint
   (:require [redpoint.players :as plrs]
             [redpoint.roster :as ros]
             [redpoint.hats :as hat]
