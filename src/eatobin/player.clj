@@ -1,6 +1,6 @@
-(ns redpoint.player
-  (:require [redpoint.gift-pair :as gp]
-            [redpoint.domain :as dom]
+(ns eatobin.player
+  (:require [eatobin.gift-pair :as gp]
+            [eatobin.domain :as dom]
             [clojure.data.json :as json]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))

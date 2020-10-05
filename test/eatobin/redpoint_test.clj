@@ -1,11 +1,11 @@
-(ns redpoint.core-test
+(ns eatobin.redpoint-test
   (:require [clojure.test :refer [deftest is]]
-            [redpoint.redpoint :as core]
-            [redpoint.domain :as dom]
-            [redpoint.gift-pair :as gp]
-            [redpoint.player :as plr]
-            [redpoint.players :as plrs]
-            [redpoint.hats :as hat]
+            [eatobin.redpoint :as core]
+            [eatobin.domain :as dom]
+            [eatobin.gift-pair :as gp]
+            [eatobin.player :as plr]
+            [eatobin.players :as plrs]
+            [eatobin.hats :as hat]
             [clojure.spec.alpha :as s]))
 
 (def test-hat #{:PauMcc :GeoHar :JohLen :RinSta})

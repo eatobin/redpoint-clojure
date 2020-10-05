@@ -1,10 +1,10 @@
-(ns redpoint.rules-test
-  (:require [redpoint.gift-pair :as gp]
-            [redpoint.player :as plr]
-            [redpoint.players :as plrs]
+(ns eatobin.rules-test
+  (:require [eatobin.gift-pair :as gp]
+            [eatobin.player :as plr]
+            [eatobin.players :as plrs]
             [clojure.test :refer [deftest is]]
-            [redpoint.rules :as rule]
-            [redpoint.roster]
+            [eatobin.rules :as rule]
+            [eatobin.roster]
             [clojure.spec.alpha :as s]))
 
 (def players {:PauMcc (plr/map->Player {:player-name  "Paul McCartney",

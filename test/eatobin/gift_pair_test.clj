@@ -1,7 +1,7 @@
-(ns redpoint.gift-pair-test
+(ns eatobin.gift-pair-test
   (:require [clojure.test :refer [deftest is]]
-            [redpoint.domain :as dom]
-            [redpoint.gift-pair :as gp]
+            [eatobin.domain :as dom]
+            [eatobin.gift-pair :as gp]
             [clojure.spec.alpha :as s]))
 
 (def json-string-GP "{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}")

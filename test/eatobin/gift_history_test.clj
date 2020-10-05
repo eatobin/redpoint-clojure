@@ -1,8 +1,8 @@
-(ns redpoint.gift-history-test
+(ns eatobin.gift-history-test
   (:require [clojure.test :refer [deftest is]]
-            [redpoint.domain :as dom]
-            [redpoint.gift-pair :as gp]
-            [redpoint.gift-history :as gh]
+            [eatobin.domain :as dom]
+            [eatobin.gift-pair :as gp]
+            [eatobin.gift-history :as gh]
             [clojure.spec.alpha :as s]))
 
 (def json-string-GH "[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]")

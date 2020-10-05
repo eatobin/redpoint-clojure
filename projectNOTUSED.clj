@@ -7,6 +7,6 @@
 ;                 [org.clojure/test.check "1.1.0"]
 ;                 [orchestra "2020.07.12-1"]
 ;                 [org.clojure/data.json "1.0.0"]]
-;  :main ^:skip-aot redpoint.core
+;  :main ^:skip-aot eatobin.core
 ;  :target-path "target/%s"
 ;  :profiles {:uberjar {:aot :all}})

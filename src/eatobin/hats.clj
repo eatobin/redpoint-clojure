@@ -1,5 +1,5 @@
-(ns redpoint.hats
-  (:require [redpoint.domain :as dom]
+(ns eatobin.hats
+  (:require [eatobin.domain :as dom]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 

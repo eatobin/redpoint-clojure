@@ -1,10 +1,10 @@
-; [eric@eric-macmini redpoint](master)$ clojure -M -m redpoint.core
+; [eric@eric-macmini redpoint](master)$ clojure -M -m eatobin.core
 
-(ns redpoint.redpoint
-  (:require [redpoint.players :as plrs]
-            [redpoint.roster :as ros]
-            [redpoint.hats :as hat]
-            [redpoint.rules :as rule]
+(ns eatobin.redpoint
+  (:require [eatobin.players :as plrs]
+            [eatobin.roster :as ros]
+            [eatobin.hats :as hat]
+            [eatobin.rules :as rule]
             [clojure.string :as cs]
             [clojure.java.io :as io])
   (:gen-class))

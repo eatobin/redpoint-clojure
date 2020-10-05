@@ -1,10 +1,10 @@
-(ns redpoint.players-test
+(ns eatobin.players-test
   (:require [clojure.test :refer [deftest is]]
-            [redpoint.domain :as dom]
-            [redpoint.player :as plr]
-            [redpoint.players :as plrs]
+            [eatobin.domain :as dom]
+            [eatobin.player :as plr]
+            [eatobin.players :as plrs]
             [clojure.spec.alpha :as s]
-            [redpoint.gift-pair :as gp]))
+            [eatobin.gift-pair :as gp]))
 
 (def json-string-Players "{\"PauMcc\":{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"playerName\":\"George Harrison\",\"giftHistory\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"playerName\":\"John Lennon\",\"giftHistory\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"playerName\":\"Ringo Starr\",\"giftHistory\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}}")
 (def plain-players {:PauMcc {:player-name  "Paul McCartney",

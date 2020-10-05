@@ -1,5 +1,5 @@
-(ns redpoint.gift-pair
-  (:require [redpoint.domain :as dom]
+(ns eatobin.gift-pair
+  (:require [eatobin.domain :as dom]
             [clojure.data.json :as json]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))

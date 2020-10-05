@@ -1,8 +1,8 @@
-(ns redpoint.player-test
+(ns eatobin.player-test
   (:require [clojure.test :refer [deftest is]]
-            [redpoint.domain :as dom]
-            [redpoint.gift-pair :as gp]
-            [redpoint.player :as plr]
+            [eatobin.domain :as dom]
+            [eatobin.gift-pair :as gp]
+            [eatobin.player :as plr]
             [clojure.spec.alpha :as s]))
 
 (def json-string-Player "{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]}")

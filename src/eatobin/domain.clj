@@ -1,4 +1,4 @@
-(ns redpoint.domain
+(ns eatobin.domain
   (:require [clojure.spec.alpha :as s]))
 
 (s/def ::givee keyword?)

@@ -1,6 +1,6 @@
-(ns redpoint.rules
-  (:require [redpoint.domain :as dom]
-            [redpoint.players :as plrs]
+(ns eatobin.rules
+  (:require [eatobin.domain :as dom]
+            [eatobin.players :as plrs]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
