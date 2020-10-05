@@ -1,10 +1,10 @@
-(ns clojure-redpoint.rules-test
-  (:require [clojure-redpoint.gift-pair :as gp]
-            [clojure-redpoint.player :as plr]
-            [clojure-redpoint.players :as plrs]
+(ns redpoint.rules-test
+  (:require [redpoint.gift-pair :as gp]
+            [redpoint.player :as plr]
+            [redpoint.players :as plrs]
             [clojure.test :refer [deftest is]]
-            [clojure-redpoint.rules :as rule]
-            [clojure-redpoint.roster]
+            [redpoint.rules :as rule]
+            [redpoint.roster]
             [clojure.spec.alpha :as s]))
 
 (def players {:PauMcc (plr/map->Player {:player-name  "Paul McCartney",

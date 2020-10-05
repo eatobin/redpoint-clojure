@@ -1,6 +1,6 @@
-(ns clojure-redpoint.player
-  (:require [clojure-redpoint.gift-pair :as gp]
-            [clojure-redpoint.domain :as dom]
+(ns redpoint.player
+  (:require [redpoint.gift-pair :as gp]
+            [redpoint.domain :as dom]
             [clojure.data.json :as json]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))

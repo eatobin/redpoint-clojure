@@ -1,6 +1,6 @@
-(ns clojure-redpoint.rules
-  (:require [clojure-redpoint.domain :as dom]
-            [clojure-redpoint.players :as plrs]
+(ns redpoint.rules
+  (:require [redpoint.domain :as dom]
+            [redpoint.players :as plrs]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 

@@ -1,7 +1,7 @@
-(ns clojure-redpoint.gift-history
-  (:require [clojure-redpoint.domain :as dom]
+(ns redpoint.gift-history
+  (:require [redpoint.domain :as dom]
             [clojure.data.json :as json]
-            [clojure-redpoint.gift-pair :as gp]
+            [redpoint.gift-pair :as gp]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 

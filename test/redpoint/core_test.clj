@@ -1,11 +1,11 @@
-(ns clojure-redpoint.core-test
+(ns redpoint.core-test
   (:require [clojure.test :refer [deftest is]]
-            [clojure-redpoint.core :as core]
-            [clojure-redpoint.domain :as dom]
-            [clojure-redpoint.gift-pair :as gp]
-            [clojure-redpoint.player :as plr]
-            [clojure-redpoint.players :as plrs]
-            [clojure-redpoint.hats :as hat]
+            [redpoint.core :as core]
+            [redpoint.domain :as dom]
+            [redpoint.gift-pair :as gp]
+            [redpoint.player :as plr]
+            [redpoint.players :as plrs]
+            [redpoint.hats :as hat]
             [clojure.spec.alpha :as s]))
 
 (def test-hat #{:PauMcc :GeoHar :JohLen :RinSta})

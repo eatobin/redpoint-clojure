@@ -1,5 +1,5 @@
-(ns clojure-redpoint.hats
-  (:require [clojure-redpoint.domain :as dom]
+(ns redpoint.hats
+  (:require [redpoint.domain :as dom]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
