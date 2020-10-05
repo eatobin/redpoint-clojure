@@ -1,6 +1,6 @@
 (ns eatobin.gift-pair-test
   (:require [clojure.test :refer [deftest is]]
-            [eatobin.domain :as dom]
+            [eatobin.redpoint-domain :as dom]
             [eatobin.gift-pair :as gp]
             [clojure.spec.alpha :as s]))
 

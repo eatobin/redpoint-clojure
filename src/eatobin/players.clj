@@ -1,5 +1,5 @@
 (ns eatobin.players
-  (:require [eatobin.domain :as dom]
+  (:require [eatobin.redpoint-domain :as dom]
             [eatobin.gift-history :as gh]
             [eatobin.player :as plr]
             [clojure.data.json :as json]

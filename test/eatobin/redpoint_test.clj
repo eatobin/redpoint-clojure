@@ -1,7 +1,7 @@
 (ns eatobin.redpoint-test
   (:require [clojure.test :refer [deftest is]]
             [eatobin.redpoint :as core]
-            [eatobin.domain :as dom]
+            [eatobin.redpoint-domain :as dom]
             [eatobin.gift-pair :as gp]
             [eatobin.player :as plr]
             [eatobin.players :as plrs]

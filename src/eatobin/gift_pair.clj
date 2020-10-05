@@ -1,5 +1,5 @@
 (ns eatobin.gift-pair
-  (:require [eatobin.domain :as dom]
+  (:require [eatobin.redpoint-domain :as dom]
             [clojure.data.json :as json]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))

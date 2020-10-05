@@ -1,5 +1,5 @@
 (ns eatobin.rules
-  (:require [eatobin.domain :as dom]
+  (:require [eatobin.redpoint-domain :as dom]
             [eatobin.players :as plrs]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))

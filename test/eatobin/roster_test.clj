@@ -1,5 +1,5 @@
 (ns eatobin.roster-test
-  (:require [eatobin.domain :as dom]
+  (:require [eatobin.redpoint-domain :as dom]
             [clojure.test :refer [deftest is]]
             [eatobin.gift-pair :as gp]
             [eatobin.player :as plr]

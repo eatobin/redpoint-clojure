@@ -1,6 +1,6 @@
 (ns eatobin.players-test
   (:require [clojure.test :refer [deftest is]]
-            [eatobin.domain :as dom]
+            [eatobin.redpoint-domain :as dom]
             [eatobin.player :as plr]
             [eatobin.players :as plrs]
             [clojure.spec.alpha :as s]

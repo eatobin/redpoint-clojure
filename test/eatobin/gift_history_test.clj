@@ -1,6 +1,6 @@
 (ns eatobin.gift-history-test
   (:require [clojure.test :refer [deftest is]]
-            [eatobin.domain :as dom]
+            [eatobin.redpoint-domain :as dom]
             [eatobin.gift-pair :as gp]
             [eatobin.gift-history :as gh]
             [clojure.spec.alpha :as s]))

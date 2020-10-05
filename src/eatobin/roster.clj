@@ -1,6 +1,6 @@
 (ns eatobin.roster
   (:require [clojure.data.json :as json]
-            [eatobin.domain :as dom]
+            [eatobin.redpoint-domain :as dom]
             [eatobin.players :as plrs]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
