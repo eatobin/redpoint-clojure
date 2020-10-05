@@ -1,4 +1,4 @@
-; [eric@eric-macmini redpoint](master)$ clojure -M -m eatobin.redpoint
+; [eric@eric-macmini redpoint](master)$ clojure -M:eat/test:eat/orchestra -m eatobin.redpoint
 
 (ns eatobin.redpoint
   (:require [eatobin.players :as plrs]
