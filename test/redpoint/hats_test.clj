@@ -1,8 +1,8 @@
 (ns redpoint.hats-test
-  (:require [redpoint.domain :as dom]
+  (:require [clojure.test :refer [deftest is]]
+            [redpoint.domain :as dom]
             [redpoint.gift-pair :as gp]
             [redpoint.player :as plr]
-            [clojure.test :refer [deftest is]]
             [redpoint.hats :as hat]
             [redpoint.roster]
             [clojure.spec.alpha :as s]))

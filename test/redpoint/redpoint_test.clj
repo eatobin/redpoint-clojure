@@ -1,7 +1,7 @@
 (ns redpoint.redpoint-test
   (:require [clojure.test :refer [deftest is]]
-            [redpoint.redpoint :as core]
             [redpoint.domain :as dom]
+            [redpoint.redpoint :as core]
             [redpoint.gift-pair :as gp]
             [redpoint.player :as plr]
             [redpoint.players :as plrs]

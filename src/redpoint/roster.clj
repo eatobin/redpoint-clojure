@@ -1,6 +1,6 @@
 (ns redpoint.roster
-  (:require [clojure.data.json :as json]
-            [redpoint.domain :as dom]
+  (:require [redpoint.domain :as dom]
+            [clojure.data.json :as json]
             [redpoint.players :as plrs]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))

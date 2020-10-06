@@ -1,6 +1,6 @@
 (ns redpoint.roster-test
-  (:require [redpoint.domain :as dom]
-            [clojure.test :refer [deftest is]]
+  (:require [clojure.test :refer [deftest is]]
+            [redpoint.domain :as dom]
             [redpoint.gift-pair :as gp]
             [redpoint.player :as plr]
             [redpoint.roster :as ros]
