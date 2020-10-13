@@ -1,5 +1,5 @@
-(ns clojure-redpoint.rules
-  (:require [clojure-redpoint.roster :as ros]
+(ns redpoint.rules
+  (:require [redpoint.roster :as ros]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 

@@ -1,6 +1,6 @@
-(ns clojure-redpoint.roster-test
+(ns redpoint.roster-test
   (:require [clojure.test :refer [deftest is]]
-            [clojure-redpoint.roster :as ros]
+            [redpoint.roster :as ros]
             [clojure.spec.alpha :as s]))
 
 (def roster {:roster-name "The Beatles",

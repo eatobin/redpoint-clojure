@@ -1,7 +1,7 @@
-(ns clojure-redpoint.rules-test
+(ns redpoint.rules-test
   (:require [clojure.test :refer [deftest is]]
-            [clojure-redpoint.rules :as rule]
-            [clojure-redpoint.roster :as ros]
+            [redpoint.rules :as rule]
+            [redpoint.roster :as ros]
             [clojure.spec.alpha :as s]))
 
 (def players {:RinSta {:player-name "Ringo Starr", :gift-history [{:giver :KarLav, :givee :JohLen}]},

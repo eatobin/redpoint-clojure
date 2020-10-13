@@ -1,8 +1,8 @@
-(ns clojure-redpoint.core-test
+(ns redpoint.redpoint-test
   (:require [clojure.test :refer [deftest is]]
-            [clojure-redpoint.core :as core]
-            [clojure-redpoint.roster :as ros]
-            [clojure-redpoint.hats :as hat]
+            [redpoint.redpoint :as core]
+            [redpoint.roster :as ros]
+            [redpoint.hats :as hat]
             [clojure.spec.alpha :as s]))
 
 (def test-hat #{:PauMcc :GeoHar :JohLen :RinSta})

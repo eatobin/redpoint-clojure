@@ -1,10 +1,10 @@
-; [eric@eric-macmini clojure-redpoint](master)$ clj -m clojure-redpoint.core
+; [eric@eric-macmini redpoint](master)$ clj -m redpoint.core
 
-(ns clojure-redpoint.core
+(ns redpoint.redpoint
   (:require [clojure.data.json :as json]
-            [clojure-redpoint.roster :as ros]
-            [clojure-redpoint.hats :as hat]
-            [clojure-redpoint.rules :as rule]
+            [redpoint.roster :as ros]
+            [redpoint.hats :as hat]
+            [redpoint.rules :as rule]
             [clojure.string :as cs]
             [clojure.java.io :as io])
   (:gen-class))

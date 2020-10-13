@@ -1,4 +1,4 @@
-(ns clojure-redpoint.roster
+(ns redpoint.roster
   (:require [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
 
