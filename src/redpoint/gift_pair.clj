@@ -18,21 +18,19 @@
                :giver ::dom/giver)
   :ret :unq/gift-pair)
 
-;(defn- my-value-reader
-;  [key value]
-;  (if (or (= key :givee)
-;          (= key :giver))
-;    (keyword value)
-;    value))
-;
-;(defn gift-pair-json-string-to-Gift-Pair [gp-string]
-;  (let [gift-pair (json/read-str gp-string
-;                                 :value-fn my-value-reader
-;                                 :key-fn keyword)]
-;    (->Gift-Pair (:givee gift-pair)
-;                 (:giver gift-pair))))
-;(s/fdef gift-pair-json-string-to-Gift-Pair
-;        :args (s/cat :gp-string string?)
-;        :ret ::dom/gift-pair)
+(defn- my-value-reader
+  [key value]
+  (if (or (= key :givee)
+          (= key :giver))
+    (keyword value)
+    value))
+
+(defn gift-pair-json-string-to-Gift-Pair [gp-string]
+  (json/read-str gp-string
+                 :value-fn my-value-reader
+                 :key-fn keyword))
+(s/fdef gift-pair-json-string-to-Gift-Pair
+  :args (s/cat :gp-string string?)
+  :ret :unq/gift-pair)
 
 (ostest/instrument)
