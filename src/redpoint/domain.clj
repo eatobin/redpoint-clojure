@@ -1,8 +1,8 @@
 (ns redpoint.domain
   (:require [clojure.spec.alpha :as s]))
 
-(s/def ::givee-str keyword?)
-(s/def ::giver-str keyword?)
+(s/def ::givee keyword?)
+(s/def ::giver keyword?)
 (s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
 
 (s/def :unq/gift-history (s/coll-of :unq/gift-pair :kind vector?))
