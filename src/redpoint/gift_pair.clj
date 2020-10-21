@@ -11,13 +11,13 @@
                :givee ::dom/givee)
   :ret :unq/gift-pair)
 
-;(defn gift-pair-update-giver [gift-pair giver]
-;  (assoc gift-pair :giver giver))
-;(s/fdef gift-pair-update-giver
-;        :args (s/cat :gift-pair ::dom/gift-pair
-;                     :giver ::dom/giver)
-;        :ret ::dom/gift-pair)
-;
+(defn gift-pair-update-giver [gift-pair giver]
+  (assoc gift-pair :giver giver))
+(s/fdef gift-pair-update-giver
+  :args (s/cat :gift-pair :unq/gift-pair
+               :giver ::dom/giver)
+  :ret :unq/gift-pair)
+
 ;(defn- my-value-reader
 ;  [key value]
 ;  (if (or (= key :givee)
