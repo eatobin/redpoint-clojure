@@ -27,6 +27,6 @@
 (s/conform :unq/gift-pair
            (gp/gift-pair-update-giver gift-pair :NewBee))
 
-;; (deftest gift-pair-json-string-to-Gift-Pair-test
-;;   (is (= (gp/gift-pair-json-string-to-Gift-Pair json-string-GP)
-;;          gift-pair)))
+(deftest gift-pair-json-string-to-Gift-Pair-test
+  (is (= (gp/gift-pair-json-string-to-Gift-Pair json-string-GP)
+         gift-pair)))
