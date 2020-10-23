@@ -27,3 +27,5 @@
 (deftest gift-history-json-string-to-Gift-History-test
   (is (= (gh/gift-history-json-string-to-Gift-History json-string-GH)
          gift-history)))
+(s/conform :unq/gift-history
+           (gh/gift-history-json-string-to-Gift-History json-string-GH))
