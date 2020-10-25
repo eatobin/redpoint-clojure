@@ -1,16 +1,7 @@
 (ns redpoint.roster
-  (:require [redpoint.domain :as dom]
-            [clojure.data.json :as json]
-            [redpoint.players :as plrs]
+  (:require [clojure.data.json :as json]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]))
-
-;; (defrecord Roster [roster-name roster-year players])
-;; (s/fdef ->Roster
-;;         :args (s/cat :roster-name ::dom/roster-name
-;;                      :roster-year ::dom/roster-year
-;;                      :players ::dom/players)
-;;         :ret ::dom/roster)
 
 (defn- my-key-reader
   [key]
