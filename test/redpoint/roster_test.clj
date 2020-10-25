@@ -1,25 +1,22 @@
 (ns redpoint.roster-test
   (:require [clojure.test :refer [deftest is]]
-            [redpoint.domain :as dom]
-            [redpoint.gift-pair :as gp]
-            [redpoint.player :as plr]
             [redpoint.roster :as ros]
             [clojure.spec.alpha :as s]))
 
 (def json-string-Roster "{\"rosterName\":\"The Beatles\",\"rosterYear\":2014,\"players\":{\"PauMcc\":{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"playerName\":\"George Harrison\",\"giftHistory\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"playerName\":\"John Lennon\",\"giftHistory\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"playerName\":\"Ringo Starr\",\"giftHistory\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}}}")
-(def roster (ros/map->Roster {:roster-name "The Beatles",
-                              :roster-year 2014,
-                              :players     {:PauMcc (plr/map->Player {:player-name  "Paul McCartney",
-                                                                      :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar})]}),
-                                            :GeoHar (plr/map->Player {:player-name  "George Harrison",
-                                                                      :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :RinSta})]}),
-                                            :JohLen (plr/map->Player {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc})]}),
-                                            :RinSta (plr/map->Player {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:giver :GeoHar, :givee :JohLen})]})}}))
+(def roster {:roster-name "The Beatles",
+             :roster-year 2014,
+             :players {:PauMcc {:player-name  "Paul McCartney",
+                                :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+                       :GeoHar {:player-name  "George Harrison",
+                                :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+                       :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+                       :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}}})
 
-(s/conform ::dom/roster
+(s/conform :unq/roster
            roster)
 
-(s/conform ::dom/roster
+(s/conform :unq/roster
            (ros/roster-json-string-to-Roster json-string-Roster))
 
 (deftest roster-name-test
