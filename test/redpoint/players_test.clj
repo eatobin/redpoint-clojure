@@ -1,18 +1,11 @@
 (ns redpoint.players-test
   (:require [clojure.test :refer [deftest is]]
             [redpoint.domain :as dom]
-            [redpoint.player :as plr]
             [redpoint.players :as plrs]
-            [clojure.spec.alpha :as s]
-            [redpoint.gift-pair :as gp]))
+            [clojure.spec.alpha :as s]))
 
 (def json-string-Players "{\"PauMcc\":{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"playerName\":\"George Harrison\",\"giftHistory\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"playerName\":\"John Lennon\",\"giftHistory\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"playerName\":\"Ringo Starr\",\"giftHistory\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}}")
-;(def plain-players {:PauMcc {:player-name  "Paul McCartney",
-;                             :gift-history [{:giver :JohLen, :givee :GeoHar}]},
-;                    :GeoHar {:player-name  "George Harrison",
-;                             :gift-history [{:giver :PauMcc, :givee :RinSta}]},
-;                    :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
-;                    :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
+
 (def players {:PauMcc {:player-name  "Paul McCartney",
                        :gift-history [{:giver :JohLen, :givee :GeoHar}]},
               :GeoHar {:player-name  "George Harrison",
@@ -93,12 +86,8 @@
 (s/conform :unq/players
            (plrs/players-update-giver players :GeoHar 0 :you))
 
-;(deftest players-plain-player-upgrade-test
-;  (is (= players
-;         (plrs/players-plain-player-upgrade plain-players))))
-;(s/conform ::dom/players
-;           (plrs/players-plain-player-upgrade plain-players))
-;
-;(deftest players-json-string-to-Players-test
-;  (is (= (plrs/players-json-string-to-Players json-string-Players)
-;         players)))
+(deftest players-json-string-to-Players-test
+  (is (= (plrs/players-json-string-to-Players json-string-Players)
+         players)))
+(s/conform :unq/players
+           (plrs/players-json-string-to-Players json-string-Players))
