@@ -6,28 +6,28 @@
 (defn make-hat [players]
   (into #{} (keys players)))
 (s/fdef make-hat
-        :args (s/cat :players ::dom/players)
-        :ret ::dom/hat)
+        :args (s/cat :players :unq/players)
+        :ret :unq/hat)
 
 (defn remove-puck [hat plr-key]
   (into #{} (remove #(= % plr-key) hat)))
 (s/fdef remove-puck
-        :args (s/cat :hat ::dom/hat
+        :args (s/cat :hat :unq/hat
                      :plr-key ::dom/player-key)
-        :ret ::dom/hat)
+        :ret :unq/hat)
 
 (defn discard-givee [discards givee]
   (conj discards givee))
 (s/fdef discard-givee
-        :args (s/cat :discards ::dom/discards
+        :args (s/cat :discards :unq/discards
                      :givee ::dom/givee)
-        :ret ::dom/discards)
+        :ret :unq/discards)
 
 (defn return-discards [ge-hat discards]
   (into ge-hat discards))
 (s/fdef return-discards
-        :args (s/cat :ge-hat ::dom/hat
-                     :discards ::dom/discards)
-        :ret ::dom/hat)
+        :args (s/cat :ge-hat :unq/hat
+                     :discards :unq/discards)
+        :ret :unq/hat)
 
 (ostest/instrument)

@@ -9,17 +9,17 @@
 
 (def test-hat #{:PauMcc :GeoHar :JohLen :RinSta})
 
-(def players {:PauMcc (plr/map->Player {:player-name  "Paul McCartney",
-                                        :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar})]}),
-              :GeoHar (plr/map->Player {:player-name  "George Harrison",
-                                        :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :RinSta})]}),
-              :JohLen (plr/map->Player {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc})]}),
-              :RinSta (plr/map->Player {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:giver :GeoHar, :givee :JohLen})]})})
+(def players {:PauMcc {:player-name  "Paul McCartney",
+                       :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+              :GeoHar {:player-name  "George Harrison",
+                       :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+              :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+              :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
 
 (deftest make-hats-test
   (is (= test-hat
          (hat/make-hat players))))
-(s/conform ::dom/hat
+(s/conform :unq/hat
            (hat/make-hat players))
 
 (deftest remove-puck-test
@@ -33,7 +33,7 @@
 (deftest discard-puck-givee-test
   (is (= #{:PauMcc :JohLen}
          (hat/discard-givee #{:PauMcc} :JohLen))))
-(s/conform ::dom/discards
+(s/conform :unq/discards
            (hat/discard-givee #{:PauMcc} :JohLen))
 
 (deftest return-discards-test
