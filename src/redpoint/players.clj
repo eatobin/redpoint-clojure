@@ -96,14 +96,6 @@
                      :givee ::dom/giver)
         :ret :unq/players)
 
-;(defn players-plain-player-upgrade
-;  [plain-players]
-;  (into {} (for [[k v] plain-players]
-;             {k (plr/player-plain-upgrade v)})))
-;(s/fdef players-plain-player-upgrade
-;        :args (s/cat :plain-players map?)
-;        :ret :unq/players)
-
 (defn- my-key-reader
   [key]
   (cond

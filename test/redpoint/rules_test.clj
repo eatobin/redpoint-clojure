@@ -1,20 +1,15 @@
 (ns redpoint.rules-test
   (:require [clojure.test :refer [deftest is]]
-            [redpoint.gift-pair :as gp]
-            [redpoint.player :as plr]
             [redpoint.players :as plrs]
             [redpoint.rules :as rule]
             [clojure.spec.alpha :as s]))
 
-(def players {:PauMcc (plr/map->Player {:player-name  "Paul McCartney",
-                                        :gift-history [(gp/map->Gift-Pair {:giver :JohLen, :givee :GeoHar})]}),
-              :GeoHar (plr/map->Player {:player-name  "George Harrison",
-                                        :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :RinSta})]}),
-              :JohLen (plr/map->Player {:player-name "John Lennon", :gift-history [(gp/map->Gift-Pair {:giver :RinSta, :givee :PauMcc})]}),
-              :RinSta (plr/map->Player {:player-name "Ringo Starr", :gift-history [(gp/map->Gift-Pair {:giver :GeoHar, :givee :JohLen})]})
-              :EriTob (plr/map->Player {:player-name "Eric Tobin", :gift-history [(gp/map->Gift-Pair {:giver :PauMcc, :givee :KarLav})]}),
-              :KarLav (plr/map->Player {:player-name  "Karen Lavengood",
-                                        :gift-history [(gp/map->Gift-Pair {:giver :EriTob, :givee :RinSta})]})})
+(def players {:PauMcc {:player-name  "Paul McCartney",
+                       :gift-history [{:giver :JohLen, :givee :GeoHar}]},
+              :GeoHar {:player-name  "George Harrison",
+                       :gift-history [{:giver :PauMcc, :givee :RinSta}]},
+              :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
+              :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
 
 (def extended ((comp plrs/players-add-year
                      plrs/players-add-year
@@ -39,7 +34,7 @@
   (is (= true
          (rule/givee-not-recip? :RinSta :JohLen 0 players)))
   (is (= false
-         (rule/givee-not-recip? :RinSta :KarLav 0 players))))
+         (rule/givee-not-recip? :RinSta :GeoHar 0 players))))
 (s/conform boolean?
            (rule/givee-not-recip? :RinSta :JohLen 0 players))
 
