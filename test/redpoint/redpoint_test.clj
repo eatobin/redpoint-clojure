@@ -37,9 +37,9 @@
 
 (deftest draw-puck-test
   (is (true?
-       (nil? (core/draw-puck #{}))))
+        (nil? (core/draw-puck #{}))))
   (is (true?
-       (some? (core/draw-puck test-hat)))))
+        (some? (core/draw-puck test-hat)))))
 (s/conform ::dom/givee
            (core/draw-puck test-hat))
 (s/conform nil?
@@ -54,9 +54,9 @@
   (is (= 1
          (deref core/a-g-year)))
   (is (some?
-       (deref core/a-giver)))
+        (deref core/a-giver)))
   (is (some?
-       (deref core/a-givee)))
+        (deref core/a-givee)))
   (is (= {:player-name  "Ringo Starr",
           :gift-history [{:givee :JohLen, :giver :GeoHar}
                          {:givee :RinSta, :giver :RinSta}]}

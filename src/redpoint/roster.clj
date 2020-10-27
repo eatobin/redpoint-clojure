@@ -24,7 +24,7 @@
                  :value-fn my-value-reader
                  :key-fn my-key-reader))
 (s/fdef roster-json-string-to-Roster
-  :args (s/cat :json-string string?)
-  :ret :unq/roster)
+        :args (s/cat :json-string string?)
+        :ret :unq/roster)
 
 (ostest/instrument)
