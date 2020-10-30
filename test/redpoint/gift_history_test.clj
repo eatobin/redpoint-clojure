@@ -4,7 +4,7 @@
             [clojure.spec.alpha :as s]))
 
 (def json-string-GH "[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]")
-(def gift-history [{:givee :GeoHar :giver :JohLen}])
+(def gift-history (gh/gift-history-json-string-to-Gift-History json-string-GH))
 
 (deftest add-year-test
   (is (= [{:givee :GeoHar :giver :JohLen}, {:givee :NewBee :giver :NewBee}]
@@ -24,8 +24,5 @@
 (s/conform :unq/gift-history
            (gh/gift-history-update-gift-history gift-history 0 {:givee :me :giver :you}))
 
-(deftest gift-history-json-string-to-Gift-History-test
-  (is (= (gh/gift-history-json-string-to-Gift-History json-string-GH)
-         gift-history)))
 (s/conform :unq/gift-history
            (gh/gift-history-json-string-to-Gift-History json-string-GH))
