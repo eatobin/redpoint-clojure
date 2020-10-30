@@ -4,8 +4,7 @@
             [clojure.spec.alpha :as s]))
 
 (def json-string-Player "{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]}")
-(def player {:player-name  "Paul McCartney",
-             :gift-history [{:givee :GeoHar :giver :JohLen}]})
+(def player (plr/player-json-string-to-Player json-string-Player))
 
 (deftest player-update-gift-history-test
   (is (= {:player-name  "Paul McCartney",
@@ -14,8 +13,5 @@
 (s/conform :unq/player
            (plr/player-update-gift-history player [{:givee :nope :giver :yup}]))
 
-(deftest player-json-string-to-Player-test
-  (is (= (plr/player-json-string-to-Player json-string-Player)
-         player)))
 (s/conform :unq/player
            (plr/player-json-string-to-Player json-string-Player))
