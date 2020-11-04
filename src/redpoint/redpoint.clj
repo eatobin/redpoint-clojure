@@ -1,7 +1,8 @@
 ; [eric@eric-macmini redpoint](master)$ clojure -M:eat/test:eat/orchestra -m redpoint.redpoint
 
 (ns redpoint.redpoint
-  (:require [redpoint.players :as plrs]
+  (:require [redpoint.domain]
+            [redpoint.players :as plrs]
             [redpoint.roster :as ros]
             [redpoint.hats :as hat]
             [redpoint.rules :as rule]

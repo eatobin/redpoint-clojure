@@ -1,5 +1,6 @@
 (ns redpoint.rules-test
   (:require [clojure.test :refer [deftest is]]
+            [redpoint.domain]
             [redpoint.players :as plrs]
             [redpoint.rules :as rule]
             [clojure.spec.alpha :as s]))

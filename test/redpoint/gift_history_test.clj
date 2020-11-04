@@ -1,5 +1,6 @@
 (ns redpoint.gift-history-test
   (:require [clojure.test :refer [deftest is]]
+            [redpoint.domain]
             [redpoint.gift-history :as gh]
             [clojure.spec.alpha :as s]))
 

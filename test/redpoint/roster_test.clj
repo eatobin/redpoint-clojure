@@ -1,5 +1,6 @@
 (ns redpoint.roster-test
   (:require [clojure.test :refer [deftest is]]
+            [redpoint.domain]
             [redpoint.roster :as ros]
             [clojure.spec.alpha :as s]))
 
