@@ -40,7 +40,7 @@
   (is (= "George Harrison"
          (plrs/players-get-player-name players :GeoHar)))
   (is (nil?
-       (plrs/players-get-player-name players :GeoHarX))))
+        (plrs/players-get-player-name players :GeoHarX))))
 (s/conform (s/or :found ::dom/player-name
                  :not-found nil?)
            (plrs/players-get-player-name players :GeoHar))
