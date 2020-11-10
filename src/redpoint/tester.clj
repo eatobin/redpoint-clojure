@@ -54,29 +54,20 @@
     (keyword value)
     value))
 
-;(defn roster-json-string-to-Roster [json-string]
-;  (json/read-str json-string
-;                 :value-fn my-value-reader
-;                 :key-fn my-key-reader))
-;(s/fdef roster-json-string-to-Roster
-;        :args (s/cat :json-string string?)
-;        :ret :unq/roster)
-
-
-
 (defn roster-json-string-to-Roster [json-string]
   (try
-    (json/read-str json-string
-                   :value-fn my-value-reader
-                   :key-fn my-key-reader)
+    [nil (json/read-str json-string
+                        :value-fn my-value-reader
+                        :key-fn my-key-reader)]
     (catch Exception e
-      (str (.getMessage e)))))
+      [(str (.getMessage e)) nil])))
 (s/fdef roster-json-string-to-Roster
         :args (s/cat :json-string string?)
-        :ret :unq/roster)
+        :ret (s/or :success (s/tuple nil? :unq/roster)
+                   :failure (s/tuple string? nil?)))
 
 (roster-json-string-to-Roster json-string-Roster)
-(roster-json-string-to-Roster json-string-borrowers)
 (roster-json-string-to-Roster bad-json)
+(roster-json-string-to-Roster json-string-borrowers)
 
 (ostest/instrument)
