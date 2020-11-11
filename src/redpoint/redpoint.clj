@@ -26,11 +26,10 @@
   (System/exit 99))
 
 (defn read-file-into-json-string [file-path]
-  (if (.exists (io/file file-path))
-    (slurp file-path)
-    (do
-      (println "The requested file does not exist..")
-      (exit-now!))))
+  (try
+    [nil (slurp file-path)]
+    (catch Exception e
+      [(str (.getMessage e)) nil])))
 
 (defn roster-or-quit
   "Return a roster or quit the program if the file does not exist

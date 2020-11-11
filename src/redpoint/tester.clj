@@ -55,20 +55,31 @@
     (keyword value)
     value))
 
-(defn roster-json-string-to-Roster [json-string]
-  (try
-    [nil (json/read-str json-string
-                        :value-fn my-value-reader
-                        :key-fn my-key-reader)]
-    (catch Exception e
-      [(str (.getMessage e)) nil])))
+(defn roster-json-string-to-Roster [[error-string json-string]]
+  (if (nil? error-string)
+    (try
+      [nil (json/read-str json-string
+                          :value-fn my-value-reader
+                          :key-fn my-key-reader)]
+      (catch Exception e
+        [(str (.getMessage e)) nil]))
+    [error-string nil]))
 (s/fdef roster-json-string-to-Roster
-        :args (s/cat :json-string string?)
-        :ret (s/or :success (s/tuple nil? :unq/roster)
-                   :failure (s/tuple string? nil?)))
+        :args (s/cat :input (s/or :success-in (s/tuple nil? string?)
+                                  :failure-in (s/tuple string? nil?)))
+        :ret (s/or :success-out (s/tuple nil? :unq/roster)
+                   :failure-out (s/tuple string? nil?)))
 
-(roster-json-string-to-Roster json-string-Roster)
-(roster-json-string-to-Roster bad-json)
+(defn nope [[x y]] (+ x y))
+(s/fdef nope
+        :args (s/cat :input (s/or :ints-in (s/tuple int? int?)
+                                  :mixed-in (s/tuple int? double?)))
+        :ret (s/or :int-out int?
+                   :double-out double?))
+
+(roster-json-string-to-Roster [nil json-string-Roster])
+(roster-json-string-to-Roster [nil bad-json])
+(roster-json-string-to-Roster ["here be dragons" nil])
 (roster-json-string-to-Roster json-string-borrowers)
 
 (ostest/instrument)
