@@ -79,17 +79,17 @@
         (println "Bye!")
         (exit-now!)))))
 
-;(reset! a-roster-name "")
-;(reset! a-roster-year 0)
-;(reset! a-players {})
+(reset! a-roster-name "")
+(reset! a-roster-year 0)
+(reset! a-players {})
 
 (roster-json-string-to-Roster (read-file-into-json-string file-path))
 (roster-json-string-to-Roster (read-file-into-json-string bad-file-path))
 (roster-json-string-to-Roster [nil bad-json])
 (roster-json-string-to-Roster ["here be dragons" nil])
 (roster-json-string-to-Roster json-string-borrowers)
-;(roster-or-quit file-path)
-;(roster-or-quit bad-file-path)
-;(roster-or-quit bad-json-file)
+(roster-or-quit file-path)
+(roster-or-quit bad-file-path)
+(roster-or-quit bad-json-file)
 
 (ostest/instrument)
