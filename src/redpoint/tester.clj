@@ -53,13 +53,6 @@
         :ret (s/or :success-out (s/tuple nil? :unq/roster)
                    :failure-out (s/tuple string? nil?)))
 
-(defn nope [[x y]] (+ x y))
-(s/fdef nope
-        :args (s/cat :input (s/or :ints-in (s/tuple int? int?)
-                                  :mixed-in (s/tuple int? double?)))
-        :ret (s/or :int-out int?
-                   :double-out double?))
-
 (defn exit-now!
   []
   (System/exit 99))
