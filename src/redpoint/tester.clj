@@ -13,7 +13,7 @@
 ;(def json-string-books "[{\"title\":\"Title1\",\"author\":\"Author1\",\"maybe-borrower\":{\"name\":\"Borrower1\",\"max-books\":1}},{\"title\":\"Title2\",\"author\":\"Author2\",\"maybe-borrower\":null}]")
 (def file-path "resources-test/beatles.json")
 (def bad-file-path "nope.json")
-;(def bad-json-file "resources-test/bad-json.json")
+(def bad-json-file "resources-test/bad-json.json")
 ;(def json-string-Roster "{\"rosterName\":\"The Beatles\",\"rosterYear\":2014,\"players\":{\"PauMcc\":{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"playerName\":\"George Harrison\",\"giftHistory\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"playerName\":\"John Lennon\",\"giftHistory\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"playerName\":\"Ringo Starr\",\"giftHistory\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}}}")
 
 (defn read-file-into-json-string [file-path]
@@ -53,10 +53,6 @@
         :ret (s/or :success-out (s/tuple nil? :unq/roster)
                    :failure-out (s/tuple string? nil?)))
 
-(defn exit-now!
-  []
-  (System/exit 99))
-
 (defn roster-or-quit
   "Return a roster or quit the program if the file does not exist
   or if the string cannot be scrubbed"
@@ -67,10 +63,7 @@
         (reset! a-roster-name (:roster-name roster))
         (reset! a-roster-year (:roster-year roster))
         (reset! a-players (:players roster)))
-      (do
-        (println error-string)
-        (println "Bye!")
-        (exit-now!)))))
+      (println error-string))))
 
 (reset! a-roster-name "")
 (reset! a-roster-year 0)
@@ -82,7 +75,7 @@
 (roster-json-string-to-Roster ["here be dragons" nil])
 (roster-json-string-to-Roster json-string-borrowers)
 (roster-or-quit file-path)
-;(roster-or-quit bad-file-path)
-;(roster-or-quit bad-json-file)
+(roster-or-quit bad-file-path)
+(roster-or-quit bad-json-file)
 
 (ostest/instrument)
