@@ -20,7 +20,8 @@
     (keyword value)
     value))
 
-(defn roster-json-string-to-Roster [[error-string json-string]]
+(defn roster-json-string-to-Roster
+  [[error-string json-string]]
   (if (nil? error-string)
     (try
       [nil (json/read-str json-string
