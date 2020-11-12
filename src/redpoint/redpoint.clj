@@ -18,7 +18,8 @@
 (def a-roster-year (atom 0))
 (def file-path "resources/blackhawks.json")
 
-(defn read-file-into-json-string [file-path]
+(defn read-file-into-json-string
+  [file-path]
   (try
     [nil (slurp file-path)]
     (catch Exception e
