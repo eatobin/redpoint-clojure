@@ -34,10 +34,16 @@
   "Return a roster or quit the program if the file does not exist
   or if the string cannot be scrubbed"
   [file-path]
-  (let [roster (ros/roster-json-string-to-Roster (read-file-into-json-string file-path))]
-    (reset! a-roster-name (:roster-name roster))
-    (reset! a-roster-year (:roster-year roster))
-    (reset! a-players (:players roster))))
+  (let [[error-string roster] (ros/roster-json-string-to-Roster (read-file-into-json-string file-path))]
+    (if (nil? error-string)
+      (do
+        (reset! a-roster-name (:roster-name roster))
+        (reset! a-roster-year (:roster-year roster))
+        (reset! a-players (:players roster)))
+      (do
+        (println error-string)
+        (println "Bye!")
+        (exit-now!)))))
 
 (defn draw-puck
   [hat]
