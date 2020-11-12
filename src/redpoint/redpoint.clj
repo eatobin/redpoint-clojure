@@ -20,10 +20,6 @@
 (def a-roster-year (atom 0))
 (def file-path "resources/blackhawks.json")
 
-(defn exit-now!
-  []
-  (System/exit 99))
-
 (defn read-file-into-json-string [file-path]
   (try
     [nil (slurp file-path)]
@@ -40,10 +36,7 @@
         (reset! a-roster-name (:roster-name roster))
         (reset! a-roster-year (:roster-year roster))
         (reset! a-players (:players roster)))
-      (do
-        (println error-string)
-        (println "Bye!")
-        (exit-now!)))))
+      (println error-string))))
 
 (defn draw-puck
   [hat]
