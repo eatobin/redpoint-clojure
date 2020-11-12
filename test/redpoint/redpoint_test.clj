@@ -13,15 +13,25 @@
                        :gift-history [{:giver :PauMcc, :givee :RinSta}]},
               :JohLen {:player-name "John Lennon", :gift-history [{:giver :RinSta, :givee :PauMcc}]},
               :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
+(def file-path "resources-test/beatles.json")
+(def bad-file-path "nope.json")
+(def bad-json-file "resources-test/bad-json.json")
 
-(deftest roster-or-quit-test
-  (core/roster-or-quit "resources-test/beatles.json")
+(deftest roster-or-quit-success-test
+  (core/roster-or-quit file-path)
   (is (= "The Beatles"
          (deref core/a-roster-name)))
   (is (= 2014
          (deref core/a-roster-year)))
   (is (= players
          (deref core/a-players))))
+
+(deftest roster-or-quit-bad-path-test
+  (is (nil? (core/roster-or-quit bad-file-path))))
+
+(deftest roster-or-quit-bad-json-test
+  (is (nil? (core/roster-or-quit bad-json-file))))
+
 (s/conform ::dom/roster-name
            (do
              (core/roster-or-quit "resources-test/beatles.json")
