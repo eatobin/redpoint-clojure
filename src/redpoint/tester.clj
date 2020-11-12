@@ -11,6 +11,12 @@
 (def bad-file-path "nope.json")
 (def json-string-Roster "{\"rosterName\":\"The Beatles\",\"rosterYear\":2014,\"players\":{\"PauMcc\":{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"playerName\":\"George Harrison\",\"giftHistory\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"playerName\":\"John Lennon\",\"giftHistory\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"playerName\":\"Ringo Starr\",\"giftHistory\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}}}")
 
+(defn read-file-into-json-string [file-path]
+  (try
+    [nil (slurp file-path)]
+    (catch Exception e
+      [(str (.getMessage e)) nil])))
+
 (try
   (slurp file-path)
   (catch Exception e
@@ -65,17 +71,17 @@
         [(str (.getMessage e)) nil]))
     [error-string nil]))
 (s/fdef roster-json-string-to-Roster
-        :args (s/cat :input (s/or :success-in (s/tuple nil? string?)
-                                  :failure-in (s/tuple string? nil?)))
-        :ret (s/or :success-out (s/tuple nil? :unq/roster)
-                   :failure-out (s/tuple string? nil?)))
+  :args (s/cat :input (s/or :success-in (s/tuple nil? string?)
+                            :failure-in (s/tuple string? nil?)))
+  :ret (s/or :success-out (s/tuple nil? :unq/roster)
+             :failure-out (s/tuple string? nil?)))
 
 (defn nope [[x y]] (+ x y))
 (s/fdef nope
-        :args (s/cat :input (s/or :ints-in (s/tuple int? int?)
-                                  :mixed-in (s/tuple int? double?)))
-        :ret (s/or :int-out int?
-                   :double-out double?))
+  :args (s/cat :input (s/or :ints-in (s/tuple int? int?)
+                            :mixed-in (s/tuple int? double?)))
+  :ret (s/or :int-out int?
+             :double-out double?))
 
 (roster-json-string-to-Roster [nil json-string-Roster])
 (roster-json-string-to-Roster [nil bad-json])

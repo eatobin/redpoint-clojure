@@ -6,8 +6,7 @@
             [redpoint.roster :as ros]
             [redpoint.hats :as hat]
             [redpoint.rules :as rule]
-            [clojure.string :as cs]
-            [clojure.java.io :as io])
+            [clojure.string :as cs])
   (:gen-class))
 
 (def a-g-year (atom 0))
