@@ -13,7 +13,7 @@
 ;(def json-string-books "[{\"title\":\"Title1\",\"author\":\"Author1\",\"maybe-borrower\":{\"name\":\"Borrower1\",\"max-books\":1}},{\"title\":\"Title2\",\"author\":\"Author2\",\"maybe-borrower\":null}]")
 (def file-path "resources-test/beatles.json")
 (def bad-file-path "nope.json")
-(def bad-json-file "resources-test/bad-json.json")
+;(def bad-json-file "resources-test/bad-json.json")
 ;(def json-string-Roster "{\"rosterName\":\"The Beatles\",\"rosterYear\":2014,\"players\":{\"PauMcc\":{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"playerName\":\"George Harrison\",\"giftHistory\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"playerName\":\"John Lennon\",\"giftHistory\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"playerName\":\"Ringo Starr\",\"giftHistory\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}}}")
 
 (defn read-file-into-json-string [file-path]
@@ -89,7 +89,7 @@
 (roster-json-string-to-Roster ["here be dragons" nil])
 (roster-json-string-to-Roster json-string-borrowers)
 (roster-or-quit file-path)
-(roster-or-quit bad-file-path)
-(roster-or-quit bad-json-file)
+;(roster-or-quit bad-file-path)
+;(roster-or-quit bad-json-file)
 
 (ostest/instrument)
