@@ -4,7 +4,9 @@
             [redpoint.roster :as ros]
             [redpoint.hats :as hat]
             [redpoint.rules :as rule]
-            [clojure.string :as cs])
+            [clojure.string :as cs]
+            [clojure.spec.alpha :as s]
+            [orchestra.spec.test :as ostest])
   (:gen-class))
 
 (def a-g-year (atom 0))
@@ -18,12 +20,21 @@
 (def a-roster-year (atom 0))
 (def file-path "resources/blackhawks.json")
 
-(defn read-file-into-json-string
-  [file-path]
+(defn read-file-into-json-string [file-path]
   (try
     [nil (slurp file-path)]
     (catch Exception e
       [(str (.getMessage e)) nil])))
+(s/fdef read-file-into-json-string
+        :args (s/cat :file-path string?)
+        :ret (s/or :success (s/tuple nil? string?)
+                   :failure (s/tuple string? nil?)))
+(s/conform (s/or :success (s/tuple nil? string?)
+                 :failure (s/tuple string? nil?))
+           (read-file-into-json-string "resources-test/beatles.json"))
+(s/conform (s/or :success (s/tuple nil? string?)
+                 :failure (s/tuple string? nil?))
+           (read-file-into-json-string "nope.json"))
 
 (defn roster-or-quit
   "Return a roster or quit the program if the file does not exist
@@ -138,3 +149,5 @@
     (println "Talk about a position with Redpoint?")
     (println "Please call: Eric Tobin 773-679-6617")
     (println)))
+
+(ostest/instrument)
