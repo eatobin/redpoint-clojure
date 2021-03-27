@@ -1,7 +1,7 @@
 (ns redpoint.redpoint-test
   (:require [clojure.test :refer [deftest is]]
             [redpoint.domain :as dom]
-            [redpoint.redpoint :as core]
+            [redpoint.redpoint :as red]
             [redpoint.players :as plrs]
             [redpoint.hats :as hat]
             [clojure.spec.alpha :as s]))
@@ -18,109 +18,109 @@
 (def bad-json-file "resources-test/bad-json.json")
 
 (deftest roster-or-quit-success-test
-  (core/roster-or-quit file-path)
+  (red/roster-or-quit file-path)
   (is (= "The Beatles"
-         (deref core/a-roster-name)))
+         (deref red/a-roster-name)))
   (is (= 2014
-         (deref core/a-roster-year)))
+         (deref red/a-roster-year)))
   (is (= players
-         (deref core/a-players))))
+         (deref red/a-players))))
 
 (deftest roster-or-quit-bad-path-test
-  (is (nil? (core/roster-or-quit bad-file-path))))
+  (is (nil? (red/roster-or-quit bad-file-path))))
 
 (deftest roster-or-quit-bad-json-test
-  (is (nil? (core/roster-or-quit bad-json-file))))
+  (is (nil? (red/roster-or-quit bad-json-file))))
 
 (s/conform ::dom/roster-name
            (do
-             (core/roster-or-quit "resources-test/beatles.json")
-             (deref core/a-roster-name)))
+             (red/roster-or-quit "resources-test/beatles.json")
+             (deref red/a-roster-name)))
 (s/conform ::dom/roster-year
            (do
-             (core/roster-or-quit "resources-test/beatles.json")
-             (deref core/a-roster-year)))
+             (red/roster-or-quit "resources-test/beatles.json")
+             (deref red/a-roster-year)))
 (s/conform :unq/players
            (do
-             (core/roster-or-quit "resources-test/beatles.json")
-             (deref core/a-players)))
+             (red/roster-or-quit "resources-test/beatles.json")
+             (deref red/a-players)))
 
 (deftest draw-puck-test
   (is (true?
-        (nil? (core/draw-puck #{}))))
+        (nil? (red/draw-puck #{}))))
   (is (true?
-        (some? (core/draw-puck test-hat)))))
+        (some? (red/draw-puck test-hat)))))
 (s/conform ::dom/givee
-           (core/draw-puck test-hat))
+           (red/draw-puck test-hat))
 (s/conform nil?
-           (core/draw-puck #{}))
+           (red/draw-puck #{}))
 
 (deftest start-new-year-test
-  (reset! core/a-g-year 0)
-  (reset! core/a-giver nil)
-  (reset! core/a-givee nil)
-  (core/roster-or-quit "resources-test/beatles.json")
-  (core/start-new-year)
+  (reset! red/a-g-year 0)
+  (reset! red/a-giver nil)
+  (reset! red/a-givee nil)
+  (red/roster-or-quit "resources-test/beatles.json")
+  (red/start-new-year)
   (is (= 1
-         (deref core/a-g-year)))
+         (deref red/a-g-year)))
   (is (some?
-        (deref core/a-giver)))
+        (deref red/a-giver)))
   (is (some?
-        (deref core/a-givee)))
+        (deref red/a-givee)))
   (is (= {:player-name  "Ringo Starr",
           :gift-history [{:givee :JohLen, :giver :GeoHar}
                          {:givee :RinSta, :giver :RinSta}]}
-         (get-in (deref core/a-players) [:RinSta])))
-  (is (empty? (deref core/a-discards))))
+         (get-in (deref red/a-players) [:RinSta])))
+  (is (empty? (deref red/a-discards))))
 
 (deftest select-new-giver-test
-  (reset! core/a-g-year 0)
-  (reset! core/a-giver nil)
-  (reset! core/a-givee nil)
-  (core/roster-or-quit "resources-test/beatles.json")
-  (core/start-new-year)
-  (swap! core/a-discards hat/discard-givee :GeoHar)
+  (reset! red/a-g-year 0)
+  (reset! red/a-giver nil)
+  (reset! red/a-givee nil)
+  (red/roster-or-quit "resources-test/beatles.json")
+  (red/start-new-year)
+  (swap! red/a-discards hat/discard-givee :GeoHar)
   (is (= 1
-         (count (deref core/a-discards))))
-  (core/select-new-giver)
+         (count (deref red/a-discards))))
+  (red/select-new-giver)
   (is (= 3
-         (count (deref core/a-gr-hat))))
+         (count (deref red/a-gr-hat))))
   (is (= 0
-         (count (deref core/a-discards)))))
+         (count (deref red/a-discards)))))
 
 (deftest givee-is-success-test
-  (reset! core/a-g-year 0)
-  (reset! core/a-giver nil)
-  (reset! core/a-givee nil)
-  (core/roster-or-quit "resources-test/beatles.json")
-  (core/start-new-year)
-  (let [temp-ge (deref core/a-givee)]
-    (core/givee-is-success)
+  (reset! red/a-g-year 0)
+  (reset! red/a-giver nil)
+  (reset! red/a-givee nil)
+  (red/roster-or-quit "resources-test/beatles.json")
+  (red/start-new-year)
+  (let [temp-ge (deref red/a-givee)]
+    (red/givee-is-success)
     (is (= temp-ge
-           (plrs/players-get-givee (deref core/a-players) (deref core/a-giver) (deref core/a-g-year))))
-    (is (= (deref core/a-giver)
-           (plrs/players-get-giver (deref core/a-players) temp-ge (deref core/a-g-year))))
+           (plrs/players-get-givee (deref red/a-players) (deref red/a-giver) (deref red/a-g-year))))
+    (is (= (deref red/a-giver)
+           (plrs/players-get-giver (deref red/a-players) temp-ge (deref red/a-g-year))))
     (is (= nil
-           (some #{temp-ge} (deref core/a-ge-hat))))))
+           (some #{temp-ge} (deref red/a-ge-hat))))))
 
 (deftest givee-is-failure-test
-  (reset! core/a-g-year 0)
-  (reset! core/a-giver nil)
-  (reset! core/a-givee nil)
-  (core/roster-or-quit "resources-test/beatles.json")
-  (core/start-new-year)
-  (let [temp-ge (deref core/a-givee)]
-    (core/givee-is-failure)
+  (reset! red/a-g-year 0)
+  (reset! red/a-giver nil)
+  (reset! red/a-givee nil)
+  (red/roster-or-quit "resources-test/beatles.json")
+  (red/start-new-year)
+  (let [temp-ge (deref red/a-givee)]
+    (red/givee-is-failure)
     (is (= temp-ge
-           (some #{temp-ge} (deref core/a-discards))))
+           (some #{temp-ge} (deref red/a-discards))))
     (is (= nil
-           (some #{temp-ge} (deref core/a-ge-hat))))))
+           (some #{temp-ge} (deref red/a-ge-hat))))))
 
 (deftest errors?-test
-  (reset! core/a-g-year 0)
-  (reset! core/a-players {:RinSta {:player-name "Ringo Starr", :gift-history [{:givee :JohLen, :giver :GeoHar}]},
+  (reset! red/a-g-year 0)
+  (reset! red/a-players {:RinSta {:player-name "Ringo Starr", :gift-history [{:givee :JohLen, :giver :GeoHar}]},
                           :JohLen {:player-name "John Lennon", :gift-history [{:givee :PauMcc, :giver :RinSta}]},
                           :GeoHar {:player-name "George Harrison", :gift-history [{:givee :GeoHar, :giver :PauMcc}]},
                           :PauMcc {:player-name "Paul McCartney", :gift-history [{:givee :GeoHar, :giver :PauMcc}]}})
   (is (= (seq [:GeoHar :PauMcc])
-         (core/errors?))))
+         (red/errors?))))
