@@ -28,7 +28,7 @@
   (is (nil? roster-failure)))
 
 (deftest error-string-failure-test
-  (is (= "JSON error (unexpected character): :"
+  (is (= "JSON error (invalid array)"
          error-string-failure)))
 
 (deftest roster-success-test
