@@ -1,8 +1,8 @@
 (ns redpoint.player
-  (:require [redpoint.domain]
-            [clojure.data.json :as json]
+  (:require [clojure.data.json :as json]
             [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as ostest]))
+            [orchestra.spec.test :as ostest]
+            [redpoint.domain]))
 
 (defn player-update-gift-history
   "Sets a gift history into the provided player"

@@ -1,8 +1,8 @@
 (ns redpoint.gift-pair
-  (:require [redpoint.domain :as dom]
-            [clojure.data.json :as json]
+  (:require [clojure.data.json :as json]
             [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as ostest]))
+            [orchestra.spec.test :as ostest]
+            [redpoint.domain :as dom]))
 
 (defn gift-pair-update-givee [gift-pair givee]
   (assoc gift-pair :givee givee))

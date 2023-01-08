@@ -1,9 +1,9 @@
 (ns redpoint.rules-test
-  (:require [clojure.test :refer [deftest is]]
+  (:require [clojure.spec.alpha :as s]
+            [clojure.test :refer [deftest is]]
             [redpoint.domain]
             [redpoint.players :as plrs]
-            [redpoint.rules :as rule]
-            [clojure.spec.alpha :as s]))
+            [redpoint.rules :as rule]))
 
 (def players {:PauMcc {:player-name  "Paul McCartney",
                        :gift-history [{:giver :JohLen, :givee :GeoHar}]},

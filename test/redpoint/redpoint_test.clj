@@ -1,10 +1,10 @@
 (ns redpoint.redpoint-test
-  (:require [clojure.test :refer [deftest is]]
+  (:require [clojure.spec.alpha :as s]
+            [clojure.test :refer [deftest is]]
             [redpoint.domain :as dom]
-            [redpoint.redpoint :as red]
-            [redpoint.players :as plrs]
             [redpoint.hats :as hat]
-            [clojure.spec.alpha :as s]))
+            [redpoint.players :as plrs]
+            [redpoint.redpoint :as red]))
 
 (def test-hat #{:PauMcc :GeoHar :JohLen :RinSta})
 (def players {:PauMcc {:player-name  "Paul McCartney",

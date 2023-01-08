@@ -1,8 +1,8 @@
 (ns redpoint.gift-pair-test
-  (:require [clojure.test :refer [deftest is]]
+  (:require [clojure.spec.alpha :as s]
+            [clojure.test :refer [deftest is]]
             [redpoint.domain :as dom]
-            [redpoint.gift-pair :as gp]
-            [clojure.spec.alpha :as s]))
+            [redpoint.gift-pair :as gp]))
 
 (def json-string-GP "{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}")
 (def gift-pair (gp/gift-pair-json-string-to-Gift-Pair json-string-GP))

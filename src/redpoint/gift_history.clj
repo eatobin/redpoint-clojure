@@ -1,8 +1,8 @@
 (ns redpoint.gift-history
-  (:require [redpoint.domain :as dom]
-            [clojure.data.json :as json]
+  (:require [clojure.data.json :as json]
             [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as ostest]))
+            [orchestra.spec.test :as ostest]
+            [redpoint.domain :as dom]))
 
 (defn gift-history-add-year
   "Adds a new placeholder year to the end of a player's gift history"

@@ -1,8 +1,8 @@
 (ns redpoint.player-test
-  (:require [clojure.test :refer [deftest is]]
+  (:require [clojure.spec.alpha :as s]
+            [clojure.test :refer [deftest is]]
             [redpoint.domain]
-            [redpoint.player :as plr]
-            [clojure.spec.alpha :as s]))
+            [redpoint.player :as plr]))
 
 (def json-string-Player "{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]}")
 (def player (plr/player-json-string-to-Player json-string-Player))

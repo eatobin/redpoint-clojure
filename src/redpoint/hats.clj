@@ -1,7 +1,7 @@
 (ns redpoint.hats
-  (:require [redpoint.domain :as dom]
-            [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as ostest]))
+  (:require [clojure.spec.alpha :as s]
+            [orchestra.spec.test :as ostest]
+            [redpoint.domain :as dom]))
 
 (defn make-hat [players]
   (into #{} (keys players)))

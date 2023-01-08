@@ -1,12 +1,12 @@
 (ns redpoint.redpoint
-  (:require [redpoint.domain]
+  (:require [clojure.spec.alpha :as s]
+            [clojure.string :as cs]
+            [orchestra.spec.test :as ostest]
+            [redpoint.domain]
+            [redpoint.hats :as hat]
             [redpoint.players :as plrs]
             [redpoint.roster :as ros]
-            [redpoint.hats :as hat]
-            [redpoint.rules :as rule]
-            [clojure.string :as cs]
-            [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as ostest])
+            [redpoint.rules :as rule])
   (:gen-class))
 
 (def a-g-year (atom 0))

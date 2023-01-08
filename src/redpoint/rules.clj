@@ -1,8 +1,8 @@
 (ns redpoint.rules
-  (:require [redpoint.domain :as dom]
-            [redpoint.players :as plrs]
-            [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as ostest]))
+  (:require [clojure.spec.alpha :as s]
+            [orchestra.spec.test :as ostest]
+            [redpoint.domain :as dom]
+            [redpoint.players :as plrs]))
 
 (defn givee-not-self?
   "Test 1 - not giving to yourself"

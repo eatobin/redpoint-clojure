@@ -1,11 +1,11 @@
 (ns redpoint.players
-  (:require [redpoint.domain :as dom]
-            [redpoint.gift-history :as gh]
-            [redpoint.player :as plr]
-            [clojure.data.json :as json]
+  (:require [clojure.data.json :as json]
             [clojure.spec.alpha :as s]
             [orchestra.spec.test :as ostest]
-            [redpoint.gift-pair :as gp]))
+            [redpoint.domain :as dom]
+            [redpoint.gift-history :as gh]
+            [redpoint.gift-pair :as gp]
+            [redpoint.player :as plr]))
 
 (defn players-update-player
   [players plr-key player]
