@@ -26,3 +26,7 @@
            (gp/gift-pair-update-givee gift-pair :NewBee))
 (s/conform :unq/gift-pair
            (gp/gift-pair-update-giver gift-pair :NewBee))
+
+(deftest gift-pair-update-giver-test
+  (is (= {:givee :GeoHar :giver :NewBee}
+         (gp/gift-pair-update-giver gift-pair :NewBee))))
