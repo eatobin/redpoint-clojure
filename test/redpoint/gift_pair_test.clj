@@ -1,7 +1,6 @@
 (ns redpoint.gift-pair-test
   (:require [clojure.spec.alpha :as s]
             [clojure.test :refer [deftest is]]
-            [redpoint.domain :as dom]
             [redpoint.gift-pair :as gp]))
 
 (def json-string-GP "{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}")
@@ -12,9 +11,9 @@
          (:givee gift-pair)))
   (is (= :JohLen
          (:giver gift-pair))))
-(s/conform ::dom/givee
+(s/conform ::gp/givee
            (:givee gift-pair))
-(s/conform ::dom/giver
+(s/conform ::gp/giver
            (:giver gift-pair))
 
 (deftest update-giv-ee-er-test
