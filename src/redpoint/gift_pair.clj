@@ -14,26 +14,29 @@
     (keyword value)
     value))
 
-(defn gift-pair-json-string-to-Gift-Pair [gp-string]
-  (json/read-str gp-string
+(defn gift-pair-json-string-to-Gift-Pair
+  [json-string]
+  (json/read-str json-string
                  :value-fn my-value-reader
                  :key-fn keyword))
 (s/fdef gift-pair-json-string-to-Gift-Pair
         :args (s/cat :gp-string string?)
         :ret :unq/gift-pair)
 
-(defn gift-pair-update-givee [gift-pair givee]
+(defn gift-pair-update-givee
+  [givee gift-pair]
   (assoc gift-pair :givee givee))
 (s/fdef gift-pair-update-givee
-        :args (s/cat :gift-pair :unq/gift-pair
-                     :givee ::givee)
+        :args (s/cat :givee ::givee
+                     :gift-pair :unq/gift-pair)
         :ret :unq/gift-pair)
 
-(defn gift-pair-update-giver [gift-pair giver]
+(defn gift-pair-update-giver
+  [giver gift-pair]
   (assoc gift-pair :giver giver))
 (s/fdef gift-pair-update-giver
-        :args (s/cat :gift-pair :unq/gift-pair
-                     :giver ::giver)
+        :args (s/cat :giver ::giver
+                     :gift-pair :unq/gift-pair)
         :ret :unq/gift-pair)
 
 (ostest/instrument)
