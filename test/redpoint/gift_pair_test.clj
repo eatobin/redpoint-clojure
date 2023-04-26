@@ -12,7 +12,7 @@
 
 (t/deftest gift-pair-json-string-to-Gift-Pair-test
   (t/is (= gift-pair
-           (gp/gift-pair-json-string-to-Gift-Pair json-string)) "This should be a gift-pair")
+           (gp/gift-pair-json-string-to-Gift-Pair json-string)))
   (t/is (thrown? Exception
                  (gp/gift-pair-json-string-to-Gift-Pair bad-json-string)))
   (t/is (thrown? Exception
@@ -23,18 +23,15 @@
 (s/conform ::gp/giver
            (:giver gift-pair))
 
+(t/deftest gift-pair-update-givee-test
+  (t/is (= {:givee :NewBee :giver :JohLen}
+           (gp/gift-pair-update-givee :NewBee gift-pair))))
 
-;
-;(deftest update-giv-ee-er-test
-;  (is (= {:givee :NewBee :giver :JohLen}
-;         (gp/gift-pair-update-givee :NewBee gift-pair)))
-;  (is (= {:givee :GeoHar :giver :NewBee}
-;         (gp/gift-pair-update-giver :NewBee gift-pair))))
-;(s/conform :unq/gift-pair
-;           (gp/gift-pair-update-givee :NewBee gift-pair))
-;(s/conform :unq/gift-pair
-;           (gp/gift-pair-update-giver :NewBee gift-pair))
-;
-;(deftest gift-pair-update-giver-test
-;  (is (= {:givee :GeoHar :giver :NewBee}
-;         (gp/gift-pair-update-giver :NewBee gift-pair))))
+(t/deftest gift-pair-update-giver-test
+  (t/is (= {:givee :GeoHar :giver :NewBee}
+           (gp/gift-pair-update-giver :NewBee gift-pair))))
+
+(s/conform :unq/gift-pair
+           (gp/gift-pair-update-givee :NewBee gift-pair))
+(s/conform :unq/gift-pair
+           (gp/gift-pair-update-giver :NewBee gift-pair))
