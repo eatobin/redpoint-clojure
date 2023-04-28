@@ -1,5 +1,3 @@
 #kaocha/v1
-    {:plugins                         [:orchestra
-                                       :preloads]
-     :kaocha.plugin.preloads/ns-names [redpoint.domain]
+    {:plugins                         [:orchestra]
      :color?                          true}
