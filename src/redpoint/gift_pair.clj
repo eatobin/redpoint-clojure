@@ -15,6 +15,9 @@
     (keyword value)
     value))
 
+(defn hi
+  []
+  (println "hi"))
 (defn gift-pair-json-string-to-gift-pair
   [json-string]
   (json/read-str json-string
