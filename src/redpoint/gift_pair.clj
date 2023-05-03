@@ -15,12 +15,12 @@
     (keyword value)
     value))
 
-(defn gift-pair-json-string-to-Gift-Pair
+(defn gift-pair-json-string-to-gift-pair
   [json-string]
   (json/read-str json-string
                  :value-fn my-value-reader
                  :key-fn keyword))
-(s/fdef gift-pair-json-string-to-Gift-Pair
+(s/fdef gift-pair-json-string-to-gift-pair
         :args (s/cat :gp-string string?)
         :ret :unq/gift-pair)
 

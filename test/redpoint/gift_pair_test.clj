@@ -12,11 +12,11 @@
 
 (t/deftest gift-pair-json-string-to-Gift-Pair-test
   (t/is (= gift-pair
-          (gp/gift-pair-json-string-to-Gift-Pair json-string)))
+           (gp/gift-pair-json-string-to-gift-pair json-string)))
   (t/is (thrown? Exception
-          (gp/gift-pair-json-string-to-Gift-Pair bad-json-string)))
+                 (gp/gift-pair-json-string-to-gift-pair bad-json-string)))
   (t/is (thrown? Exception
-          (gp/gift-pair-json-string-to-Gift-Pair bad-json-string-2))))
+                 (gp/gift-pair-json-string-to-gift-pair bad-json-string-2))))
 
 (s/conform ::gp/givee
   (:givee gift-pair))
