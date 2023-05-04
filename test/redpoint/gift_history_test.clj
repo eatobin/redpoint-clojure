@@ -1,21 +1,20 @@
 (ns redpoint.gift-history-test
-  (:require [clojure.spec.alpha :as s]
-            [clojure.test :as t]
+  (:require [clojure.test :as t]
             [redpoint.gift-history :as gh]))
 
 (def json-string "[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]")
-(def bad-json-string "[{\"givee\"\"GeoHar\",\"giver\":\"JohLen\"}]")
-(def bad-json-string-2 "[{\"giveeX\":\"GeoHar\",\"giver\":\"JohLen\"}]")
+;(def bad-json-string "[{\"givee\"\"GeoHar\",\"giver\":\"JohLen\"}]")
+;(def bad-json-string-2 "[{\"giveeX\":\"GeoHar\",\"giver\":\"JohLen\"}]")
 
 (def gift-history [{:givee :GeoHar :giver :JohLen}])
 
-(t/deftest gift-pair-json-string-to-gift-hair-test
+(t/deftest gift-history-json-string-to-gift-history-test
   (t/is (= gift-history
-           (gp/gift-pair-json-string-to-Gift-Pair json-string))))
-  ;(t/is (thrown? Exception
-  ;               (gp/gift-pair-json-string-to-Gift-Pair bad-json-string)))
-  ;(t/is (thrown? Exception
-  ;               (gp/gift-pair-json-string-to-Gift-Pair bad-json-string-2))))
+           (gh/gift-history-json-string-to-gift-history json-string))))
+;(t/is (thrown? Exception
+;               (gp/gift-pair-json-string-to-Gift-Pair bad-json-string)))
+;(t/is (thrown? Exception
+;               (gp/gift-pair-json-string-to-Gift-Pair bad-json-string-2))))
 
 ;(deftest add-year-test
 ;  (is (= [{:givee :GeoHar :giver :JohLen}, {:givee :NewBee :giver :NewBee}]
