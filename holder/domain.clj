@@ -1,14 +1,6 @@
 (ns redpoint.domain
   (:require [clojure.spec.alpha :as s]))
 
-(s/def ::givee keyword?)
-(s/def ::giver keyword?)
-(s/def :unq/gift-pair (s/keys :req-un [::givee ::giver]))
-
-(s/def :unq/gift-history (s/coll-of :unq/gift-pair :kind vector?))
-(s/def ::player-key keyword?)
-(s/def ::gift-year (s/and int? #(> % -1)))
-
 (s/def ::player-name string?)
 (s/def :unq/player (s/keys :req-un [::player-name :unq/gift-history]))
 

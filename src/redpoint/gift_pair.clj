@@ -1,22 +1,6 @@
 (ns redpoint.gift-pair
   (:require [clojure.data.json :as json]
-            [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as ostest]
-            [redpoint.domain :as dom]))
-
-(defn gift-pair-update-givee [gift-pair givee]
-  (assoc gift-pair :givee givee))
-(s/fdef gift-pair-update-givee
-        :args (s/cat :gift-pair :unq/gift-pair
-                     :givee ::dom/givee)
-        :ret :unq/gift-pair)
-
-(defn gift-pair-update-giver [gift-pair giver]
-  (assoc gift-pair :giver giver))
-(s/fdef gift-pair-update-giver
-        :args (s/cat :gift-pair :unq/gift-pair
-                     :giver ::dom/giver)
-        :ret :unq/gift-pair)
+            [malli.core :as m]))
 
 (defn- my-value-reader
   [key value]
@@ -25,12 +9,48 @@
     (keyword value)
     value))
 
-(defn gift-pair-json-string-to-Gift-Pair [gp-string]
-  (json/read-str gp-string
+(defn gift-pair-json-string-to-gift-pair
+  [json-string]
+  (json/read-str json-string
                  :value-fn my-value-reader
                  :key-fn keyword))
-(s/fdef gift-pair-json-string-to-Gift-Pair
-        :args (s/cat :gp-string string?)
-        :ret :unq/gift-pair)
 
-(ostest/instrument)
+(defn gift-pair-update-givee
+  [givee gift-pair]
+  (assoc gift-pair :givee givee))
+
+(defn gift-pair-update-giver
+  [giver gift-pair]
+  (assoc gift-pair :giver giver))
+
+(def non-empty-string
+  (m/schema [:string {:min 1}]))
+
+;; optimized (pure) validation function for best performance
+(def et-valid?
+  (m/validator
+    [:map
+     [:x :boolean]
+     [:y {:optional true} :int]
+     [:z :string]]))
+(def good {:x true, :z "kikka"})
+(et-valid? {:x true, :y 6.9, :z "kikka"})
+(et-valid? good)
+; => true
+
+(m/schema? non-empty-string)
+; => true
+
+(m/validate non-empty-string "")
+; => false
+
+(m/validate non-empty-string "kikka")
+; => true
+
+(m/form non-empty-string)
+; => [:string {:min 1}]
+
+(m/validate
+  [:map [:x :int]]
+  {:x 1, :extra "key"})
+; => true

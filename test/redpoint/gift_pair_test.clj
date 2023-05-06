@@ -1,28 +1,27 @@
 (ns redpoint.gift-pair-test
-  (:require [clojure.spec.alpha :as s]
-            [clojure.test :refer [deftest is]]
-            [redpoint.domain :as dom]
+  (:require [clojure.test :as t]
             [redpoint.gift-pair :as gp]))
 
-(def json-string-GP "{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}")
-(def gift-pair (gp/gift-pair-json-string-to-Gift-Pair json-string-GP))
 
-(deftest giv-ee-er-test
-  (is (= :GeoHar
-         (:givee gift-pair)))
-  (is (= :JohLen
-         (:giver gift-pair))))
-(s/conform ::dom/givee
-           (:givee gift-pair))
-(s/conform ::dom/giver
-           (:giver gift-pair))
+(def json-string "{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}")
+(def bad-json-string "{\"givee\"\"GeoHar\",\"giver\":\"JohLen\"}")
+(def bad-json-string-2 "{\"giveeX\":\"GeoHar\",\"giver\":\"JohLen\"}")
 
-(deftest update-giv-ee-er-test
-  (is (= {:givee :NewBee :giver :JohLen}
-         (gp/gift-pair-update-givee gift-pair :NewBee)))
-  (is (= {:givee :GeoHar :giver :NewBee}
-         (gp/gift-pair-update-giver gift-pair :NewBee))))
-(s/conform :unq/gift-pair
-           (gp/gift-pair-update-givee gift-pair :NewBee))
-(s/conform :unq/gift-pair
-           (gp/gift-pair-update-giver gift-pair :NewBee))
+
+(def gift-pair {:givee :GeoHar :giver :JohLen})
+
+(t/deftest gift-pair-json-string-to-Gift-Pair-test
+  (t/is (= gift-pair
+           (gp/gift-pair-json-string-to-gift-pair json-string)))
+  (t/is (thrown? Exception
+                 (gp/gift-pair-json-string-to-gift-pair bad-json-string)))
+  (t/is (thrown? Exception
+                 (gp/gift-pair-json-string-to-gift-pair bad-json-string-2))))
+
+(t/deftest gift-pair-update-givee-test
+  (t/is (= {:givee :NewBee :giver :JohLen}
+           (gp/gift-pair-update-givee :NewBee gift-pair))))
+
+(t/deftest gift-pair-update-giver-test
+  (t/is (= {:givee :GeoHar :giver :NewBee}
+           (gp/gift-pair-update-giver :NewBee gift-pair))))
