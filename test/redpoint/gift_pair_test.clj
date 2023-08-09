@@ -26,3 +26,6 @@
            (gp/gift-pair-update-givee gift-pair :NewBee))
 (s/conform :unq/gift-pair
            (gp/gift-pair-update-giver gift-pair :NewBee))
+;; Added in Calva:
+(s/conform :unq/gift-pair
+           (gp/gift-pair-update-givee gift-pair :Calva))
