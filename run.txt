@@ -1,1 +1,0 @@
-[eric@linux-x2vq redpoint](master)$ clojure -M:eat/orchestra -m redpoint.redpoint
