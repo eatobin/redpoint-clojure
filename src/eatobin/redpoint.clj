@@ -183,7 +183,10 @@
   \"discards\":[],
   \"quit\":\"n\"}")
 
-(def first-state (my-state-json-string-to-my-state hawks-json))
+;; (def first-state (my-state-json-string-to-my-state hawks-json))
+(def first-state (->
+  hawks-json
+  (my-state-json-string-to-my-state)))
 
 (defn -main
   []
