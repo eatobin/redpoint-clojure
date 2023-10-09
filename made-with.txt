@@ -1,0 +1,1 @@
+clojure -Tnew app :name eatobin/redpoint
