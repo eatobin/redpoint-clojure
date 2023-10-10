@@ -183,19 +183,24 @@
   \"discards\":[],
   \"quit\":\"n\"}")
 
-;; (def first-state (my-state-json-string-to-my-state hawks-json))
-(def first-state (->
+(def first-state
+  (->
   hawks-json
   (my-state-json-string-to-my-state)))
 
 (defn -main
   []
   (loop [next-state (my-state-ask-continue (my-state-print-results first-state))]
-    (if (= (string/lower-case (:quit next-state)) "q")    
+    (if (= (string/lower-case (:quit next-state)) "q")
       (do
-          (println)
-          (println "This was fun!")
-          (println "Talk about a position with Redpoint?")
-          (println "Please call: Eric Tobin 773-679-6617")
-          (println))
-      (recur (my-state-ask-continue (my-state-print-results (my-state-update-and-run-new-year next-state)))))))
+        (println)
+        (println "This was fun!")
+        (println "Talk about a position with Redpoint?")
+        (println "Please call: Eric Tobin 773-679-6617")
+        (println))
+      (recur
+       (->
+       next-state
+       (my-state-update-and-run-new-year)
+       (my-state-print-results)
+       (my-state-ask-continue))))))
