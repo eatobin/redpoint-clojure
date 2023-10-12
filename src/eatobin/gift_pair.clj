@@ -26,10 +26,13 @@
 (defn-spec gift-pair-update-givee :unq/gift-pair
   [givee ::dom/givee gift-pair :unq/gift-pair]
   (assoc gift-pair :givee givee))
-; (s/fdef gift-pair-update-givee
-;   :args (s/cat :givee ::dom/givee
-;           :gift-pair :unq/gift-pair)
-;   :ret :unq/gift-pair)
+;(defn gift-pair-update-givee
+;  [givee gift-pair]
+;  (assoc gift-pair :givee givee))
+;(s/fdef gift-pair-update-givee
+;        :args (s/cat :givee ::dom/givee
+;                     :gift-pair :unq/gift-pair)
+;        :ret :unq/gift-pair)
 
 (defn gift-pair-update-giver
   [giver gift-pair]
