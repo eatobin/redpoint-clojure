@@ -1,14 +1,14 @@
 (ns eatobin.players
-  (:require [eatobin.json-utilities :refer [json-utilities-my-value-reader
-                                            json-utilities-my-key-reader]]
-            [clojure.data.json :as json]
+  (:require [clojure.data.json :as json]
             [clojure.spec.alpha :as s]
-            [orchestra.spec.test :as ostest]
             [eatobin.domain :as dom]
             [eatobin.gift-history :refer [gift-history-update-gift-history]]
             [eatobin.gift-pair :refer [gift-pair-update-givee
                                        gift-pair-update-giver]]
-            [eatobin.player :refer [player-update-gift-history]]))
+            [eatobin.json-utilities :refer [json-utilities-my-value-reader
+                                            json-utilities-my-key-reader]]
+            [eatobin.player :refer [player-update-gift-history]]
+            [orchestra.spec.test :as ostest]))
 
 (defn players-json-string-to-players
   [json-string]

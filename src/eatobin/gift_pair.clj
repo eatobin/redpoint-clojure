@@ -7,18 +7,18 @@
 ;; user=> eatobin.gift-pair-test/gift-pair-test-gift-pair
 
 (ns eatobin.gift-pair
-  (:require [eatobin.json-utilities :refer [json-utilities-my-value-reader]]
-    [eatobin.domain :as dom]
-    [clojure.data.json :as json]
-    [clojure.spec.alpha :as s]
-    [orchestra.core :refer [defn-spec]]
-    [orchestra.spec.test :as ostest]))
+  (:require [clojure.data.json :as json]
+            [clojure.spec.alpha :as s]
+            [eatobin.domain :as dom]
+            [eatobin.json-utilities :refer [json-utilities-my-value-reader]]
+            [orchestra.core :refer [defn-spec]]
+            [orchestra.spec.test :as ostest]))
 
 (defn gift-pair-json-string-to-gift-pair
   [json-string]
   (json/read-str json-string
-    :value-fn json-utilities-my-value-reader
-    :key-fn keyword))
+                 :value-fn json-utilities-my-value-reader
+                 :key-fn keyword))
 (s/fdef gift-pair-json-string-to-gift-pair
   :args (s/cat :json-string ::dom/json-string)
   :ret :unq/gift-pair)
@@ -39,7 +39,7 @@
   (assoc gift-pair :giver giver))
 (s/fdef gift-pair-update-giver
   :args (s/cat :giver ::dom/giver
-          :gift-pair :unq/gift-pair)
+               :gift-pair :unq/gift-pair)
   :ret :unq/gift-pair)
 
 (ostest/instrument)

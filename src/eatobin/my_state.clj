@@ -1,5 +1,11 @@
 (ns eatobin.my-state
-  (:require [eatobin.json-utilities :refer [json-utilities-my-value-reader
+  (:require [clojure.data.json :as json]
+            [eatobin.domain :as dom]
+            [eatobin.hat :refer [hat-make-hat
+                                 hat-remove-puck
+                                 hat-discard-givee
+                                 hat-return-discards]]
+            [eatobin.json-utilities :refer [json-utilities-my-value-reader
                                             json-utilities-my-key-reader]]
             [eatobin.players :refer [players-add-year
                                      players-update-my-givee
@@ -7,17 +13,11 @@
                                      players-get-my-givee
                                      players-get-my-giver
                                      players-get-player-name]]
-            [eatobin.hat :refer [hat-make-hat
-                                 hat-remove-puck
-                                 hat-discard-givee
-                                 hat-return-discards]]
             [eatobin.rules :refer [rules-givee-not-self?
                                    rules-givee-not-recip?
                                    rules-givee-not-repeat?]]
-            [clojure.data.json :as json]
             [orchestra.core :refer [defn-spec]]
-            [orchestra.spec.test :as ostest]
-            [eatobin.domain :as dom]))
+            [orchestra.spec.test :as ostest]))
 
 (defn-spec my-state-json-string-to-my-state :unq/my-state
   [json-string ::dom/json-string]

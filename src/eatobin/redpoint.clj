@@ -185,8 +185,8 @@
 
 (def first-state
   (->
-  hawks-json
-  (my-state-json-string-to-my-state)))
+   hawks-json
+   (my-state-json-string-to-my-state)))
 
 (defn -main
   []
@@ -200,7 +200,7 @@
         (println))
       (recur
        (->
-       next-state
-       (my-state-update-and-run-new-year)
-       (my-state-print-results)
-       (my-state-ask-continue))))))
+        next-state
+        (my-state-update-and-run-new-year)
+        (my-state-print-results)
+        (my-state-ask-continue))))))

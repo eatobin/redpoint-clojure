@@ -2,8 +2,6 @@
   (:require [clojure.spec.alpha :as s]
             [clojure.test :refer [deftest is]]
             [eatobin.domain :as dom]
-            [eatobin.players :refer [players-get-my-givee
-                                     players-get-my-giver]]
             [eatobin.my-state :refer [my-state-draw-puck
                                       my-state-givee-is-failure
                                       my-state-givee-is-success
@@ -11,7 +9,9 @@
                                       my-state-start-new-year
                                       my-state-select-new-giver
                                       my-state-errors
-                                      my-state-print-results]]))
+                                      my-state-print-results]]
+            [eatobin.players :refer [players-get-my-givee
+                                     players-get-my-giver]]))
 
 (def beatles-json "{\"rosterName\":\"The Beatles\",\"rosterYear\":2014,\"players\":{\"PauMcc\":{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"playerName\":\"George Harrison\",\"giftHistory\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"playerName\":\"John Lennon\",\"giftHistory\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"playerName\":\"Ringo Starr\",\"giftHistory\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}},\"gift-year\":0,\"givee-hat\":[],\"giver-hat\":[],\"maybe-givee\":null,\"maybe-giver\":null,\"discards\":[],\"quit\":\"n\"}")
 (def beatles-state-0 {:discards #{},

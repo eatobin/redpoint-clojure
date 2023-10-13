@@ -1,10 +1,10 @@
 (ns eatobin.hat-test
   (:require [clojure.spec.alpha :as s]
-    [clojure.test :refer [deftest is]]
-    [eatobin.hat :refer [hat-make-hat
-                         hat-remove-puck
-                         hat-discard-givee
-                         hat-return-discards]]))
+            [clojure.test :refer [deftest is]]
+            [eatobin.hat :refer [hat-make-hat
+                                 hat-remove-puck
+                                 hat-discard-givee
+                                 hat-return-discards]]))
 
 (def hat-test-hat  #{:PauMcc :GeoHar :JohLen :RinSta})
 
@@ -16,31 +16,31 @@
                        :RinSta {:player-name "Ringo Starr", :gift-history [{:giver :GeoHar, :givee :JohLen}]}})
 
 (s/conform :unq/hat
-  #{:PauMcc :GeoHar :JohLen})
+           #{:PauMcc :GeoHar :JohLen})
 
 (s/conform :unq/hat
-  #{})
+           #{})
 
 (deftest hat-make-hat-test
-  (is (=  hat-test-hat 
-        (hat-make-hat hat-test-players))))
+  (is (=  hat-test-hat
+          (hat-make-hat hat-test-players))))
 (s/conform :unq/hat
-  (hat-make-hat hat-test-players))
+           (hat-make-hat hat-test-players))
 
 (deftest hat-remove-puck-test
   (is (= #{:PauMcc :GeoHar :JohLen}
-        (hat-remove-puck :RinSta hat-test-hat))))
+         (hat-remove-puck :RinSta hat-test-hat))))
 
 (deftest hat-remove-puck-empty-test
   (is (= #{}
-        (hat-remove-puck :RinSta #{}))))
+         (hat-remove-puck :RinSta #{}))))
 
 (deftest discard-puck-givee-test
   (is (= #{:PauMcc :JohLen}
-        (hat-discard-givee :JohLen #{:PauMcc}))))
+         (hat-discard-givee :JohLen #{:PauMcc}))))
 (s/conform :unq/discards
-  (hat-discard-givee :JohLen #{:PauMcc}))
+           (hat-discard-givee :JohLen #{:PauMcc}))
 
 (deftest hat-return-discards-test
   (is (= #{:PauMcc :JohLen :GeoHar}
-        (hat-return-discards #{:GeoHar} #{:PauMcc :JohLen}))))
+         (hat-return-discards #{:GeoHar} #{:PauMcc :JohLen}))))
