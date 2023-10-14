@@ -8,7 +8,7 @@
           :exec-fn greet
           :exec-args {:name "Clojure"}}
   :build {:deps {io.github.clojure/tools.build
-                 {:git/tag "v0.9.5" :git/sha "24f2894"}}
+                 {:git/tag "v0.9.6" :git/sha "8e78bcc"}}
           :ns-default build}
   :test {:extra-paths ["test"]
          :extra-deps {org.clojure/test.check {:mvn/version "1.1.1"}
