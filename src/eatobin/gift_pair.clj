@@ -1,4 +1,3 @@
-;; $ cd Dropbox/clojure/redpoint/
 ;; $ clj -X:repl/socket-repl **Use this one for printing to the server REPL
 ;; $ bb nrepl-server 5555
 
@@ -8,17 +7,17 @@
 
 (ns eatobin.gift-pair
   (:require [clojure.data.json :as json]
-            [clojure.spec.alpha :as s]
-            [eatobin.domain :as dom]
-            [eatobin.json-utilities :refer [json-utilities-my-value-reader]]
-            [orchestra.core :refer [defn-spec]]
-            [orchestra.spec.test :as ostest]))
+    [clojure.spec.alpha :as s]
+    [eatobin.domain :as dom]
+    [eatobin.json-utilities :refer [json-utilities-my-value-reader]]
+    [orchestra.core :refer [defn-spec]]
+    [orchestra.spec.test :as ostest]))
 
 (defn gift-pair-json-string-to-gift-pair
   [json-string]
   (json/read-str json-string
-                 :value-fn json-utilities-my-value-reader
-                 :key-fn keyword))
+    :value-fn json-utilities-my-value-reader
+    :key-fn keyword))
 (s/fdef gift-pair-json-string-to-gift-pair
   :args (s/cat :json-string ::dom/json-string)
   :ret :unq/gift-pair)
@@ -39,7 +38,7 @@
   (assoc gift-pair :giver giver))
 (s/fdef gift-pair-update-giver
   :args (s/cat :giver ::dom/giver
-               :gift-pair :unq/gift-pair)
+          :gift-pair :unq/gift-pair)
   :ret :unq/gift-pair)
 
 (ostest/instrument)
