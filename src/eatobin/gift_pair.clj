@@ -22,6 +22,13 @@
   :args (s/cat :json-string ::dom/json-string)
   :ret :unq/gift-pair)
 
+(defn-spec my-test integer?
+  [x integer? y integer?]
+  (+ x y))
+
+(my-test 2.0 4.0)
+(my-test 2 4)
+
 (defn-spec gift-pair-update-givee :unq/gift-pair
   [givee ::dom/givee gift-pair :unq/gift-pair]
   (assoc gift-pair :givee givee))
