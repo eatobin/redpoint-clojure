@@ -1,17 +1,18 @@
-;; $ clj -X:repl/socket-repl **Use this one for printing to the server REPL
-;; $ bb nrepl-server 5555
+;; $ clj -X:repl/socket-repl:eat/orchestra:eat/test
+;; **Use this one for printing to the server REPL
 
 ;; $ clojure -M:repl/rebel
 ;; user=> (load-file "test/eatobin/gift_pair_test.clj")
 ;; user=> eatobin.gift-pair-test/gift-pair-test-gift-pair
 
 (ns eatobin.gift-pair
-  (:require [clojure.data.json :as json]
-            [clojure.spec.alpha :as s]
-            [eatobin.domain :as dom]
-            [eatobin.json-utilities :refer [json-utilities-my-value-reader]]
-            [orchestra.core :refer [defn-spec]]
-            [orchestra.spec.test :as ostest]))
+  (:require
+   [clojure.data.json :as json]
+   [clojure.spec.alpha :as s]
+   [eatobin.domain :as dom]
+   [eatobin.json-utilities :refer [json-utilities-my-value-reader]]
+   [orchestra.core :refer [defn-spec]]
+   [orchestra.spec.test :as ostest]))
 
 (defn gift-pair-json-string-to-gift-pair
   [json-string]
