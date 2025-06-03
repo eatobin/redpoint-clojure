@@ -3,57 +3,57 @@
             [clojure.test :refer [deftest is]]
             [eatobin.domain :as dom]
             [eatobin.my-state :refer [my-state-draw-puck
+                                      my-state-errors
                                       my-state-givee-is-failure
                                       my-state-givee-is-success
                                       my-state-json-string-to-my-state
-                                      my-state-start-new-year
+                                      my-state-print-results
                                       my-state-select-new-giver
-                                      my-state-errors
-                                      my-state-print-results]]
+                                      my-state-start-new-year]]
             [eatobin.players :refer [players-get-my-givee
                                      players-get-my-giver]]))
 
 (def beatles-json "{\"rosterName\":\"The Beatles\",\"rosterYear\":2014,\"players\":{\"PauMcc\":{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"playerName\":\"George Harrison\",\"giftHistory\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"playerName\":\"John Lennon\",\"giftHistory\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"playerName\":\"Ringo Starr\",\"giftHistory\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}},\"gift-year\":0,\"givee-hat\":[],\"giver-hat\":[],\"maybe-givee\":null,\"maybe-giver\":null,\"discards\":[],\"quit\":\"n\"}")
-(def beatles-state-0 {:discards #{},
+(def beatles-state-0 {:discards    #{},
                       :roster-year 2014,
-                      :gift-year 0,
+                      :gift-year   0,
                       :maybe-givee nil,
-                      :givee-hat #{},
+                      :givee-hat   #{},
                       :maybe-giver nil,
-                      :players {:PauMcc {:player-name "Paul McCartney",
-                                         :gift-history [{:givee :GeoHar, :giver :JohLen}]},
-                                :GeoHar {:player-name "George Harrison",
-                                         :gift-history [{:givee :RinSta, :giver :PauMcc}]},
-                                :JohLen {:player-name "John Lennon",
-                                         :gift-history [{:givee :PauMcc, :giver :RinSta}]},
-                                :RinSta {:player-name "Ringo Starr",
-                                         :gift-history [{:givee :JohLen, :giver :GeoHar}]}},
-                      :quit "n",
+                      :players     {:PauMcc {:player-name  "Paul McCartney",
+                                             :gift-history [{:givee :GeoHar, :giver :JohLen}]},
+                                    :GeoHar {:player-name  "George Harrison",
+                                             :gift-history [{:givee :RinSta, :giver :PauMcc}]},
+                                    :JohLen {:player-name  "John Lennon",
+                                             :gift-history [{:givee :PauMcc, :giver :RinSta}]},
+                                    :RinSta {:player-name  "Ringo Starr",
+                                             :gift-history [{:givee :JohLen, :giver :GeoHar}]}},
+                      :quit        "n",
                       :roster-name "The Beatles",
-                      :giver-hat #{}})
+                      :giver-hat   #{}})
 
 (def test-hat #{:RinSta})
 (def fresh-hat #{:RinSta, :JohLen, :GeoHar, :PauMcc})
-(def rin-sta-plus {:player-name "Ringo Starr",
+(def rin-sta-plus {:player-name  "Ringo Starr",
                    :gift-history [{:givee :JohLen, :giver :GeoHar}
                                   {:givee :RinSta, :giver :RinSta}]})
-(def weird-state {:discards #{},
+(def weird-state {:discards    #{},
                   :roster-year 2014,
-                  :gift-year 0,
+                  :gift-year   0,
                   :maybe-givee nil,
-                  :givee-hat #{},
+                  :givee-hat   #{},
                   :maybe-giver nil,
-                  :players {:PauMcc {:player-name "pauYikes",
-                                     :gift-history [{:givee :GeoHar, :giver :PauMcc}]},
-                            :GeoHar {:player-name "geoWhoops",
-                                     :gift-history [{:givee :GeoHar, :giver :PauMcc}]},
-                            :JohLen {:player-name "John Lennon",
-                                     :gift-history [{:givee :PauMcc, :giver :RinSta}]},
-                            :RinSta {:player-name "Ringo Starr",
-                                     :gift-history [{:givee :JohLen, :giver :GeoHar}]}},
-                  :quit "n",
+                  :players     {:PauMcc {:player-name  "pauYikes",
+                                         :gift-history [{:givee :GeoHar, :giver :PauMcc}]},
+                                :GeoHar {:player-name  "geoWhoops",
+                                         :gift-history [{:givee :GeoHar, :giver :PauMcc}]},
+                                :JohLen {:player-name  "John Lennon",
+                                         :gift-history [{:givee :PauMcc, :giver :RinSta}]},
+                                :RinSta {:player-name  "Ringo Starr",
+                                         :gift-history [{:givee :JohLen, :giver :GeoHar}]}},
+                  :quit        "n",
                   :roster-name "The Beatles",
-                  :giver-hat #{}})
+                  :giver-hat   #{}})
 
 (deftest my-state-json-string-to-my-state-test
   (is (= beatles-state-0

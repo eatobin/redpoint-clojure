@@ -3,9 +3,9 @@
             [clojure.test :refer [deftest is]]
             [eatobin.players :refer [players-add-year
                                      players-update-my-givee]]
-            [eatobin.rules :refer [rules-givee-not-self?
-                                   rules-givee-not-recip?
-                                   rules-givee-not-repeat?]]))
+            [eatobin.rules :refer [rules-givee-not-recip?
+                                   rules-givee-not-repeat?
+                                   rules-givee-not-self?]]))
 
 (def rules-test-players {:PauMcc {:player-name  "Paul McCartney",
                                   :gift-history [{:giver :JohLen, :givee :GeoHar}]},

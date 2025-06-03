@@ -1,13 +1,13 @@
 ;; $ clojure -T:build test
-;; $ clojure -M:test/kaocha-orchestra
+;; $ clojure -M:test/kaocha-plain
 
 (ns eatobin.gift-pair-test
   (:require [clojure.spec.alpha :as s]
-            [clojure.test :refer [deftest testing is]]
+            [clojure.test :refer [deftest is testing]]
             [eatobin.domain]
-            [eatobin.gift-pair :refer [gift-pair-update-givee
-                                       gift-pair-update-giver
-                                       gift-pair-json-string-to-gift-pair]]))
+            [eatobin.gift-pair :refer [gift-pair-json-string-to-gift-pair
+                                       gift-pair-update-givee
+                                       gift-pair-update-giver]]))
 
 (def gift-pair-test-json-string "{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}")
 (def gift-pair-test-gift-pair {:givee :GeoHar :giver :JohLen})

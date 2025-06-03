@@ -1,5 +1,4 @@
 #kaocha/v1
- {:plugins                         [:orchestra
-                                    :preloads]
-  :kaocha.plugin.preloads/ns-names [eatobin.domain]
-  :color?                          true}
+        {:plugins                         [:preloads]
+         :kaocha.plugin.preloads/ns-names [eatobin.domain]
+         :color?                          true}

@@ -1,12 +1,12 @@
 (ns eatobin.hat-test
   (:require [clojure.spec.alpha :as s]
             [clojure.test :refer [deftest is]]
-            [eatobin.hat :refer [hat-make-hat
+            [eatobin.hat :refer [hat-discard-givee
+                                 hat-make-hat
                                  hat-remove-puck
-                                 hat-discard-givee
                                  hat-return-discards]]))
 
-(def hat-test-hat  #{:PauMcc :GeoHar :JohLen :RinSta})
+(def hat-test-hat #{:PauMcc :GeoHar :JohLen :RinSta})
 
 (def hat-test-players {:PauMcc {:player-name  "Paul McCartney",
                                 :gift-history [{:giver :JohLen, :givee :GeoHar}]},
@@ -22,8 +22,8 @@
            #{})
 
 (deftest hat-make-hat-test
-  (is (=  hat-test-hat
-          (hat-make-hat hat-test-players))))
+  (is (= hat-test-hat
+         (hat-make-hat hat-test-players))))
 (s/conform :unq/hat
            (hat-make-hat hat-test-players))
 

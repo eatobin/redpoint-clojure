@@ -2,9 +2,9 @@
 
 (ns eatobin.redpoint
   (:require [clojure.string :as string]
-            [eatobin.my-state :refer [my-state-json-string-to-my-state
+            [eatobin.my-state :refer [my-state-ask-continue
+                                      my-state-json-string-to-my-state
                                       my-state-print-results
-                                      my-state-ask-continue
                                       my-state-update-and-run-new-year]])
   (:gen-class))
 
@@ -185,8 +185,8 @@
 
 (def first-state
   (->
-   hawks-json
-   (my-state-json-string-to-my-state)))
+    hawks-json
+    (my-state-json-string-to-my-state)))
 
 (defn -main
   []
@@ -199,8 +199,8 @@
         (println "Please call: Eric Tobin 773-679-6617")
         (println))
       (recur
-       (->
-        next-state
-        (my-state-update-and-run-new-year)
-        (my-state-print-results)
-        (my-state-ask-continue))))))
+        (->
+          next-state
+          (my-state-update-and-run-new-year)
+          (my-state-print-results)
+          (my-state-ask-continue))))))

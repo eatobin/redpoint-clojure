@@ -2,14 +2,14 @@
   (:require [clojure.spec.alpha :as s]
             [clojure.test :refer [deftest is testing]]
             [eatobin.domain :as dom]
-            [eatobin.players :refer [players-json-string-to-players
-                                     players-update-player
-                                     players-get-player-name
-                                     players-add-year
+            [eatobin.players :refer [players-add-year
                                      players-get-my-givee
                                      players-get-my-giver
+                                     players-get-player-name
+                                     players-json-string-to-players
                                      players-update-my-givee
-                                     players-update-my-giver]]))
+                                     players-update-my-giver
+                                     players-update-player]]))
 
 (def players-test-json-string "{\"PauMcc\":{\"playerName\":\"Paul McCartney\",\"giftHistory\":[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]},\"GeoHar\":{\"playerName\":\"George Harrison\",\"giftHistory\":[{\"givee\":\"RinSta\",\"giver\":\"PauMcc\"}]},\"JohLen\":{\"playerName\":\"John Lennon\",\"giftHistory\":[{\"givee\":\"PauMcc\",\"giver\":\"RinSta\"}]},\"RinSta\":{\"playerName\":\"Ringo Starr\",\"giftHistory\":[{\"givee\":\"JohLen\",\"giver\":\"GeoHar\"}]}}")
 (def players-test-players {:PauMcc {:player-name  "Paul McCartney",
@@ -62,7 +62,7 @@
 
 (deftest get-player-name-fail-test
   (is (nil?
-       (players-get-player-name :GeoHarX players-test-players))))
+        (players-get-player-name :GeoHarX players-test-players))))
 (s/conform (s/or :found ::dom/player-name
                  :not-found nil?)
            (players-get-player-name :GeoHarX players-test-players))

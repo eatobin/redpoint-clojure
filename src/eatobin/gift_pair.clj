@@ -7,12 +7,10 @@
 
 (ns eatobin.gift-pair
   (:require
-   [clojure.data.json :as json]
-   [clojure.spec.alpha :as s]
-   [eatobin.domain :as dom]
-   [eatobin.json-utilities :refer [json-utilities-my-value-reader]]
-   [orchestra.core :refer [defn-spec]]
-   [orchestra.spec.test :as ostest]))
+    [clojure.data.json :as json]
+    [clojure.spec.alpha :as s]
+    [eatobin.domain :as dom]
+    [eatobin.json-utilities :refer [json-utilities-my-value-reader]]))
 
 (defn gift-pair-json-string-to-gift-pair
   [json-string]
@@ -20,33 +18,21 @@
                  :value-fn json-utilities-my-value-reader
                  :key-fn keyword))
 (s/fdef gift-pair-json-string-to-gift-pair
-  :args (s/cat :json-string ::dom/json-string)
-  :ret :unq/gift-pair)
+        :args (s/cat :json-string ::dom/json-string)
+        :ret :unq/gift-pair)
 
-(defn-spec my-test integer?
-  [x integer? y integer?]
-  (+ x y))
-
-(my-test 2.0 4.0)
-(my-test 2 4)
-
-(defn-spec gift-pair-update-givee :unq/gift-pair
-  [givee ::dom/givee gift-pair :unq/gift-pair]
+(defn gift-pair-update-givee
+  [givee gift-pair]
   (assoc gift-pair :givee givee))
-;(defn gift-pair-update-givee
-;  [givee gift-pair]
-;  (assoc gift-pair :givee givee))
-;(s/fdef gift-pair-update-givee
-;        :args (s/cat :givee ::dom/givee
-;                     :gift-pair :unq/gift-pair)
-;        :ret :unq/gift-pair)
+(s/fdef gift-pair-update-givee
+        :args (s/cat :givee ::dom/givee
+                     :gift-pair :unq/gift-pair)
+        :ret :unq/gift-pair)
 
 (defn gift-pair-update-giver
   [giver gift-pair]
   (assoc gift-pair :giver giver))
 (s/fdef gift-pair-update-giver
-  :args (s/cat :giver ::dom/giver
-               :gift-pair :unq/gift-pair)
-  :ret :unq/gift-pair)
-
-(ostest/instrument)
+        :args (s/cat :giver ::dom/giver
+                     :gift-pair :unq/gift-pair)
+        :ret :unq/gift-pair)

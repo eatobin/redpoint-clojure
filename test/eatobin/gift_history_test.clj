@@ -3,8 +3,8 @@
             [clojure.test :refer [deftest is testing]]
             [eatobin.domain]
             [eatobin.gift-history :refer [gift-history-add-year
-                                          gift-history-update-gift-history
-                                          gift-history-json-string-to-gift-history]]))
+                                          gift-history-json-string-to-gift-history
+                                          gift-history-update-gift-history]]))
 
 (def gift-history-test-json-string "[{\"givee\":\"GeoHar\",\"giver\":\"JohLen\"}]")
 (def gift-history-test-gift-history [{:givee :GeoHar :giver :JohLen}])
