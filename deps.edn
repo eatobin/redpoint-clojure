@@ -13,5 +13,6 @@
           :extra-deps  {org.clojure/test.check {:mvn/version "1.1.1"}
                         io.github.cognitect-labs/test-runner
                         {:git/tag "v0.5.1" :git/sha "dfb30dd"}}}}}
+
 ;; clojure -M:project/outdated
 ;; clojure -T:search/outdated

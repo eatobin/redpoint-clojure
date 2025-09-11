@@ -1,6 +1,3 @@
-;; $ clojure -T:build test
-;; $ clojure -M:test/kaocha-plain
-
 (ns eatobin.gift-pair-test
   (:require [clojure.spec.alpha :as s]
             [clojure.test :refer [deftest is testing]]
@@ -30,3 +27,8 @@
            (gift-pair-json-string-to-gift-pair gift-pair-test-json-string)))))
 (s/conform :unq/gift-pair
            (gift-pair-json-string-to-gift-pair gift-pair-test-json-string))
+
+;; $ clojure -T:build test
+;; $ clojure -M:test/kaocha-plain
+;; $ clojure -X:test/cognitect
+;; $ clojure -X:test/run
