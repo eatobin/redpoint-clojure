@@ -1,5 +1,3 @@
-;; [eric@linux-x2vq redpoint]$ clojure -M:run-m
-
 (ns eatobin.redpoint
   (:require [clojure.string :as string]
             [eatobin.my-state :refer [my-state-ask-continue
@@ -204,3 +202,5 @@
           (my-state-update-and-run-new-year)
           (my-state-print-results)
           (my-state-ask-continue))))))
+
+;; [eric@linux-x2vq redpoint]$ clojure -M:run-m

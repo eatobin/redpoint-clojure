@@ -1,1 +1,4 @@
 {:deps {eatobin/redpoint {:local/root "."}}}
+
+; If we have a project that has a deps.edn and would like to reuse those deps in bb.edn:
+; {:deps {your-org/your-project {:local/root "."}}}
