@@ -14,5 +14,9 @@
                         io.github.cognitect-labs/test-runner
                         {:git/tag "v0.5.1" :git/sha "dfb30dd"}}}}}
 
-;; clojure -M:project/outdated
-;; clojure -T:search/outdated
+;; clojure -X:deps aliases
+
+;; - report project dependencies that have newer versions available:
+;; cd project-directory && clojure -T:search/outdated
+;; - update library versions in this deps.edn file:
+;; cd $XDG_CONFIG_HOME/clojure && clojure -T:search/outdated
