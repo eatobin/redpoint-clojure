@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+clojure -X:test/run "$@"
+
+# https://practical.li/spacemacs/testing/kaocha-test-runner/#using-kaocha-from-command-line
