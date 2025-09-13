@@ -28,7 +28,6 @@
 (s/conform :unq/gift-pair
            (gift-pair-json-string-to-gift-pair gift-pair-test-json-string))
 
-;; $ clojure -T:build test
-;; $ clojure -M:test/kaocha-plain
+;; $ clojure -T:build test **same as**
 ;; $ clojure -X:test/cognitect
 ;; $ clojure -X:test/run

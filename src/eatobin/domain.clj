@@ -38,4 +38,3 @@
                                       ::maybe-giver
                                       :unq/discards
                                       ::quit]))
-;; (s/def :unq/error-seq (s/nilable (s/coll-of ::player-key :kind seq?)))
